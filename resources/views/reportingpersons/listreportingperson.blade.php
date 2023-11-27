@@ -8,7 +8,7 @@
             <a href="{{ route('dashboard.dashboardadmin') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('reportingpersons.rpadmin') }}">User Management</a>
+            <a href="{{ route('reportingpersons.listreportingperson') }}">User Management</a>
         </li>
         <li class="breadcrumb-item active">Reporting Person</li>
     </ol>
@@ -22,7 +22,7 @@
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Reporting Person List</h4>
             <div class="btn-text-right">
-                <a href="{{ route('reportingpersons.rpadmincreate') }}"
+                <a href="{{ route('reportingpersons.listreportingpersoncreate') }}"
                     <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Reporting Person</button>
                 </a>
             </div>
@@ -48,15 +48,15 @@
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
-                        @foreach ($reportingpersons as $rp)
+                        @foreach ($reportingpersons->sortBy('rptpers_name') as $rp)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $rp->rptpers_name }}</td>
                             <td>{{ $rp->rptpers_mobile }}</td>
                             <td>{{ $rp->site->site_name ?? " " }}</td>
                             <td>
-                                <form action="{{ route('reportingpersons.rpadmindestroy',$rp->id) }}" method="POST">
-                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('reportingpersons.rpadminedit',$rp->id) }}"></a>                
+                                <form action="" method="POST">
+                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('reportingpersons.listreportingpersonedit',$rp->id) }}"></a>                
                                     @csrf
                                     @method('DELETE')                    
                                     <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000" onclick="confirmation(event)"></a>

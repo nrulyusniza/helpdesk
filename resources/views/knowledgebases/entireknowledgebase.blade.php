@@ -14,11 +14,15 @@
     </ol>
 </nav>
 
-<!-- Bordered Table rows -->
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
         
-        <!-- Top Card -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Knowledge Base List</h4>
             <div class="btn-text-right">
@@ -28,13 +32,6 @@
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -42,9 +39,9 @@
                         <tr>
                             <th>#</th>
                             <th>Category</th>
-                            <th>Tittle</th>
+                            <th>Title</th>
                             <th>Content</th>
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -58,8 +55,7 @@
                                 <form action="{{ route('knowledgebases.destroy',$b->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.entireknowledgebaseedit',$b->id) }}"></a>                
                                     @csrf
-                                    @method('DELETE')                    
-                                    <!-- <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000" onclick="confirmation(event)"></a> -->
+                                    @method('DELETE')
                                 </form>
                             </td>                        
                         </tr>
@@ -71,6 +67,5 @@
 
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

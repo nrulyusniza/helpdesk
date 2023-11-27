@@ -173,7 +173,7 @@
             <li class="menu-item {{ request()->routeIs('knowledgebases.allknowledgebase') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.allknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base</span>
+                <span class="flex-grow-1 align-middle">Knowledge Base [.update]</span>
               </a>
             </li>
 
@@ -233,8 +233,8 @@
 
             <!-- 3- Asset & Site Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
-            <li class="menu-item {{ request()->routeIs('equipments.assetadmin') ? 'active' : '' }}">
-              <a href="{{ route('equipments.assetadmin') }}" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('equipments.listasset') ? 'active' : '' }}">
+              <a href="{{ route('equipments.listasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
                 <span class="flex-grow-1 align-middle">Asset [DB]</span>
               </a>
@@ -242,8 +242,8 @@
 
             <!-- 4- User Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
-            <li class="menu-item {{ request()->routeIs('reportingpersons.rpadmin') ? 'active' : '' }}">
-              <a href="{{ route('reportingpersons.rpadmin') }}" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('reportingpersons.listreportingperson') ? 'active' : '' }}">
+              <a href="{{ route('reportingpersons.listreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
                 <span class="flex-grow-1 align-middle">Reporting Person [.destroy]</span>
               </a>
@@ -251,8 +251,8 @@
 
             <!-- 5- Knowledge Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
-            <li class="menu-item {{ request()->routeIs('knowledgebases.kbadmin') ? 'active' : '' }}">
-              <a href="{{ route('knowledgebases.kbadmin') }}" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('knowledgebases.listknowledgebase') ? 'active' : '' }}">
+              <a href="{{ route('knowledgebases.listknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
                 <span class="flex-grow-1 align-middle">Knowledge Base</span>
               </a>
@@ -266,12 +266,6 @@
                 <span class="flex-grow-1 align-middle">Ticket Reporting [x]</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->is('myextension') ? 'active' : '' }}">
-              <a href="{{ route('myextension') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-extension"></i>
-                <span class="flex-grow-1 align-middle">Extension [Exc On Hold]</span>
-              </a>
-            </li>            
           </ul>
           @endif
 
@@ -339,11 +333,11 @@
             <!-- 6- Others -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Others</span></li>
             <li class="menu-item {{ request()->routeIs('dashboard.dashboarduser') ? 'active' : '' }}">
-              <a href="" class="menu-link">
+              <a href="{{ route('dashboard.dashboarduser') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <span class="flex-grow-1 align-middle">Ticket Reporting [x]</span>
               </a>
-            </li>           
+            </li>
           </ul>
           @endif
         </aside>

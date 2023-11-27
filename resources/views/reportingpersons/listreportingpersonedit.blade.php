@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'New Reporting Person')
+@section('title', 'Edit Reporting Person')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -8,7 +8,7 @@
             <a href="{{ route('dashboard.dashboardadmin') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('reportingpersons.rpadmin') }}">User Management</a>
+            <a href="{{ route('reportingpersons.listreportingperson') }}">User Management</a>
         </li>
         <li class="breadcrumb-item active">Reporting Person</li>
     </ol>
@@ -19,7 +19,7 @@
 
         <!-- Title -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">New Reporting Person</h4>
+            <h4 class="m-0 font-weight-bold text-primary">Edit Reporting Person</h4>
         </div>
 
             @if ($errors->any())
@@ -35,34 +35,35 @@
 
         <!-- Forms -->
         <div class="card-body">
-            <form action="{{ route('reportingpersons.rpadminstore') }}" method="POST">
+            <form action="{{ route('reportingpersons.listreportingpersonupdate',$reportingperson->id) }}" method="POST">
             @csrf
+            @method('PUT')
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Full Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="rptpers_name">
+                        <input type="text" class="form-control" name="rptpers_name" value="{{ $reportingperson->rptpers_name }}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Phone Number</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="rptpers_mobile">
+                        <input type="text" class="form-control" name="rptpers_mobile" value="{{ $reportingperson->rptpers_mobile }}">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-message">Site</label>
+                    <label class="col-sm-2 col-form-label" for="basic-default-name">Site</label>
                     <div class="col-sm-10">
-                        <select id="defaultSelect" class="form-select" name="site_name" disabled>                            
-                                @foreach(App\Site::all() as $site)
-                                <option value="{{$site->id}}">{{$site->site_name}}</option>
-                                @endforeach
+                        <select id="defaultSelect" class="form-select" name="site_name" disabled>
+                            @foreach(App\Site::all() as $site)
+                            <option value="{{ $site->id }}" {{ $site->id == $reportingperson->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-secondary" href="{{ route('reportingpersons.rpadmin') }}">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a class="btn btn-secondary" href="{{ route('reportingpersons.listreportingperson') }}">Cancel</a>
                     </div>
                 </div>
             </form>

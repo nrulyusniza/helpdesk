@@ -8,7 +8,7 @@
             <a href="{{ route('dashboard.dashboardadmin') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('equipments.assetadmin') }}">Asset & Site Management</a>
+            <a href="{{ route('equipments.listasset') }}">Asset & Site Management</a>
         </li>
         <li class="breadcrumb-item active">Asset</li>
     </ol>
@@ -57,7 +57,6 @@
                             <td>{{ "Status" }}</td>
                             <td>{{ "Origin" }}</td>
                             <!-- <td>{{ "Series No" }}</td> -->
-                            <td>
                         </tr>
                         @endforeach
                     </tbody>                    

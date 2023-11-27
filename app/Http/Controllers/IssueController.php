@@ -6,6 +6,7 @@ use App\Issue;
 use App\User;
 use App\Site;
 use App\Equipment;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -133,7 +134,17 @@ class IssueController extends Controller
 
     public function listissuecreate()
     {
-        return view('issues.listissuecreate');
+        $loggedInUser = Auth::user();
+        $site_id = $loggedInUser->site->id;
+
+        // equipment, site, reported by - query dropdown
+        // $equipments = Equipment::where('site_id', $site_id)->get(['id']);
+
+        // $equipments = DB::table('equipments')
+        //                     ->where('site_id', $site_id)
+        //                     ->select('id', 'asset_hostname', 'asset_type')->get();
+
+        return view('issues.listissuecreate', compact('equipments'));
     }
 
     public function listissuestore(Request $request)

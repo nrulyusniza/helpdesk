@@ -8,33 +8,30 @@
             <a href="{{ route('dashboard.dashboardadmin') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('knowledgebases.kbadmin') }}">Knowledge Management</a>
+            <a href="{{ route('knowledgebases.listknowledgebase') }}">Knowledge Management</a>
         </li>
         <li class="breadcrumb-item active">Knowledge Base</li>
     </ol>
 </nav>
 
-<!-- Bordered Table rows -->
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
         
-        <!-- Top Card -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Knowledge Base List</h4>
             <div class="btn-text-right">
-                <a href="{{ route('knowledgebases.kbadmincreate') }}"
+                <a href="{{ route('knowledgebases.listknowledgebasecreate') }}"
                     <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Knowledge Base</button>
                 </a>
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -44,7 +41,7 @@
                             <th>Category</th>
                             <th>Tittle</th>
                             <th>Content</th>
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -56,7 +53,7 @@
                             <td>{{ $b->kb_article }}</td>
                             <td>
                                 <form action="" method="POST">
-                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.kbadminedit',$b->id) }}"></a>                
+                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.listknowledgebaseedit',$b->id) }}"></a>                
                                     @csrf                                    
                                 </form>
                             </td>
@@ -69,6 +66,5 @@
 
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

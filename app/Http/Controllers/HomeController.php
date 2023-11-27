@@ -110,13 +110,13 @@ class HomeController extends Controller
         // area chart
         
         // donut chart
-        // calculate the total number of tickets by logged in user's site_id
+        // counts the total number of tickets by logged in user's site_id
         $ttlTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->where('issues.site_id', '=', $site_id)
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
+        // counts the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
         $hardwareTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -124,7 +124,7 @@ class HomeController extends Controller
                             ->where('reqcategorys.req_category', '=', '1')
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
+        // counts the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
         $softwareTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -132,7 +132,7 @@ class HomeController extends Controller
                             ->where('reqcategorys.req_category', '=', '2')
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
+        // counts the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
         $networkTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -140,7 +140,7 @@ class HomeController extends Controller
                             ->where('reqcategorys.req_category', '=', '3')
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
+        // counts the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
         $nonsystemTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -190,13 +190,13 @@ class HomeController extends Controller
         // area chart
         
         // donut chart
-        // calculate the total number of tickets by logged in user's site_id
+        // counts the total number of tickets by logged in user's site_id
         $ttlTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->where('issues.site_id', '=', $site_id)
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
+        // counts the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
         $hardwareTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -204,7 +204,7 @@ class HomeController extends Controller
                             ->where('reqcategorys.req_category', '=', '1')
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
+        // counts the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
         $softwareTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -212,7 +212,7 @@ class HomeController extends Controller
                             ->where('reqcategorys.req_category', '=', '2')
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
+        // counts the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
         $networkTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
@@ -220,7 +220,7 @@ class HomeController extends Controller
                             ->where('reqcategorys.req_category', '=', '3')
                             ->count();
 
-        // calculate the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
+        // counts the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
         $nonsystemTickets = DB::table('tickets')
                             ->join('issues', 'tickets.request_id', '=', 'issues.id')
                             ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')

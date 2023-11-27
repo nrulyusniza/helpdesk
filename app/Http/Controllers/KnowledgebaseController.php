@@ -111,19 +111,19 @@ class KnowledgebaseController extends Controller
 
     //---------------------------------------------------------------------------------------------------------------------------
 
-    public function kbadmin(Knowledgebase $knowledgebase)
+    public function listknowledgebase(Knowledgebase $knowledgebase)
     {
         $knowledgebases = Knowledgebase::all();
 
-        return view('knowledgebases.kbadmin',compact('knowledgebases'));
+        return view('knowledgebases.listknowledgebase',compact('knowledgebases'));
     }
 
-    public function kbadmincreate(Knowledgebase $knowledgebase)
+    public function listknowledgebasecreate(Knowledgebase $knowledgebase)
     {
-        return view('knowledgebases.kbadmincreate');
+        return view('knowledgebases.listknowledgebasecreate');
     }
 
-    public function kbadminstore(Request $request)
+    public function listknowledgebasestore(Request $request)
     {
         $request->validate([
             'kb_title' => 'required',
@@ -131,16 +131,16 @@ class KnowledgebaseController extends Controller
   
         Knowledgebases::create($request->all());
    
-        return redirect()->route('knowledgebases.kbadmin')
+        return redirect()->route('knowledgebases.listknowledgebase')
                         ->with('success','New Knowledge Base created successfully.');
     }
 
-    public function kbadminedit(Knowledgebase $knowledgebase)
+    public function listknowledgebaseedit(Knowledgebase $knowledgebase)
     {
-        return view('knowledgebases.kbadminedit', compact('knowledgebase'));
+        return view('knowledgebases.listknowledgebaseedit', compact('knowledgebase'));
     }
 
-    public function kbadminupdate(Request $request, Knowledgebase $knowledgebase)
+    public function listknowledgebaseupdate(Request $request, Knowledgebase $knowledgebase)
     {
         $request->validate([
             'kb_title' => 'required',
@@ -148,17 +148,9 @@ class KnowledgebaseController extends Controller
   
         $knowledgebase->update($request->all());
   
-        return redirect()->route('knowledgebases.kbadmin')
+        return redirect()->route('knowledgebases.listknowledgebase')
                         ->with('success','Knowledge Base updated successfully');
     }
-
-    /*public function kbadmindestroy(Knowledgebase $knowledgebase)
-    {
-        $reportingperson->delete();
-
-       return redirect()->route('knowledgebases.kbadmin')
-                        ->with('success','Knowledge Base deleted successfully');
-    }*/
     
     //---------------------------------------------------------------------------------------------------------------------------
 

@@ -203,15 +203,6 @@ class TicketController extends Controller
         return view('tickets.listconsumable', compact('tickets'));
     }
 
-    // public function listconsumableedit(Ticket $ticket)
-    // {
-    //     // retrieve the ticket and its associated ticket logs
-    //     $ticket = Ticket::with('ticketlog')->findOrFail($ticket->id);
-
-    //     // pass the ticket data to the view
-    //     return view('tickets.listconsumableedit', compact('ticket'));
-    // }
-
     public function listconsumablelog(Ticket $ticket)
     {
         // retrieve the ticket and its associated ticket logs

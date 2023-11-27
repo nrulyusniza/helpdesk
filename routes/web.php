@@ -29,7 +29,7 @@ Route::get('/logout', 'HomeController@destroy')->name('logout');
 Route::get('auth/passwords/reset', 'Auth\ResetPasswordController@showResetForm')->name('auth.passwords.reset');
 Route::post('auth/passwords/reset', 'Auth\ResetPasswordController@resetPassword')->name('password.update');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- DASHBOARD -------------------------------------------------------------------
 // super admin's dashboard
 Route::get('/dashboard/mydashboard', 'HomeController@mydashboard')->name('dashboard.mydashboard');
 
@@ -39,11 +39,11 @@ Route::get('/dashboard/dashboardadmin', 'HomeController@dashboardadmin')->name('
 // site user's dashboard
 Route::get('/dashboard/dashboarduser', 'HomeController@dashboarduser')->name('dashboard.dashboarduser');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- EXTENSION -------------------------------------------------------------------
 // super admin's extension
 Route::get('/myextension', 'HomeController@myextension')->name('myextension');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- USERS -------------------------------------------------------------------
 // users path - super admin view
 Route::get('users/index', 'UserController@index')->name('users.index');
 Route::get('users/create', 'UserController@create')->name('users.create');
@@ -54,7 +54,7 @@ Route::put('users/{user}', 'UserController@update')->name('users.update');
 Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
 Route::get('users/alluser', 'UserController@alluser')->name('users.alluser');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- ROLES -------------------------------------------------------------------
 // roles path - super admin view
 Route::get('roles/index', 'RoleController@index')->name('roles.index');
 Route::get('roles/create', 'RoleController@create')->name('roles.create');
@@ -65,7 +65,7 @@ Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
 Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy');
 Route::get('roles/allrole', 'RoleController@allrole')->name('roles.allrole');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- SITES -------------------------------------------------------------------
 // sites path - super admin view
 Route::get('sites/index', 'SiteController@index')->name('sites.index');
 Route::get('sites/create', 'SiteController@create')->name('sites.create');
@@ -76,7 +76,7 @@ Route::put('sites/{site}', 'SiteController@update')->name('sites.update');
 Route::delete('sites/{site}', 'SiteController@destroy')->name('sites.destroy');
 Route::get('sites/allsite', 'SiteController@allsite')->name('sites.allsite');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- KBCATEGORYS -------------------------------------------------------------------
 // kbcategorys path - super admin view
 Route::get('kbcategorys/index', 'KbcategoryController@index')->name('kbcategorys.index');
 Route::get('kbcategorys/create', 'KbcategoryController@create')->name('kbcategorys.create');
@@ -87,7 +87,7 @@ Route::put('kbcategorys/{kbcategory}', 'KbcategoryController@update')->name('kbc
 Route::delete('kbcategorys/{kbcategory}', 'KbcategoryController@destroy')->name('kbcategorys.destroy');
 Route::get('kbcategorys/allkbcategory', 'KbcategoryController@allkbcategory')->name('kbcategorys.allkbcategory');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- KNOWLEDGEBASES -------------------------------------------------------------------
 // knowledgebases path - super admin view
 Route::get('knowledgebases/index', 'KnowledgebaseController@index')->name('knowledgebases.index');
 Route::get('knowledgebases/create', 'KnowledgebaseController@create')->name('knowledgebases.create');
@@ -99,11 +99,11 @@ Route::delete('knowledgebases/{knowledgebase}', 'KnowledgebaseController@destroy
 Route::get('knowledgebases/allknowledgebase', 'KnowledgebaseController@allknowledgebase')->name('knowledgebases.allknowledgebase');
 
 // knowledgebases path - site admin view
-Route::get('knowledgebases/kbadmin', 'KnowledgebaseController@kbadmin')->name('knowledgebases.kbadmin');
-Route::get('knowledgebases/kbadmincreate', 'KnowledgebaseController@kbadmincreate')->name('knowledgebases.kbadmincreate');
-Route::post('knowledgebases/kbadminstore', 'KnowledgebaseController@kbadminstore')->name('knowledgebases.kbadminstore');
-Route::get('knowledgebases/{knowledgebase}/kbadminedit', 'KnowledgebaseController@kbadminedit')->name('knowledgebases.kbadminedit');
-Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@kbadminupdate')->name('knowledgebases.kbadminupdate');
+Route::get('knowledgebases/listknowledgebase', 'KnowledgebaseController@listknowledgebase')->name('knowledgebases.listknowledgebase');
+Route::get('knowledgebases/listknowledgebasecreate', 'KnowledgebaseController@listknowledgebasecreate')->name('knowledgebases.listknowledgebasecreate');
+Route::post('knowledgebases/listknowledgebasestore', 'KnowledgebaseController@listknowledgebasestore')->name('knowledgebases.listknowledgebasestore');
+Route::get('knowledgebases/{knowledgebase}/listknowledgebaseedit', 'KnowledgebaseController@listknowledgebaseedit')->name('knowledgebases.listknowledgebaseedit');
+Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@listknowledgebaseupdate')->name('knowledgebases.listknowledgebaseupdate');
 
 // knowledgebases path - site user view
 Route::get('knowledgebases/entireknowledgebase', 'KnowledgebaseController@entireknowledgebase')->name('knowledgebases.entireknowledgebase');
@@ -112,7 +112,7 @@ Route::post('knowledgebases/entireknowledgebasestore', 'KnowledgebaseController@
 Route::get('knowledgebases/{knowledgebase}/entireknowledgebaseedit', 'KnowledgebaseController@entireknowledgebaseedit')->name('knowledgebases.entireknowledgebaseedit');
 Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@entireknowledgebaseupdate')->name('knowledgebases.entireknowledgebaseupdate');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- EQUIPMENTS -------------------------------------------------------------------
 // equipments path - super admin view
 Route::get('equipments/index', 'EquipmentController@index')->name('equipments.index');
 Route::get('equipments/create', 'EquipmentController@create')->name('equipments.create');
@@ -124,13 +124,13 @@ Route::delete('equipments/{equipment}', 'EquipmentController@destroy')->name('eq
 Route::get('equipments/allasset', 'EquipmentController@allasset')->name('equipments.allasset');
 
 // equipments path - site admin view
-Route::get('equipments/assetadmin', 'EquipmentController@assetadmin')->name('equipments.assetadmin');
+Route::get('equipments/listasset', 'EquipmentController@listasset')->name('equipments.listasset');
 
 // equipments path - site user view
 Route::get('equipments/entireasset', 'EquipmentController@entireasset')->name('equipments.entireasset');
 Route::get('equipments/{equipment}/entireassetlog', 'EquipmentController@entireassetlog')->name('equipments.entireassetlog');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- REPORTINGPERSONS -------------------------------------------------------------------
 // reportingpersons path - super admin view
 Route::get('reportingpersons/index', 'ReportingpersonController@index')->name('reportingpersons.index');
 Route::get('reportingpersons/create', 'ReportingpersonController@create')->name('reportingpersons.create');
@@ -142,12 +142,12 @@ Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@d
 Route::get('reportingpersons/allreportingperson', 'ReportingpersonController@allreportingperson')->name('reportingpersons.allreportingperson');
 
 // reportingpersons path - site admin view
-Route::get('reportingpersons/rpadmin', 'ReportingpersonController@rpadmin')->name('reportingpersons.rpadmin');
-Route::get('reportingpersons/rpadmincreate', 'ReportingpersonController@rpadmincreate')->name('reportingpersons.rpadmincreate');
-Route::post('reportingpersons/rpadminstore', 'ReportingpersonController@rpadminstore')->name('reportingpersons.rpadminstore');
-Route::get('reportingpersons/{reportingperson}/rpadminedit', 'ReportingpersonController@rpadminedit')->name('reportingpersons.rpadminedit');
-Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@rpadminupdate')->name('reportingpersons.rpadminupdate');
-Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@rpadmindestroy')->name('reportingpersons.rpadmindestroy');
+Route::get('reportingpersons/listreportingperson', 'ReportingpersonController@listreportingperson')->name('reportingpersons.listreportingperson');
+Route::get('reportingpersons/listreportingpersoncreate', 'ReportingpersonController@listreportingpersoncreate')->name('reportingpersons.listreportingpersoncreate');
+Route::post('reportingpersons/listreportingpersonstore', 'ReportingpersonController@listreportingpersonstore')->name('reportingpersons.listreportingpersonstore');
+Route::get('reportingpersons/{reportingperson}/listreportingpersonedit', 'ReportingpersonController@listreportingpersonedit')->name('reportingpersons.listreportingpersonedit');
+Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@listreportingpersonupdate')->name('reportingpersons.listreportingpersonupdate');
+Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@listreportingpersondestroy')->name('reportingpersons.listreportingpersondestroy');
 
 // reportingpersons path - site user view
 Route::get('reportingpersons/entirereportingperson', 'ReportingpersonController@entirereportingperson')->name('reportingpersons.entirereportingperson');
@@ -157,7 +157,7 @@ Route::get('reportingpersons/{reportingperson}/entirereportingpersonedit', 'Repo
 Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@entirereportingpersonupdate')->name('reportingpersons.entirereportingpersonupdate');
 Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@entirereportingpersondestroy')->name('reportingpersons.entirereportingpersondestroy');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- TYPES -------------------------------------------------------------------
 // types(request_type) path - super admin view
 Route::get('types/index', 'TypeController@index')->name('types.index');
 Route::get('types/create', 'TypeController@create')->name('types.create');
@@ -168,7 +168,7 @@ Route::put('types/{type}', 'TypeController@update')->name('types.update');
 Route::delete('types/{type}', 'TypeController@destroy')->name('types.destroy');
 Route::get('types/requesttype', 'TypeController@allrequesttype')->name('types.allrequesttype');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- REQCATEGORYS -------------------------------------------------------------------
 // reqcategorys path - super admin view
 Route::get('reqcategorys/index', 'ReqcategoryController@index')->name('reqcategorys.index');
 Route::get('reqcategorys/create', 'ReqcategoryController@create')->name('reqcategorys.create');
@@ -179,7 +179,7 @@ Route::put('reqcategorys/{reqcategory}', 'ReqcategoryController@update')->name('
 Route::delete('reqcategorys/{reqcategory}', 'ReqcategoryController@destroy')->name('reqcategorys.destroy');
 Route::get('reqcategorys/allreqcategory', 'ReqcategoryController@allreqcategory')->name('reqcategorys.allreqcategory');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- SEVERITYS -------------------------------------------------------------------
 // severitys path - super admin view
 Route::get('severitys/index', 'SeverityController@index')->name('severitys.index');
 Route::get('severitys/create', 'SeverityController@create')->name('severitys.create');
@@ -190,7 +190,7 @@ Route::put('severitys/{severity}', 'SeverityController@update')->name('severitys
 Route::delete('severitys/{severity}', 'SeverityController@destroy')->name('severitys.destroy');
 Route::get('severitys/allseverity', 'SeverityController@allseverity')->name('severitys.allseverity');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- STATUSS -------------------------------------------------------------------
 // statuss path - super admin view
 Route::get('statuss/index', 'StatusController@index')->name('statuss.index');
 Route::get('statuss/create', 'StatusController@create')->name('statuss.create');
@@ -201,7 +201,7 @@ Route::put('statuss/{status}', 'StatusController@update')->name('statuss.update'
 Route::delete('statuss/{status}', 'StatusController@destroy')->name('statuss.destroy');
 Route::get('statuss/allstatus', 'StatusController@allstatus')->name('statuss.allstatus');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- REACTIONS -------------------------------------------------------------------
 // reactions(response_type) path - super admin view
 Route::get('reactions/index', 'ReactionController@index')->name('reactions.index');
 Route::get('reactions/create', 'ReactionController@create')->name('reactions.create');
@@ -212,7 +212,7 @@ Route::put('reactions/{reaction}', 'ReactionController@update')->name('reactions
 Route::delete('reactions/{reaction}', 'ReactionController@destroy')->name('reactions.destroy');
 Route::get('reactions/responsetype', 'ReactionController@allresponsetype')->name('reactions.allresponsetype');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- TICSTATUSS -------------------------------------------------------------------
 // ticstatuss path - super admin view
 Route::get('ticstatuss/index', 'TicstatusController@index')->name('ticstatuss.index');
 Route::get('ticstatuss/create', 'TicstatusController@create')->name('ticstatuss.create');
@@ -223,7 +223,7 @@ Route::put('ticstatuss/{ticstatus}', 'TicstatusController@update')->name('ticsta
 Route::delete('ticstatuss/{ticstatus}', 'TicstatusController@destroy')->name('ticstatuss.destroy');
 Route::get('ticstatuss/allticstatus', 'TicstatusController@allticstatus')->name('ticstatuss.allticstatus');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- ISSUES -------------------------------------------------------------------
 // issues(request ticket & consumable) path - super admin view
 Route::get('issues/index', 'IssueController@index')->name('issues.index');
 Route::get('issues/create', 'IssueController@create')->name('issues.create');
@@ -244,7 +244,7 @@ Route::get('issues/entireissue', 'IssueController@entireissue')->name('issues.en
 Route::get('issues/entireissuecreate', 'IssueController@entireissuecreate')->name('issues.entireissuecreate');
 Route::post('issues/entireissuestore', 'IssueController@entireissuestore')->name('issues.entireissuestore');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- TICKETS -------------------------------------------------------------------
 // tickets(ticket & consumable) path - super admin view
 Route::get('tickets/index', 'TicketController@index')->name('tickets.index');
 
@@ -263,8 +263,6 @@ Route::get('tickets/{ticket}/listticketlog', 'TicketController@listticketlog')->
 
 Route::get('tickets/listconsumable', 'TicketController@listconsumable')->name('tickets.listconsumable');
 Route::get('tickets/{ticket}/listconsumablelog', 'TicketController@listconsumablelog')->name('tickets.listconsumablelog');
-// Route::get('tickets/{ticket}/listconsumableedit', 'TicketController@listconsumableedit')->name('tickets.listconsumableedit');
-// Route::put('tickets/{ticket}', 'TicketController@listconsumableupdate')->name('tickets.listconsumableupdate');
 
 
 // tickets(ticket & consumable) path - site user view
@@ -274,7 +272,7 @@ Route::get('tickets/{ticket}/entireticketlog', 'TicketController@entireticketlog
 Route::get('tickets/entireconsumable', 'TicketController@entireconsumable')->name('tickets.entireconsumable');
 Route::get('tickets/{ticket}/entireconsumablelog', 'TicketController@entireconsumablelog')->name('tickets.entireconsumablelog');
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- XXXX -------------------------------------------------------------------
 
 
 

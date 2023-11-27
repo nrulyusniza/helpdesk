@@ -14,6 +14,12 @@
     </ol>
 </nav>
 
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <!-- Bordered Table rows -->
 <div class="col-12">
     <div class="card">
@@ -28,11 +34,7 @@
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+        
 
         <!-- Table -->
         <div class="card-body">

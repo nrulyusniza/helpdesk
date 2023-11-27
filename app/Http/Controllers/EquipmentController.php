@@ -113,7 +113,7 @@ class EquipmentController extends Controller
 
     //---------------------------------------------------------------------------------------------------------------------------
     
-    public function assetadmin(Equipment $equipment)
+    public function listasset(Equipment $equipment)
     {
         $loggedInUser = Auth::user();
 
@@ -121,7 +121,7 @@ class EquipmentController extends Controller
 
         $equipments = Equipment::where('site_id', $site_id)->get();
 
-        return view('equipments.assetadmin',compact('equipments'));
+        return view('equipments.listasset',compact('equipments'));
     }
 
     //---------------------------------------------------------------------------------------------------------------------------

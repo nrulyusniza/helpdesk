@@ -112,7 +112,7 @@ class ReportingpersonController extends Controller
 
     //---------------------------------------------------------------------------------------------------------------------------
 
-    public function rpadmin(Reportingperson $reportingperson)
+    public function listreportingperson(Reportingperson $reportingperson)
     {
         $loggedInUser = Auth::user();
 
@@ -120,15 +120,15 @@ class ReportingpersonController extends Controller
 
         $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
 
-        return view('reportingpersons.rpadmin',compact('reportingpersons'));
+        return view('reportingpersons.listreportingperson',compact('reportingpersons'));
     }
 
-    public function rpadmincreate(Reportingperson $reportingperson)
+    public function listreportingpersoncreate(Reportingperson $reportingperson)
     {
-        return view('reportingpersons.rpadmincreate');
+        return view('reportingpersons.listreportingpersoncreate');
     }
 
-    public function rpadminstore(Request $request)
+    public function listreportingpersonstore(Request $request)
     {
         $request->validate([
             'rptpers_name' => 'required',
@@ -136,16 +136,16 @@ class ReportingpersonController extends Controller
   
         Reportingperson::create($request->all());
    
-        return redirect()->route('reportingpersons.rpadmin')
+        return redirect()->route('reportingpersons.listreportingperson')
                         ->with('success','New Reporting Person created successfully.');
     }
 
-    public function rpadminedit(Reportingperson $reportingperson)
+    public function listreportingpersonedit(Reportingperson $reportingperson)
     {
-        return view('reportingpersons.rpadminedit', compact('reportingperson'));
+        return view('reportingpersons.listreportingpersonedit', compact('reportingperson'));
     }
 
-    public function rpadminupdate(Request $request, Reportingperson $reportingperson)
+    public function listreportingpersonupdate(Request $request, Reportingperson $reportingperson)
     {
         $request->validate([
             'rptpers_name' => 'required',
@@ -153,15 +153,15 @@ class ReportingpersonController extends Controller
   
         $reportingperson->update($request->all());
   
-        return redirect()->route('reportingpersons.rpadmin')
+        return redirect()->route('reportingpersons.listreportingperson')
                         ->with('success','Reporting Person updated successfully');
     }
 
-    public function rpadmindestroy(Reportingperson $reportingperson)
+    public function listreportingpersondestroy(Reportingperson $reportingperson)
     {
         $reportingperson->delete();
 
-       return redirect()->route('reportingpersons.rpadmin')
+       return redirect()->route('reportingpersons.listreportingperson')
                         ->with('success','Reporting Person deleted successfully');
     }
 

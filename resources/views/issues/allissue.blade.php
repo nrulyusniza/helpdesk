@@ -22,7 +22,7 @@
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Request List</h4>
             <div class="btn-text-right">
-                <a href="{{ route('issues.entireassetcreate') }}"
+                <a href="{{ route('issues.create') }}"
                     <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Request</button>
                 </a>
             </div>

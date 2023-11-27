@@ -14,48 +14,46 @@
     </ol>
 </nav>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
-        
-        <!-- Title -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Consumable Number: {{ $ticket->ticket_no }}</h4>
         </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-        <!-- Forms -->
         <div class="card-body">            
             <div class="row">
-                <!-- disabled consumable information -->                                   
+                <!-- readonly consumable information -->                                   
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="site_name">Site</label>
-                    <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" disabled>
+                    <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="reported_by">Reported By</label>
-                    <input type="text" class="form-control" name="reported_by" value="{{ $ticket->issue->reported_by }}" disabled>
+                    <input type="text" class="form-control" name="reported_by" value="{{ $ticket->issue->reported_by }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                    <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" disabled>
+                    <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="attachment">Attachment [x]</label>
-                    <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" disabled>
+                    <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>
-                    <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" disabled>
+                    <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Equipment [x]</label>
@@ -68,17 +66,16 @@
                 </div>    
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">Date [x]</label>
-                    <input type="date" class="form-control" name="create_date" value="{{ $ticket->create_date }}" disabled>
+                    <input type="date" class="form-control" name="create_date" value="{{ $ticket->create_date }}" readonly>
                 </div>            
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="fault_description">Fault Description</label>
-                    <textarea class="form-control" name="fault_description" rows="5" disabled>{{ $ticket->issue->fault_description }}</textarea>
+                    <textarea class="form-control" name="fault_description" rows="5" readonly>{{ $ticket->issue->fault_description }}</textarea>
                 </div> 
                 <div class="mt-2">
                     <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.entireconsumable') }}">Back</a>
                 </div>                        
             </div>
-                
 
             <!-- text divider -->
             <div class="divider">
@@ -89,10 +86,9 @@
 
             <h4 class="mb-0 text-primary">Ticket Log</h4><br>
                 
-            <!-- Hoverable Table rows -->
             <div class="col-12">
                 <div class="card">
-                    <div class="table-responsive text-nowrap">
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -128,7 +124,6 @@
                     </div>
                 </div>
             </div>
-            <!--/ Hoverable Table rows -->
             
         </div>
     </div>

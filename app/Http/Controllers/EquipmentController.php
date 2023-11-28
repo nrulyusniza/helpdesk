@@ -111,6 +111,29 @@ class EquipmentController extends Controller
         return view('equipments.allasset', compact('equipments'));
     }
 
+    public function allassetedit(Equipment $equipment)
+    {
+        // retrieve the equipment and its associated equipment logs
+        $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
+
+        // pass the equipment data to the view
+        return view('equipments.allassetedit', compact('equipment'));
+    }
+
+    public function allassetupdate(Request $request, Equipment $equipment)
+    {
+        // validate the request data
+        $equipmentlog = new Equipmentlog();
+        $equipmentlog->description = $validateData['description'];
+
+        // save the equipment log
+        $equipment->equipmentlog()->save($equipmentLog);
+
+        // redirect back
+        return redirect()->route('equipments.allassetedit', $equipment->id)
+                            ->with('success','Equipment Log created successfully');
+    }
+
     //---------------------------------------------------------------------------------------------------------------------------
     
     public function listasset(Equipment $equipment)

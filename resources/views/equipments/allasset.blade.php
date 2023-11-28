@@ -50,7 +50,7 @@
                             <th>Status</th>
                             <!-- <th>Origin</th> -->
                             <!-- <th>Series No.</th> -->
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -68,7 +68,8 @@
                             <!-- <td>{{ "Series No" }}</td> -->
                             <td>
                                 <form action="{{ route('equipments.destroy',$e->id) }}" method="POST">
-                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('equipments.edit',$e->id) }}"></a>                
+                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('equipments.edit',$e->id) }}"></a>
+                                    <a class="menu-icon tf-icons bx bx-box" href="{{ route('equipments.allassetedit',$e->id) }}"></a>
                                     @csrf
                                     @method('DELETE')                    
                                     <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000" onclick="confirmation(event)"></a>

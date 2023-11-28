@@ -96,9 +96,9 @@ class TicstatusController extends Controller
      */
     public function destroy(Ticstatus $ticstatus)
     {
-        $status->delete();
+        $ticstatus->delete();
 
-       return redirect()->route('ticstatuss.index')
+        return redirect()->route('ticstatuss.index')
                         ->with('success','Ticket Status deleted successfully');
     }
 

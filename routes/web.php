@@ -123,6 +123,9 @@ Route::put('equipments/{equipment}', 'EquipmentController@update')->name('equipm
 Route::delete('equipments/{equipment}', 'EquipmentController@destroy')->name('equipments.destroy');
 Route::get('equipments/allasset', 'EquipmentController@allasset')->name('equipments.allasset');
 
+Route::get('equipments/{equipment}/allassetedit', 'EquipmentController@allassetedit')->name('equipments.allassetedit');
+Route::put('equipments/{equipment}', 'EquipmentController@allassetupdate')->name('equipments.allassetupdate');
+
 // equipments path - site admin view
 Route::get('equipments/listasset', 'EquipmentController@listasset')->name('equipments.listasset');
 
@@ -271,6 +274,17 @@ Route::get('tickets/{ticket}/entireticketlog', 'TicketController@entireticketlog
 
 Route::get('tickets/entireconsumable', 'TicketController@entireconsumable')->name('tickets.entireconsumable');
 Route::get('tickets/{ticket}/entireconsumablelog', 'TicketController@entireconsumablelog')->name('tickets.entireconsumablelog');
+
+//------------------------------------------------------------------- EQUIPMENTSTATUSS -------------------------------------------------------------------
+// equipmentstatuss path - super admin view
+Route::get('equipmentstatuss/index', 'EquipmentstatusController@index')->name('equipmentstatuss.index');
+Route::get('equipmentstatuss/create', 'EquipmentstatusController@create')->name('equipmentstatuss.create');
+Route::post('equipmentstatuss/store', 'EquipmentstatusController@store')->name('equipmentstatuss.store');
+//Route::get('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@show')->name('equipmentstatuss.show');
+Route::get('equipmentstatuss/{equipmentstatus}/edit', 'EquipmentstatusController@edit')->name('equipmentstatuss.edit');
+Route::put('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@update')->name('equipmentstatuss.update');
+Route::delete('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@destroy')->name('equipmentstatuss.destroy');
+Route::get('equipmentstatuss/allequipmentstatus', 'EquipmentstatusController@allequipmentstatus')->name('equipmentstatuss.allequipmentstatus');
 
 //------------------------------------------------------------------- XXXX -------------------------------------------------------------------
 

@@ -254,8 +254,10 @@ class HomeController extends Controller
         $reactions = DB::table('reactions')->count();
         $kbcategorys = DB::table('kbcategorys')->count();
         $ticstatuss = DB::table('ticstatuss')->count();
+        $equipmentstatuss = DB::table('equipmentstatuss')->count();
         
-        return view('myextension', compact('types', 'reqcategorys', 'severitys', 'statuss','reactions', 'kbcategorys', 'ticstatuss'));
+        return view('myextension', compact('types', 'reqcategorys', 'severitys', 'statuss',
+                                            'reactions', 'kbcategorys', 'ticstatuss', 'equipmentstatuss'));
     }
 
     //---------------------------------------------------------------------------------------------------------------------------

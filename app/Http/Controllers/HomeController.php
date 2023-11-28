@@ -116,37 +116,42 @@ class HomeController extends Controller
                             ->where('issues.site_id', '=', $site_id)
                             ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
-        $hardwareTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '1')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
+        // $hardwareTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '1')
+        //                     ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
-        $softwareTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '2')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
+        // $softwareTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '2')
+        //                     ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
-        $networkTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '3')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
+        // $networkTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '3')
+        //                     ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
-        $nonsystemTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '4')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
+        // $nonsystemTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '4')
+        //                     ->count();
+
+        $hardwareTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '1')->count();
+        $softwareTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '2')->count();
+        $networkTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '3')->count();
+        $nonsystemTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '4')->count();
 
         return view('/dashboard/dashboardadmin', compact('totalTickets', 'openTickets', 'closedTickets', 'kivTickets',
                                                         'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
@@ -197,36 +202,41 @@ class HomeController extends Controller
                             ->count();
 
         // counts the total number of tickets by logged in user's site_id based on req_category = 1; 1=Hardware
-        $hardwareTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '1')
-                            ->count();
+        // $hardwareTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '1')
+        //                     ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
-        $softwareTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '2')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 2; 2=Software
+        // $softwareTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '2')
+        //                     ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
-        $networkTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '3')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 3; 3=Network
+        // $networkTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '3')
+        //                     ->count();
 
-        // counts the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
-        $nonsystemTickets = DB::table('tickets')
-                            ->join('issues', 'tickets.request_id', '=', 'issues.id')
-                            ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
-                            ->where('issues.site_id', '=', $site_id)
-                            ->where('reqcategorys.req_category', '=', '4')
-                            ->count();
+        // // counts the total number of tickets by logged in user's site_id based on req_category = 4; 4=Non System
+        // $nonsystemTickets = DB::table('tickets')
+        //                     ->join('issues', 'tickets.request_id', '=', 'issues.id')
+        //                     ->join('reqcategorys', 'issues.reqcategory_id', '=', 'reqcategorys.id')
+        //                     ->where('issues.site_id', '=', $site_id)
+        //                     ->where('reqcategorys.req_category', '=', '4')
+        //                     ->count();
+
+        $hardwareTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '1')->count();
+        $softwareTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '2')->count();
+        $networkTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '3')->count();
+        $nonsystemTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '4')->count();
 
         return view('/dashboard/dashboarduser', compact('totalTickets', 'openTickets', 'closedTickets', 'kivTickets',
                                                         'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));

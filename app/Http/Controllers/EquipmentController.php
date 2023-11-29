@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\Equipmentlog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -124,10 +125,10 @@ class EquipmentController extends Controller
     {
         // validate the request data
         $equipmentlog = new Equipmentlog();
-        $equipmentlog->description = $validateData['description'];
+        // $equipmentlog->asset_newlocation = $validateData['asset_newlocation'];
 
         // save the equipment log
-        $equipment->equipmentlog()->save($equipmentLog);
+        $equipment->equipmentlog()->save($equipmentlog);
 
         // redirect back
         return redirect()->route('equipments.allassetedit', $equipment->id)

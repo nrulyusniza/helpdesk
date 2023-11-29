@@ -16,6 +16,8 @@ class Equipmentlog extends Model
 
     protected $dates = ['log_updatedat'];
 
+    public $timestamps=false;
+    
     // equipment_id
     public function equipment()
     {

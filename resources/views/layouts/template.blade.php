@@ -71,6 +71,9 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" 
           integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
@@ -654,38 +657,27 @@
 
     <script>
       $(document).ready(function(){
-          $('#example').DataTable({
-            /* Pagination */
-            pagingType: 'simple_numbers',
-            /*pagingType: 'full_numbers',*/
-            /* Show N entries */
-            //pageLength:10,
-            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            
-            responsive:true,
-            dom: '<"html5buttons"B>frltip',
-            buttons: [
-                {extend: 'copy'},
-                //{extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
-                {extend: 'print',
-                customize: function (win){
-                  $(win.document.body).addClass('white-bg');
-                  $(win.document.body).css('font-size', '10px');
-                  $(win.document.body).find('table')
-                  .addClass('compact')
-                  .css('font-size', 'inherit');
-                  }
+        $('#example').DataTable({
+          pagingType: 'simple_numbers',
+          lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],          
+          responsive:true,
+          dom: '<"html5buttons"B>frltip',
+          buttons: [
+              {extend: 'copy'},
+              //{extend: 'csv'},
+              {extend: 'excel', title: 'ExampleFile'},
+              {extend: 'pdf', title: 'ExampleFile'},
+              {extend: 'print',
+              customize: function (win){
+                $(win.document.body).addClass('white-bg');
+                $(win.document.body).css('font-size', '10px');
+                $(win.document.body).find('table')
+                .addClass('compact')
+                .css('font-size', 'inherit');
                 }
-              ]
-          });
-
-          /*table.on('draw', function () {
-            var pageInfo = table.page.info();
-            $('.dataTables_info').html('Showing ' + pageInfo.start + ' to ' + pageInfo.end + ' of ' + pageInfo.recordsTotal + ' entries');
-          }); */
-
+              }
+            ]
+        });
       });
     </script>    
 
@@ -837,23 +829,24 @@
           tickAmount: 4
         }
       };
-    if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
-      const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
-      incomeChart.render();
-    }
+      if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
+        const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
+        incomeChart.render();
+      }
     </script>
 
-    <!-- Donut Chart JS -->
+    <!-- Donut Chart JS
     <script>
-      const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
+      $(document).ready(function() {
+        const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
           orderChartConfig = {
             chart: {
               height: 165,
               width: 130,
               type: 'donut'
             },
-            labels: ['X', 'Y', 'Z', 'A'],
-            series: [85, 15, 50, 50],
+            labels: ['Hardware', 'Software', 'Network', 'Non-System'],
+            series: [  ],
             colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
             stroke: {
               width: 5,
@@ -920,87 +913,49 @@
           const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
           statisticsChart.render();
         }
-        </script>
+      });
+    </script> -->
 
+    <!-- Include the ApexCharts library -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
 
-
-
-    <!-- <script>
-    const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
-        orderChartConfig = {
+    <script>
+      // Create a function to generate the donut chart
+      function generateDonutChart() {
+        // Define the chart options
+        var options = {
+          series: [{{ $totalTicketHardware }},
+                        {{ $totalTicketSoftware }},
+                        {{ $totalTicketNetwork }},
+                        {{ $totalTicketNonsystem }}],
+          labels: ['Hardware', 'Software', 'Network', 'Non-System'],
           chart: {
-            height: 165,
-            width: 130,
-            type: 'donut'
+            type: 'donut',
           },
-          labels: ['X', 'Y', 'Z', 'A'],
-          series: [85, 15, 50, 50],
-          colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
-          stroke: {
-            width: 5,
-            colors: [cardColor]
-          },
-          dataLabels: {
-            enabled: false,
-            formatter: function (val, opt) {
-              return parseInt(val) + '%';
-            }
-          },
-          legend: {
-            show: false
-          },
-          grid: {
-            padding: {
-              top: 0,
-              bottom: 0,
-              right: 15
-            }
-          },
-          states: {
-            hover: {
-              filter: { type: 'none' }
-            },
-            active: {
-              filter: { type: 'none' }
-            }
-          },
-          plotOptions: {
-            pie: {
-              donut: {
-                size: '75%',
-                labels: {
-                  show: true,
-                  value: {
-                    fontSize: '1.5rem',
-                    fontFamily: 'Public Sans',
-                    color: headingColor,
-                    offsetY: -15,
-                    formatter: function (val) {
-                      return parseInt(val) + '%';
-                    }
-                  },
-                  name: {
-                    offsetY: 20,
-                    fontFamily: 'Public Sans'
-                  },
-                  total: {
-                    show: true,
-                    fontSize: '0.8125rem',
-                    color: axisColor,
-                    label: 'Weekly',
-                    formatter: function (w) {
-                      return '38%';
-                    }
-                  }
-                }
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
               }
             }
-          }
+          }]
         };
-      if (typeof chartOrderStatistics !== undefined && chartOrderStatistics !== null) {
-        const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
-        statisticsChart.render();
+
+        // Create the chart instance
+        var chart = new ApexCharts(document.getElementById('ticketByCategory'), options);
+
+        // Render the chart
+        chart.render();
       }
-      </script> -->
+
+      // Call the function to generate the donut chart
+      generateDonutChart();
+    </script>
+
+
   </body>
 </html>

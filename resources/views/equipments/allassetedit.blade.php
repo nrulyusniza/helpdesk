@@ -34,37 +34,42 @@
 
         <div class="card-body">            
             <div class="row">
-                <!-- disabled asset information -->
+                <!-- readonly asset information -->
                 <div class="col-xl">
                     <div class="card mb-4" style="background-color: #f4f3ee;">
                         <div class="card-body">                            
                             <div class="mb-3">
                                 <label class="form-label" for="asset_hostname">Hostname</label>
-                                <input type="text" class="form-control" name="asset_hostname" value="{{ $equipment->asset_hostname }}" disabled>
+                                <input type="text" class="form-control" name="asset_hostname" value="{{ $equipment->asset_hostname }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="asset_location">Origin Location</label>
-                                <input type="text" class="form-control" name="asset_location" value="{{ $equipment->asset_location }}" disabled>
+                                <input type="text" class="form-control" name="asset_location" value="{{ $equipment->asset_location }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="asset_ip">IP</label>
-                                <input type="text" class="form-control" name="asset_ip" value="{{ $equipment->asset_ip }}" disabled>
+                                <input type="text" class="form-control" name="asset_ip" value="{{ $equipment->asset_ip }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="asset_type">Asset Type</label>
-                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" disabled>
+                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="status_label">Site</label>
-                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" disabled>
+                                <label class="form-label" for="status_label">Site [x]</label>
+                                <select id="defaultSelect" class="form-select" name="site_name">
+                                    <option selected disabled>-- Select Site --</option>
+                                        @foreach(App\Site::all() as $site)
+                                        <option value="{{ $site->id }}" {{ $site->id == $equipment->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
+                                        @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="attachment">Kewpa</label>
-                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" disabled>
+                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="fault_description">Series No</label>
-                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" disabled>
+                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -78,12 +83,21 @@
                             @csrf
                             @method('PUT')
                                 <div class="mb-3">
-                                    <label class="form-label" for="">Comments [x]</label>
-                                    <textarea class="form-control" name="" rows="5"></textarea>
+                                    <label class="form-label" for="asset_newlocation">Location</label>
+                                    <input type="text" class="form-control" name="asset_newlocation">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="">Attachment [x]</label>
-                                    <input type="file" class="form-control" name="" value="">
+                                    <label class="form-label" for="log_updatedat">Updated Date</label>
+                                    <input type="date" class="form-control" name="log_updatedat">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="">Status</label>
+                                    <select id="defaultSelect" class="form-select" name="assetstatus_label">
+                                        <option selected disabled>-- Select Status --</option>
+                                            @foreach(App\Equipmentstatus::all()->sortBy('assetstatus_label') as $equipmentstatus)
+                                            <option value="{{$equipmentstatus->id}}">{{$equipmentstatus->assetstatus_label}}</option>
+                                            @endforeach
+                                    </select>
                                 </div>
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -123,8 +137,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $eqlog->id }}</td>
                                     <td>{{ $eqlog->asset_newlocation }}</td>
-                                    <td>{{ $eqlog->log_updatedat->format('M d, Y') }}</td>
-                                    <td>{{ $eqlog->equipmentstatus->assetstatus_label }}</td>
+                                    <td>{{ $eqlog->log_updatedat }}</td>
+                                    <td>{{ $eqlog->equipmentstatus_id }}</td>
                                 </tr>
                             </tbody>
                             @endforeach

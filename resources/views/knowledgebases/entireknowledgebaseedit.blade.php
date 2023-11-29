@@ -2,18 +2,6 @@
 @section('title', 'Edit Knowledge Base')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.dashboarduser') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('knowledgebases.entireknowledgebase') }}">Knowledge Management</a>
-        </li>
-        <li class="breadcrumb-item active">Knowledge Base</li>
-    </ol>
-</nav>
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -52,7 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="kb_article">Content</label>
-                        <textarea class="form-control" name="" rows="5">{{ $knowledgebase->kb_article }}</textarea>
+                        <textarea class="form-control" name="" rows="10">{{ $knowledgebase->kb_article }}</textarea>
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Update</button>
@@ -61,6 +49,7 @@
                 </div>
             </form>
         </div>
+        
     </div>
 </div>
 

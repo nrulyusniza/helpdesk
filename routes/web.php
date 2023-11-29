@@ -125,6 +125,7 @@ Route::get('equipments/allasset', 'EquipmentController@allasset')->name('equipme
 
 Route::get('equipments/{equipment}/allassetedit', 'EquipmentController@allassetedit')->name('equipments.allassetedit');
 Route::put('equipments/{equipment}', 'EquipmentController@allassetupdate')->name('equipments.allassetupdate');
+// Route::post('equipments/allassetstore', 'EquipmentController@allassetstore')->name('equipments.allassetstore');
 
 // equipments path - site admin view
 Route::get('equipments/listasset', 'EquipmentController@listasset')->name('equipments.listasset');

@@ -45,7 +45,7 @@ class HomeController extends Controller
 
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SUPER ADMIN DASHBOARD ----------------------------------------------------------------------
 
     // super admin's dashboard
     public function mydashboard()
@@ -73,6 +73,8 @@ class HomeController extends Controller
                                                     'knowledgebases', 'users', 'sites', 'equipments', 
                                                     'issues', 'totalTicketHardware', 'totalTicketSoftware', 'totalTicketNetwork', 'totalTicketNonsystem'));
     }
+
+    //---------------------------------------------------------------------- SITE ADMIN DASHBOARD ----------------------------------------------------------------------
 
     // site admin's dashboard
     public function dashboardadmin()
@@ -159,6 +161,8 @@ class HomeController extends Controller
                                                         'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
     }
 
+    //---------------------------------------------------------------------- SITE USER DASHBOARD ----------------------------------------------------------------------
+
     // site user's dashboard
     public function dashboarduser()
     {
@@ -244,7 +248,7 @@ class HomeController extends Controller
                                                         'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- EXTENSION ----------------------------------------------------------------------
     
     // super admin's extension
     public function myextension()

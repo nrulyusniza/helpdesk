@@ -37,7 +37,7 @@
 
         <div class="card-body">
             <form action="{{ route('equipmentstatuss.store') }}" method="POST">
-            @csrf
+                @csrf
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Equipment Status</label>
                     <div class="col-sm-10">

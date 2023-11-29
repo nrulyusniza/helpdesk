@@ -2,23 +2,15 @@
 @section('title', 'User Group List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('roles.allrole') }}">User Management</a>
-        </li>
-        <li class="breadcrumb-item active">User Group</li>
-    </ol>
-</nav>
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
-<!-- Bordered Table rows -->
 <div class="col-12">
     <div class="card">
-        
-        <!-- Top Card -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">User Group List</h4>
             <div class="btn-text-right">
@@ -28,13 +20,6 @@
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -43,7 +28,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -53,14 +38,6 @@
                             <td>{{ $r->role_name }}</td>
                             <td>{{ $r->role_desc }}</td>
                             <td>
-                                <!--
-                                <form action="{{ route('roles.destroy',$r->id) }}" method="POST">
-                                    <a class="btn btn-primary" href="{{ route('roles.edit',$r->id) }}">Edit</a>                
-                                    @csrf
-                                    @method('DELETE')                    
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                                -->
                                 <form action="{{ route('roles.destroy',$r->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('roles.edit',$r->id) }}"></a>                
                                     @csrf
@@ -77,6 +54,5 @@
         
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

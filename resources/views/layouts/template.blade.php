@@ -924,10 +924,7 @@
       function generateDonutChart() {
         // Define the chart options
         var options = {
-          series: [{{ $totalTicketHardware }},
-                        {{ $totalTicketSoftware }},
-                        {{ $totalTicketNetwork }},
-                        {{ $totalTicketNonsystem }}],
+          series: [42, 5, 8, 8],
           labels: ['Hardware', 'Software', 'Network', 'Non-System'],
           chart: {
             type: 'donut',
@@ -955,7 +952,6 @@
       // Call the function to generate the donut chart
       generateDonutChart();
     </script>
-
 
   </body>
 </html>

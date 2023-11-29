@@ -110,7 +110,7 @@ class ReportingpersonController extends Controller
         return view('reportingpersons.allreportingperson', compact('reportingpersons'));
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
 
     public function listreportingperson(Reportingperson $reportingperson)
     {
@@ -165,7 +165,7 @@ class ReportingpersonController extends Controller
                         ->with('success','Reporting Person deleted successfully');
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SITE USER ----------------------------------------------------------------------
 
     public function entirereportingperson(Reportingperson $reportingperson)
     {

@@ -2,18 +2,6 @@
 @section('title', 'Edit Asset')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('equipments.allasset') }}">Asset & Site Management</a>
-        </li>
-        <li class="breadcrumb-item active">Asset</li>
-    </ol>
-</nav>
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -64,12 +52,12 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="attachment">Kewpa</label>
-                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
+                                <label class="form-label" for="asset_kewpa">Kewpa</label>
+                                <input type="text" class="form-control" name="asset_kewpa" value="{{ $equipment->asset_kewpa }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="fault_description">Series No</label>
-                                <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
+                                <label class="form-label" for="asset_seriesno">Series No</label>
+                                <input type="text" class="form-control" name="asset_seriesno" value="{{ $equipment->asset_seriesno }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -148,6 +136,7 @@
             </div>
             
         </div>
+        
     </div>
 </div>
 

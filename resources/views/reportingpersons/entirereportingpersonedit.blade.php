@@ -2,18 +2,6 @@
 @section('title', 'Edit Reporting Person')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.dashboarduser') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('reportingpersons.entirereportingperson') }}">User Management</a>
-        </li>
-        <li class="breadcrumb-item active">Reporting Person</li>
-    </ol>
-</nav>
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>

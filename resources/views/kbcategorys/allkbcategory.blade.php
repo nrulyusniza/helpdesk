@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Category List')
+@section('title', 'Knowledge Base Category List')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -14,11 +14,15 @@
     </ol>
 </nav>
 
-<!-- Bordered Table rows -->
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
-        
-        <!-- Top Card -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Knowledge Base Category List</h4>
             <div class="btn-text-right">
@@ -28,13 +32,6 @@
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -42,7 +39,7 @@
                         <tr>
                             <th>#</th>
                             <th>Category</th>
-                            <th width="150px">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -67,6 +64,5 @@
 
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

@@ -2,42 +2,28 @@
 @section('title', 'New Request')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.dashboarduser') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('issues.entireissue') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Request</li>
-    </ol>
-</nav>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="col-12">
     <div class="card">
 
-        <!-- Title -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">New Request</h4>
         </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-        <!-- Forms -->
         <div class="card-body">
             <form action="{{ route('issues.entireissuestore') }}" method="POST">
-            @csrf
-            <div class="row">
+                @csrf
+                <div class="row">
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="request_type">Request Type</label>
                         <select id="defaultSelect" class="form-select" name="request_type">
@@ -56,8 +42,6 @@
                                 @endforeach
                         </select>                        
                     </div>
-                
-                
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="rptpers_name">Reported By [x]</label>
                         <select id="defaultSelect" class="form-select" name="rptpers_name">
@@ -71,7 +55,6 @@
                         <label class="form-label" for="rptpers_mobile">Phone Number (Reported By)</label>
                         <input type="text" class="form-control" name="rptpers_mobile">                       
                     </div>
-
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="req_category">Category</label>
                         <select id="defaultSelect" class="form-select" name="req_category">
@@ -90,7 +73,6 @@
                                 @endforeach
                         </select>                     
                     </div>
-
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="created_date">Date</label>
                         <input type="date" class="form-control" name="created_date">
@@ -99,7 +81,6 @@
                         <label class="form-label" for="attachment">Attachment</label>
                         <input class="form-control" type="file" name="attachment" id="formFile" />                   
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label" for="fault_description">Fault Description</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" type="text" name="fault_description"></textarea>
@@ -111,6 +92,7 @@
                 </div>
             </form>
         </div>
+        
     </div>
 </div>
 

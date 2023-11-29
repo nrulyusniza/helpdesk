@@ -2,18 +2,6 @@
 @section('title', 'Ticket List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('tickets.entireticket') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Ticket</li>
-    </ol>
-</nav>
-
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>

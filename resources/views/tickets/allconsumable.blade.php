@@ -2,37 +2,19 @@
 @section('title', 'Consumable List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('tickets.allconsumable') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Consumable</li>
-    </ol>
-</nav>
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
-<!-- Bordered Table rows -->
 <div class="col-12">
     <div class="card">
-        
-        <!-- Top Card -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Consumable List</h4>
-            <div class="btn-text-right">
-                <!-- (if any) -->
-            </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -53,7 +35,7 @@
                             <th>Create Date</th>
                             <th>Update By</th>
                             <th>Update Date</th> -->
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -78,8 +60,7 @@
                                 <form action="" method="POST">
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('tickets.allconsumableedit',$tt->id) }}"></a>
                                     @csrf
-                                    @method('DELETE')                    
-                                    <!-- <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000"></a> -->
+                                    @method('DELETE')
                                 </form>
                             </td>
                         </tr>
@@ -91,6 +72,5 @@
         
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

@@ -14,27 +14,28 @@
     </ol>
 </nav>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
+
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Edit Knowledge Base</h5>
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
         </div>
+
         <div class="card-body">
             <form action="{{ route('knowledgebases.update',$knowledgebase->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+                @csrf
+                @method('PUT')
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Category</label>
                     <div class="col-sm-10">
@@ -67,6 +68,7 @@
                 </div>
             </form>
         </div>
+        
     </div>
 </div>
 

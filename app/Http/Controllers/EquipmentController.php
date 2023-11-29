@@ -135,7 +135,7 @@ class EquipmentController extends Controller
                             ->with('success','Equipment Log created successfully');
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
     
     public function listasset(Equipment $equipment)
     {
@@ -148,7 +148,7 @@ class EquipmentController extends Controller
         return view('equipments.listasset',compact('equipments'));
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SITE USER ----------------------------------------------------------------------
 
     public function entireasset(Equipment $equipment)
     {

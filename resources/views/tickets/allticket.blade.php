@@ -2,37 +2,19 @@
 @section('title', 'Ticket List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('tickets.allticket') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Ticket</li>
-    </ol>
-</nav>
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
-<!-- Bordered Table rows -->
 <div class="col-12">
     <div class="card">
-        
-        <!-- Top Card -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Ticket List</h4>
-            <div class="btn-text-right">
-                <!-- (if any) -->
-            </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -53,7 +35,7 @@
                             <th>Create Date</th>
                             <th>Update By</th>
                             <th>Update Date</th> -->
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -91,6 +73,5 @@
 
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

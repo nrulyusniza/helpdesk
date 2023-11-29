@@ -13,7 +13,7 @@ class Equipment extends Model
     public $timestamps=false;
 
     protected $fillable = [
-        "asset_hostname", "asset_location", "asset_ip", "asset_type", "site_id"
+        "asset_hostname", "asset_location", "asset_ip", "asset_type", "site_id", "asset_kewpa", "asset_seriesno"
     ];
 
     // site_id

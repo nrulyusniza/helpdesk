@@ -2,42 +2,28 @@
 @section('title', 'Edit Request')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('issues.allissue') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Request</li>
-    </ol>
-</nav>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="col-12">
     <div class="card">
-        
-        <!-- Title -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Update Request : {{ $issue->request_no }}</h4>
         </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-        <!-- Forms -->
         <div class="card-body">
             <form action="{{ route('issues.update',$issue->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+                @csrf
+                @method('PUT')
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Request Type</label>
                     <div class="col-sm-10">
@@ -121,7 +107,6 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Admin Comment</label>
                     <div class="col-sm-10">
-                        <!-- <input type="text" class="form-control" name="admin_comment" value="{{ $issue->admin_comment }}" readonly> -->
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" type="text" name="admin_comment" readonly></textarea>
                     </div>
                 </div>
@@ -137,9 +122,9 @@
                         <a class="btn btn-secondary" href="{{ route('issues.index') }}">Cancel</a>
                     </div>
                 </div>
-                
             </form>
         </div>
+
     </div>
 </div>
 

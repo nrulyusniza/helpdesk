@@ -2,23 +2,15 @@
 @section('title', 'Request List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.dashboardadmin') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('issues.listissue') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Request</li>
-    </ol>
-</nav>
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
-<!-- Bordered Table rows -->
 <div class="col-12">
     <div class="card">
-        
-        <!-- Top Card -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Request List</h4>
             <div class="btn-text-right">
@@ -28,13 +20,6 @@
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
-        <!-- Table -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">
@@ -47,10 +32,9 @@
                             <th>Site</th>
                             <th>Asset</th>
                             <th>Category</th>
-                            <!-- <th>Fault Description</th> -->
                             <th>Status</th>
                             <th>User [DB]</th>
-                            <th width="150px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -63,19 +47,10 @@
                             <td>{{ $i->site->site_name ?? " " }}</td>
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
-                            <!-- <td>{{ $i->fault_description }}</td> -->
                             <td>{{ $i->status->status_label ?? " " }}</td> <!-- badges -->
                             <td>{{ $i->user->username->fullname->created_by ?? "X" }}</td>
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
-                                    <!-- <a class="menu-icon tf-icons bx bx-expand-alt" style='color:#716d6d' href=""
-                                        type="button"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-offset="0,4"
-                                        data-bs-placement="top"
-                                        data-bs-html="true"
-                                        title="View More"></a> -->
-
                                     <a class="menu-icon tf-icons bx bx-expand-alt" style='color:#716d6d'
                                         type="button"
                                         data-bs-offset="0,4"
@@ -86,7 +61,7 @@
                                         title="View More">
                                     </a>
 
-                                    <!-- Modal -->
+                                    <!-- modal -->
                                     <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                                             <div class="modal-content">
@@ -195,30 +170,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- <a class="menu-icon tf-icons bx bx-edit" href="{{ route('issues.edit',$i->id) }}"
-                                        type="button"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-offset="0,4"
-                                        data-bs-placement="top"
-                                        data-bs-html="true"
-                                        title="Edit"
-                                    </a> -->
-                                        
-                                        <!-- <button type="button" class="btn btn-primary" href="{{ route('issues.edit',$i->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-offset="0,4"
-                                        data-bs-placement="top"
-                                        data-bs-html="true" title="Edit"
-                                        ><i class='bx bx-edit'></i></button> -->
                                     @csrf
-                                    @method('DELETE')                    
-                                    <!-- <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-offset="0,4"
-                                        data-bs-placement="top"
-                                        data-bs-html="true"
-                                        title="Delete">
-                                    </a> -->
+                                    @method('DELETE')
                                 </form>
                             </td>
                         </tr>
@@ -230,6 +183,5 @@
 
     </div>
 </div>
-<!--/ Bordered Table -->
 
 @endsection

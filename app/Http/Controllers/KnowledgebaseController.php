@@ -109,7 +109,7 @@ class KnowledgebaseController extends Controller
         return view('knowledgebases.allknowledgebase', compact('knowledgebases'));
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
 
     public function listknowledgebase(Knowledgebase $knowledgebase)
     {
@@ -152,7 +152,7 @@ class KnowledgebaseController extends Controller
                         ->with('success','Knowledge Base updated successfully');
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------- SITE USER ----------------------------------------------------------------------
 
     public function entireknowledgebase(Knowledgebase $knowledgebase)
     {

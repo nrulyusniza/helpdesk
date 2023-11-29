@@ -2,38 +2,24 @@
 @section('title', 'Edit Consumable')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('tickets.allconsumable') }}">Issue Tracking</a>
-        </li>
-        <li class="breadcrumb-item active">Consumable</li>
-    </ol>
-</nav>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="col-12">
     <div class="card">
-        
-        <!-- Title -->
+
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Update Consumable : {{ $ticket->ticket_no }}</h4>
         </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-        <!-- Forms -->
         <div class="card-body">            
             <div class="row">
                 <!-- disabled consumable information -->
@@ -141,8 +127,7 @@
             </div>
 
             <h4 class="mb-0 text-primary">Ticket Log</h4><br>
-                
-            <!-- Hoverable Table rows -->
+
             <div class="col-12">
                 <div class="card">
                     <div class="table-responsive text-nowrap">
@@ -181,9 +166,9 @@
                     </div>
                 </div>
             </div>
-            <!--/ Hoverable Table rows -->
             
         </div>
+        
     </div>
 </div>
 

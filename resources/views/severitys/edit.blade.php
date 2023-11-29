@@ -17,30 +17,28 @@
     </ol>
 </nav>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
 
-        <!-- Title -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Edit Severity</h4>
         </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-        <!-- Forms -->
         <div class="card-body">
             <form action="{{ route('severitys.update',$severity->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+                @csrf
+                @method('PUT')
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="basic-default-name">Severity</label>
                     <div class="col-sm-10">

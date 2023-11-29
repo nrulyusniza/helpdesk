@@ -2,18 +2,6 @@
 @section('title', 'Reporting Person List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.dashboarduser') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('reportingpersons.entirereportingperson') }}">User Management</a>
-        </li>
-        <li class="breadcrumb-item active">Reporting Person</li>
-    </ol>
-</nav>
-
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>

@@ -39,7 +39,7 @@
             <form action="{{ route('equipmentstatuss.store') }}" method="POST">
                 @csrf
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Equipment Status</label>
+                    <label class="col-sm-2 col-form-label" for="assetstatus_label">Equipment Status</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="assetstatus_label">
                     </div>

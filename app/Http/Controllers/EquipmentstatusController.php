@@ -38,7 +38,7 @@ class EquipmentstatusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'equipmentstatus_label' => 'required',
+            'assetstatus_label' => 'required',
         ]);
   
         Equipmentstatus::create($request->all());
@@ -79,7 +79,7 @@ class EquipmentstatusController extends Controller
     public function update(Request $request, Equipmentstatus $equipmentstatus)
     {
         $request->validate([
-            'equipmentstatus_label' => 'required',
+            'assetstatus_label' => 'required',
         ]);
   
         $equipmentstatus->update($request->all());

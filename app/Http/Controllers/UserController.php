@@ -44,7 +44,7 @@ class UserController extends Controller
   
         User::create($request->all());
    
-        return redirect()->route('users.index')
+        return redirect()->route('users.alluser')
                         ->with('success','New User created successfully.');
     }
 
@@ -107,18 +107,11 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        /*$totalUsers = User::count();
-        $totalSuperAdmin = User::where('role_id', '1')->count();
-        $totalSiteAdmin = User::where('role_id', '2')->count();
-        $totalSiteUser = User::where('role_id', '3')->count();*/
-
         $totalUsers = DB::table('users')->count();
         $totalSuperAdmin = DB::table('users')->where('role_id', '1')->count();
         $totalSiteAdmin = DB::table('users')->where('role_id', '2')->count();
         $totalSiteUser = DB::table('users')->where('role_id', '3')->count();
 
         return view('users.alluser', compact('users', 'totalUsers', 'totalSuperAdmin', 'totalSiteAdmin', 'totalSiteUser'));
-  
-        //return view('users.alluser', compact('users'));
     }
 }

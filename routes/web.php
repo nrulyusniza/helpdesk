@@ -90,13 +90,18 @@ Route::get('kbcategorys/allkbcategory', 'KbcategoryController@allkbcategory')->n
 //------------------------------------------------------------------- KNOWLEDGEBASES -------------------------------------------------------------------
 // knowledgebases path - super admin view
 Route::get('knowledgebases/index', 'KnowledgebaseController@index')->name('knowledgebases.index');
-Route::get('knowledgebases/create', 'KnowledgebaseController@create')->name('knowledgebases.create');
-Route::post('knowledgebases/store', 'KnowledgebaseController@store')->name('knowledgebases.store');
-//Route::get('knowledgebases/{knowledgebase}', 'KnowledgebaseController@show')->name('knowledgebases.show');
-Route::get('knowledgebases/{knowledgebase}/edit', 'KnowledgebaseController@edit')->name('knowledgebases.edit');
-Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@update')->name('knowledgebases.update');
+// Route::get('knowledgebases/create', 'KnowledgebaseController@create')->name('knowledgebases.create');
+// Route::post('knowledgebases/store', 'KnowledgebaseController@store')->name('knowledgebases.store');
+// //Route::get('knowledgebases/{knowledgebase}', 'KnowledgebaseController@show')->name('knowledgebases.show');
+// Route::get('knowledgebases/{knowledgebase}/edit', 'KnowledgebaseController@edit')->name('knowledgebases.edit');
+// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@update')->name('knowledgebases.update');
 Route::delete('knowledgebases/{knowledgebase}', 'KnowledgebaseController@destroy')->name('knowledgebases.destroy');
+
 Route::get('knowledgebases/allknowledgebase', 'KnowledgebaseController@allknowledgebase')->name('knowledgebases.allknowledgebase');
+Route::get('knowledgebases/allknowledgebasecreate', 'KnowledgebaseController@allknowledgebasecreate')->name('knowledgebases.allknowledgebasecreate');
+Route::post('knowledgebases/allknowledgebasestore', 'KnowledgebaseController@allknowledgebasestore')->name('knowledgebases.allknowledgebasestore');
+Route::get('knowledgebases/{knowledgebase}/allknowledgebaseedit', 'KnowledgebaseController@allknowledgebaseedit')->name('knowledgebases.allknowledgebaseedit');
+Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@allknowledgebaseupdate')->name('knowledgebases.allknowledgebaseupdate');
 
 // knowledgebases path - site admin view
 Route::get('knowledgebases/listknowledgebase', 'KnowledgebaseController@listknowledgebase')->name('knowledgebases.listknowledgebase');

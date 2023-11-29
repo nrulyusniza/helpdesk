@@ -74,6 +74,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.min.js"></script>
+
   </head>
 
   <body>
@@ -514,7 +519,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
+                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="confirmLogout();">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -589,30 +594,6 @@
         rel="noopener noreferrer">Chat with X</a>
     </div>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Log Out" below if you are ready to end your current session.</div>
-                <div class="modal-footer">  
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>                    
-                    <a class="btn btn-primary" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" class="nav-link">Log Out</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                    </form>  
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
@@ -642,19 +623,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script>
 
-    <!-- <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.dataTables.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.dataTables.min.js') }}"></script> -->
-
-    <!-- <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.bulma.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.dataTables.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.foundation.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.jqueryui.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/dataTables.semanticui.min.js') }}"></script>
-    <script src="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/js/jquery.dataTables.min.js') }}"></script> -->
-
     <script>
       $(document).ready(function(){
         $('#example').DataTable({
@@ -681,26 +649,77 @@
       });
     </script>    
 
-    <!-- sweetalert JS -->
-    <script type="text/javascript">
+    <!-- sweetalert JS (delete row)-->
+    <script>
       function confirmation(ev) {
+        // prevent the default behavior of the event
         ev.preventDefault();
-        var urlToRedirect = ev.currentTarget.getAttribute('href');  
+
+        // get the URL to redirect to from the closest form element
+        var urlToRedirect = ev.currentTarget.closest('form').getAttribute('action');
         console.log(urlToRedirect);
+
+        // show a confirmation dialog using the SweetAlert library
         swal({
-          title: "Are you sure?",
-          text: "Once deleted, you will not be able to recover.",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-          })
-        .then((willCancel) => {
-          if (willCancel) {  
-            window.location.href = urlToRedirect;              
-          }
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willCancel) => {
+            // if the user confirms the deletion
+            if (willCancel) {
+                // create a form dynamically
+                var form = document.createElement("form");
+                form.setAttribute("method", "POST");
+                form.setAttribute("action", urlToRedirect);
+                form.setAttribute("style", "display:none");
+
+                // add a CSRF token field to the form
+                var csrfField = document.createElement("input");
+                csrfField.setAttribute("type", "hidden");
+                csrfField.setAttribute("name", "_token");
+                csrfField.setAttribute("value", "{{ csrf_token() }}");
+
+                // add a method field to the form with value 'DELETE'
+                var methodField = document.createElement("input");
+                methodField.setAttribute("type", "hidden");
+                methodField.setAttribute("name", "_method");
+                methodField.setAttribute("value", "DELETE");
+
+                // append the form to the body, and append the fields to the form
+                document.body.appendChild(form);
+                form.appendChild(csrfField);
+                form.appendChild(methodField);
+
+                // submit the form to perform the DELETE request
+                form.submit();
+            }
         });
       }
     </script>
+
+
+    <!-- logout JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+      function confirmLogout() {
+          Swal.fire({
+              title: 'Are you sure?',
+              text: 'You will be logged out!',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, log me out!'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  document.getElementById('logout-form').submit();
+              }
+          });
+      }
+    </script> -->
 
     <!-- Toastr -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" 

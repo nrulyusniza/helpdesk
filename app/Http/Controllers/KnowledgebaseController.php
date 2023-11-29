@@ -102,11 +102,49 @@ class KnowledgebaseController extends Controller
        ->with('success','Knowledge Base deleted successfully');
     }
 
+    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
+
     public function allknowledgebase(Knowledgebase $knowledgebase)
     {
         $knowledgebases = Knowledgebase::all();
   
         return view('knowledgebases.allknowledgebase', compact('knowledgebases'));
+    }
+
+    public function allknowledgebasecreate(Knowledgebase $knowledgebase)
+    {
+        return view('knowledgebases.allknowledgebasecreate');
+    }
+
+    public function allknowledgebasestore(Request $request)
+    {
+        $request->validate([
+            'kb_category' => 'required',
+            'kb_topic' => 'required',
+            'kb_article' => 'required',
+        ]);
+  
+        Knowledgebase::create($request->all());
+   
+        return redirect()->route('knowledgebases.allknowledgebase')
+                        ->with('success','New Knowledge Base created successfully.');
+    }
+
+    public function allknowledgebaseedit(Knowledgebase $knowledgebase)
+    {
+        return view('knowledgebases.allknowledgebaseedit', compact('knowledgebase'));
+    }
+
+    public function allknowledgebaseupdate(Request $request, Knowledgebase $knowledgebase)
+    {
+        $request->validate([
+            'kb_title' => 'required',
+        ]);
+  
+        $knowledgebase->update($request->all());
+  
+        return redirect()->route('knowledgebases.allknowledgebase')
+                        ->with('success','Knowledge Base updated successfully');
     }
 
     //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
@@ -129,7 +167,7 @@ class KnowledgebaseController extends Controller
             'kb_title' => 'required',
         ]);
   
-        Knowledgebases::create($request->all());
+        Knowledgebase::create($request->all());
    
         return redirect()->route('knowledgebases.listknowledgebase')
                         ->with('success','New Knowledge Base created successfully.');
@@ -172,7 +210,7 @@ class KnowledgebaseController extends Controller
             'kb_title' => 'required',
         ]);
   
-        Knowledgebases::create($request->all());
+        Knowledgebase::create($request->all());
    
         return redirect()->route('knowledgebases.entireknowledgebase')
                         ->with('success','New Knowledge Base created successfully.');

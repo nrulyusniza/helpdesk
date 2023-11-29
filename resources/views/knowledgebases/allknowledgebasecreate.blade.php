@@ -21,11 +21,11 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('knowledgebases.listknowledgebasestore') }}" method="POST">
+            <form action="{{ route('knowledgebases.allknowledgebasestore') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="kb_category">Category</label>
+                    <label class="form-label" for="kb_category">Category</label>
                         <select id="defaultSelect" class="form-select" name="kb_category">
                             <option selected disabled>-- Select Category --</option>
                                 @foreach(App\Kbcategory::all()->sortBy('kb_category') as $kbcategory)
@@ -34,16 +34,16 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="kb_title">Title</label>
-                        <input type="text" class="form-control" name="kb_title">
+                        <label class="form-label" for="kb_topic">Title</label>
+                        <input type="text" class="form-control" name="kb_topic">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="kb_content">Content</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" type="text" name="kb_content"></textarea>
+                        <label class="form-label" for="kb_article">Content</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" type="text" name="kb_article"></textarea>
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('knowledgebases.listknowledgebase') }}">Cancel</a>
+                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('knowledgebases.allknowledgebase') }}">Cancel</a>
                     </div>
                 </div>
             </form>

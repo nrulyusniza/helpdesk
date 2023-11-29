@@ -2,18 +2,6 @@
 @section('title', 'Knowledge Base List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('knowledgebases.allknowledgebase') }}">Knowledge Management</a>
-        </li>
-        <li class="breadcrumb-item active">Knowledge Base</li>
-    </ol>
-</nav>
-
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -26,7 +14,7 @@
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Knowledge Base List</h4>
             <div class="btn-text-right">
-                <a href="{{ route('knowledgebases.create') }}"
+                <a href="{{ route('knowledgebases.allknowledgebasecreate') }}"
                     <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Knowledge Base</button>
                 </a>
             </div>
@@ -53,7 +41,7 @@
                             <td>{{ $b->kb_article }}</td>
                             <td>
                                 <form action="{{ route('knowledgebases.destroy',$b->id) }}" method="POST">
-                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.edit',$b->id) }}"></a>                
+                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.allknowledgebaseedit',$b->id) }}"></a>                
                                     @csrf
                                     @method('DELETE')                    
                                     <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000" onclick="confirmation(event)"></a>

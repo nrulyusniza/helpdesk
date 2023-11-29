@@ -95,7 +95,7 @@
                 <div class="row justify-content-end">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-secondary" href="{{ route('users.index') }}">Cancel</a>
+                        <a class="btn btn-secondary" href="{{ route('users.alluser') }}">Cancel</a>
                     </div>
                 </div>
             </form>

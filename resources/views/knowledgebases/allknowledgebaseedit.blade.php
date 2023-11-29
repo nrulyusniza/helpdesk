@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('knowledgebases.listknowledgebaseupdate',$knowledgebase->id) }}" method="POST">
+            <form action="{{ route('knowledgebases.allknowledgebaseupdate',$knowledgebase->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -35,21 +35,21 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="kb_title">Title</label>
-                            <input type="text" class="form-control" name="kb_title" value="{{ $knowledgebase->kb_topic }}">
+                        <label class="form-label" for="kb_topic">Title</label>
+                            <input type="text" class="form-control" name="kb_topic" value="{{ $knowledgebase->kb_topic }}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="kb_content">Content</label>
-                        <input type="text" class="form-control" name="kb_content" value="{{ $knowledgebase->kb_article }}">
+                        <label class="form-label" for="kb_article">Content</label>
+                        <input type="text" class="form-control" name="kb_article" value="{{ $knowledgebase->kb_article }}">
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Update</button>
-                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('knowledgebases.listknowledgebase') }}">Cancel</a>
+                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('knowledgebases.allknowledgebase') }}">Cancel</a>
                     </div>
                 </div>
             </form>
         </div>
-
+        
     </div>
 </div>
 

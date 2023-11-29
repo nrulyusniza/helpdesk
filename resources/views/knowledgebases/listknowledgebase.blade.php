@@ -2,18 +2,6 @@
 @section('title', 'Knowledge Base List')
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.dashboardadmin') }}">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{{ route('knowledgebases.listknowledgebase') }}">Knowledge Management</a>
-        </li>
-        <li class="breadcrumb-item active">Knowledge Base</li>
-    </ol>
-</nav>
-
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>

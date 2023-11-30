@@ -23,32 +23,27 @@
         <div class="card-body">
             <form action="{{ route('reportingpersons.listreportingpersonstore') }}" method="POST">
                 @csrf
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Full Name</label>
-                    <div class="col-sm-10">
+                <div class="row">
+                    <div class="mb-3">
+                        <label class="form-label" for="rptpers_name">Full Name</label>
                         <input type="text" class="form-control" name="rptpers_name">
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Phone Number</label>
-                    <div class="col-sm-10">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="rptpers_mobile">Phone Number</label>
                         <input type="text" class="form-control" name="rptpers_mobile">
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-message">Site</label>
-                    <div class="col-sm-10">
-                        <select id="defaultSelect" class="form-select" name="site_name" disabled>                            
-                                @foreach(App\Site::all() as $site)
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="site_id">Site</label>
+                        <select id="defaultSelect" class="form-select" name="site_id">
+                            <option selected disabled>-- Select Category --</option>                           
+                                @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 <option value="{{$site->id}}">{{$site->site_name}}</option>
                                 @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="row justify-content-end">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-secondary" href="{{ route('reportingpersons.listreportingperson') }}">Cancel</a>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('reportingpersons.listreportingperson') }}">Cancel</a>
                     </div>
                 </div>
             </form>

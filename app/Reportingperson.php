@@ -15,6 +15,7 @@ class Reportingperson extends Model
         "rptpers_name", "rptpers_phone", "rptpers_ext", "rptpers_mobile", "rptpers_email", "site_id"
     ];
 
+    // site_id
     public function site()
     {
         return $this->belongsTo(Site::class, 'site_id');

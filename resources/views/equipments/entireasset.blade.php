@@ -26,7 +26,6 @@
                             <th>Asset Type</th>
                             <th>Kewpa</th>
                             <th>Series No.</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>                    
@@ -37,9 +36,8 @@
                             <td>{{ $e->asset_hostname }}</td>
                             <td>{{ $e->asset_location }}</td>
                             <td>{{ $e->asset_type }}</td>
-                            <td>{{ "Kewpa" }}</td>
-                            <td>{{ "Series No" }}</td>
-                            <td>{{ "Status" }}</td>
+                            <td>{{ $e->asset_kewpa }}</td>
+                            <td>{{ $e->asset_seriesno }}</td>
                             <td>
                                 <form action="{{ route('equipments.destroy',$e->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-expand-alt" href="{{ route('equipments.entireassetlog',$e->id) }}"></a>

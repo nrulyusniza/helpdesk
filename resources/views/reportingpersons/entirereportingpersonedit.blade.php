@@ -26,16 +26,16 @@
                 @method('PUT')
                 <div class="row">
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-name">Full Name</label>
+                        <label class="form-label" for="rptpers_name">Full Name</label>
                         <input type="text" class="form-control" name="rptpers_name" value="{{ $reportingperson->rptpers_name }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="basic-default-name">Phone Number</label>
+                        <label class="form-label" for="rptpers_mobile">Phone Number</label>
                         <input type="text" class="form-control" name="rptpers_mobile" value="{{ $reportingperson->rptpers_mobile }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="basic-default-name">Site [x]</label>
-                        <select id="defaultSelect" class="form-select" name="site_name">
+                        <label class="form-label" for="site_id">Site [x]</label>
+                        <select id="defaultSelect" class="form-select" name="site_id">
                             <option selected disabled>-- Select Site --</option>
                                 @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 <option value="{{ $site->id }}" {{ $site->id == $reportingperson->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>

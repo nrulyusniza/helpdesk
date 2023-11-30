@@ -269,4 +269,16 @@ class TicketController extends Controller
         // pass the ticket data to the view
         return view('tickets.entireconsumablelog', compact('ticket'));
     }
+
+    public function generatereport(Ticket $ticket)
+    {
+        // $loggedInUser = Auth::user();
+        // $site_id = $loggedInUser->site->id;
+        
+        // $tickets = Ticket::where('site_id', $site_id)->orderBy('request_no','desc')->get();
+
+        $tickets = Ticket::with('user')->get();
+
+        return view('tickets.report.generatereport', compact('tickets'));
+    }
 }

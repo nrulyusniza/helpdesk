@@ -140,9 +140,7 @@ class EquipmentController extends Controller
     public function listasset(Equipment $equipment)
     {
         $loggedInUser = Auth::user();
-
         $site_id = $loggedInUser->site->id;
-
         $equipments = Equipment::where('site_id', $site_id)->get();
 
         return view('equipments.listasset',compact('equipments'));
@@ -153,9 +151,7 @@ class EquipmentController extends Controller
     public function entireasset(Equipment $equipment)
     {
         $loggedInUser = Auth::user();
-
         $site_id = $loggedInUser->site->id;
-
         $equipments = Equipment::where('site_id', $site_id)->get();
 
         return view('equipments.entireasset',compact('equipments'));
@@ -163,12 +159,10 @@ class EquipmentController extends Controller
 
     public function entireassetlog(Equipment $equipment)
     {
-        // $loggedInUser = Auth::user();
+        // retrieve the equipment and its associated equipment logs
+        $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
 
-        // $site_id = $loggedInUser->site->id;
-
-        // $equipments = Equipment::where('site_id', $site_id)->get();
-
-        return view('equipments.entireassetlog',compact('equipments'));
+        // pass the equipment data to the view
+        return view('equipments.entireassetlog', compact('equipment'));
     }
 }

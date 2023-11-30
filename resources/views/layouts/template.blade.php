@@ -102,7 +102,7 @@
             <li class="menu-item {{ request()->routeIs('dashboard.mydashboard') ? 'active' : '' }}">
               <a href="{{ route('dashboard.mydashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <span class="flex-grow-1 align-middle">Dashboard [|]</span>
+                <span class="flex-grow-1 align-middle">Dashboard</span>
               </a>
             </li>
 
@@ -113,21 +113,21 @@
             <li class="menu-item {{ request()->routeIs('issues.allissue') ? 'active' : '' }}">
               <a href="{{ route('issues.allissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Request [|]</span>
+                <span class="flex-grow-1 align-middle">Request</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.allticket') ? 'active' : '' }}">
               <a href="{{ route('tickets.allticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Ticket [|]</span>
+                <span class="flex-grow-1 align-middle">Ticket</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.allconsumable') ? 'active' : '' }}">
               <a href="{{ route('tickets.allconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Consumables [|]</span>
+                <span class="flex-grow-1 align-middle">Consumables</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
@@ -137,7 +137,7 @@
             <li class="menu-item {{ request()->routeIs('equipments.allasset') ? 'active' : '' }}">
               <a href="{{ route('equipments.allasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
-                <span class="flex-grow-1 align-middle">Asset [|]</span>
+                <span class="flex-grow-1 align-middle">Asset</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('sites.allsite') ? 'active' : '' }}">
@@ -201,7 +201,7 @@
             <li class="menu-item {{ request()->routeIs('dashboard.dashboardadmin') ? 'active' : '' }}">
               <a href="{{ route('dashboard.dashboardadmin') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <span class="flex-grow-1 align-middle">Dashboard [|]</span>
+                <span class="flex-grow-1 align-middle">Dashboard</span>
               </a>
             </li>
 
@@ -212,21 +212,21 @@
             <li class="menu-item {{ request()->routeIs('issues.listissue') ? 'active' : '' }}">
               <a href="{{ route('issues.listissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Request[|]</span>
+                <span class="flex-grow-1 align-middle">Request</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.listticket') ? 'active' : '' }}">
               <a href="{{ route('tickets.listticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Ticket [|]</span>
+                <span class="flex-grow-1 align-middle">Ticket</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.listconsumable') ? 'active' : '' }}">
               <a href="{{ route('tickets.listconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Consumables [|]</span>
+                <span class="flex-grow-1 align-middle">Consumables</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
@@ -236,7 +236,7 @@
             <li class="menu-item {{ request()->routeIs('equipments.listasset') ? 'active' : '' }}">
               <a href="{{ route('equipments.listasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
-                <span class="flex-grow-1 align-middle">Asset [DB]</span>
+                <span class="flex-grow-1 align-middle">Asset</span>
               </a>
             </li>
 
@@ -254,7 +254,7 @@
             <li class="menu-item {{ request()->routeIs('knowledgebases.listknowledgebase') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.listknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base</span>
+                <span class="flex-grow-1 align-middle">Knowledge Base [.update]</span>
               </a>
             </li>
 
@@ -276,7 +276,7 @@
             <li class="menu-item {{ request()->routeIs('dashboard.dashboarduser') ? 'active' : '' }}">
               <a href="{{ route('dashboard.dashboarduser') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <span class="flex-grow-1 align-middle">Dashboard [|]</span>
+                <span class="flex-grow-1 align-middle">Dashboard</span>
               </a>
             </li>
 
@@ -308,7 +308,7 @@
             <li class="menu-item {{ request()->routeIs('equipments.entireasset') ? 'active' : '' }}">
               <a href="{{ route('equipments.entireasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
-                <span class="flex-grow-1 align-middle">Asset [DB/Log]</span>
+                <span class="flex-grow-1 align-middle">Asset</span>
               </a>
             </li>
 
@@ -332,8 +332,8 @@
 
             <!-- 6- Others -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Others</span></li>
-            <li class="menu-item {{ request()->routeIs('dashboard.dashboarduser') ? 'active' : '' }}">
-              <a href="{{ route('dashboard.dashboarduser') }}" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('tickets.report.generatereport') ? 'active' : '' }}">
+              <a href="{{ route('tickets.report.generatereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <span class="flex-grow-1 align-middle">Ticket Reporting [x]</span>
               </a>

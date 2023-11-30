@@ -27,7 +27,7 @@
                         <tr>
                             <th>#</th>
                             <th>Hostname</th>
-                            <th>Current Location</th>
+                            <th>Origin Location</th>
                             <th>Asset Type</th>
                             <th>Site</th>
                             <th>Status</th>

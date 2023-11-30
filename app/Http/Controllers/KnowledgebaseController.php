@@ -88,6 +88,8 @@ class KnowledgebaseController extends Controller
                         ->with('success','Knowledge Base updated successfully');
     }
 
+    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
+
     /**
      * Remove the specified resource from storage.
      *
@@ -98,11 +100,9 @@ class KnowledgebaseController extends Controller
     {
         $knowledgebase->delete();
 
-       return redirect()->route('knowledgebases.index')
+       return redirect()->route('knowledgebases.allknowledgebase')
        ->with('success','Knowledge Base deleted successfully');
     }
-
-    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
 
     public function allknowledgebase(Knowledgebase $knowledgebase)
     {
@@ -111,7 +111,7 @@ class KnowledgebaseController extends Controller
         return view('knowledgebases.allknowledgebase', compact('knowledgebases'));
     }
 
-    public function allknowledgebasecreate(Knowledgebase $knowledgebase)
+    public function allknowledgebasecreate()
     {
         return view('knowledgebases.allknowledgebasecreate');
     }
@@ -138,7 +138,9 @@ class KnowledgebaseController extends Controller
     public function allknowledgebaseupdate(Request $request, Knowledgebase $knowledgebase)
     {
         $request->validate([
-            'kb_title' => 'required',
+            'kb_category' => 'required',
+            'kb_topic' => 'required',
+            'kb_article' => 'required',
         ]);
   
         $knowledgebase->update($request->all());
@@ -156,7 +158,7 @@ class KnowledgebaseController extends Controller
         return view('knowledgebases.listknowledgebase',compact('knowledgebases'));
     }
 
-    public function listknowledgebasecreate(Knowledgebase $knowledgebase)
+    public function listknowledgebasecreate()
     {
         return view('knowledgebases.listknowledgebasecreate');
     }
@@ -164,7 +166,9 @@ class KnowledgebaseController extends Controller
     public function listknowledgebasestore(Request $request)
     {
         $request->validate([
-            'kb_title' => 'required',
+            'kb_category' => 'required',
+            'kb_topic' => 'required',
+            'kb_article' => 'required',
         ]);
   
         Knowledgebase::create($request->all());
@@ -181,7 +185,9 @@ class KnowledgebaseController extends Controller
     public function listknowledgebaseupdate(Request $request, Knowledgebase $knowledgebase)
     {
         $request->validate([
-            'kb_title' => 'required',
+            'kb_category' => 'required',
+            'kb_topic' => 'required',
+            'kb_article' => 'required',
         ]);
   
         $knowledgebase->update($request->all());
@@ -199,7 +205,7 @@ class KnowledgebaseController extends Controller
         return view('knowledgebases.entireknowledgebase',compact('knowledgebases'));
     }
 
-    public function entireknowledgebasecreate(Knowledgebase $knowledgebase)
+    public function entireknowledgebasecreate()
     {
         return view('knowledgebases.entireknowledgebasecreate');
     }
@@ -207,7 +213,9 @@ class KnowledgebaseController extends Controller
     public function entireknowledgebasestore(Request $request)
     {
         $request->validate([
-            'kb_title' => 'required',
+            'kb_category' => 'required',
+            'kb_topic' => 'required',
+            'kb_article' => 'required',
         ]);
   
         Knowledgebase::create($request->all());
@@ -224,7 +232,9 @@ class KnowledgebaseController extends Controller
     public function entireknowledgebaseupdate(Request $request, Knowledgebase $knowledgebase)
     {
         $request->validate([
-            'kb_title' => 'required',
+            'kb_category' => 'required',
+            'kb_topic' => 'required',
+            'kb_article' => 'required',
         ]);
   
         $knowledgebase->update($request->all());

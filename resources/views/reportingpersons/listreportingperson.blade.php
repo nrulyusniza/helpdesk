@@ -40,7 +40,8 @@
                             <td>{{ $rp->rptpers_mobile }}</td>
                             <td>{{ $rp->site->site_name ?? " " }}</td>
                             <td>
-                                <form action="" method="POST">
+                                <form action="{{ route('reportingpersons.listreportingpersondestroy',$rp->id) }}" method="POST">
+                                    <a class="menu-icon tf-icons bx bx-expand-alt" href=""></a> 
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('reportingpersons.listreportingpersonedit',$rp->id) }}"></a>                
                                     @csrf
                                     @method('DELETE')                    

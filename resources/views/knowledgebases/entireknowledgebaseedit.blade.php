@@ -29,18 +29,18 @@
                         <label class="form-label" for="kb_category">Category</label>
                         <select id="defaultSelect" class="form-select" name="kb_category">
                             <option selected disabled>-- Select Category --</option>
-                                @foreach(App\Kbcategory::all() as $kbcategory)
+                                @foreach(App\Kbcategory::all()->sortBy('kb_category') as $kbcategory)
                                 <option value="{{ $kbcategory->id }}" {{ $kbcategory->id == $knowledgebase->kb_category ? 'selected' : '' }}>{{ $kbcategory->kb_category }}</option>
                                 @endforeach
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="kb_topic">Title</label>
-                        <input type="text" class="form-control" name="kb_title" value="{{ $knowledgebase->kb_topic }}">
+                        <input type="text" class="form-control" name="kb_topic" value="{{ $knowledgebase->kb_topic }}">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="kb_article">Content</label>
-                        <textarea class="form-control" name="" rows="10">{{ $knowledgebase->kb_article }}</textarea>
+                        <textarea class="form-control" name="kb_article" rows="10">{{ $knowledgebase->kb_article }}</textarea>
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Update</button>

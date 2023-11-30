@@ -27,7 +27,7 @@
                         <tr>
                             <th>#</th>
                             <th>Category</th>
-                            <th>Tittle</th>
+                            <th>Title</th>
                             <th>Content</th>
                             <th>Action</th>
                         </tr>
@@ -42,7 +42,8 @@
                             <td>
                                 <form action="" method="POST">
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.listknowledgebaseedit',$b->id) }}"></a>                
-                                    @csrf                                    
+                                    @csrf       
+                                    @method('DELETE')                             
                                 </form>
                             </td>
                         </tr>

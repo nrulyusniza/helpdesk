@@ -115,15 +115,13 @@ class ReportingpersonController extends Controller
     public function listreportingperson(Reportingperson $reportingperson)
     {
         $loggedInUser = Auth::user();
-
         $site_id = $loggedInUser->site->id;
-
         $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
 
         return view('reportingpersons.listreportingperson',compact('reportingpersons'));
     }
 
-    public function listreportingpersoncreate(Reportingperson $reportingperson)
+    public function listreportingpersoncreate()
     {
         return view('reportingpersons.listreportingpersoncreate');
     }
@@ -132,6 +130,8 @@ class ReportingpersonController extends Controller
     {
         $request->validate([
             'rptpers_name' => 'required',
+            'rptpers_mobile' => 'required',
+            'site_id' => 'required',
         ]);
   
         Reportingperson::create($request->all());
@@ -149,6 +149,8 @@ class ReportingpersonController extends Controller
     {
         $request->validate([
             'rptpers_name' => 'required',
+            'rptpers_mobile' => 'required',
+            'site_id' => 'required',
         ]);
   
         $reportingperson->update($request->all());

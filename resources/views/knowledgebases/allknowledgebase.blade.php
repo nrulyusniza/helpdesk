@@ -27,7 +27,7 @@
                         <tr>
                             <th>#</th>
                             <th>Category</th>
-                            <th>Tittle</th>
+                            <th>Title</th>
                             <th>Content</th>
                             <th>Action</th>
                         </tr>

@@ -17,7 +17,7 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Asset Details: </h4>
+            <h4 class="m-0 font-weight-bold text-primary">Asset Details: {{ $equipment->asset_hostname }}</h4>
         </div>
 
         <div class="card-body">            
@@ -25,49 +25,40 @@
                 <!-- asset information -->                                   
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_hostname">Hostname</label>
-                    <input type="text" class="form-control" name="asset_hostname" value="{{ $e->asset_hostname }}" readonly>
+                    <input type="text" class="form-control" name="asset_hostname" value="{{ $equipment->asset_hostname }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="asset_location">Location</label>
-                    <input type="text" class="form-control" name="asset_location" value="{{ $e->asset_location }}" disabled>
+                    <label class="form-label" for="asset_location">Origin Location</label>
+                    <input type="text" class="form-control" name="asset_location" value="{{ $equipment->asset_location }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_ip">IP</label>
-                    <input type="text" class="form-control" name="asset_ip" value="{{ $e->asset_ip }}">
+                    <input type="text" class="form-control" name="asset_ip" value="{{ $equipment->asset_ip }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_type">Asset Type</label>
-                    <input type="text" class="form-control" name="asset_type" value="{{ $e->asset_type }}">
+                    <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="asset_type">Site</label>
-                    <select id="defaultSelect" class="form-select" name="site_name">
+                    <label class="form-label" for="site_id">Site [x]</label>
+                    <select id="defaultSelect" class="form-select" name="site_id">
                         <option selected disabled>-- Select Site --</option>
                             @foreach(App\Site::all()->sortBy('site_name') as $site)
-                            <!-- <option value="{{$site->id}}">{{$site->site_name}}</option> -->
-                            <option value="{{ $site->id }}" {{ $site->id == $e->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
+                            <option value="{{$site->id}}">{{$site->site_name}}</option>
+                            
                             @endforeach
                     </select>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_kewpa">Kewpa</label>
-                    <input type="text" class="form-control" name="asset_kewpa" value="{{ $e->asset_kewpa }}">
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label class="form-label" for="asset_status">Status</label>
-                    <input type="text" class="form-control" name="asset_status" value="{{ $e->asset_status }}">
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label class="form-label" for="asset_status">Location</label>
-                    <input type="text" class="form-control" name="asset_status" value="{{ $e->asset_location }}">
-                </div>
-
+                    <input type="text" class="form-control" name="asset_kewpa" value="{{ $equipment->asset_kewpa }}" readonly>
+                </div>                
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_seriesno">Series No.</label>
-                    <input type="text" class="form-control" name="asset_seriesno" value="{{ $e->asset_seriesno }}">
+                    <input type="text" class="form-control" name="asset_seriesno" value="{{ $equipment->asset_seriesno }}" readonly>
                 </div>
                 <div class="mt-2">
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.entireasset') }}">Back</a>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('equipments.entireasset') }}">Back</a>
                 </div>                        
             </div>
                 
@@ -82,35 +73,25 @@
 
             <div class="col-12">
                 <div class="card">
-                    <div class="table-responsive text-nowrap">
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Hostname</th>
-                                    <th>Current Location</th>
-                                    <th>IP</th>
-                                    <th>Asset Type</th>
-                                    <th>Site</th>
-                                    <th>Kewpa</th>
+                                    <th>ID</th>
+                                    <th>Location</th>
+                                    <th>Update Date</th>
                                     <th>Status</th>
-                                    <th>Origin</th>
-                                    <th>Series No.</th>
                                 </tr>
                             </thead>
-                            @foreach($equipments->sortBy('asset_hostname') as $e)
+                            @foreach($equipment->equipmentlog as $log)
                             <tbody class="table-border-bottom-0">
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $e->asset_hostname }}</td>
-                                    <td>{{ $e->asset_location }}</td>
-                                    <td>{{ $e->asset_ip }}</td>
-                                    <td>{{ $e->asset_type }}</td>
-                                    <td>{{ $e->site->site_name ?? "-" }}</td>
-                                    <!-- <td>{{ "Kewpa" }}</td>
-                                    <td>{{ "Status" }}</td>
-                                    <td>{{ "Origin" }}</td>
-                                    <td>{{ "Series No" }}</td> -->
+                                    <td>{{ $log->id}}
+                                    <td>{{ $log->asset_newlocation }}</td>
+                                    <td>{{ $log->log_updatedat }}</td>
+                                    <td>{{ $log->equipmentstatus_id }}</td>
                                 </tr>
                             </tbody>
                             @endforeach

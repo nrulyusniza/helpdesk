@@ -16,6 +16,7 @@ class Knowledgebase extends Model
         "kb_topic", "kb_article", "kb_category"
     ];
 
+    // kb_category
     public function kbcategory()
     {
         return $this->belongsTo(Kbcategory::class, 'kb_category');

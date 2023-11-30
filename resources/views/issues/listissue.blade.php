@@ -33,7 +33,7 @@
                             <th>Asset</th>
                             <th>Category</th>
                             <th>Status</th>
-                            <th>User [DB]</th>
+                            <th>User</th>
                             <th>Action</th>
                         </tr>
                     </thead>                    
@@ -48,7 +48,7 @@
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
                             <td>{{ $i->status->status_label ?? " " }}</td> <!-- badges -->
-                            <td>{{ $i->user->username->fullname->created_by ?? "X" }}</td>
+                            <td>{{ $i->user->fullname->created_by ?? " " }}</td>
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-expand-alt" style='color:#716d6d'

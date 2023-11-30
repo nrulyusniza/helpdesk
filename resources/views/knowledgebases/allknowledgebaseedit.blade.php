@@ -29,7 +29,7 @@
                         <label class="form-label" for="kb_category">Category</label>
                         <select id="defaultSelect" class="form-select" name="kb_category">
                             <option selected disabled>-- Select Category --</option>
-                                @foreach(App\Kbcategory::all() as $kbcategory)
+                                @foreach(App\Kbcategory::all()->sortBy('kb_category') as $kbcategory)
                                 <option value="{{ $kbcategory->id }}" {{ $kbcategory->id == $knowledgebase->kb_category ? 'selected' : '' }}>{{ $kbcategory->kb_category }}</option>
                                 @endforeach
                         </select>

@@ -61,10 +61,10 @@ class Issue extends Model
     }
 
     // reported_by, phone_no
-    public function reportingperson()
-    {
-        return $this->belongsTo(Reportingperson::class, 'reportingperson_id');
-    }
+    // public function reportingperson()
+    // {
+    //     return $this->belongsTo(Reportingperson::class, 'reportingperson_id');
+    // }
 
     // created_by
     public function user()

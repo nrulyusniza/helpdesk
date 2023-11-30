@@ -16,10 +16,10 @@
                         <tr>
                             <th>#</th>
                             <th>Hostname</th>
-                            <th>Location</th>
+                            <th>Origin Location</th>
                             <th>Asset Type</th>
-                            <th>Status</th>
-                            <th>Location</th>
+                            <th>Kewpa</th>
+                            <th>Series No</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -29,8 +29,8 @@
                             <td>{{ $e->asset_hostname }}</td>
                             <td>{{ $e->asset_location }}</td>
                             <td>{{ $e->asset_type }}</td>
-                            <td>{{ "Status" }}</td>
-                            <td>{{ "Origin" }}</td>
+                            <td>{{ $e->asset_kewpa }}</td>
+                            <td>{{ $e->asset_seriesno }}</td>
                         </tr>
                         @endforeach
                     </tbody>                    

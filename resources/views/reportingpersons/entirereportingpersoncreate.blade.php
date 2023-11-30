@@ -33,8 +33,8 @@
                         <input type="text" class="form-control" name="rptpers_mobile">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_name">Site [x]</label>
-                        <select id="defaultSelect" class="form-select" name="site_name">
+                        <label class="form-label" for="site_id">Site [x]</label>
+                        <select id="defaultSelect" class="form-select" name="site_id">
                             <option selected disabled>-- Select Site --</option>
                                 @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 <option value="{{$site->id}}">{{$site->site_name}}</option>

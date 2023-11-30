@@ -40,7 +40,7 @@
                             <td>{{ $b->kb_topic }}</td>
                             <td>{{ $b->kb_article }}</td>   
                             <td>
-                                <form action="{{ route('knowledgebases.destroy',$b->id) }}" method="POST">
+                                <form action="" method="POST">
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('knowledgebases.entireknowledgebaseedit',$b->id) }}"></a>                
                                     @csrf
                                     @method('DELETE')

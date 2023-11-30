@@ -91,7 +91,6 @@ Route::get('knowledgebases/allknowledgebasecreate', 'KnowledgebaseController@all
 Route::post('knowledgebases/allknowledgebasestore', 'KnowledgebaseController@allknowledgebasestore')->name('knowledgebases.allknowledgebasestore');
 Route::get('knowledgebases/{knowledgebase}/allknowledgebaseedit', 'KnowledgebaseController@allknowledgebaseedit')->name('knowledgebases.allknowledgebaseedit');
 Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@allknowledgebaseupdate')->name('knowledgebases.allknowledgebaseupdate');
-// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@update')->name('knowledgebases.update');
 Route::delete('knowledgebases/{knowledgebase}', 'KnowledgebaseController@destroy')->name('knowledgebases.destroy');
 
 // knowledgebases path - site admin view
@@ -273,6 +272,10 @@ Route::get('equipmentstatuss/{equipmentstatus}/edit', 'EquipmentstatusController
 Route::put('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@update')->name('equipmentstatuss.update');
 Route::delete('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@destroy')->name('equipmentstatuss.destroy');
 Route::get('equipmentstatuss/allequipmentstatus', 'EquipmentstatusController@allequipmentstatus')->name('equipmentstatuss.allequipmentstatus');
+
+//------------------------------------------------------------------- TICKET REPORTING -------------------------------------------------------------------
+// tickets path - site user view
+Route::get('tickets/report/generatereport', 'TicketController@generatereport')->name('tickets.report.generatereport');
 
 //------------------------------------------------------------------- XXXX -------------------------------------------------------------------
 

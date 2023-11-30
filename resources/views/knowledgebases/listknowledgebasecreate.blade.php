@@ -34,12 +34,12 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="kb_title">Title</label>
-                        <input type="text" class="form-control" name="kb_title">
+                        <label class="form-label" for="kb_topic">Title</label>
+                        <input type="text" class="form-control" name="kb_topic">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="kb_content">Content</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" type="text" name="kb_content"></textarea>
+                        <label class="form-label" for="kb_article">Content</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" type="text" name="kb_article"></textarea>
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Submit</button>

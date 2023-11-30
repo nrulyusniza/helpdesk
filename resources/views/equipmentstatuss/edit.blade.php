@@ -10,10 +10,9 @@
         <li class="breadcrumb-item">
             <a href="{{ route('myextension') }}">Extension</a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item active">
             <a href="{{ route('equipmentstatuss.allequipmentstatus') }}">Equipment Status</a>
         </li>
-        <li class="breadcrumb-item active">Edit Equipment Status</li>
     </ol>
 </nav>
 
@@ -48,7 +47,7 @@
                 <div class="row justify-content-end">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <a class="btn btn-secondary" href="{{ route('equipmentstatuss.allequipmentstatus') }}">Cancel</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('equipmentstatuss.allequipmentstatus') }}">Cancel</a>
                     </div>
                 </div>
             </form>

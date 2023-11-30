@@ -7,10 +7,9 @@
         <li class="breadcrumb-item">
             <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item active">
             <a href="{{ route('myextension') }}">Extension</a>
         </li>
-        <li class="breadcrumb-item active">Severity</li>
     </ol>
 </nav>
 
@@ -34,7 +33,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="example">
                     <thead>
                         <tr>
                             <th>#</th>

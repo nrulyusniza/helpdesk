@@ -43,7 +43,7 @@ class TypeController extends Controller
   
         Type::create($request->all());
    
-        return redirect()->route('types.index')
+        return redirect()->route('types.allrequesttype')
                         ->with('success','New Request Type created successfully.');
     }
 
@@ -84,7 +84,7 @@ class TypeController extends Controller
   
         $type->update($request->all());
   
-        return redirect()->route('types.index')
+        return redirect()->route('types.allrequesttype')
                         ->with('success','Request Type updated successfully');
     }
 
@@ -98,7 +98,7 @@ class TypeController extends Controller
     {
         $type->delete();
 
-       return redirect()->route('types.index')
+       return redirect()->route('types.allrequesttype')
                         ->with('success','Request Type deleted successfully');
     }
 

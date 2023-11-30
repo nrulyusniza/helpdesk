@@ -2,6 +2,20 @@
 @section('title', 'New Request Status')
 @section('content')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('myextension') }}">Extension</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a href="{{ route('statuss.allstatus') }}">Request Status</a>
+        </li>
+    </ol>
+</nav>
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -24,7 +38,7 @@
             <form action="{{ route('statuss.store') }}" method="POST">
                 @csrf
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Request Status</label>
+                    <label class="col-sm-2 col-form-label" for="status_label">Request Status</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="status_label">
                     </div>
@@ -32,7 +46,7 @@
                 <div class="row justify-content-end">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-secondary" href="{{ route('statuss.index') }}">Cancel</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('statuss.allstatus') }}">Cancel</a>
                     </div>
                 </div>
             </form>

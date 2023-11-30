@@ -10,10 +10,9 @@
         <li class="breadcrumb-item">
             <a href="{{ route('myextension') }}">Extension</a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item active">
             <a href="{{ route('reqcategorys.allreqcategory') }}">Request Category</a>
         </li>
-        <li class="breadcrumb-item active">Edit Request Category</li>
     </ol>
 </nav>
 
@@ -40,7 +39,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Request Category</label>
+                    <label class="col-sm-2 col-form-label" for="req_category">Request Category</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="req_category" value="{{ $reqcategory->req_category}}">
                     </div>
@@ -48,7 +47,7 @@
                 <div class="row justify-content-end">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <a class="btn btn-secondary" href="{{ route('reqcategorys.index') }}">Cancel</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('reqcategorys.allreqcategory') }}">Cancel</a>
                     </div>
                 </div>
             </form>

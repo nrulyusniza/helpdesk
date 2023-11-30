@@ -43,7 +43,7 @@ class ReactionController extends Controller
   
         Reaction::create($request->all());
    
-        return redirect()->route('reactions.index')
+        return redirect()->route('reactions.allresponsetype')
                         ->with('success','New Response type created successfully.');
     }
 
@@ -84,7 +84,7 @@ class ReactionController extends Controller
   
         $reaction->update($request->all());
   
-        return redirect()->route('reactions.index')
+        return redirect()->route('reactions.allresponsetype')
                         ->with('success','Response Type updated successfully');
     }
 
@@ -98,7 +98,7 @@ class ReactionController extends Controller
     {
         $reaction->delete();
 
-        return redirect()->route('reactions.index')
+        return redirect()->route('reactions.allresponsetype')
                         ->with('success','Response Type deleted successfully');
     }
 

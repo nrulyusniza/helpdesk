@@ -7,10 +7,9 @@
         <li class="breadcrumb-item">
             <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item active">
             <a href="{{ route('myextension') }}">Extension</a>
         </li>
-        <li class="breadcrumb-item active">Request Status</li>
     </ol>
 </nav>
 

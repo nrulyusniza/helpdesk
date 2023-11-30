@@ -43,7 +43,7 @@ class EquipmentstatusController extends Controller
   
         Equipmentstatus::create($request->all());
    
-        return redirect()->route('equipmentstatuss.index')
+        return redirect()->route('equipmentstatuss.allequipmentstatus')
                         ->with('success','New Equipment Status created successfully.');
     }
 
@@ -84,7 +84,7 @@ class EquipmentstatusController extends Controller
   
         $equipmentstatus->update($request->all());
   
-        return redirect()->route('equipmentstatuss.index')
+        return redirect()->route('equipmentstatuss.allequipmentstatus')
                         ->with('success','Equipment Status updated successfully');
     }
 
@@ -98,7 +98,7 @@ class EquipmentstatusController extends Controller
     {
         $equipmentstatus->delete();
 
-        return redirect()->route('equipmentstatuss.index')
+        return redirect()->route('equipmentstatuss.allequipmentstatus')
                         ->with('success','Equipment Status deleted successfully');
     }
 

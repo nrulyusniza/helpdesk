@@ -43,7 +43,7 @@ class StatusController extends Controller
   
         Status::create($request->all());
    
-        return redirect()->route('statuss.index')
+        return redirect()->route('statuss.allstatus')
                         ->with('success','New Status created successfully.');
     }
 
@@ -84,7 +84,7 @@ class StatusController extends Controller
   
         $status->update($request->all());
   
-        return redirect()->route('statuss.index')
+        return redirect()->route('statuss.allstatus')
                         ->with('success','Status updated successfully');
     }
 
@@ -98,7 +98,7 @@ class StatusController extends Controller
     {
         $status->delete();
 
-       return redirect()->route('statuss.index')
+       return redirect()->route('statuss.allstatus')
                         ->with('success','Status deleted successfully');
     }
 

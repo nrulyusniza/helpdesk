@@ -48,21 +48,8 @@
 
     <!-- DataTables -->
     <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.css" rel="stylesheet">
-    
-    <!-- <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.dataTables.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.dataTables.min.css') }}" /> -->
 
-    <!-- <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.bootstrap5.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.bulma.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.dataTables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.foundation.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.jqueryui.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/dataTables.semanticui.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('pages/assets/vendor/DataTables/DataTables-1.13.6/css/jquery.dataTables.min.css') }}" /> -->
-
-    <!-- sweetalert -->
+    <!-- SweetAlert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
             integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -72,12 +59,17 @@
           integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
 
+    <!-- Donut Chart -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- logout but not necessary, can delete later, use for logout modal -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.min.js"></script> -->
+
+    <!-- Logout Confirmation Messages -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
 
   </head>
 
@@ -85,8 +77,8 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- Menu -->
 
+        <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="" class="app-brand-link">
@@ -519,7 +511,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="confirmLogout();">
+                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="confirmLogout(); return false;">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -649,7 +641,7 @@
       });
     </script>    
 
-    <!-- sweetalert JS (delete row)-->
+    <!-- AweetAlert JS (Delete a Row)-->
     <script>
       function confirmation(ev) {
         // prevent the default behavior of the event
@@ -699,14 +691,13 @@
       }
     </script>
 
-
-    <!-- logout JS -->
+    <!-- Logout JS -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
       function confirmLogout() {
           Swal.fire({
-              title: 'Are you sure?',
+              title: 'Ready to Leave?',
               text: 'You will be logged out!',
               icon: 'warning',
               showCancelButton: true,

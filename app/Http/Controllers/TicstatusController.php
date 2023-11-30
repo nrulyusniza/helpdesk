@@ -43,7 +43,7 @@ class TicstatusController extends Controller
   
         Ticstatus::create($request->all());
    
-        return redirect()->route('ticstatuss.index')
+        return redirect()->route('ticstatuss.allstatus')
                         ->with('success','New Ticket Status created successfully.');
     }
 
@@ -84,7 +84,7 @@ class TicstatusController extends Controller
   
         $ticstatus->update($request->all());
   
-        return redirect()->route('ticstatuss.index')
+        return redirect()->route('ticstatuss.allstatus')
                         ->with('success','Ticket Status updated successfully');
     }
 
@@ -98,7 +98,7 @@ class TicstatusController extends Controller
     {
         $ticstatus->delete();
 
-        return redirect()->route('ticstatuss.index')
+        return redirect()->route('ticstatuss.allstatus')
                         ->with('success','Ticket Status deleted successfully');
     }
 

@@ -48,7 +48,6 @@ Route::get('/myextension', 'HomeController@myextension')->name('myextension');
 Route::get('users/index', 'UserController@index')->name('users.index');
 Route::get('users/create', 'UserController@create')->name('users.create');
 Route::post('users/store', 'UserController@store')->name('users.store');
-//Route::get('users/{user}', 'UserController@show')->name('users.show');
 Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
 Route::put('users/{user}', 'UserController@update')->name('users.update');
 Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
@@ -59,7 +58,6 @@ Route::get('users/alluser', 'UserController@alluser')->name('users.alluser');
 Route::get('roles/index', 'RoleController@index')->name('roles.index');
 Route::get('roles/create', 'RoleController@create')->name('roles.create');
 Route::post('roles/store', 'RoleController@store')->name('roles.store');
-//Route::get('roles/{role}', 'RoleController@show')->name('roles.show');
 Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
 Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
 Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy');
@@ -70,7 +68,6 @@ Route::get('roles/allrole', 'RoleController@allrole')->name('roles.allrole');
 Route::get('sites/index', 'SiteController@index')->name('sites.index');
 Route::get('sites/create', 'SiteController@create')->name('sites.create');
 Route::post('sites/store', 'SiteController@store')->name('sites.store');
-//Route::get('sites/{site}', 'SiteController@show')->name('sites.show');
 Route::get('sites/{site}/edit', 'SiteController@edit')->name('sites.edit');
 Route::put('sites/{site}', 'SiteController@update')->name('sites.update');
 Route::delete('sites/{site}', 'SiteController@destroy')->name('sites.destroy');
@@ -81,7 +78,6 @@ Route::get('sites/allsite', 'SiteController@allsite')->name('sites.allsite');
 Route::get('kbcategorys/index', 'KbcategoryController@index')->name('kbcategorys.index');
 Route::get('kbcategorys/create', 'KbcategoryController@create')->name('kbcategorys.create');
 Route::post('kbcategorys/store', 'KbcategoryController@store')->name('kbcategorys.store');
-//Route::get('kbcategorys/{kbcategory}', 'KbcategoryController@show')->name('kbcategorys.show');
 Route::get('kbcategorys/{kbcategory}/edit', 'KbcategoryController@edit')->name('kbcategorys.edit');
 Route::put('kbcategorys/{kbcategory}', 'KbcategoryController@update')->name('kbcategorys.update');
 Route::delete('kbcategorys/{kbcategory}', 'KbcategoryController@destroy')->name('kbcategorys.destroy');
@@ -90,18 +86,13 @@ Route::get('kbcategorys/allkbcategory', 'KbcategoryController@allkbcategory')->n
 //------------------------------------------------------------------- KNOWLEDGEBASES -------------------------------------------------------------------
 // knowledgebases path - super admin view
 Route::get('knowledgebases/index', 'KnowledgebaseController@index')->name('knowledgebases.index');
-// Route::get('knowledgebases/create', 'KnowledgebaseController@create')->name('knowledgebases.create');
-// Route::post('knowledgebases/store', 'KnowledgebaseController@store')->name('knowledgebases.store');
-// //Route::get('knowledgebases/{knowledgebase}', 'KnowledgebaseController@show')->name('knowledgebases.show');
-// Route::get('knowledgebases/{knowledgebase}/edit', 'KnowledgebaseController@edit')->name('knowledgebases.edit');
-// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@update')->name('knowledgebases.update');
-Route::delete('knowledgebases/{knowledgebase}', 'KnowledgebaseController@destroy')->name('knowledgebases.destroy');
-
 Route::get('knowledgebases/allknowledgebase', 'KnowledgebaseController@allknowledgebase')->name('knowledgebases.allknowledgebase');
 Route::get('knowledgebases/allknowledgebasecreate', 'KnowledgebaseController@allknowledgebasecreate')->name('knowledgebases.allknowledgebasecreate');
 Route::post('knowledgebases/allknowledgebasestore', 'KnowledgebaseController@allknowledgebasestore')->name('knowledgebases.allknowledgebasestore');
 Route::get('knowledgebases/{knowledgebase}/allknowledgebaseedit', 'KnowledgebaseController@allknowledgebaseedit')->name('knowledgebases.allknowledgebaseedit');
 Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@allknowledgebaseupdate')->name('knowledgebases.allknowledgebaseupdate');
+// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@update')->name('knowledgebases.update');
+Route::delete('knowledgebases/{knowledgebase}', 'KnowledgebaseController@destroy')->name('knowledgebases.destroy');
 
 // knowledgebases path - site admin view
 Route::get('knowledgebases/listknowledgebase', 'KnowledgebaseController@listknowledgebase')->name('knowledgebases.listknowledgebase');
@@ -122,7 +113,6 @@ Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@entireknow
 Route::get('equipments/index', 'EquipmentController@index')->name('equipments.index');
 Route::get('equipments/create', 'EquipmentController@create')->name('equipments.create');
 Route::post('equipments/store', 'EquipmentController@store')->name('equipments.store');
-//Route::get('equipments/{equipment}', 'EquipmentController@show')->name('equipments.show');
 Route::get('equipments/{equipment}/edit', 'EquipmentController@edit')->name('equipments.edit');
 Route::put('equipments/{equipment}', 'EquipmentController@update')->name('equipments.update');
 Route::delete('equipments/{equipment}', 'EquipmentController@destroy')->name('equipments.destroy');
@@ -144,7 +134,6 @@ Route::get('equipments/{equipment}/entireassetlog', 'EquipmentController@entirea
 Route::get('reportingpersons/index', 'ReportingpersonController@index')->name('reportingpersons.index');
 Route::get('reportingpersons/create', 'ReportingpersonController@create')->name('reportingpersons.create');
 Route::post('reportingpersons/store', 'ReportingpersonController@store')->name('reportingpersons.store');
-//Route::get('reportingpersons/{reportingperson}', 'ReportingpersonController@show')->name('reportingpersons.show');
 Route::get('reportingpersons/{reportingperson}/edit', 'ReportingpersonController@edit')->name('reportingpersons.edit');
 Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@update')->name('reportingpersons.update');
 Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@destroy')->name('reportingpersons.destroy');
@@ -171,7 +160,6 @@ Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@e
 Route::get('types/index', 'TypeController@index')->name('types.index');
 Route::get('types/create', 'TypeController@create')->name('types.create');
 Route::post('types/store', 'TypeController@store')->name('types.store');
-//Route::get('types/{type}', 'TypeController@show')->name('types.show');
 Route::get('types/{type}/edit', 'TypeController@edit')->name('types.edit');
 Route::put('types/{type}', 'TypeController@update')->name('types.update');
 Route::delete('types/{type}', 'TypeController@destroy')->name('types.destroy');
@@ -182,7 +170,6 @@ Route::get('types/requesttype', 'TypeController@allrequesttype')->name('types.al
 Route::get('reqcategorys/index', 'ReqcategoryController@index')->name('reqcategorys.index');
 Route::get('reqcategorys/create', 'ReqcategoryController@create')->name('reqcategorys.create');
 Route::post('reqcategorys/store', 'ReqcategoryController@store')->name('reqcategorys.store');
-//Route::get('reqcategorys/{reqcategory}', 'ReqcategoryController@show')->name('reqcategorys.show');
 Route::get('reqcategorys/{reqcategory}/edit', 'ReqcategoryController@edit')->name('reqcategorys.edit');
 Route::put('reqcategorys/{reqcategory}', 'ReqcategoryController@update')->name('reqcategorys.update');
 Route::delete('reqcategorys/{reqcategory}', 'ReqcategoryController@destroy')->name('reqcategorys.destroy');
@@ -193,7 +180,6 @@ Route::get('reqcategorys/allreqcategory', 'ReqcategoryController@allreqcategory'
 Route::get('severitys/index', 'SeverityController@index')->name('severitys.index');
 Route::get('severitys/create', 'SeverityController@create')->name('severitys.create');
 Route::post('severitys/store', 'SeverityController@store')->name('severitys.store');
-//Route::get('severitys/{severity}', 'SeverityController@show')->name('severitys.show');
 Route::get('severitys/{severity}/edit', 'SeverityController@edit')->name('severitys.edit');
 Route::put('severitys/{severity}', 'SeverityController@update')->name('severitys.update');
 Route::delete('severitys/{severity}', 'SeverityController@destroy')->name('severitys.destroy');
@@ -204,7 +190,6 @@ Route::get('severitys/allseverity', 'SeverityController@allseverity')->name('sev
 Route::get('statuss/index', 'StatusController@index')->name('statuss.index');
 Route::get('statuss/create', 'StatusController@create')->name('statuss.create');
 Route::post('statuss/store', 'StatusController@store')->name('statuss.store');
-//Route::get('statuss/{status}', 'StatusController@show')->name('statuss.show');
 Route::get('statuss/{status}/edit', 'StatusController@edit')->name('statuss.edit');
 Route::put('statuss/{status}', 'StatusController@update')->name('statuss.update');
 Route::delete('statuss/{status}', 'StatusController@destroy')->name('statuss.destroy');
@@ -215,7 +200,6 @@ Route::get('statuss/allstatus', 'StatusController@allstatus')->name('statuss.all
 Route::get('reactions/index', 'ReactionController@index')->name('reactions.index');
 Route::get('reactions/create', 'ReactionController@create')->name('reactions.create');
 Route::post('reactions/store', 'ReactionController@store')->name('reactions.store');
-//Route::get('reactions/{reaction}', 'ReactionController@show')->name('reactions.show');
 Route::get('reactions/{reaction}/edit', 'ReactionController@edit')->name('reactions.edit');
 Route::put('reactions/{reaction}', 'ReactionController@update')->name('reactions.update');
 Route::delete('reactions/{reaction}', 'ReactionController@destroy')->name('reactions.destroy');
@@ -226,7 +210,6 @@ Route::get('reactions/responsetype', 'ReactionController@allresponsetype')->name
 Route::get('ticstatuss/index', 'TicstatusController@index')->name('ticstatuss.index');
 Route::get('ticstatuss/create', 'TicstatusController@create')->name('ticstatuss.create');
 Route::post('ticstatuss/store', 'TicstatusController@store')->name('ticstatuss.store');
-//Route::get('ticstatuss/{ticstatus}', 'TicstatusController@show')->name('ticstatuss.show');
 Route::get('ticstatuss/{ticstatus}/edit', 'TicstatusController@edit')->name('ticstatuss.edit');
 Route::put('ticstatuss/{ticstatus}', 'TicstatusController@update')->name('ticstatuss.update');
 Route::delete('ticstatuss/{ticstatus}', 'TicstatusController@destroy')->name('ticstatuss.destroy');
@@ -286,7 +269,6 @@ Route::get('tickets/{ticket}/entireconsumablelog', 'TicketController@entireconsu
 Route::get('equipmentstatuss/index', 'EquipmentstatusController@index')->name('equipmentstatuss.index');
 Route::get('equipmentstatuss/create', 'EquipmentstatusController@create')->name('equipmentstatuss.create');
 Route::post('equipmentstatuss/store', 'EquipmentstatusController@store')->name('equipmentstatuss.store');
-//Route::get('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@show')->name('equipmentstatuss.show');
 Route::get('equipmentstatuss/{equipmentstatus}/edit', 'EquipmentstatusController@edit')->name('equipmentstatuss.edit');
 Route::put('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@update')->name('equipmentstatuss.update');
 Route::delete('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@destroy')->name('equipmentstatuss.destroy');

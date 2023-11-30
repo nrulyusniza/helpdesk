@@ -10,7 +10,6 @@
         <li class="breadcrumb-item">
             <a href="{{ route('myextension') }}">Extension</a>
         </li>
-        <li class="breadcrumb-item active">Equipment Status</li>
     </ol>
 </nav>
 

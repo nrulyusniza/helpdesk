@@ -11,6 +11,6 @@ class Equipmentstatus extends Model
     public $timestamps=false;
 
     protected $fillable = [
-        "equipmentstatus_label"
+        "assetstatus_label"
     ];
 }

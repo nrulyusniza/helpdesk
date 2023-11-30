@@ -43,7 +43,7 @@ class KbcategoryController extends Controller
   
         Kbcategory::create($request->all());
    
-        return redirect()->route('kbcategorys.index')
+        return redirect()->route('kbcategorys.allkbcategory')
                         ->with('success','New Category created successfully.');
     }
 
@@ -84,7 +84,7 @@ class KbcategoryController extends Controller
   
         $kbcategory->update($request->all());
   
-        return redirect()->route('kbcategorys.index')
+        return redirect()->route('kbcategorys.allkbcategory')
                         ->with('success','Category updated successfully');
     }
 
@@ -98,7 +98,7 @@ class KbcategoryController extends Controller
     {
         $kbcategory->delete();
 
-       return redirect()->route('kbcategorys.index')
+       return redirect()->route('kbcategorys.allkbcategory')
        ->with('success','Category deleted successfully');
     }
 

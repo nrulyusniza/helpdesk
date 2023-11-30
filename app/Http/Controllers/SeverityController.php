@@ -43,7 +43,7 @@ class SeverityController extends Controller
   
         Severity::create($request->all());
    
-        return redirect()->route('severitys.index')
+        return redirect()->route('severitys.allseverity')
                         ->with('success','New Severity created successfully.');
     }
 
@@ -84,7 +84,7 @@ class SeverityController extends Controller
   
         $severity->update($request->all());
   
-        return redirect()->route('severitys.index')
+        return redirect()->route('severitys.allseverity')
                         ->with('success','Severity updated successfully');
     }
 
@@ -98,7 +98,7 @@ class SeverityController extends Controller
     {
         $severity->delete();
 
-       return redirect()->route('severitys.index')
+       return redirect()->route('severitys.allseverity')
                         ->with('success','Severity deleted successfully');
     }
 

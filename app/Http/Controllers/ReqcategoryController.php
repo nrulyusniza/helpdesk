@@ -43,7 +43,7 @@ class ReqcategoryController extends Controller
   
         Reqcategory::create($request->all());
    
-        return redirect()->route('reqcategorys.index')
+        return redirect()->route('reqcategorys.allreqcategory')
                         ->with('success','New Request Category created successfully.');
     }
 
@@ -84,7 +84,7 @@ class ReqcategoryController extends Controller
   
         $reqcategory->update($request->all());
   
-        return redirect()->route('reqcategorys.index')
+        return redirect()->route('reqcategorys.allreqcategory')
                         ->with('success','Request Category updated successfully');
     }
 
@@ -98,7 +98,7 @@ class ReqcategoryController extends Controller
     {
         $reqcategory->delete();
 
-       return redirect()->route('reqcategorys.index')
+       return redirect()->route('reqcategorys.allreqcategory')
                         ->with('success','Request Category deleted successfully');
     }
 

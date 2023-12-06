@@ -274,7 +274,10 @@ Route::delete('equipmentstatuss/{equipmentstatus}', 'EquipmentstatusController@d
 Route::get('equipmentstatuss/allequipmentstatus', 'EquipmentstatusController@allequipmentstatus')->name('equipmentstatuss.allequipmentstatus');
 
 //------------------------------------------------------------------- TICKET REPORTING -------------------------------------------------------------------
-// tickets path - site user view
+// tickets path - super admin view
+Route::get('tickets/report/producereport', 'TicketController@producereport')->name('tickets.report.producereport');
+
+// tickets path - site admin & site user view
 Route::get('tickets/report/generatereport', 'TicketController@generatereport')->name('tickets.report.generatereport');
 
 //------------------------------------------------------------------- XXXX -------------------------------------------------------------------

@@ -270,14 +270,25 @@ class TicketController extends Controller
         return view('tickets.entireconsumablelog', compact('ticket'));
     }
 
+    //---------------------------------------------------------------------- REPORTING ----------------------------------------------------------------------
+
+    public function producereport(Ticket $ticket)
+    {
+        $tickets = Ticket::where('ticstatus_id', 4)->orderBy('report_received','desc')->with('issue.site')->get();
+
+        return view('tickets.report.generatereport', compact('tickets'));
+    }
+
     public function generatereport(Ticket $ticket)
     {
-        // $loggedInUser = Auth::user();
-        // $site_id = $loggedInUser->site->id;
-        
-        // $tickets = Ticket::where('site_id', $site_id)->orderBy('request_no','desc')->get();
+        $loggedInUser = Auth::user();
+        $site_id = $loggedInUser->site_id;
 
-        $tickets = Ticket::with('user')->get();
+        $tickets = Ticket::whereHas('issue.site', function($query) use ($site_id) {
+            $query->where('site_id', $site_id);
+            })
+            ->where('ticstatus_id', 4)
+            ->get();
 
         return view('tickets.report.generatereport', compact('tickets'));
     }

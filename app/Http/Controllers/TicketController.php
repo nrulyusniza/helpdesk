@@ -272,12 +272,44 @@ class TicketController extends Controller
 
     //---------------------------------------------------------------------- REPORTING ----------------------------------------------------------------------
 
-    public function producereport(Ticket $ticket)
+    public function producereport(Request $request, Ticket $ticket)
     {
         $tickets = Ticket::where('ticstatus_id', 4)->orderBy('report_received','desc')->with('issue.site')->get();
 
-        return view('tickets.report.generatereport', compact('tickets'));
+        if($request->ajax())
+        {
+            $data = Ticket::select('*');
+
+            if($ticket->filled('from_date') && $ticket->filled('to_date'))
+            {
+                $data = $data->whereBetween('report_received', [$ticket->from_date, $ticket->to_date]);
+            }
+
+            return DataTables::of($data)->addIndexColumn()->make(true);
+        }
+
+        return view('tickets.report.producereport', compact('tickets'));
     }
+
+    // public function producereport(Request $request, Ticket $ticket)
+    // {
+    //     $tickets = Ticket::where('ticstatus_id', 4)
+    //         ->orderBy('report_received', 'desc')
+    //         ->with('issue.site');
+    
+    //     // Check if start_date and end_date are provided in the request
+    //     if ($request->has('start_date') && $request->has('end_date')) {
+    //         $start_date = $request->input('start_date');
+    //         $end_date = $request->input('end_date');
+    
+    //         // Filter tickets based on the selected date range
+    //         $tickets->whereBetween('report_received', [$start_date, $end_date]);
+    //     }
+    
+    //     $tickets = $tickets->get();
+    
+    //     return view('tickets.report.producereport', compact('tickets'));
+    // }
 
     public function generatereport(Ticket $ticket)
     {
@@ -290,6 +322,26 @@ class TicketController extends Controller
             ->where('ticstatus_id', 4)
             ->get();
 
+            
+
         return view('tickets.report.generatereport', compact('tickets'));
     }
+
+    // public function generatereport(Request $request, Ticket $ticket)
+    // {
+    //     $loggedInUser = Auth::user();
+    //     $site_id = $loggedInUser->site_id;
+
+    //     $startDate = $request->input('start_date'); // assuming you have 'start_date' and 'end_date' in your form
+    //     $endDate = $request->input('end_date');
+
+    //     $tickets = Ticket::whereHas('issue.site', function($query) use ($site_id) {
+    //             $query->where('site_id', $site_id);
+    //         })
+    //         ->where('ticstatus_id', 4)
+    //         ->whereBetween('report_received', [$startDate, $endDate])
+    //         ->get();
+
+    //     return view('tickets.report.generatereport', compact('tickets'));
+    // }
 }

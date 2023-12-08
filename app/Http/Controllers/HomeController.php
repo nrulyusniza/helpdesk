@@ -61,7 +61,13 @@ class HomeController extends Controller
         $equipments = DB::table('equipments')->count();
 
         // area chart
-        
+        // $janTix = DB::table('tickets')->where('report_received')->count();
+
+        $monthlyTicketCounts = DB::table('tickets')
+                                ->select(DB::raw('DATE_FORMAT(report_received, "%Y-%m") as month_year'), DB::raw('COUNT(*) as ticket_count'))
+                                ->groupBy('month_year')
+                                ->get();
+
         // donut chart
         $issues = DB::table('issues')->count();
         $totalTicketHardware = DB::table('issues')->where('reqcategory_id', '1')->count();
@@ -71,7 +77,8 @@ class HomeController extends Controller
 
         return view('/dashboard/mydashboard', compact('tickets', 'allTixOpen', 'allTixClosed', 'allTixKiv', 
                                                     'knowledgebases', 'users', 'sites', 'equipments', 
-                                                    'issues', 'totalTicketHardware', 'totalTicketSoftware', 'totalTicketNetwork', 'totalTicketNonsystem'));
+                                                    'issues', 'totalTicketHardware', 'totalTicketSoftware', 'totalTicketNetwork', 'totalTicketNonsystem',
+                                                    'monthlyTicketCounts'));
     }
 
     //---------------------------------------------------------------------- SITE ADMIN DASHBOARD ----------------------------------------------------------------------
@@ -112,6 +119,10 @@ class HomeController extends Controller
                         ->count();
 
         // area chart
+        $monthlyTicketCounts = DB::table('tickets')
+                                ->select(DB::raw('DATE_FORMAT(report_received, "%Y-%m") as month_year'), DB::raw('COUNT(*) as ticket_count'))
+                                ->groupBy('month_year')
+                                ->get();
         
         // donut chart
         // counts the total number of tickets by logged in user's site_id
@@ -158,7 +169,8 @@ class HomeController extends Controller
         $nonsystemTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '4')->count();
 
         return view('/dashboard/dashboardadmin', compact('totalTickets', 'openTickets', 'closedTickets', 'kivTickets',
-                                                        'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
+                                                        'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets',
+                                                        'monthlyTicketCounts'));
     }
 
     //---------------------------------------------------------------------- SITE USER DASHBOARD ----------------------------------------------------------------------
@@ -199,6 +211,10 @@ class HomeController extends Controller
                         ->count();
 
         // area chart
+        $monthlyTicketCounts = DB::table('tickets')
+                                ->select(DB::raw('DATE_FORMAT(report_received, "%Y-%m") as month_year'), DB::raw('COUNT(*) as ticket_count'))
+                                ->groupBy('month_year')
+                                ->get();
         
         // donut chart
         // counts the total number of tickets by logged in user's site_id
@@ -245,7 +261,8 @@ class HomeController extends Controller
         $nonsystemTickets = DB::table('issues')->where('issues.site_id', '=', $site_id)->where('reqcategory_id', '4')->count();
 
         return view('/dashboard/dashboarduser', compact('totalTickets', 'openTickets', 'closedTickets', 'kivTickets',
-                                                        'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
+                                                        'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets',
+                                                        'monthlyTicketCounts'));
     }
 
     //---------------------------------------------------------------------- EXTENSION ----------------------------------------------------------------------

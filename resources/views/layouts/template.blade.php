@@ -70,6 +70,9 @@
 
     <!-- Logout Confirmation Messages -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <!-- Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   </head>
 
@@ -609,87 +612,9 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- DataTables JS -->
-    <!-- for Copy, Excel, PDF, Print & Search & Show N entries & Sorting & Showing N to N of N entries & Pagination --> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script>
+        
 
-    <script>
-      $(document).ready(function(){
-        $('#example').DataTable({
-          pagingType: 'simple_numbers',
-          lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],          
-          responsive:true,
-          dom: '<"html5buttons"B>frltip',
-          buttons: [
-              {extend: 'copy'},
-              //{extend: 'csv'},
-              {extend: 'excel', title: 'ExampleFile'},
-              {extend: 'pdf', title: 'ExampleFile'},
-              {extend: 'print',
-              customize: function (win){
-                $(win.document.body).addClass('white-bg');
-                $(win.document.body).css('font-size', '10px');
-                $(win.document.body).find('table')
-                .addClass('compact')
-                .css('font-size', 'inherit');
-                }
-              }
-            ]
-        });
-      });
-    </script>    
-
-    <!-- AweetAlert JS (Delete a Row)-->
-    <script>
-      function confirmation(ev) {
-        // prevent the default behavior of the event
-        ev.preventDefault();
-
-        // get the URL to redirect to from the closest form element
-        var urlToRedirect = ev.currentTarget.closest('form').getAttribute('action');
-        console.log(urlToRedirect);
-
-        // show a confirmation dialog using the SweetAlert library
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willCancel) => {
-            // if the user confirms the deletion
-            if (willCancel) {
-                // create a form dynamically
-                var form = document.createElement("form");
-                form.setAttribute("method", "POST");
-                form.setAttribute("action", urlToRedirect);
-                form.setAttribute("style", "display:none");
-
-                // add a CSRF token field to the form
-                var csrfField = document.createElement("input");
-                csrfField.setAttribute("type", "hidden");
-                csrfField.setAttribute("name", "_token");
-                csrfField.setAttribute("value", "{{ csrf_token() }}");
-
-                // add a method field to the form with value 'DELETE'
-                var methodField = document.createElement("input");
-                methodField.setAttribute("type", "hidden");
-                methodField.setAttribute("name", "_method");
-                methodField.setAttribute("value", "DELETE");
-
-                // append the form to the body, and append the fields to the form
-                document.body.appendChild(form);
-                form.appendChild(csrfField);
-                form.appendChild(methodField);
-
-                // submit the form to perform the DELETE request
-                form.submit();
-            }
-        });
-      }
-    </script>
+    
 
     <!-- Logout JS -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -729,293 +654,48 @@
         // Display the modal
         modal.style.display = "block";
       }
-      </script>
-
-    <!-- Popup Windows -->
-    <script>
-    function openPopup() {
-      // Specify the URL or content you want to display in the popup window
-      var popupContent = "<h1>This is a popup window!</h1>";
-
-      // Open the popup window with specified dimensions
-      var popupWindow = window.open("", "Popup", "width=400,height=300");
-
-      // Write the content to the popup window
-      popupWindow.document.write(popupContent);
-    }
     </script>
 
-    <!-- Area Chart JS -->
-    <script>
-      const incomeChartEl = document.querySelector('#incomeChart'),
-      incomeChartConfig = {
-        series: [
-          {
-            data: [24, 21, 30, 22, 42, 26, 35, 29]
-          }
-        ],
-        chart: {
-          height: 215,
-          parentHeightOffset: 0,
-          parentWidthOffset: 0,
-          toolbar: {
-            show: false
-          },
-          type: 'area'
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          width: 2,
-          curve: 'smooth'
-        },
-        legend: {
-          show: false
-        },
-        markers: {
-          size: 6,
-          colors: 'transparent',
-          strokeColors: 'transparent',
-          strokeWidth: 4,
-          discrete: [
-            {
-              fillColor: config.colors.white,
-              seriesIndex: 0,
-              dataPointIndex: 7,
-              strokeColor: config.colors.primary,
-              strokeWidth: 2,
-              size: 6,
-              radius: 8
-            }
-          ],
-          hover: {
-            size: 7
-          }
-        },
-        colors: [config.colors.primary],
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shade: shadeColor,
-            shadeIntensity: 0.6,
-            opacityFrom: 0.5,
-            opacityTo: 0.25,
-            stops: [0, 95, 100]
-          }
-        },
-        grid: {
-          borderColor: borderColor,
-          strokeDashArray: 3,
-          padding: {
-            top: -20,
-            bottom: -8,
-            left: -10,
-            right: 8
-          }
-        },
-        xaxis: {
-          categories: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false
-          },
-          labels: {
-            show: true,
-            style: {
-              fontSize: '13px',
-              colors: axisColor
-            }
-          }
-        },
-        yaxis: {
-          labels: {
-            show: false
-          },
-          min: 10,
-          max: 50,
-          tickAmount: 4
-        }
-      };
-      if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
-        const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
-        incomeChart.render();
-      }
-    </script>
+    @yield('scriptlibraries')
 
-    <!-- Donut Chart JS
-    <script>
-      $(document).ready(function() {
-        const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
-          orderChartConfig = {
-            chart: {
-              height: 165,
-              width: 130,
-              type: 'donut'
-            },
-            labels: ['Hardware', 'Software', 'Network', 'Non-System'],
-            series: [  ],
-            colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
-            stroke: {
-              width: 5,
-              colors: [cardColor]
-            },
-            dataLabels: {
-              enabled: false,
-              formatter: function (val, opt) {
-                return parseInt(val) + '%';
-              }
-            },
-            legend: {
-              show: false
-            },
-            grid: {
-              padding: {
-                top: 0,
-                bottom: 0,
-                right: 15
-              }
-            },
-            states: {
-              hover: {
-                filter: { type: 'none' }
-              },
-              active: {
-                filter: { type: 'none' }
-              }
-            },
-            plotOptions: {
-              pie: {
-                donut: {
-                  size: '75%',
-                  labels: {
-                    show: true,
-                    value: {
-                      fontSize: '1.5rem',
-                      fontFamily: 'Public Sans',
-                      color: headingColor,
-                      offsetY: -15,
-                      formatter: function (val) {
-                        return parseInt(val) + '%';
-                      }
-                    },
-                    name: {
-                      offsetY: 20,
-                      fontFamily: 'Public Sans'
-                    },
-                    total: {
-                      show: true,
-                      fontSize: '0.8125rem',
-                      color: axisColor,
-                      label: 'Weekly',
-                      formatter: function (w) {
-                        return '38%';
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          };
-        if (typeof chartOrderStatistics !== undefined && chartOrderStatistics !== null) {
-          const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
-          statisticsChart.render();
+    <!-- Date Range Picker -->
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMM DD, YYYY') + ' - ' + end.format('MMM DD, YYYY'));
         }
+
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+              'Today': [moment(), moment()],
+              'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+              'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+              'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+              'This Month': [moment().startOf('month'), moment().endOf('month')],
+              'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+
+        cb(start, end);
+
+        // Update the form inputs on date range change
+        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+            $('#start_date').val(picker.startDate.format('YYYY-MM-DD'));
+            $('#end_date').val(picker.endDate.format('YYYY-MM-DD'));
+        }); 
+
       });
-    </script> -->
-
-    <!-- Include the ApexCharts library -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
-
-    <script>
-      // Create a function to generate the donut chart
-      function generateDonutChart() {
-        // Define the chart options
-        var options = {
-          series: [42, 5, 8, 8],
-          labels: ['Hardware', 'Software', 'Network', 'Non-System'],
-          chart: {
-            type: 'donut',
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }]
-        };
-
-        // Create the chart instance
-        var chart = new ApexCharts(document.getElementById('ticketByCategory'), options);
-
-        // Render the chart
-        chart.render();
-      }
-
-      // Call the function to generate the donut chart
-      generateDonutChart();
     </script>
-
-    @section('scripts')
-        <!-- Include Required Prerequisites -->
-        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-
-        <!-- Include Date Range Picker -->
-        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
-
-        <script type="text/javascript">
-            $(function () {
-                let dateInterval = getQueryParameter('date_filter');
-                let start = moment().startOf('isoWeek');
-                let end = moment().endOf('isoWeek');
-                if (dateInterval) {
-                    dateInterval = dateInterval.split(' - ');
-                    start = dateInterval[0];
-                    end = dateInterval[1];
-                }
-                $('#date_filter').daterangepicker({
-                    "showDropdowns": true,
-                    "showWeekNumbers": true,
-                    "alwaysShowCalendars": true,
-                    startDate: start,
-                    endDate: end,
-                    locale: {
-                        format: 'YYYY-MM-DD',
-                        firstDay: 1,
-                    },
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                        'This Year': [moment().startOf('year'), moment().endOf('year')],
-                        'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
-                        'All time': [moment().subtract(30, 'year').startOf('month'), moment().endOf('month')],
-                    }
-                });
-            });
-            function getQueryParameter(name) {
-                const url = window.location.href;
-                name = name.replace(/[\[\]]/g, "\\$&");
-                const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
-            }
-        </script>
-
-    @stop
 
   </body>
 </html>

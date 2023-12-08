@@ -223,11 +223,11 @@
         </div>
       </div>
       <div class="card-body px-0">
-        <div class="tab-content p-0">
-          <div class="tab-pane fade show active" id="nav-ticketByMonth">
-            <div id="incomeChart"></div>
-          </div>
-        </div>
+        <!-- <div class="tab-content p-0">
+          <div class="tab-pane fade show active" id="nav-ticketByMonth"> -->
+            <canvas id="ticketByMonth"></canvas>
+          <!-- </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -309,4 +309,96 @@
   </div>
 
 </div>
-@endsection
+
+@stop
+
+@section('scriptlibraries')
+
+  <!-- Area Chart JS -->
+  <!-- Chart.js library is included -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Sample data (replace this with your actual data)
+      const ticketCountsByMonth = [10, 30, 0, 20, 15, 35, 10, 10, 10, 40, 60, 65];
+      // const ticketCountsByMonth = @json($monthlyTicketCounts);
+
+      // Get the canvas element and create a 2d context
+      const ticketByMonthCanvas = document.getElementById('ticketByMonth');
+      const ctx = ticketByMonthCanvas.getContext('2d');
+
+      // Create the area chart
+      const ticketByMonth = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Total Tickets',
+            data: ticketCountsByMonth,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- Donut Chart JS -->
+  <!-- Include the ApexCharts library -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
+
+  <script>
+    // Create a function to generate the donut chart
+    function generateDonutChart() {
+      // Define the chart options
+      var options = {
+        series: [{{ $totalTicketHardware }}, {{ $totalTicketSoftware }}, {{ $totalTicketNetwork }}, {{ $totalTicketNonsystem }}],
+        labels: ['Hardware', 'Software', 'Network', 'Non-System'],
+        chart: {
+          type: 'donut',
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      };
+
+      // Create the chart instance
+      var chart = new ApexCharts(document.getElementById('ticketByCategory'), options);
+
+      // Render the chart
+      chart.render();
+    }
+
+    // Call the function to generate the donut chart
+    generateDonutChart();
+  </script>
+
+@stop

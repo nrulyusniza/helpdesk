@@ -131,37 +131,11 @@
         </div>
       </div>
       <div class="card-body px-0">
-        <div class="tab-content p-0">
-          <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-            <!--
-            <div class="d-flex p-4 pt-3">
-              <div class="avatar flex-shrink-0 me-3">
-                <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
-              </div>
-              <div>
-                <small class="text-muted d-block">Total Balance</small>
-                <div class="d-flex align-items-center">
-                  <h6 class="mb-0 me-1">$459.10</h6>
-                  <small class="text-success fw-medium">
-                    <i class="bx bx-chevron-up"></i>
-                    42.9%
-                  </small>
-                </div>
-              </div>
-            </div> -->
-            <div id="incomeChart"></div>
-            <div class="d-flex justify-content-center pt-4 gap-2">
-              <div class="flex-shrink-0">
-                <div id="expensesOfWeek"></div>
-              </div>
-              <div>
-                <!--
-                <p class="mb-n1 mt-1">Expenses This Week</p>
-                <small class="text-muted">$39 less than last week</small> -->
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- <div class="tab-content p-0">
+          <div class="tab-pane fade show active" id="nav-ticketByMonth"> -->
+            <canvas id="ticketByMonth"></canvas>
+          <!-- </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -199,7 +173,7 @@
             <h2 class="mb-2">{{ $ttlTickets }}</h2>
             <span>Total Tickets</span>
           </div>
-          <div id="orderStatisticsChart"></div>
+          <div id="ticketByCategory"></div>
         </div>
         <ul class="p-0 m-0">
           <li class="d-flex mb-4 pb-1">
@@ -263,4 +237,95 @@
 
 </div>
 
-@endsection
+@stop
+
+@section('scriptlibraries')
+
+  <!-- Area Chart JS -->
+  <!-- Chart.js library is included -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Sample data (replace this with your actual data)
+      const ticketCountsByMonth = [10, 30, 0, 20, 15, 35, 10, 10, 10, 40, 60, 65];
+      // const ticketCountsByMonth = @json($monthlyTicketCounts);
+
+      // Get the canvas element and create a 2d context
+      const ticketByMonthCanvas = document.getElementById('ticketByMonth');
+      const ctx = ticketByMonthCanvas.getContext('2d');
+
+      // Create the area chart
+      const ticketByMonth = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Total Tickets',
+            data: ticketCountsByMonth,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- Donut Chart JS -->
+  <!-- Include the ApexCharts library -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
+
+  <script>
+    // Create a function to generate the donut chart
+    function generateDonutChart() {
+      // Define the chart options
+      var options = {
+        series: [{{ $hardwareTickets }}, {{ $softwareTickets }}, {{ $networkTickets }}, {{ $nonsystemTickets }}],
+        labels: ['Hardware', 'Software', 'Network', 'Non-System'],
+        chart: {
+          type: 'donut',
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      };
+
+      // Create the chart instance
+      var chart = new ApexCharts(document.getElementById('ticketByCategory'), options);
+
+      // Render the chart
+      chart.render();
+    }
+
+    // Call the function to generate the donut chart
+    generateDonutChart();
+  </script>
+
+@stop

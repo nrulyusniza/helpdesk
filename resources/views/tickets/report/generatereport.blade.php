@@ -15,6 +15,11 @@
             <h4 class="m-0 font-weight-bold text-primary">Ticket Reporting</h4>
         </div>
 
+        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            <i class="bx bx-calendar"></i>&nbsp;
+            <span></span> <i class="bx bx-caret-down"></i>
+        </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="example">

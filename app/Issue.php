@@ -24,6 +24,8 @@ class Issue extends Model
 
     protected $dates = ['create_date', 'update_date'];
 
+    public $timestamps=false;
+
     // request_type
     public function type()
     {

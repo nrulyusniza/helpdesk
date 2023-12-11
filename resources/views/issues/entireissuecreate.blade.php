@@ -25,8 +25,8 @@
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="request_type">Request Type</label>
-                        <select id="defaultSelect" class="form-select" name="request_type">
+                        <label class="form-label" for="type_id">Request Type</label>
+                        <select id="defaultSelect" class="form-select" name="type_id">
                             <option selected disabled>-- Select Request Type--</option>
                                 @foreach(App\Type::all() as $type)
                                 <option value="{{$type->id}}">{{$type->request_type}}</option>
@@ -34,19 +34,21 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_name">Site [x]</label>
-                        <select id="defaultSelect" class="form-select" name="site_name">
+                        <label class="form-label" for="site_id">Site</label>
+                        <select id="defaultSelect" class="form-select" name="site_id">
                             <option selected disabled>-- Select Site --</option>
                                 @foreach(App\Site::all()->sortBy('site_name') as $site)
-                                <option value="{{$site->id}}">{{$site->site_name}}</option>
+                                    @if(auth()->user()->site_id == $site->id)                                    
+                                        <option value="{{ $site->id }}" selected>{{ $site->site_name }}</option>
+                                    @endif
                                 @endforeach
                         </select>                        
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="rptpers_name">Reported By [x]</label>
-                        <select id="defaultSelect" class="form-select" name="rptpers_name">
+                        <label class="form-label" for="reportingperson_id">Reported By</label>
+                        <select id="defaultSelect" class="form-select" name="reportingperson_id">
                             <option selected disabled>-- Select Name --</option>
-                                @foreach(App\Reportingperson::all()->sortBy('rptpers_name') as $reportingperson)
+                                @foreach(App\Reportingperson::where('site_id', auth()->user()->site_id)->orderBy('rptpers_name')->get() as $reportingperson)
                                 <option value="{{$reportingperson->id}}">{{$reportingperson->rptpers_name}}</option>
                                 @endforeach
                         </select>
@@ -56,8 +58,8 @@
                         <input type="text" class="form-control" name="rptpers_mobile">                       
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="req_category">Category</label>
-                        <select id="defaultSelect" class="form-select" name="req_category">
+                        <label class="form-label" for="reqcategory_id">Category</label>
+                        <select id="defaultSelect" class="form-select" name="reqcategory_id">
                             <option selected disabled>-- Select Category--</option>
                                 @foreach(App\Reqcategory::all() as $reqcategory)
                                 <option value="{{$reqcategory->id}}">{{$reqcategory->req_category}}</option>
@@ -65,11 +67,11 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_hostname">Equipment [x]</label>
+                        <label class="form-label">Equipment</label>
                         <select id="defaultSelect" class="form-select">
-                            <option selected disabled>-- Select Equipment--</option>
-                                @foreach(App\Equipment::all()->sortBy('asset_hostname') as $equipment)
-                                <option value="{{$equipment->id}}">{{$equipment->asset_hostname}} - {{$equipment->asset_type}}</option>
+                            <option selected disabled>-- Select Equipment --</option>
+                                @foreach(App\Equipment::where('site_id', auth()->user()->site_id)->orderBy('asset_hostname')->get() as $equipment)
+                                <option value="{{ $equipment->asset_hostname .'-'. $equipment->asset_type }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
                                 @endforeach
                         </select>                     
                     </div>

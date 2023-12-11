@@ -44,7 +44,7 @@ class ReportingpersonController extends Controller
   
         Reportingperson::create($request->all());
    
-        return redirect()->route('reportingpersons.index')
+        return redirect()->route('reportingpersons.allreportingperson')
                         ->with('success','New Reporting Person created successfully.');
     }
 
@@ -85,7 +85,7 @@ class ReportingpersonController extends Controller
   
         $reportingperson->update($request->all());
   
-        return redirect()->route('Reportingpersons.index')
+        return redirect()->route('Reportingpersons.allreportingperson')
                         ->with('success','Reporting Person updated successfully');
     }
 
@@ -99,15 +99,59 @@ class ReportingpersonController extends Controller
     {
         $reportingperson->delete();
 
-       return redirect()->route('reportingpersons.index')
+       return redirect()->route('reportingpersons.allreportingperson')
                         ->with('success','Reporting Person deleted successfully');
     }
+
+    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
 
     public function allreportingperson(Reportingperson $reportingperson)
     {
         $reportingpersons = Reportingperson::all();
   
         return view('reportingpersons.allreportingperson', compact('reportingpersons'));
+    }
+
+    public function allreportingpersoncreate(Reportingperson $reportingperson)
+    {
+        return view('reportingpersons.allreportingpersoncreate');
+    }
+
+    public function allreportingpersonstore(Request $request)
+    {
+        $request->validate([
+            'rptpers_name' => 'required',
+        ]);
+  
+        Reportingperson::create($request->all());
+   
+        return redirect()->route('reportingpersons.allreportingperson')
+                        ->with('success','New Reporting Person created successfully.');
+    }
+
+    public function allreportingpersonedit(Reportingperson $reportingperson)
+    {
+        return view('reportingpersons.allreportingpersonedit', compact('reportingperson'));
+    }
+
+    public function allreportingpersonupdate(Request $request, Reportingperson $reportingperson)
+    {
+        $request->validate([
+            'rptpers_name' => 'required',
+        ]);
+  
+        $reportingperson->update($request->all());
+  
+        return redirect()->route('reportingpersons.allreportingperson')
+                        ->with('success','Reporting Person updated successfully');
+    }
+
+    public function allreportingpersondestroy(Reportingperson $reportingperson)
+    {
+        $reportingperson->delete();
+
+       return redirect()->route('reportingpersons.allreportingperson')
+                        ->with('success','Reporting Person deleted successfully');
     }
 
     //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
@@ -123,6 +167,10 @@ class ReportingpersonController extends Controller
 
     public function listreportingpersoncreate()
     {
+        $loggedInUser = Auth::user();
+        $site_id = $loggedInUser->site->id;
+        $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
+
         return view('reportingpersons.listreportingpersoncreate');
     }
 
@@ -142,6 +190,10 @@ class ReportingpersonController extends Controller
 
     public function listreportingpersonedit(Reportingperson $reportingperson)
     {
+        $loggedInUser = Auth::user();
+        $site_id = $loggedInUser->site->id;
+        $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
+        
         return view('reportingpersons.listreportingpersonedit', compact('reportingperson'));
     }
 
@@ -172,9 +224,7 @@ class ReportingpersonController extends Controller
     public function entirereportingperson(Reportingperson $reportingperson)
     {
         $loggedInUser = Auth::user();
-
         $site_id = $loggedInUser->site->id;
-
         $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
 
         return view('reportingpersons.entirereportingperson',compact('reportingpersons'));
@@ -182,6 +232,10 @@ class ReportingpersonController extends Controller
 
     public function entirereportingpersoncreate(Reportingperson $reportingperson)
     {
+        $loggedInUser = Auth::user();
+        $site_id = $loggedInUser->site->id;
+        $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
+
         return view('reportingpersons.entirereportingpersoncreate');
     }
 
@@ -189,6 +243,8 @@ class ReportingpersonController extends Controller
     {
         $request->validate([
             'rptpers_name' => 'required',
+            'rptpers_mobile' => 'required',
+            'site_id' => 'required',
         ]);
   
         Reportingperson::create($request->all());
@@ -199,6 +255,10 @@ class ReportingpersonController extends Controller
 
     public function entirereportingpersonedit(Reportingperson $reportingperson)
     {
+        $loggedInUser = Auth::user();
+        $site_id = $loggedInUser->site->id;
+        $reportingpersons = Reportingperson::where('site_id', $site_id)->get();
+
         return view('reportingpersons.entirereportingpersonedit', compact('reportingperson'));
     }
 
@@ -206,6 +266,8 @@ class ReportingpersonController extends Controller
     {
         $request->validate([
             'rptpers_name' => 'required',
+            'rptpers_mobile' => 'required',
+            'site_id' => 'required',
         ]);
   
         $reportingperson->update($request->all());
@@ -218,7 +280,7 @@ class ReportingpersonController extends Controller
     {
         $reportingperson->delete();
 
-       return redirect()->route('reportingpersons.entirereportingperson')
+        return redirect()->route('reportingpersons.entirereportingperson')
                         ->with('success','Reporting Person deleted successfully');
     }
 }

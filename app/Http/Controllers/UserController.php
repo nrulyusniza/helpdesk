@@ -85,7 +85,7 @@ class UserController extends Controller
   
         $user->update($request->all());
   
-        return redirect()->route('users.index')
+        return redirect()->route('users.alluser')
                         ->with('success','User updated successfully');
     }
 
@@ -99,7 +99,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-       return redirect()->route('users.index')
+       return redirect()->route('users.alluser')
        ->with('success','User deleted successfully');
     }
 

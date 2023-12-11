@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Reaction;
 use App\Ticstatus;
 use App\Ticket;
+use App\User;
 
 class Ticketlog extends Model
 {
@@ -34,5 +35,11 @@ class Ticketlog extends Model
     public function ticket()
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
+
+    // update_by
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'update_by');
     }
 }

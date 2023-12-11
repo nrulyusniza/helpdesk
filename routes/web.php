@@ -131,11 +131,11 @@ Route::get('equipments/{equipment}/entireassetlog', 'EquipmentController@entirea
 //------------------------------------------------------------------- REPORTINGPERSONS -------------------------------------------------------------------
 // reportingpersons path - super admin view
 Route::get('reportingpersons/index', 'ReportingpersonController@index')->name('reportingpersons.index');
-Route::get('reportingpersons/create', 'ReportingpersonController@create')->name('reportingpersons.create');
-Route::post('reportingpersons/store', 'ReportingpersonController@store')->name('reportingpersons.store');
-Route::get('reportingpersons/{reportingperson}/edit', 'ReportingpersonController@edit')->name('reportingpersons.edit');
-Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@update')->name('reportingpersons.update');
-Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@destroy')->name('reportingpersons.destroy');
+Route::get('reportingpersons/allreportingpersoncreate', 'ReportingpersonController@allreportingpersoncreate')->name('reportingpersons.allreportingpersoncreate');
+Route::post('reportingpersons/allreportingpersonstore', 'ReportingpersonController@allreportingpersonstore')->name('reportingpersons.allreportingpersonstore');
+Route::get('reportingpersons/{reportingperson}/allreportingpersonedit', 'ReportingpersonController@allreportingpersonedit')->name('reportingpersons.allreportingpersonedit');
+Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@allreportingpersonupdate')->name('reportingpersons.allreportingpersonupdate');
+Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@allreportingpersondestroy')->name('reportingpersons.allreportingpersondestroy');
 Route::get('reportingpersons/allreportingperson', 'ReportingpersonController@allreportingperson')->name('reportingpersons.allreportingperson');
 
 // reportingpersons path - site admin view

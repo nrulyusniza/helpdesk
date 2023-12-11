@@ -14,7 +14,7 @@
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Reporting Person List</h4>
             <div class="btn-text-right">
-                <a href="{{ route('reportingpersons.create') }}"
+                <a href="{{ route('reportingpersons.allreportingpersoncreate') }}"
                     <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Reporting Person</button>
                 </a>
             </div>
@@ -40,8 +40,8 @@
                             <td>{{ $rp->rptpers_mobile }}</td>
                             <td>{{ $rp->site->site_name ?? " " }}</td>
                             <td>
-                                <form action="{{ route('reportingpersons.destroy',$rp->id) }}" method="POST">
-                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('reportingpersons.edit',$rp->id) }}"></a>                
+                                <form action="{{ route('reportingpersons.allreportingpersondestroy',$rp->id) }}" method="POST">
+                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('reportingpersons.allreportingpersonedit',$rp->id) }}"></a>                
                                     @csrf
                                     @method('DELETE')                    
                                     <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000" onclick="confirmation(event)"></a>

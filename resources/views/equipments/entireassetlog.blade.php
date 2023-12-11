@@ -40,13 +40,13 @@
                     <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="site_id">Site [x]</label>
-                    <select id="defaultSelect" class="form-select" name="site_id">
-                        <option selected disabled>-- Select Site --</option>
-                            @foreach(App\Site::all()->sortBy('site_name') as $site)
-                            <option value="{{$site->id}}">{{$site->site_name}}</option>
-                            
-                            @endforeach
+                    <label class="form-label" for="site_id">Site</label>
+                    <select id="defaultSelect" class="form-select" name="site_id">                        
+                        @foreach(App\Site::all()->sortBy('site_name') as $site)
+                            @if(auth()->user()->site_id == $site->id)                                    
+                                <option value="{{ $site->id }}" selected>{{ $site->site_name }}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3 col-md-6">
@@ -90,7 +90,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id}}
                                     <td>{{ $log->asset_newlocation }}</td>
-                                    <td>{{ $log->log_updatedat }}</td>
+                                    <td>{{ $log->log_updatedat->format('M d, Y') }}</td>
                                     <td>{{ $log->equipmentstatus_id }}</td>
                                 </tr>
                             </tbody>

@@ -44,14 +44,9 @@
                     <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label">Equipment [x]</label>
-                    <select id="defaultSelect" class="form-select" name="asset_hostname">
-                        <option selected disabled>-- Select Equipment --</option>
-                            @foreach(App\Equipment::all() as $equipment)
-                            <option value="{{ $equipment->asset_hostname .'-'. $equipment->asset_type }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
-                            @endforeach
-                    </select>
-                </div>    
+                    <label class="form-label" for="asset_hostname">Equipment</label>
+                    <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
+                </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">Date [x]</label>
                     <input type="date" class="form-control" name="create_date" value="{{ $ticket->create_date }}" readonly>
@@ -61,7 +56,7 @@
                     <textarea class="form-control" name="fault_description" rows="5" readonly>{{ $ticket->issue->fault_description }}</textarea>
                 </div>
                 <div class="mt-2">
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.entireconsumable') }}">Back</a>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.entireticket') }}">Back</a>
                 </div>                        
             </div>     
 

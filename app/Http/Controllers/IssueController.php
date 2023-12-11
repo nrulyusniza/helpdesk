@@ -180,9 +180,9 @@ class IssueController extends Controller
 
     public function entireissuestore(Request $request)
     {
-        $request->validate([
-            'request_no' => 'required',
-        ]);
+        // $request->validate([
+        //     'side_id' => 'required',
+        // ]);
   
         Issue::create($request->all());
    

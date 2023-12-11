@@ -36,7 +36,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="kb_topic">Title</label>
-                            <input type="text" class="form-control" name="kb_topic" value="{{ $knowledgebase->kb_topic }}">
+                        <input type="text" class="form-control" name="kb_topic" value="{{ $knowledgebase->kb_topic }}">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="kb_article">Content</label>

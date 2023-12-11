@@ -48,7 +48,7 @@
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
                             <td>{{ $i->status->status_label ?? " " }}</td> <!-- badges -->
-                            <td>{{ $i->user->username->fullname->created_by ?? "X" }}</td>
+                            <td>{{ $i->created_by ?? " " }}</td>
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-expand-alt" style='color:#716d6d'
@@ -107,13 +107,8 @@
                                                             <input type="text" class="form-control" name="status_label" value="{{ $i->status->status_label }}" readonly>
                                                         </div>
                                                         <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Equipment [x]</label>
-                                                            <select id="defaultSelect" class="form-select" name="asset_hostname">
-                                                                <option selected disabled>-- Select Equipment --</option>
-                                                                    @foreach(App\Equipment::all() as $equipment)
-                                                                    <option value="{{ $equipment->asset_hostname .'-'. $equipment->asset_type }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
-                                                                    @endforeach
-                                                            </select>
+                                                            <label class="form-label">Equipment</label>
+                                                            <input type="text" class="form-control" name="asset_hostname" value="{{ $i->equipment->asset_hostname }}" readonly>
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label" for="attachment">Attachment [x]</label>

@@ -34,13 +34,12 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="site_id">Site</label>
-                        <select id="defaultSelect" class="form-select" name="site_id">
-                            <option selected disabled>-- Select Category --</option>                           
-                                @foreach(App\Site::all()->sortBy('site_name') as $site)
-                                    @if(auth()->user()->site_id == $site->id)                                    
-                                        <option value="{{ $site->id }}" selected>{{ $site->site_name }}</option>
-                                    @endif
-                                @endforeach
+                        <select id="defaultSelect" class="form-select" name="site_id">                         
+                            @foreach(App\Site::all()->sortBy('site_name') as $site)
+                                @if(auth()->user()->site_id == $site->id)                                    
+                                    <option value="{{ $site->id }}" selected>{{ $site->site_name }}</option>
+                                @endif
+                            @endforeach
                         </select>
                     </div>
                     <div class="mt-2">

@@ -40,7 +40,6 @@
                     <label class="col-sm-2 col-form-label" for="site_id">Site</label>
                     <div class="col-sm-10">
                         <select id="defaultSelect" class="form-select" name="site_id">
-                            <option selected disabled>-- Select Site --</option>
                                 @foreach(App\Site::all() as $site)
                                 <option value="{{ $site->id }}" {{ $site->id == $reportingperson->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
                                 @endforeach

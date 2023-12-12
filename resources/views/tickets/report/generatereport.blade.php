@@ -60,4 +60,46 @@
     </div>
 </div>
 
-@endsection
+@stop
+
+@section('scriptlibraries')
+
+    <!-- DataTables JS -->
+    <!-- for Copy, Excel, PDF, Print & Search & Show N entries & Sorting & Showing N to N of N entries & Pagination --> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('#example').DataTable({
+            pagingType: 'simple_numbers',
+            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],          
+            responsive:true,
+            dom: '<"html5buttons"B>frltip',
+            buttons: [
+                {extend: 'copy'},
+                //{extend: 'csv'},
+                {extend: 'excel', title: 'Ticket Reporting', exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]}
+                },
+                {extend: 'pdf', title: 'Ticket Reporting', exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]}
+                },
+                {extend: 'print', exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                    },
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+                        $(win.document.body).find('table')
+                        .addClass('compact')
+                        .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+      });
+    </script>
+
+@stop

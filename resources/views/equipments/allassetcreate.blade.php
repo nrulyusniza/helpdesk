@@ -54,7 +54,7 @@
                         <input type="text" class="form-control" name="asset_kewpa">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="basic-default-name">Asset Series No.</label>
+                        <label class="form-label" for="asset_seriesno">Asset Series No.</label>
                         <input type="text" class="form-control" name="asset_seriesno">
                     </div>
                 </div>

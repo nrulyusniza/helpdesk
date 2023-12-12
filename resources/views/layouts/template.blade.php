@@ -579,7 +579,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <!-- Popup Windows -->
+    <!-- Chatbot -->
     <div class="buy-now">
       <a id="chatbot-button"
         href="{{ route('chat') }}"

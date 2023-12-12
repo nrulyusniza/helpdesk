@@ -104,6 +104,8 @@ class EquipmentController extends Controller
        ->with('success','Asset deleted successfully');
     }
 
+    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
+
     public function allasset(Equipment $equipment)
     {
         $equipments = Equipment::all();
@@ -112,10 +114,27 @@ class EquipmentController extends Controller
         return view('equipments.allasset', compact('equipments'));
     }
 
+    public function allassetcreate()
+    {
+        return view('equipments.allassetcreate');
+    }
+
+    public function allassetstore(Request $request)
+    {
+        $request->validate([
+            'asset_hostname' => 'required',
+        ]);
+  
+        Equipment::create($request->all());
+   
+        return redirect()->route('equipments.allasset')
+                        ->with('success','New Asset created successfully.');
+    }
+
     public function allassetedit(Equipment $equipment)
     {
         // retrieve the equipment and its associated equipment logs
-        $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
+        // $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
 
         // pass the equipment data to the view
         return view('equipments.allassetedit', compact('equipment'));
@@ -124,15 +143,33 @@ class EquipmentController extends Controller
     public function allassetupdate(Request $request, Equipment $equipment)
     {
         // validate the request data
-        $equipmentlog = new Equipmentlog();
-        // $equipmentlog->asset_newlocation = $validateData['asset_newlocation'];
+        // $equipmentlog = new Equipmentlog();
+        // // $equipmentlog->asset_newlocation = $validateData['asset_newlocation'];
 
-        // save the equipment log
-        $equipment->equipmentlog()->save($equipmentlog);
+        // // save the equipment log
+        // $equipment->equipmentlog()->save($equipmentlog);
 
-        // redirect back
-        return redirect()->route('equipments.allassetedit', $equipment->id)
-                            ->with('success','Equipment Log created successfully');
+        // // redirect back
+        // return redirect()->route('equipments.allassetlog', $equipment->id)
+        //                     ->with('success','Equipment Log created successfully');
+
+        // $request->validate([
+        //     'asset_hostname' => 'required',
+        // ]);
+  
+        $equipment->update($request->all());
+  
+        return redirect()->route('equipments.allassetedit')
+                        ->with('success','Asset updated successfully');
+    }
+
+    public function allassetlog(Equipment $equipment)
+    {
+        // retrieve the equipment and its associated equipment logs
+        $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
+
+        // pass the equipment data to the view
+        return view('equipments.allassetlog', compact('equipment'));
     }
 
     //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
@@ -144,6 +181,15 @@ class EquipmentController extends Controller
         $equipments = Equipment::where('site_id', $site_id)->get();
 
         return view('equipments.listasset',compact('equipments'));
+    }
+
+    public function listassetlog(Equipment $equipment)
+    {
+        // retrieve the equipment and its associated equipment logs
+        $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
+
+        // pass the equipment data to the view
+        return view('equipments.listassetlog', compact('equipment'));
     }
 
     //---------------------------------------------------------------------- SITE USER ----------------------------------------------------------------------

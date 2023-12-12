@@ -110,19 +110,22 @@ Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@entireknow
 //------------------------------------------------------------------- EQUIPMENTS -------------------------------------------------------------------
 // equipments path - super admin view
 Route::get('equipments/index', 'EquipmentController@index')->name('equipments.index');
-Route::get('equipments/create', 'EquipmentController@create')->name('equipments.create');
-Route::post('equipments/store', 'EquipmentController@store')->name('equipments.store');
-Route::get('equipments/{equipment}/edit', 'EquipmentController@edit')->name('equipments.edit');
-Route::put('equipments/{equipment}', 'EquipmentController@update')->name('equipments.update');
+// Route::get('equipments/create', 'EquipmentController@create')->name('equipments.create');
+// Route::post('equipments/store', 'EquipmentController@store')->name('equipments.store');
+// Route::get('equipments/{equipment}/edit', 'EquipmentController@edit')->name('equipments.edit');
+// Route::put('equipments/{equipment}', 'EquipmentController@update')->name('equipments.update');
 Route::delete('equipments/{equipment}', 'EquipmentController@destroy')->name('equipments.destroy');
-Route::get('equipments/allasset', 'EquipmentController@allasset')->name('equipments.allasset');
 
+Route::get('equipments/allassetcreate', 'EquipmentController@allassetcreate')->name('equipments.allassetcreate');
+Route::post('equipments/allassetstore', 'EquipmentController@allassetstore')->name('equipments.allassetstore');
 Route::get('equipments/{equipment}/allassetedit', 'EquipmentController@allassetedit')->name('equipments.allassetedit');
 Route::put('equipments/{equipment}', 'EquipmentController@allassetupdate')->name('equipments.allassetupdate');
-// Route::post('equipments/allassetstore', 'EquipmentController@allassetstore')->name('equipments.allassetstore');
+Route::get('equipments/allasset', 'EquipmentController@allasset')->name('equipments.allasset');
+Route::get('equipments/{equipment}/allassetlog', 'EquipmentController@allassetlog')->name('equipments.allassetlog');
 
 // equipments path - site admin view
 Route::get('equipments/listasset', 'EquipmentController@listasset')->name('equipments.listasset');
+Route::get('equipments/{equipment}/listassetlog', 'EquipmentController@listassetlog')->name('equipments.listassetlog');
 
 // equipments path - site user view
 Route::get('equipments/entireasset', 'EquipmentController@entireasset')->name('equipments.entireasset');

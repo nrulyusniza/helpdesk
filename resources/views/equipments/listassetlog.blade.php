@@ -58,7 +58,7 @@
                     <input type="text" class="form-control" name="asset_seriesno" value="{{ $equipment->asset_seriesno }}" readonly>
                 </div>
                 <div class="mt-2">
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('equipments.entireasset') }}">Back</a>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('equipments.listasset') }}">Back</a>
                 </div>                        
             </div>
                 
@@ -80,7 +80,7 @@
                                     <th>#</th>
                                     <th>ID</th>
                                     <th>Location</th>
-                                    <th>Update Date</th>
+                                    <th>Update Date [x]</th>
                                     <th>Status [x]</th>
                                 </tr>
                             </thead>
@@ -90,7 +90,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id}}
                                     <td>{{ $log->asset_newlocation }}</td>
-                                    <td>{{ $log->log_updatedat->format('M d, Y') }}</td>
+                                    <td>{{ $log->log_updatedat }}</td>
                                     <td>{{ $log->equipmentstatus_id }}</td>
                                 </tr>
                             </tbody>

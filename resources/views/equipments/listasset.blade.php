@@ -18,8 +18,8 @@
                             <th>Hostname</th>
                             <th>Origin Location</th>
                             <th>Asset Type</th>
-                            <th>Kewpa</th>
-                            <th>Series No</th>
+                            <th>Status [x]</th>
+                            <th>Action</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -29,8 +29,17 @@
                             <td>{{ $e->asset_hostname }}</td>
                             <td>{{ $e->asset_location }}</td>
                             <td>{{ $e->asset_type }}</td>
-                            <td>{{ $e->asset_kewpa }}</td>
-                            <td>{{ $e->asset_seriesno }}</td>
+                            <td>{{ $e->equipmentstatus->assetstatus_label ?? "-" }}</td>    <!-- Latest status should be display here -->
+                            <td>
+                                <form action="{{ route('equipments.destroy',$e->id) }}" method="POST">
+                                    <!-- <a class="menu-icon tf-icons bx bx-expand-alt" href="{{ route('equipments.listassetlog',$e->id) }}"></a> -->
+                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route('equipments.listassetlog',$e->id) }}" style="color:#57cc99"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                        title="<span>Asset Log</span>"></a>
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>                    

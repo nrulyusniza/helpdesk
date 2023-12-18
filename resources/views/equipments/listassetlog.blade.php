@@ -80,8 +80,8 @@
                                     <th>#</th>
                                     <th>ID</th>
                                     <th>Location</th>
-                                    <th>Update Date [x]</th>
-                                    <th>Status [x]</th>
+                                    <th>Update Date</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             @foreach($equipment->equipmentlog as $log)
@@ -90,8 +90,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id}}
                                     <td>{{ $log->asset_newlocation }}</td>
-                                    <td>{{ $log->log_updatedat }}</td>
-                                    <td>{{ $log->equipmentstatus_id }}</td>
+                                    <td>{{ $log->log_updatedat->format('M d, Y') }}</td>
+                                    <td>{{ $log->equipmentstatus->assetstatus_label }}</td>
                                 </tr>
                             </tbody>
                             @endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Equipment;
 use App\Equipmentlog;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -110,13 +111,14 @@ class EquipmentController extends Controller
     {
         // $equipments = Equipment::all();
 
-        // $equipments = Equipment::with(['equipmentlog' => function ($query) {
-        //     $query->latest()->limit(1);
-        // }])->get();   
-        
-        $equipments = Equipment::with(['equipmentlog' => function ($query) {
-            $query->latest('id')->limit(1); // Assuming your EquipmentLog has an 'id' column
-        }])->get();
+        $equipments = Equipment::select(
+            'equipments.*',
+            DB::raw('(SELECT equipmentstatus_id 
+                    FROM equipmentlogs 
+                    WHERE equipmentlogs.equipment_id = equipments.id 
+                    ORDER BY id DESC LIMIT 1) as latest_status')
+        )
+        ->get();
   
         return view('equipments.allasset', compact('equipments'));
     }
@@ -184,7 +186,17 @@ class EquipmentController extends Controller
     {
         $loggedInUser = Auth::user();
         $site_id = $loggedInUser->site->id;
-        $equipments = Equipment::where('site_id', $site_id)->get();
+        // $equipments = Equipment::where('site_id', $site_id)->get();
+
+        $equipments = Equipment::where('site_id', $site_id)
+        ->select(
+            'equipments.*',
+            DB::raw('(SELECT equipmentstatus_id 
+                    FROM equipmentlogs 
+                    WHERE equipmentlogs.equipment_id = equipments.id 
+                    ORDER BY id DESC LIMIT 1) as latest_status')
+        )
+        ->get();
 
         return view('equipments.listasset',compact('equipments'));
     }
@@ -204,7 +216,17 @@ class EquipmentController extends Controller
     {
         $loggedInUser = Auth::user();
         $site_id = $loggedInUser->site->id;
-        $equipments = Equipment::where('site_id', $site_id)->get();
+        // $equipments = Equipment::where('site_id', $site_id)->get();
+
+        $equipments = Equipment::where('site_id', $site_id)
+        ->select(
+            'equipments.*',
+            DB::raw('(SELECT equipmentstatus_id 
+                    FROM equipmentlogs 
+                    WHERE equipmentlogs.equipment_id = equipments.id 
+                    ORDER BY id DESC LIMIT 1) as latest_status')
+        )
+        ->get();
 
         return view('equipments.entireasset',compact('equipments'));
     }

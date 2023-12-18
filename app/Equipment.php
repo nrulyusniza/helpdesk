@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Site;
-use App\Ticketlog;
+use App\Equipmentlog;
 
 class Equipment extends Model
 {

@@ -24,7 +24,7 @@
                             <th>Hostname</th>
                             <th>Origin Location</th>
                             <th>Asset Type</th>
-                            <th>Status [x]</th>
+                            <th>Latest Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>                    
@@ -35,7 +35,7 @@
                             <td>{{ $e->asset_hostname }}</td>
                             <td>{{ $e->asset_location }}</td>
                             <td>{{ $e->asset_type }}</td>
-                            <td>{{ $e->equipmentstatus->assetstatus_label ?? "-" }}</td>    <!-- Latest status should be display here -->
+                            <td>{{ $e->equipmentlog->last()->equipmentstatus->assetstatus_label ?? "-" }}</td>  <!-- <td>{{ $e->latest_status ?? "-" }}</td> -->
                             <td>
                                 <form action="{{ route('equipments.destroy',$e->id) }}" method="POST">
                                     <!-- <a class="menu-icon tf-icons bx bx-expand-alt" href="{{ route('equipments.entireassetlog',$e->id) }}"></a> -->

@@ -13,9 +13,4 @@ class Equipmentstatus extends Model
     protected $fillable = [
         "assetstatus_label"
     ];
-
-    public function equipmentstatus()
-    {
-        return $this->belongsTo(Equipmentstatus::class, 'equipmentstatus_id');
-    }
 }

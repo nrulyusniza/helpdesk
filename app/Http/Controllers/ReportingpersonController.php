@@ -65,10 +65,10 @@ class ReportingpersonController extends Controller
      * @param  \App\Reportingperson  $reportingperson
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reportingperson $reportingperson)
-    {
-        return view('reportingpersons.edit', compact('reportingperson'));
-    }
+    // public function edit(Reportingperson $reportingperson)
+    // {
+    //     return view('reportingpersons.edit', compact('reportingperson'));
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -95,13 +95,13 @@ class ReportingpersonController extends Controller
      * @param  \App\Reportingperson  $reportingperson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reportingperson $reportingperson)
-    {
-        $reportingperson->delete();
+    // public function destroy(Reportingperson $reportingperson)
+    // {
+    //     $reportingperson->delete();
 
-       return redirect()->route('reportingpersons.allreportingperson')
-                        ->with('success','Reporting Person deleted successfully');
-    }
+    //    return redirect()->route('reportingpersons.allreportingperson')
+    //                     ->with('success','Reporting Person deleted successfully');
+    // }
 
     //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
 
@@ -150,7 +150,7 @@ class ReportingpersonController extends Controller
     {
         $reportingperson->delete();
 
-       return redirect()->route('reportingpersons.allreportingperson')
+        return redirect()->route('reportingpersons.allreportingperson')
                         ->with('success','Reporting Person deleted successfully');
     }
 

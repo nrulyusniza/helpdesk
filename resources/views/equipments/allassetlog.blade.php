@@ -13,6 +13,12 @@
     </div>
 @endif
 
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
 
@@ -71,9 +77,9 @@
                 <div class="col-xl">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form action="{{ route('equipments.allassetupdate',$equipment->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
+                            <form action="{{ route('equipments.allassetlogupdate', ['equipment' => $equipment]) }}" method="POST">                            
+                                @csrf
+                                @method('PUT')
                                 <div class="mb-3">
                                     <label class="form-label" for="asset_newlocation">Location</label>
                                     <input type="text" class="form-control" name="asset_newlocation">
@@ -119,8 +125,8 @@
                                     <th>#</th>
                                     <th>ID</th>
                                     <th>Location</th>
-                                    <th>Updated Date [x]</th>
-                                    <th>Status [x]</th>
+                                    <th>Updated Date</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             @foreach($equipment->equipmentlog as $eqlog)
@@ -129,8 +135,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $eqlog->id }}</td>
                                     <td>{{ $eqlog->asset_newlocation }}</td>
-                                    <td>{{ $eqlog->log_updatedat }}</td>
-                                    <td>{{ $eqlog->equipmentstatus_id }}</td>
+                                    <td>{{ $eqlog->log_updatedat->format('M d, Y') }}</td>
+                                    <td>{{ $eqlog->equipmentstatus->assetstatus_label }}</td>
                                 </tr>
                             </tbody>
                             @endforeach

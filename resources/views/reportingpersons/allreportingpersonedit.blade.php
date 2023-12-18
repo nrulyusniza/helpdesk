@@ -21,36 +21,30 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('reportingpersons.update',$reportingperson->id) }}" method="POST">
+            <form action="{{ route('reportingpersons.allreportingpersonupdate',['reportingperson' => $reportingperson->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="rptpers_name">Full Name</label>
-                    <div class="col-sm-10">
+                <div class="row">
+                    <div class="mb-3">
+                        <label class="form-label" for="rptpers_name">Full Name</label>
                         <input type="text" class="form-control" name="rptpers_name" value="{{ $reportingperson->rptpers_name }}">
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="rptpers_mobile">Phone Number</label>
-                    <div class="col-sm-10">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="rptpers_mobile">Phone Number</label>
                         <input type="text" class="form-control" name="rptpers_mobile" value="{{ $reportingperson->rptpers_mobile }}">
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="site_id">Site</label>
-                    <div class="col-sm-10">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="site_id">Site</label>
                         <select id="defaultSelect" class="form-select" name="site_id">
-                                @foreach(App\Site::all() as $site)
-                                <option value="{{ $site->id }}" {{ $site->id == $reportingperson->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
-                                @endforeach
+                            @foreach(App\Site::all() as $site)
+                            <option value="{{ $site->id }}" {{ $site->id == $reportingperson->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                        <a class="btn btn-secondary" href="{{ route('reportingpersons.allreportingperson') }}">Cancel</a>
-                    </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary me-2">Update</button>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('reportingpersons.allreportingperson') }}">Cancel</a>
                 </div>
             </form>
         </div>

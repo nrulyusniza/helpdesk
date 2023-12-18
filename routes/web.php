@@ -90,7 +90,8 @@ Route::get('knowledgebases/allknowledgebase', 'KnowledgebaseController@allknowle
 Route::get('knowledgebases/allknowledgebasecreate', 'KnowledgebaseController@allknowledgebasecreate')->name('knowledgebases.allknowledgebasecreate');
 Route::post('knowledgebases/allknowledgebasestore', 'KnowledgebaseController@allknowledgebasestore')->name('knowledgebases.allknowledgebasestore');
 Route::get('knowledgebases/{knowledgebase}/allknowledgebaseedit', 'KnowledgebaseController@allknowledgebaseedit')->name('knowledgebases.allknowledgebaseedit');
-Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@allknowledgebaseupdate')->name('knowledgebases.allknowledgebaseupdate');
+// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@allknowledgebaseupdate')->name('knowledgebases.allknowledgebaseupdate');
+Route::put('knowledgebases/{knowledgebase}/allknowledgebaseupdate', 'KnowledgebaseController@allknowledgebaseupdate')->name('knowledgebases.allknowledgebaseupdate');
 Route::delete('knowledgebases/{knowledgebase}', 'KnowledgebaseController@destroy')->name('knowledgebases.destroy');
 
 // knowledgebases path - site admin view
@@ -98,16 +99,18 @@ Route::get('knowledgebases/listknowledgebase', 'KnowledgebaseController@listknow
 Route::get('knowledgebases/listknowledgebasecreate', 'KnowledgebaseController@listknowledgebasecreate')->name('knowledgebases.listknowledgebasecreate');
 Route::post('knowledgebases/listknowledgebasestore', 'KnowledgebaseController@listknowledgebasestore')->name('knowledgebases.listknowledgebasestore');
 Route::get('knowledgebases/{knowledgebase}/listknowledgebaseedit', 'KnowledgebaseController@listknowledgebaseedit')->name('knowledgebases.listknowledgebaseedit');
-Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@listknowledgebaseupdate')->name('knowledgebases.listknowledgebaseupdate');
+// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@listknowledgebaseupdate')->name('knowledgebases.listknowledgebaseupdate');
+Route::put('knowledgebases/{knowledgebase}/listknowledgebaseupdate', 'KnowledgebaseController@listknowledgebaseupdate')->name('knowledgebases.listknowledgebaseupdate');
 
 // knowledgebases path - site user view
 Route::get('knowledgebases/entireknowledgebase', 'KnowledgebaseController@entireknowledgebase')->name('knowledgebases.entireknowledgebase');
 Route::get('knowledgebases/entireknowledgebasecreate', 'KnowledgebaseController@entireknowledgebasecreate')->name('knowledgebases.entireknowledgebasecreate');
 Route::post('knowledgebases/entireknowledgebasestore', 'KnowledgebaseController@entireknowledgebasestore')->name('knowledgebases.entireknowledgebasestore');
 Route::get('knowledgebases/{knowledgebase}/entireknowledgebaseedit', 'KnowledgebaseController@entireknowledgebaseedit')->name('knowledgebases.entireknowledgebaseedit');
-Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@entireknowledgebaseupdate')->name('knowledgebases.entireknowledgebaseupdate');
+// Route::put('knowledgebases/{knowledgebase}', 'KnowledgebaseController@entireknowledgebaseupdate')->name('knowledgebases.entireknowledgebaseupdate');
+Route::put('knowledgebases/{knowledgebase}/entireknowledgebaseupdate', 'KnowledgebaseController@entireknowledgebaseupdate')->name('knowledgebases.entireknowledgebaseupdate');
 
-//------------------------------------------------------------------- EQUIPMENTS -------------------------------------------------------------------
+//------------------------------------------------------------------- EQUIPMENTS & ASSET LOGS -------------------------------------------------------------------
 // equipments path - super admin view
 Route::get('equipments/index', 'EquipmentController@index')->name('equipments.index');
 // Route::get('equipments/create', 'EquipmentController@create')->name('equipments.create');
@@ -119,9 +122,12 @@ Route::delete('equipments/{equipment}', 'EquipmentController@destroy')->name('eq
 Route::get('equipments/allassetcreate', 'EquipmentController@allassetcreate')->name('equipments.allassetcreate');
 Route::post('equipments/allassetstore', 'EquipmentController@allassetstore')->name('equipments.allassetstore');
 Route::get('equipments/{equipment}/allassetedit', 'EquipmentController@allassetedit')->name('equipments.allassetedit');
-Route::put('equipments/{equipment}', 'EquipmentController@allassetupdate')->name('equipments.allassetupdate');
+// Route::put('equipments/{equipment}', 'EquipmentController@allassetupdate')->name('equipments.allassetupdate');
+Route::put('equipments/{equipment}/allassetupdate', 'EquipmentController@allassetupdate')->name('equipments.allassetupdate');
 Route::get('equipments/allasset', 'EquipmentController@allasset')->name('equipments.allasset');
 Route::get('equipments/{equipment}/allassetlog', 'EquipmentController@allassetlog')->name('equipments.allassetlog');
+Route::put('equipments/{equipment}/allassetlog/update', 'EquipmentController@allassetlogupdate')->name('equipments.allassetlogupdate');
+
 
 // equipments path - site admin view
 Route::get('equipments/listasset', 'EquipmentController@listasset')->name('equipments.listasset');
@@ -137,8 +143,10 @@ Route::get('reportingpersons/index', 'ReportingpersonController@index')->name('r
 Route::get('reportingpersons/allreportingpersoncreate', 'ReportingpersonController@allreportingpersoncreate')->name('reportingpersons.allreportingpersoncreate');
 Route::post('reportingpersons/allreportingpersonstore', 'ReportingpersonController@allreportingpersonstore')->name('reportingpersons.allreportingpersonstore');
 Route::get('reportingpersons/{reportingperson}/allreportingpersonedit', 'ReportingpersonController@allreportingpersonedit')->name('reportingpersons.allreportingpersonedit');
-Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@allreportingpersonupdate')->name('reportingpersons.allreportingpersonupdate');
-Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@allreportingpersondestroy')->name('reportingpersons.allreportingpersondestroy');
+// Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@allreportingpersonupdate')->name('reportingpersons.allreportingpersonupdate');
+Route::put('reportingpersons/{reportingperson}/allreportingpersonupdate', 'ReportingpersonController@allreportingpersonupdate')->name('reportingpersons.allreportingpersonupdate');
+// Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@allreportingpersondestroy')->name('reportingpersons.allreportingpersondestroy');
+Route::delete('reportingpersons/all/{reportingperson}', 'ReportingpersonController@allreportingpersondestroy')->name('reportingpersons.allreportingpersondestroy');
 Route::get('reportingpersons/allreportingperson', 'ReportingpersonController@allreportingperson')->name('reportingpersons.allreportingperson');
 
 // reportingpersons path - site admin view
@@ -146,16 +154,20 @@ Route::get('reportingpersons/listreportingperson', 'ReportingpersonController@li
 Route::get('reportingpersons/listreportingpersoncreate', 'ReportingpersonController@listreportingpersoncreate')->name('reportingpersons.listreportingpersoncreate');
 Route::post('reportingpersons/listreportingpersonstore', 'ReportingpersonController@listreportingpersonstore')->name('reportingpersons.listreportingpersonstore');
 Route::get('reportingpersons/{reportingperson}/listreportingpersonedit', 'ReportingpersonController@listreportingpersonedit')->name('reportingpersons.listreportingpersonedit');
-Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@listreportingpersonupdate')->name('reportingpersons.listreportingpersonupdate');
-Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@listreportingpersondestroy')->name('reportingpersons.listreportingpersondestroy');
+// Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@listreportingpersonupdate')->name('reportingpersons.listreportingpersonupdate');
+Route::put('reportingpersons/{reportingperson}/listreportingpersonupdate', 'ReportingpersonController@listreportingpersonupdate')->name('reportingpersons.listreportingpersonupdate');
+// Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@listreportingpersondestroy')->name('reportingpersons.listreportingpersondestroy');
+Route::delete('reportingpersons/list/{reportingperson}', 'ReportingpersonController@listreportingpersondestroy')->name('reportingpersons.listreportingpersondestroy');
 
 // reportingpersons path - site user view
 Route::get('reportingpersons/entirereportingperson', 'ReportingpersonController@entirereportingperson')->name('reportingpersons.entirereportingperson');
 Route::get('reportingpersons/entirereportingpersoncreate', 'ReportingpersonController@entirereportingpersoncreate')->name('reportingpersons.entirereportingpersoncreate');
 Route::post('reportingpersons/entirereportingpersonstore', 'ReportingpersonController@entirereportingpersonstore')->name('reportingpersons.entirereportingpersonstore');
 Route::get('reportingpersons/{reportingperson}/entirereportingpersonedit', 'ReportingpersonController@entirereportingpersonedit')->name('reportingpersons.entirereportingpersonedit');
-Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@entirereportingpersonupdate')->name('reportingpersons.entirereportingpersonupdate');
-Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@entirereportingpersondestroy')->name('reportingpersons.entirereportingpersondestroy');
+// Route::put('reportingpersons/{reportingperson}', 'ReportingpersonController@entirereportingpersonupdate')->name('reportingpersons.entirereportingpersonupdate');
+Route::put('reportingpersons/{reportingperson}/entirereportingpersonupdate', 'ReportingpersonController@entirereportingpersonupdate')->name('reportingpersons.entirereportingpersonupdate');
+// Route::delete('reportingpersons/{reportingperson}', 'ReportingpersonController@entirereportingpersondestroy')->name('reportingpersons.entirereportingpersondestroy');
+Route::delete('reportingpersons/entire/{reportingperson}', 'ReportingpersonController@entirereportingpersondestroy')->name('reportingpersons.entirereportingpersondestroy');
 
 //------------------------------------------------------------------- TYPES -------------------------------------------------------------------
 // types(request_type) path - super admin view
@@ -238,7 +250,7 @@ Route::get('issues/entireissue', 'IssueController@entireissue')->name('issues.en
 Route::get('issues/entireissuecreate', 'IssueController@entireissuecreate')->name('issues.entireissuecreate');
 Route::post('issues/entireissuestore', 'IssueController@entireissuestore')->name('issues.entireissuestore');
 
-//------------------------------------------------------------------- TICKETS -------------------------------------------------------------------
+//------------------------------------------------------------------- TICKETS & LOGS -------------------------------------------------------------------
 // tickets(ticket & consumable) path - super admin view
 Route::get('tickets/index', 'TicketController@index')->name('tickets.index');
 

@@ -1,6 +1,7 @@
 @extends('layouts.template')
 @section('title', 'Edit Asset')
 @section('content')
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -9,6 +10,12 @@
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
+    </div>
+@endif
+
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
     </div>
 @endif
 
@@ -25,7 +32,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('equipments.allassetupdate',$equipment->id) }}" method="POST">
+            <form action="{{ route('equipments.allassetupdate',['equipment' => $equipment->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">

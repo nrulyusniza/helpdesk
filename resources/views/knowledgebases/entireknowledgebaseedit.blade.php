@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('knowledgebases.entireknowledgebaseupdate',$knowledgebase->id) }}" method="POST">
+            <form action="{{ route('knowledgebases.entireknowledgebaseupdate',['knowledgebase' => $knowledgebase->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">

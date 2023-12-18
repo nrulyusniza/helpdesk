@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('reportingpersons.entirereportingpersonupdate',$reportingperson->id) }}" method="POST">
+            <form action="{{ route('reportingpersons.entirereportingpersonupdate',['reportingperson' => $reportingperson->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">

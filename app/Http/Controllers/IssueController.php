@@ -31,7 +31,18 @@ class IssueController extends Controller
      */
     public function create()
     {
-        return view('issues.create');
+        
+
+        $data['sites'] = Site::get(["asset_hostname", "id"]);
+        return view('issues.create', $data);
+    }
+
+    public function fetchEquipment(Request $request)
+    {
+        $data['equipments'] = Equipment::where("site_id", $request->site_id)
+                                ->get(["site_name", "id"]);
+  
+        return response()->json($data);
     }
 
     /**
@@ -83,9 +94,9 @@ class IssueController extends Controller
      */
     public function update(Request $request, Issue $issue)
     {
-        $request->validate([
-            'request_no' => 'required',
-        ]);
+        // $request->validate([
+        //     'request_no' => 'required',
+        // ]);
   
         $issue->update($request->all());
   
@@ -134,24 +145,14 @@ class IssueController extends Controller
 
     public function listissuecreate()
     {
-        $loggedInUser = Auth::user();
-        $site_id = $loggedInUser->site->id;
-
-        // equipment, site, reported by - query dropdown
-        // $equipments = Equipment::where('site_id', $site_id)->get(['id']);
-
-        // $equipments = DB::table('equipments')
-        //                     ->where('site_id', $site_id)
-        //                     ->select('id', 'asset_hostname', 'asset_type')->get();
-
         return view('issues.listissuecreate', compact('equipments'));
     }
 
     public function listissuestore(Request $request)
     {
-        $request->validate([
-            'request_no' => 'required',
-        ]);
+        // $request->validate([
+        //     'request_no' => 'required',
+        // ]);
   
         Issue::create($request->all());
    
@@ -181,7 +182,7 @@ class IssueController extends Controller
     public function entireissuestore(Request $request)
     {
         // $request->validate([
-        //     'side_id' => 'required',
+        //     'site_id' => 'required',
         // ]);
   
         Issue::create($request->all());

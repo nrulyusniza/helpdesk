@@ -167,7 +167,7 @@
             <li class="menu-item {{ request()->routeIs('reportingpersons.allreportingperson') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.allreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <span class="flex-grow-1 align-middle">Reporting Person [.destroy]</span>
+                <span class="flex-grow-1 align-middle">Reporting Person</span>
               </a>
             </li>
 
@@ -176,7 +176,7 @@
             <li class="menu-item {{ request()->routeIs('knowledgebases.allknowledgebase') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.allknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base [.update]</span>
+                <span class="flex-grow-1 align-middle">Knowledge Base</span>
               </a>
             </li>
 
@@ -248,7 +248,7 @@
             <li class="menu-item {{ request()->routeIs('reportingpersons.listreportingperson') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.listreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <span class="flex-grow-1 align-middle">Reporting Person [.destroy]</span>
+                <span class="flex-grow-1 align-middle">Reporting Person</span>
               </a>
             </li>
 
@@ -257,7 +257,7 @@
             <li class="menu-item {{ request()->routeIs('knowledgebases.listknowledgebase') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.listknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base [.update]</span>
+                <span class="flex-grow-1 align-middle">Knowledge Base</span>
               </a>
             </li>
 

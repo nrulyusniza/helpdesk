@@ -108,8 +108,15 @@ class EquipmentController extends Controller
 
     public function allasset(Equipment $equipment)
     {
-        $equipments = Equipment::all();
-        /*$equipments = Equipment::paginate(10);*/
+        // $equipments = Equipment::all();
+
+        // $equipments = Equipment::with(['equipmentlog' => function ($query) {
+        //     $query->latest()->limit(1);
+        // }])->get();   
+        
+        $equipments = Equipment::with(['equipmentlog' => function ($query) {
+            $query->latest('id')->limit(1); // Assuming your EquipmentLog has an 'id' column
+        }])->get();
   
         return view('equipments.allasset', compact('equipments'));
     }
@@ -133,33 +140,14 @@ class EquipmentController extends Controller
 
     public function allassetedit(Equipment $equipment)
     {
-        // retrieve the equipment and its associated equipment logs
-        // $equipment = Equipment::with('equipmentlog')->findOrFail($equipment->id);
-
-        // pass the equipment data to the view
         return view('equipments.allassetedit', compact('equipment'));
     }
 
     public function allassetupdate(Request $request, Equipment $equipment)
-    {
-        // validate the request data
-        // $equipmentlog = new Equipmentlog();
-        // // $equipmentlog->asset_newlocation = $validateData['asset_newlocation'];
-
-        // // save the equipment log
-        // $equipment->equipmentlog()->save($equipmentlog);
-
-        // // redirect back
-        // return redirect()->route('equipments.allassetlog', $equipment->id)
-        //                     ->with('success','Equipment Log created successfully');
-
-        // $request->validate([
-        //     'asset_hostname' => 'required',
-        // ]);
-  
+    {  
         $equipment->update($request->all());
   
-        return redirect()->route('equipments.allassetedit')
+        return redirect()->route('equipments.allassetedit', ['equipment' => $equipment->id])
                         ->with('success','Asset updated successfully');
     }
 
@@ -171,6 +159,24 @@ class EquipmentController extends Controller
         // pass the equipment data to the view
         return view('equipments.allassetlog', compact('equipment'));
     }
+
+    public function allassetlogupdate(Request $request, Equipment $equipment)
+    {
+        // validate the request data
+        $request->validate([
+            'asset_newlocation' => 'required',
+            'log_updatedat' => 'required|date',
+            'equipmentstatus_id' => 'required|exists:equipmentstatuss,id',
+        ]);
+
+        // update the equipment log
+        $equipment->equipmentlog()->create($request->all());
+
+        // redirect back to the equipment log page with a success message
+        return redirect()->route('equipments.allassetlog', ['equipment' => $equipment])
+            ->with('success', 'Asset log updated successfully');
+    }
+
 
     //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
     

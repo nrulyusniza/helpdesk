@@ -30,7 +30,8 @@
                             <th>Origin Location</th>
                             <th>Asset Type</th>
                             <th>Site</th>
-                            <th>Status [x]</th>
+                            <th>Latest Status [x]</th>
+                            <th>New [x]</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,6 +44,13 @@
                             <td>{{ $e->asset_type }}</td>
                             <td>{{ $e->site->site_name ?? "-" }}</td>
                             <td>{{ $e->equipmentstatus->assetstatus_label ?? "-" }}</td>    <!-- Latest status should be display here -->
+                            <td>
+                                @if ($e->allassetlog && $e->allassetlog->isNotEmpty())
+                                    {{ $e->allassetlog->first()->equipmentstatus->assetstatus_label ?? "-" }}
+                                @else
+                                    No logs available
+                                @endif
+                            </td>
                             <td>
                                 <form action="{{ route('equipments.destroy',$e->id) }}" method="POST">
                                     <!-- <a class="menu-icon tf-icons bx bx-edit" href="{{ route('equipments.allassetedit',$e->id) }}"></a>

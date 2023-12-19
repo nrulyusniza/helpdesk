@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('issues.store') }}" method="POST">
+            <form action="{{ route('issues.listissuestore') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">

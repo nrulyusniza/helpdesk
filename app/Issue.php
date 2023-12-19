@@ -29,7 +29,7 @@ class Issue extends Model
     // request_type
     public function type()
     {
-        return $this->belongsTo(Type::class, 'type_id');
+        return $this->belongsTo(Type::class, 'request_type');
     }
 
     // site_id
@@ -79,4 +79,14 @@ class Issue extends Model
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
+
+    // public function createdByUser()
+    // {
+    //     return $this->belongsTo(User::class, 'created_by', 'username');
+    // }
+
+    // public function updatedByUser()
+    // {
+    //     return $this->belongsTo(User::class, 'updated_by', 'username');
+    // }
 }

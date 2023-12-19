@@ -22,7 +22,7 @@
                         <tr>
                             <th>#</th>
                             <th>Report Date</th>
-                            <th>Request No [DB]</th>
+                            <th>Request No</th>
                             <th>Ticket No</th>
                             <!-- <th>Ticket Type</th> -->
                             <th>Site</th>
@@ -43,7 +43,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $tt->report_received->format('M d, Y') }}</td>
-                            <td>{{ $tt->request_id }}</td>
+                            <td>{{ $tt->issue->request_no }}</td>
                             <td>{{ $tt->ticket_no }}</td>
                             <!-- <td>{{ $tt->type->request_type }}</td> -->
                             <td>{{ $tt->issue->site->site_name ?? " " }}</td>
@@ -58,7 +58,10 @@
                             <td>{{ $tt->update_date->format('M d, Y') }}</td> -->
                             <td>
                                 <form action="" method="POST">
-                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('tickets.allconsumableedit',$tt->id) }}"></a>
+                                    <!-- <a class="menu-icon tf-icons bx bx-edit" href="{{ route('tickets.allconsumableedit',$tt->id) }}"></a> -->
+                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.allconsumableedit',$tt->id) }}" style="color:#57cc99"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                        title="<span>Details Ticket Log</span>"></a>
                                     @csrf
                                     @method('DELETE')
                                 </form>

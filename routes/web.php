@@ -242,6 +242,7 @@ Route::get('issues/allissue', 'IssueController@allissue')->name('issues.allissue
 
 // issues(request ticket & consumables) path - site admin view
 Route::get('issues/listissue', 'IssueController@listissue')->name('issues.listissue');
+Route::get('issues/{issue}', 'IssueController@listissuedetail')->name('issues.listissuedetail');
 Route::get('issues/listissuecreate', 'IssueController@listissuecreate')->name('issues.listissuecreate');
 Route::post('issues/listissuestore', 'IssueController@listissuestore')->name('issues.listissuestore');
 

@@ -143,9 +143,19 @@ class IssueController extends Controller
         return view('issues.listissue',compact('issues'));
     }
 
+    public function listissuedetail(Issue $issue)
+    {  
+        // $loggedInUser = Auth::user();
+        // $site_id = $loggedInUser->site->id;
+
+        // $issue->load('createdByUser', 'updatedByUser');
+
+        return view('issues.listissuedetail', compact('issue'));
+    }
+
     public function listissuecreate()
     {
-        return view('issues.listissuecreate', compact('equipments'));
+        return view('issues.listissuecreate', compact('issues'));
     }
 
     public function listissuestore(Request $request)

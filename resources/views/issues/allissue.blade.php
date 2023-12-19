@@ -43,7 +43,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $i->request_no }}</td>
                             <td>{{ $i->reported_by }}</td>
-                            <td>{{ $i->create_date->format('M d, Y') }}</td> <!-- 0000-00-00, in result  -0001 -->
+                            <td>{{ $i->create_date }}</td> <!-- 0000-00-00, in result  -0001 -->
                             <td>{{ $i->site->site_name ?? " " }}</td>
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
@@ -77,8 +77,8 @@
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="mb-3 col-md-6">
-                                                            <label class="form-label" for="request_type">Request Type [x]</label>
-                                                            <select id="defaultSelect" class="form-select" name="request_type">
+                                                            <label class="form-label" for="type_id">Request Type [x]</label>
+                                                            <select id="defaultSelect" class="form-select" name="type_id">
                                                                 <option selected disabled>-- Select Request Type --</option>
                                                                     @foreach(App\Type::all() as $type)
                                                                     <option value="{{$type->id}}">{{$type->request_type}}</option>

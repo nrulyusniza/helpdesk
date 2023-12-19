@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Edit Consumable')
+@section('title', 'Ticket Log')
 @section('content')
 
 @if ($errors->any())

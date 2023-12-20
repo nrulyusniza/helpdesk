@@ -6,6 +6,7 @@ use App\Issue;
 use App\User;
 use App\Site;
 use App\Equipment;
+use App\Reportingperson;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -33,17 +34,19 @@ class IssueController extends Controller
     {
         
 
-        $data['sites'] = Site::get(["asset_hostname", "id"]);
-        return view('issues.create', $data);
+        // $data['sites'] = Site::get(["asset_hostname", "id"]);
+        // return view('issues.create', $data);
+
+        return view('issues.create');
     }
 
-    public function fetchEquipment(Request $request)
-    {
-        $data['equipments'] = Equipment::where("site_id", $request->site_id)
-                                ->get(["site_name", "id"]);
+    // public function fetchEquipment(Request $request)
+    // {
+    //     $data['equipments'] = Equipment::where("site_id", $request->site_id)
+    //                             ->get(["site_name", "id"]);
   
-        return response()->json($data);
-    }
+    //     return response()->json($data);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -118,6 +121,8 @@ class IssueController extends Controller
                         ->with('success','Request deleted successfully');
     }
 
+    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
+
     public function allissue(Issue $issue)
     {
         // $issues = Issue::all();
@@ -128,6 +133,67 @@ class IssueController extends Controller
   
         return view('issues.allissue', compact('issues'));
     }
+
+    public function allissuedetail(Issue $issue)
+    {  
+        return view('issues.allissuedetail', compact('issue'));
+    }
+
+    public function allissuecreate()
+    {
+        return view('issues.allissuecreate');
+    }
+
+    public function allissuestore(Request $request)
+    {
+        $request->validate([
+            'request_no' => 'required',
+        ]);
+  
+        Issue::create($request->all());
+   
+        return redirect()->route('issues.allissue')
+                        ->with('success','New Request created successfully.');
+    }
+
+    // dropdown reportingperson_id selection based on site_id
+    // public function getReportingpersonBySite($siteId)
+    // {
+    //     $reportingperson = Reportingperson::where('site_id', $siteId)->get();
+
+    //     return response()->json($reportingperson);
+    // }
+
+    // dropdown equipment_id selection based on site_id
+    public function getEquipmentBySite($siteId)
+    {
+        $equipment = Equipment::where('site_id', $siteId)->get();
+
+        return response()->json($equipment);
+    }
+
+    // try yang ni
+    // public function getReportingPersons($siteId)
+    // {
+    //     $reportingPersons = Reportingperson::where('site_id', $siteId)->orderBy('rptpers_name')->get();
+
+    //     $data = $reportingPersons->pluck('rptpers_name', 'id');
+
+    //     return response()->json($data);
+    // }
+
+    // public function edit(Issue $issue)
+    // {
+    //     return view('issues.edit', compact('issue'));
+    // }
+
+    // public function update(Request $request, Issue $issue)
+    // {
+    //     $issue->update($request->all());
+  
+    //     return redirect()->route('issues.index')
+    //                     ->with('success','Request updated successfully');
+    // }
 
     //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
 
@@ -182,6 +248,11 @@ class IssueController extends Controller
         $issues = Issue::where('site_id', $site_id)->orderBy('request_no','desc')->get();
 
         return view('issues.entireissue', compact('issues'));
+    }
+
+    public function entireissuedetail(Issue $issue)
+    {  
+        return view('issues.entireissuedetail', compact('issue'));
     }
 
     public function entireissuecreate()

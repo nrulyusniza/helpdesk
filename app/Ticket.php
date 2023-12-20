@@ -21,6 +21,8 @@ class Ticket extends Model
 
     protected $dates = ['report_received', 'create_date', 'update_date'];
 
+    public $timestamps=false;
+
     // request_id
     public function issue()
     {

@@ -232,24 +232,42 @@ Route::get('ticstatuss/allticstatus', 'TicstatusController@allticstatus')->name(
 //------------------------------------------------------------------- ISSUES -------------------------------------------------------------------
 // issues(request ticket & consumable) path - super admin view
 Route::get('issues/index', 'IssueController@index')->name('issues.index');
-Route::get('issues/create', 'IssueController@create')->name('issues.create');
-Route::post('issues/store', 'IssueController@store')->name('issues.store');
+// Route::get('issues/create', 'IssueController@create')->name('issues.create');
+// Route::post('issues/store', 'IssueController@store')->name('issues.store');
 // Route::get('issues/{issue}', 'IssueController@show')->name('issues.show');
 Route::get('issues/{issue}/edit', 'IssueController@edit')->name('issues.edit');
 Route::put('issues/{issue}', 'IssueController@update')->name('issues.update');
 Route::delete('issues/{issue}', 'IssueController@destroy')->name('issues.destroy');
+
+
 Route::get('issues/allissue', 'IssueController@allissue')->name('issues.allissue');
+// Route::get('issues/{issue}', 'IssueController@allissuedetail')->name('issues.allissuedetail');
+Route::get('issues/all/{issue}', 'IssueController@allissuedetail')->name('issues.allissuedetail');
+Route::get('issues/allissuecreate', 'IssueController@allissuecreate')->name('issues.allissuecreate');
+Route::post('issues/allissuestore', 'IssueController@allissuestore')->name('issues.allissuestore');
+// Route::get('/get-reportingperson/{siteId}', 'IssueController@getReportingpersonBySite');
+Route::get('/get-equipment/{siteId}', 'IssueController@getEquipmentBySite');
+
+// Route::get('/get-reportingpersons/{siteId}', 'YourController@getReportingPersons'); // try yang ni
+
 
 // issues(request ticket & consumables) path - site admin view
 Route::get('issues/listissue', 'IssueController@listissue')->name('issues.listissue');
-Route::get('issues/{issue}', 'IssueController@listissuedetail')->name('issues.listissuedetail');
+// Route::get('issues/{issue}', 'IssueController@listissuedetail')->name('issues.listissuedetail');
+Route::get('issues/list/{issue}', 'IssueController@listissuedetail')->name('issues.listissuedetail');
 Route::get('issues/listissuecreate', 'IssueController@listissuecreate')->name('issues.listissuecreate');
 Route::post('issues/listissuestore', 'IssueController@listissuestore')->name('issues.listissuestore');
 
 // issues(request ticket & consumables) path - site user view
 Route::get('issues/entireissue', 'IssueController@entireissue')->name('issues.entireissue');
+// Route::get('issues/{issue}', 'IssueController@entireissuedetail')->name('issues.entireissuedetail');
+Route::get('issues/entire/{issue}', 'IssueController@entireissuedetail')->name('issues.entireissuedetail');
 Route::get('issues/entireissuecreate', 'IssueController@entireissuecreate')->name('issues.entireissuecreate');
 Route::post('issues/entireissuestore', 'IssueController@entireissuestore')->name('issues.entireissuestore');
+
+// Route::get('issues/{issue}/all', 'IssueController@allissuedetail')->name('issues.allissuedetail');
+// Route::get('issues/{issue}/list', 'IssueController@listissuedetail')->name('issues.listissuedetail');
+// Route::get('issues/{issue}/entire', 'IssueController@entireissuedetail')->name('issues.entireissuedetail');
 
 //------------------------------------------------------------------- TICKETS & LOGS -------------------------------------------------------------------
 // tickets(ticket & consumable) path - super admin view
@@ -257,11 +275,13 @@ Route::get('tickets/index', 'TicketController@index')->name('tickets.index');
 
 Route::get('tickets/allticket', 'TicketController@allticket')->name('tickets.allticket');
 Route::get('tickets/{ticket}/allticketedit', 'TicketController@allticketedit')->name('tickets.allticketedit');
-Route::put('tickets/{ticket}', 'TicketController@allticketupdate')->name('tickets.allticketupdate');
+// Route::put('tickets/{ticket}', 'TicketController@allticketupdate')->name('tickets.allticketupdate');
+Route::put('tickets/{ticket}/allticketupdate', 'TicketController@allticketupdate')->name('tickets.allticketupdate');
 
 Route::get('tickets/allconsumable', 'TicketController@allconsumable')->name('tickets.allconsumable');
 Route::get('tickets/{ticket}/allconsumableedit', 'TicketController@allconsumableedit')->name('tickets.allconsumableedit');
-Route::put('tickets/{ticket}', 'TicketController@allconsumableupdate')->name('tickets.allconsumableupdate');
+// Route::put('tickets/{ticket}', 'TicketController@allconsumableupdate')->name('tickets.allconsumableupdate');
+Route::put('tickets/{ticket}/allconsumableupdate', 'TicketController@allconsumableupdate')->name('tickets.allconsumableupdate');
 
 
 // tickets(ticket & consumable) path - site admin view

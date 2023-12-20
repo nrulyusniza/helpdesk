@@ -19,6 +19,8 @@ class Ticketlog extends Model
 
     protected $dates = ['date', 'response_date'];
 
+    public $timestamps=false;
+
     // reaction_id
     public function reaction()
     {

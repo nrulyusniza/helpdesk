@@ -111,10 +111,10 @@ class TicketController extends Controller
     {
         // validate the request data
         $ticketlog = new Ticketlog();
-        $ticketlog->description = $validateData['description'];
+        // $ticketlog->description = $validateData['description'];
 
         // save the ticket log
-        $ticket->ticketlog()->save($ticketLog);
+        $ticket->ticketlog()->save($ticketlog);
 
         // redirect back
         return redirect()->route('tickets.allticketedit', $ticket->id)

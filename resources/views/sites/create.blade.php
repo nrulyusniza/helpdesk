@@ -22,30 +22,24 @@
 
         <div class="card-body">
             <form action="{{ route('sites.store') }}" method="POST">
-            @csrf
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
-                    <div class="col-sm-10">
+                @csrf
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="site_name">Name</label>
                         <input type="text" class="form-control" name="site_name">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-message">Address</label>
-                    <div class="col-sm-10">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" type="text" name="site_address"></textarea>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-message">Abbreviation</label>
-                    <div class="col-sm-10">
+                    </div>                    
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="site_abbreviation">Abbreviation</label>
                         <input type="text" class="form-control" name="site_abbreviation">
                     </div>
-                </div>
-                <div class="row justify-content-end">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-secondary" href="{{ route('sites.index') }}">Cancel</a>
+                    <div class="mb-3">
+                        <label class="form-label" for="site_address">Address</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" type="text" name="site_address"></textarea>
                     </div>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('sites.allsite') }}">Cancel</a>
                 </div>
             </form>
         </div>

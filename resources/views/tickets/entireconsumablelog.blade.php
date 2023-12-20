@@ -53,8 +53,8 @@
                     </select>
                 </div>    
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="create_date">Date [x]</label>
-                    <input type="date" class="form-control" name="create_date" value="{{ $ticket->create_date }}" readonly>
+                    <label class="form-label" for="create_date">Date</label>
+                    <input type="text" class="form-control" name="create_date" value="{{ $ticket->create_date->format('M d, Y') }}" readonly>
                 </div>            
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="fault_description">Fault Description</label>

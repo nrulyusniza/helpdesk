@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('issues.store') }}" method="POST">
+            <form action="{{ route('issues.allissuestore') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
@@ -34,8 +34,8 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_id">Site [x]</label>
-                        <select id="defaultSelect" class="form-select" name="site_id">
+                        <label class="form-label" for="site_id">Site</label>
+                        <select id="site_id" class="form-select" name="site_id">
                             <option selected disabled>-- Select Site --</option>
                                 @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 <option value="{{$site->id}}">{{$site->site_name}}</option>
@@ -44,16 +44,16 @@
                     </div>                
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reportingperson_id">Reported By [x]</label>
-                        <select id="defaultSelect" class="form-select" name="reportingperson_id">
-                            <option selected disabled>-- Select Name --</option>
+                        <select id="reportingperson_id" class="form-select" name="reportingperson_id">
+                            <!-- <option selected disabled>-- Select Name --</option>
                                 @foreach(App\Reportingperson::all()->sortBy('rptpers_name') as $reportingperson)
                                 <option value="{{$reportingperson->id}}">{{$reportingperson->rptpers_name}}</option>
-                                @endforeach
+                                @endforeach -->
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="rptpers_mobile">Phone Number (Reported By)</label>
-                        <input type="text" class="form-control" name="rptpers_mobile">                       
+                        <input type="number" class="form-control" name="rptpers_mobile">                       
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reqcategory_id">Category</label>
@@ -65,12 +65,12 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_hostname">Equipment [x]</label>
-                        <select id="defaultSelect" class="form-select">
-                            <option selected disabled>-- Select Equipment --</option>
+                        <label class="form-label" for="equipment_id">Equipment</label>
+                        <select id="equipment_id" class="form-select" name="equipment_id">>
+                            <!-- <option selected disabled>-- Select Equipment --</option>
                                 @foreach(App\Equipment::all()->sortBy('asset_hostname') as $equipment)
                                 <option value="{{$equipment->id}}">{{$equipment->asset_hostname}} - {{$equipment->asset_type}}</option>
-                                @endforeach
+                                @endforeach -->
                         </select>                     
                     </div>
                     <div class="mb-3 col-md-6">
@@ -85,23 +85,6 @@
                         <label class="form-label" for="fault_description">Fault Description</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" type="text" name="fault_description"></textarea>
                     </div>
-                    
-                    <div class="form-group mb-3">
-                        <label class="form-control-label" for="site">Country</label>
-                        <select  id="site-dropdown" class="form-control">
-                            <option value="">-- Select Country --</option>
-                            @foreach ($sites as $data)
-                                <option value="{{$data->id}}">
-                                    {{$data->site_name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-control-label" for="equipment">State</label>
-                        <select id="equipment-dropdown" class="form-control">
-                        </select>
-                    </div>
                 </div>
                 <div class="mt-2">
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -113,37 +96,81 @@
     </div>
 </div>
 
-@endsection
+@stop
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
+@section('scriptlibraries')
 
-        /*------------------------------------------
-        --------------------------------------------
-        Country Dropdown Change Event
-        --------------------------------------------
-        --------------------------------------------*/
-        $('#country-dropdown').on('change', function () {
-            var idCountry = this.value;
-            $("#state-dropdown").html('');
-            $.ajax({
-                url: "{{url('api/fetch-states')}}",
-                type: "POST",
-                data: {
-                    country_id: idCountry,
-                    _token: '{{csrf_token()}}'
-                },
-                dataType: 'json',
-                success: function (result) {
-                    $('#state-dropdown').html('<option value="">-- Select State --</option>');
-                    $.each(result.states, function (key, value) {
-                        $("#state-dropdown").append('<option value="' + value
-                        .id + '">' + value.name + '</option>');
-                    });
-                    $('#city-dropdown').html('<option value="">-- Select City --</option>');
-                }
+    <!-- Dropdown dynamically -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#site_id').change(function() {
+                var siteId = $(this).val();
+
+                // reportingperson_id
+                // $.ajax({
+                //     url: '/get-reportingperson/' + siteId,
+                //     type: 'GET',
+                //     success: function(data) {
+                //         // sort reportingperson selection by rptpers_name
+                //         data.sort(function(a, b) {
+                //             return a.rptpers_name.localeCompare(b.rptpers_name);
+                //         });
+
+                //         $('#reportingperson_id').empty();
+                //         $('#reportingperson_id').append('<option selected disabled>-- Select Name --</option>');
+                        
+                //         $.each(data, function(index, reportingperson) {
+                //             $('#reportingperson_id').append('<option value="' + reportingperson.id + '">' + reportingperson.rptpers_name + '</option>');
+                //         });
+                //     }
+                // });
+
+                // equipment_id
+                $.ajax({
+                    url: '/get-equipment/' + siteId,
+                    type: 'GET',
+                    success: function(data) {
+                        // sort equipment selection by asset_hostname
+                        data.sort(function(a, b) {
+                            return a.asset_hostname.localeCompare(b.asset_hostname);
+                        });
+
+                        $('#equipment_id').empty();
+                        $('#equipment_id').append('<option selected disabled>-- Select Equipment --</option>');
+                        
+                        $.each(data, function(index, equipment) {
+                            $('#equipment_id').append('<option value="' + equipment.id + '">' + equipment.asset_hostname + ' - ' + equipment.asset_type + '</option>');
+                        });
+                    }
+                });
+
             });
         });
-    });
-</script>
+    </script>
+
+    <!-- Try yang ni -->
+    <!-- <script>
+        $(document).ready(function () {
+            $('#site_id').on('change', function () {
+                var siteId = $(this).val();
+
+                $.ajax({
+                    url: '/get-reportingpersons/' + siteId,
+                    type: 'GET',
+                    success: function (data) {
+                        var reportingPersonsDropdown = $('#reportingperson_id');
+                        reportingPersonsDropdown.empty();
+                        reportingPersonsDropdown.append('<option selected disabled>-- Select Name --</option>');
+
+                        $.each(data, function (key, value) {
+                            reportingPersonsDropdown.append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script> -->
+
+@stop

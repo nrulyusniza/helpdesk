@@ -83,7 +83,7 @@
                     <input type="text" class="form-control" name="create_date" value="{{ $issue->create_date->format('M d, Y') }}" readonly>
                 </div>
                 <div class="mt-2">
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('issues.allissue') }}">Back</a>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('issues.entireissue') }}">Back</a>
                 </div>                        
             </div>
                 

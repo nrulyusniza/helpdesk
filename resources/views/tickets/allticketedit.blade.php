@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Edit Ticket')
+@section('title', 'Edit Ticket & Ticket Log')
 @section('content')
 
 @if ($errors->any())
@@ -22,46 +22,41 @@
 
         <div class="card-body">            
             <div class="row">
-                <!-- disabled ticket information -->
+                <!-- readonly ticket information -->
                 <div class="col-xl">
                     <div class="card mb-4" style="background-color: #f4f3ee;">
                         <div class="card-body">                            
                             <div class="mb-3">
                                 <label class="form-label" for="site_name">Site</label>
-                                <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" disabled>
+                                <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="reported_by">Reported By</label>
-                                <input type="text" class="form-control" name="reported_by" value="{{ $ticket->issue->reported_by }}" disabled>
+                                <input type="text" class="form-control" name="reported_by" value="{{ $ticket->issue->reported_by }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                                <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" disabled>
+                                <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="req_category">Category</label>
-                                <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" disabled>
+                                <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="status_label">Status</label>
-                                <input type="text" class="form-control" name="status_label" value="{{ $ticket->issue->status->status_label }}" disabled>
+                                <input type="text" class="form-control" name="status_label" value="{{ $ticket->issue->status->status_label }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Equipment [x]</label>
-                                <select id="defaultSelect" class="form-select" name="asset_hostname">
-                                    <option selected disabled>-- Select Equipment --</option>
-                                        @foreach(App\Equipment::all() as $equipment)
-                                        <option value="{{ $equipment->asset_hostname .'-'. $equipment->asset_type }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
-                                        @endforeach
-                                </select>
-                            </div>
+                                <label class="form-label" for="asset_hostname">Equipment</label>
+                                <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
+                            </div> 
                             <div class="mb-3">
                                 <label class="form-label" for="attachment">Attachment [x]</label>
-                                <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" disabled>
+                                <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="fault_description">Fault Description</label>
-                                <textarea class="form-control" name="fault_description" rows="5" disabled>{{ $ticket->issue->fault_description }}</textarea>
+                                <textarea class="form-control" name="fault_description" rows="5" readonly>{{ $ticket->issue->fault_description }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -71,42 +66,42 @@
                 <div class="col-xl">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form action="{{ route('tickets.allticketupdate',$ticket->id) }}" method="POST">
+                            <form action="{{ route('tickets.allticketupdate',['ticket' => $ticket->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                                 <div class="mb-3">
-                                    <label class="form-label" for="site_name">Ticket Status [Ticket log] [x]</label>
-                                    <select id="defaultSelect" class="form-select" name="ticstatus_label">
-                                        <option selected disabled>-- Select Status --</option>
+                                    <label class="form-label" for="ticstatus_id">Ticket Status [Ticket log]</label>
+                                    <select id="defaultSelect" class="form-select" name="ticstatus_id">
+                                        <option selected readonly>-- Select Status --</option>
                                             @foreach(App\Ticstatus::all() as $ticstatus)
                                             <option value="{{ $ticstatus->ticstatus_label }}">{{ $ticstatus->ticstatus_label }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="">Comments [x]</label>
-                                    <textarea class="form-control" name="" rows="5"></textarea>
+                                    <label class="form-label" for="description">Comments [x]</label>
+                                    <textarea class="form-control" name="description" rows="5"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="">Response Date [x]</label>
-                                    <input type="date" class="form-control" name="" value="">
+                                    <label class="form-label" for="response_date">Response Date [x]</label>
+                                    <input type="date" class="form-control" name="response_date" value="">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="">Response Time [x]</label>
-                                    <input type="time" class="form-control" name="" value="">
+                                    <label class="form-label" for="response_time">Response Time [x]</label>
+                                    <input type="time" class="form-control" name="response_time" value="">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="req_category">Response Type [x]</label>
-                                    <select id="defaultSelect" class="form-select" name="response_type">
-                                        <option selected disabled>-- Select Status --</option>
+                                    <label class="form-label" for="reaction_id">Response Type</label>
+                                    <select id="defaultSelect" class="form-select" name="reaction_id">
+                                        <option selected readonly>-- Select Status --</option>
                                             @foreach(App\Reaction::all() as $reaction)
                                             <option value="{{ $reaction->response_type }}">{{ $reaction->response_type }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="">Attachment [x]</label>
-                                    <input type="file" class="form-control" name="" value="">
+                                    <label class="form-label" for="attachment">Attachment [x]</label>
+                                    <input type="file" class="form-control" name="attachment" value="">
                                 </div>
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>

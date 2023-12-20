@@ -51,6 +51,9 @@
                             <td>{{ $i->created_by ?? " " }}</td>
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
+                                    <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.entireissuedetail',['issue' => $i->id]) }}"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                        title="<span>View Details</span>"></a>
                                     <a class="menu-icon tf-icons bx bx-expand-alt" style='color:#716d6d'
                                         type="button"
                                         data-bs-offset="0,4"

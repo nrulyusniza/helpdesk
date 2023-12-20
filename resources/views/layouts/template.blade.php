@@ -113,21 +113,21 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Issue Tracking</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('issues.allissue') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('issues.allissue*') ? 'active' : '' }}">
               <a href="{{ route('issues.allissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('tickets.allticket') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('tickets.allticket*') ? 'active' : '' }}">
               <a href="{{ route('tickets.allticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Ticket</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('tickets.allconsumable') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('tickets.allconsumable*') ? 'active' : '' }}">
               <a href="{{ route('tickets.allconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Consumables</span>
@@ -137,13 +137,13 @@
 
             <!-- 3- Asset & Site Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
-            <li class="menu-item {{ request()->routeIs('equipments.allasset') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('equipments.allasset*') ? 'active' : '' }}">
               <a href="{{ route('equipments.allasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
                 <span class="flex-grow-1 align-middle">Asset</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('sites.allsite') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('sites*') ? 'active' : '' }}">
               <a href="{{ route('sites.allsite') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-map-pin"></i>
                 <span class="flex-grow-1 align-middle">Site</span>
@@ -152,19 +152,19 @@
 
             <!-- 4- User Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
-            <li class="menu-item {{ request()->routeIs('roles.allrole') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('roles*') ? 'active' : '' }}">
               <a href="{{ route('roles.allrole') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <span class="flex-grow-1 align-middle">User Groups</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('users.alluser') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('users*') ? 'active' : '' }}">
               <a href="{{ route('users.alluser') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <span class="flex-grow-1 align-middle">User</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('reportingpersons.allreportingperson') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('reportingpersons.allreportingperson*') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.allreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
                 <span class="flex-grow-1 align-middle">Reporting Person</span>
@@ -173,7 +173,7 @@
 
             <!-- 5- Knowledge Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
-            <li class="menu-item {{ request()->routeIs('knowledgebases.allknowledgebase') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('knowledgebases.allknowledgebase*') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.allknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
                 <span class="flex-grow-1 align-middle">Knowledge Base</span>
@@ -212,21 +212,21 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Issue Tracking</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('issues.listissue') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('issues.listissue*') ? 'active' : '' }}">
               <a href="{{ route('issues.listissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('tickets.listticket') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('tickets.listticket*') ? 'active' : '' }}">
               <a href="{{ route('tickets.listticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Ticket</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('tickets.listconsumable') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('tickets.listconsumable*') ? 'active' : '' }}">
               <a href="{{ route('tickets.listconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Consumables</span>
@@ -236,7 +236,7 @@
 
             <!-- 3- Asset & Site Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
-            <li class="menu-item {{ request()->routeIs('equipments.listasset') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('equipments.listasset*') ? 'active' : '' }}">
               <a href="{{ route('equipments.listasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
                 <span class="flex-grow-1 align-middle">Asset</span>
@@ -245,7 +245,7 @@
 
             <!-- 4- User Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
-            <li class="menu-item {{ request()->routeIs('reportingpersons.listreportingperson') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('reportingpersons.listreportingperson*') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.listreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
                 <span class="flex-grow-1 align-middle">Reporting Person</span>
@@ -254,7 +254,7 @@
 
             <!-- 5- Knowledge Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
-            <li class="menu-item {{ request()->routeIs('knowledgebases.listknowledgebase') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('knowledgebases.listknowledgebase*') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.listknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
                 <span class="flex-grow-1 align-middle">Knowledge Base</span>
@@ -287,28 +287,31 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Issue Tracking</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('issues.entireissue') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('issues.entireissue*') ? 'active' : '' }}">
               <a href="{{ route('issues.entireissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('tickets.entireticket') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('tickets.entireticket*') ? 'active' : '' }}">
               <a href="{{ route('tickets.entireticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Ticket</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('tickets.entireconsumable') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('tickets.entireconsumable*') ? 'active' : '' }}">
               <a href="{{ route('tickets.entireconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Consumables</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
               </a>
             </li>
 
             <!-- 3- Asset Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
-            <li class="menu-item {{ request()->routeIs('equipments.entireasset') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('equipments.entireasset*') ? 'active' : '' }}">
               <a href="{{ route('equipments.entireasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
                 <span class="flex-grow-1 align-middle">Asset</span>
@@ -317,7 +320,7 @@
 
             <!-- 4- User Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
-            <li class="menu-item {{ request()->routeIs('reportingpersons.entirereportingperson') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('reportingpersons.entirereportingperson*') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.entirereportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
                 <span class="flex-grow-1 align-middle">Reporting Person</span>
@@ -326,7 +329,7 @@
 
             <!-- 5- Knowledge Management -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
-            <li class="menu-item {{ request()->routeIs('knowledgebases.entireknowledgebase') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('knowledgebases.entireknowledgebase*') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.entireknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
                 <span class="flex-grow-1 align-middle">Knowledge Base</span>
@@ -580,14 +583,14 @@
     <!-- / Layout wrapper -->
 
     <!-- Chatbot -->
-    <div class="buy-now">
+    <!-- <div class="buy-now">
       <a id="chatbot-button"
         href="{{ route('chat') }}"
         target=""
         class="btn btn-danger btn-buy-now"
         onclick="openPopup()"
         rel="noopener noreferrer">Chat with X</a>
-    </div>
+    </div> -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -642,7 +645,7 @@
             integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" 
             crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
-    <script>
+    <!-- <script>
       // Get the button that opens the modal
       var btn = document.getElementById("chatbot-button");
 
@@ -654,7 +657,7 @@
         // Display the modal
         modal.style.display = "block";
       }
-    </script>
+    </script> -->
 
     @yield('scriptlibraries')
 

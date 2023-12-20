@@ -40,7 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="kb_article">Content</label>
-                        <input type="text" class="form-control" name="kb_article" value="{{ $knowledgebase->kb_article }}">
+                        <textarea class="form-control" name="kb_article" rows="10">{{ $knowledgebase->kb_article }}</textarea>
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Update</button>

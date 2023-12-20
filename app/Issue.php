@@ -62,11 +62,11 @@ class Issue extends Model
         return $this->belongsTo(Severity::class, 'severity_id');
     }
 
-    // reported_by, phone_no
-    // public function reportingperson()
-    // {
-    //     return $this->belongsTo(Reportingperson::class, 'reportingperson_id');
-    // }
+    // reported_by
+    public function reportingperson()
+    {
+        return $this->belongsTo(Reportingperson::class, 'reported_by');
+    }
 
     // created_by
     public function user()

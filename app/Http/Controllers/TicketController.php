@@ -109,12 +109,14 @@ class TicketController extends Controller
 
     public function allticketupdate(Request $request, Ticket $ticket)
     {
-        // validate the request data
-        $ticketlog = new Ticketlog();
-        // $ticketlog->description = $validateData['description'];
+        // // validate the request data
+        // $ticketlog = new Ticketlog();
+        // // $ticketlog->description = $validateData['description'];
 
-        // save the ticket log
-        $ticket->ticketlog()->save($ticketlog);
+        // // save the ticket log
+        // $ticket->ticketlog()->save($ticketlog);
+
+        $ticket->ticketlog()->create($request->all());
 
         // redirect back
         return redirect()->route('tickets.allticketedit', $ticket->id)

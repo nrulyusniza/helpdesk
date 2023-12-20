@@ -55,7 +55,7 @@
                         <label class="form-label" for="username">Password
                             <span style="text-transform:capitalize;">[Default: P@ssW0rdx123]</span>
                         </label>
-                            <input type="password" class="form-control" name="password" value="{{ $user->password }}">
+                            <input type="password" class="form-control" name="password" value="{{ $user->password }}" readonly>
                     </div>
                     <div class="mt-2">
                             <button type="submit" class="btn btn-primary">Update</button>

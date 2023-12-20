@@ -42,8 +42,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $i->request_no }}</td>
-                            <td>{{ $i->reported_by }}</td>
-                            <td>{{ $i->create_date }}</td> <!-- 0000-00-00, in result  -0001 -->
+                            <td>{{ $i->reportingperson->rptpers_name }}</td>
+                            <td>{{ $i->create_date->format('M d, Y') }}</td> <!-- 0000-00-00, in result  -0001 -->
                             <td>{{ $i->site->site_name ?? " " }}</td>
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>

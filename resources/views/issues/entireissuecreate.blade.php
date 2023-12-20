@@ -53,8 +53,8 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="rptpers_mobile">Phone Number (Reported By)</label>
-                        <input type="text" class="form-control" name="rptpers_mobile">                       
+                        <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
+                        <input type="number" class="form-control" name="phone_no">                       
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reqcategory_id">Category</label>
@@ -67,16 +67,16 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label">Equipment</label>
-                        <select id="defaultSelect" class="form-select">
+                        <select id="defaultSelect" class="form-select" name="equipment_id">
                             <option selected disabled>-- Select Equipment --</option>
-                                @foreach(App\Equipment::where('site_id', auth()->user()->site_id)->orderBy('asset_hostname')->get() as $equipment)
-                                <option value="{{ $equipment->asset_hostname .'-'. $equipment->asset_type }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
-                                @endforeach
+                            @foreach(App\Equipment::where('site_id', auth()->user()->site_id)->orderBy('asset_hostname')->get() as $equipment)
+                                <option value="{{ $equipment->id }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
+                            @endforeach
                         </select>                     
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="created_date">Date</label>
-                        <input type="date" class="form-control" name="created_date">
+                        <label class="form-label" for="create_date">Date</label>
+                        <input type="date" class="form-control" name="create_date">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="attachment">Attachment</label>

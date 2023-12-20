@@ -52,8 +52,8 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="rptpers_mobile">Phone Number (Reported By)</label>
-                        <input type="number" class="form-control" name="rptpers_mobile">                       
+                        <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
+                        <input type="number" class="form-control" name="phone_no">                       
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reqcategory_id">Category</label>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="equipment_id">Equipment</label>
-                        <select id="equipment_id" class="form-select" name="equipment_id">>
+                        <select id="equipment_id" class="form-select" name="equipment_id">
                             <!-- <option selected disabled>-- Select Equipment --</option>
                                 @foreach(App\Equipment::all()->sortBy('asset_hostname') as $equipment)
                                 <option value="{{$equipment->id}}">{{$equipment->asset_hostname}} - {{$equipment->asset_type}}</option>
@@ -74,8 +74,8 @@
                         </select>                     
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="created_date">Date</label>
-                        <input type="date" class="form-control" name="created_date">
+                        <label class="form-label" for="create_date">Date</label>
+                        <input type="date" class="form-control" name="create_date">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="attachment">Attachment</label>
@@ -109,23 +109,23 @@
                 var siteId = $(this).val();
 
                 // reportingperson_id
-                // $.ajax({
-                //     url: '/get-reportingperson/' + siteId,
-                //     type: 'GET',
-                //     success: function(data) {
-                //         // sort reportingperson selection by rptpers_name
-                //         data.sort(function(a, b) {
-                //             return a.rptpers_name.localeCompare(b.rptpers_name);
-                //         });
+                $.ajax({
+                    url: '/get-reportingperson/' + siteId,
+                    type: 'GET',
+                    success: function(data) {
+                        // sort reportingperson selection by rptpers_name
+                        data.sort(function(a, b) {
+                            return a.rptpers_name.localeCompare(b.rptpers_name);
+                        });
 
-                //         $('#reportingperson_id').empty();
-                //         $('#reportingperson_id').append('<option selected disabled>-- Select Name --</option>');
+                        $('#reportingperson_id').empty();
+                        $('#reportingperson_id').append('<option selected disabled>-- Select Name --</option>');
                         
-                //         $.each(data, function(index, reportingperson) {
-                //             $('#reportingperson_id').append('<option value="' + reportingperson.id + '">' + reportingperson.rptpers_name + '</option>');
-                //         });
-                //     }
-                // });
+                        $.each(data, function(index, reportingperson) {
+                            $('#reportingperson_id').append('<option value="' + reportingperson.id + '">' + reportingperson.rptpers_name + '</option>');
+                        });
+                    }
+                });
 
                 // equipment_id
                 $.ajax({
@@ -149,28 +149,5 @@
             });
         });
     </script>
-
-    <!-- Try yang ni -->
-    <!-- <script>
-        $(document).ready(function () {
-            $('#site_id').on('change', function () {
-                var siteId = $(this).val();
-
-                $.ajax({
-                    url: '/get-reportingpersons/' + siteId,
-                    type: 'GET',
-                    success: function (data) {
-                        var reportingPersonsDropdown = $('#reportingperson_id');
-                        reportingPersonsDropdown.empty();
-                        reportingPersonsDropdown.append('<option selected disabled>-- Select Name --</option>');
-
-                        $.each(data, function (key, value) {
-                            reportingPersonsDropdown.append('<option value="' + key + '">' + value + '</option>');
-                        });
-                    }
-                });
-            });
-        });
-    </script> -->
 
 @stop

@@ -47,12 +47,12 @@
                     <input type="text" class="form-control" name="site_name" value="{{ $issue->site->site_name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="reported_by">Reported By</label>
-                    <input type="text" class="form-control" name="reported_by" value="{{ $issue->reported_by }}" readonly>
+                    <label class="form-label" for="rptpers_name">Reported By</label>
+                    <input type="text" class="form-control" name="rptpers_name" value="{{ $issue->reportingperson->rptpers_name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                    <input type="text" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
+                    <input type="number" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>

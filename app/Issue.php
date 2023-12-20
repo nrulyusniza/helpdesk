@@ -9,7 +9,7 @@ use App\Reqcategory;
 use App\Equipment;
 use App\Status;
 use App\Severity;
-use App\Reporingperson;
+use App\Reportingperson;
 use App\User;
 
 class Issue extends Model
@@ -17,7 +17,7 @@ class Issue extends Model
     public $table = "issues";
 
     protected $fillable = [
-        "request_no", "request_type", "site_id", "reported_by", "phone_no", "reqcategory_id", "equipment_id",
+        "request_no", "request_type", "site_id", "reportingperson_id", "phone_no", "reqcategory_id", "equipment_id",
         "attachment", "fault_description", "created_by", "create_date", "status_id", "admin_comments", "severity_id",
         "updated_by", "update_date"
     ];
@@ -36,6 +36,12 @@ class Issue extends Model
     public function site()
     {
         return $this->belongsTo(Site::class, 'site_id');
+    }
+    
+    // reportingperson_id
+    public function reportingperson()
+    {
+        return $this->belongsTo(Reportingperson::class, 'reportingperson_id');
     }
 
     // reqcategory_id
@@ -60,12 +66,6 @@ class Issue extends Model
     public function severity()
     {
         return $this->belongsTo(Severity::class, 'severity_id');
-    }
-
-    // reported_by
-    public function reportingperson()
-    {
-        return $this->belongsTo(Reportingperson::class, 'reported_by');
     }
 
     // created_by

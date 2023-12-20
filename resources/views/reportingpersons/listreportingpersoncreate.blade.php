@@ -30,7 +30,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="rptpers_mobile">Phone Number</label>
-                        <input type="text" class="form-control" name="rptpers_mobile">
+                        <input type="number" class="form-control" name="rptpers_mobile">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="site_id">Site</label>

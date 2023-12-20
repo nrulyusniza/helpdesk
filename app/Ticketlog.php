@@ -14,7 +14,7 @@ class Ticketlog extends Model
 
     protected $fillable = [
         "date", "description", "ticket_id", "update_by", "response_date", "response_time",
-        "reaction_id", "attachment", "log_status"
+        "reaction_id", "attachment", "ticstatus_id"
     ];
 
     protected $dates = ['date', 'response_date'];
@@ -27,10 +27,10 @@ class Ticketlog extends Model
         return $this->belongsTo(Reaction::class, 'reaction_id');
     }
 
-    // log_status
+    // ticstatus_id
     public function ticstatus()
     {
-        return $this->belongsTo(Ticstatus::class, 'log_status');
+        return $this->belongsTo(Ticstatus::class, 'ticstatus_id');
     }
 
     // ticket_id

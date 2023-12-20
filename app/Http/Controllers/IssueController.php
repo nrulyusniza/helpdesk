@@ -146,23 +146,31 @@ class IssueController extends Controller
 
     public function allissuestore(Request $request)
     {
-        $request->validate([
-            'request_no' => 'required',
-        ]);
+        // $request->validate([
+        //     'request_no' => 'required',
+        // ]);
   
         Issue::create($request->all());
    
         return redirect()->route('issues.allissue')
                         ->with('success','New Request created successfully.');
+
+        // Issue::create([
+        //     'equipment_id' => $request->input('equipment_id'),
+        //     // Other fields from the form
+        // ]);
+       
+        // return redirect()->route('issues.allissue')
+        //                 ->with('success', 'New Request created successfully.');
     }
 
     // dropdown reportingperson_id selection based on site_id
-    // public function getReportingpersonBySite($siteId)
-    // {
-    //     $reportingperson = Reportingperson::where('site_id', $siteId)->get();
+    public function getReportingpersonBySite($siteId)
+    {
+        $reportingperson = Reportingperson::where('site_id', $siteId)->get();
 
-    //     return response()->json($reportingperson);
-    // }
+        return response()->json($reportingperson);
+    }
 
     // dropdown equipment_id selection based on site_id
     public function getEquipmentBySite($siteId)
@@ -171,16 +179,6 @@ class IssueController extends Controller
 
         return response()->json($equipment);
     }
-
-    // try yang ni
-    // public function getReportingPersons($siteId)
-    // {
-    //     $reportingPersons = Reportingperson::where('site_id', $siteId)->orderBy('rptpers_name')->get();
-
-    //     $data = $reportingPersons->pluck('rptpers_name', 'id');
-
-    //     return response()->json($data);
-    // }
 
     // public function edit(Issue $issue)
     // {

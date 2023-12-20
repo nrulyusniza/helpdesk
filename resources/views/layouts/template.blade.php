@@ -185,7 +185,7 @@
             <li class="menu-item {{ request()->routeIs('tickets.report.producereport') ? 'active' : '' }}">
               <a href="{{ route('tickets.report.producereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <span class="flex-grow-1 align-middle">Ticket Reporting</span>
+                <span class="flex-grow-1 align-middle">Report</span>
               </a>
             </li>
             <li class="menu-item {{ request()->is('myextension') ? 'active' : '' }}">
@@ -266,7 +266,7 @@
             <li class="menu-item {{ request()->routeIs('tickets.report.generatereport') ? 'active' : '' }}">
               <a href="{{ route('tickets.report.generatereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <span class="flex-grow-1 align-middle">Ticket Reporting</span>
+                <span class="flex-grow-1 align-middle">Report</span>
               </a>
             </li>
           </ul>
@@ -341,7 +341,7 @@
             <li class="menu-item {{ request()->routeIs('tickets.report.generatereport') ? 'active' : '' }}">
               <a href="{{ route('tickets.report.generatereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <span class="flex-grow-1 align-middle">Ticket Reporting</span>
+                <span class="flex-grow-1 align-middle">Report</span>
               </a>
             </li>
           </ul>

@@ -31,12 +31,12 @@
                                 <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="reported_by">Reported By</label>
-                                <input type="text" class="form-control" name="reported_by" value="{{ $ticket->issue->reported_by }}" readonly>
+                                <label class="form-label" for="rptpers_name">Reported By</label>
+                                <input type="text" class="form-control" name="rptpers_name" value="{{ $ticket->issue->reportingperson->rptpers_name }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                                <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
+                                <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="req_category">Category</label>
@@ -67,41 +67,40 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <form action="{{ route('tickets.allticketupdate',['ticket' => $ticket->id]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
+                                @csrf
                                 <div class="mb-3">
-                                    <label class="form-label" for="ticstatus_id">Ticket Status [Ticket log]</label>
+                                    <label class="form-label" for="ticstatus_id">Current Ticket Status</label>
                                     <select id="defaultSelect" class="form-select" name="ticstatus_id">
                                         <option selected readonly>-- Select Status --</option>
                                             @foreach(App\Ticstatus::all() as $ticstatus)
-                                            <option value="{{ $ticstatus->ticstatus_label }}">{{ $ticstatus->ticstatus_label }}</option>
+                                            <option value="{{ $ticstatus->id }}">{{ $ticstatus->ticstatus_label }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="description">Comments [x]</label>
-                                    <textarea class="form-control" name="description" rows="5"></textarea>
+                                    <label class="form-label" for="description">Comments</label>
+                                    <textarea class="form-control" name="description" rows="5" name="description"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="response_date">Response Date [x]</label>
-                                    <input type="date" class="form-control" name="response_date" value="">
+                                    <label class="form-label" for="response_date">Response Date</label>
+                                    <input type="date" class="form-control" name="response_date" value="response_date">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="response_time">Response Time [x]</label>
-                                    <input type="time" class="form-control" name="response_time" value="">
+                                    <label class="form-label" for="response_time">Response Time</label>
+                                    <input type="time" class="form-control" name="response_time" value="response_time">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="reaction_id">Response Type</label>
                                     <select id="defaultSelect" class="form-select" name="reaction_id">
                                         <option selected readonly>-- Select Status --</option>
                                             @foreach(App\Reaction::all() as $reaction)
-                                            <option value="{{ $reaction->response_type }}">{{ $reaction->response_type }}</option>
+                                            <option value="{{ $reaction->id }}">{{ $reaction->response_type }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="attachment">Attachment [x]</label>
-                                    <input type="file" class="form-control" name="attachment" value="">
+                                    <label class="form-label" for="attachment">Attachment</label>
+                                    <input class="form-control" type="file" name="attachment" id="formFile" />
                                 </div>
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -131,7 +130,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>ID</th>
-                                    <th>Date</th>
+                                    <th>Received Date</th>
                                     <th>Description</th>
                                     <th>Update By</th>
                                     <th>Response Type</th>
@@ -146,7 +145,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id }}</td>
-                                    <td>{{ $log->date->format('M d, Y') }}</td>
+                                    <td>{{ $log->ticket->report_received->format('M d, Y') }}</td>
                                     <td>{{ $log->description }}</td>
                                     <td>{{ $log->update_by }}</td>
                                     <td>{{ $log->reaction->response_type }}</td>

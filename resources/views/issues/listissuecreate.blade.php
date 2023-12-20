@@ -54,7 +54,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="rptpers_mobile">Phone Number (Reported By)</label>
-                        <input type="text" class="form-control" name="rptpers_mobile">                       
+                        <input type="number" class="form-control" name="rptpers_mobile">                       
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reqcategory_id">Category</label>

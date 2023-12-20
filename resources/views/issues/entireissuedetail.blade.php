@@ -47,12 +47,12 @@
                     <input type="text" class="form-control" name="site_name" value="{{ $issue->site->site_name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="reported_by">Reported By</label>
-                    <input type="text" class="form-control" name="reported_by" value="{{ $issue->reported_by }}" readonly>
+                    <label class="form-label" for="rptpers_name">Reported By</label>
+                    <input type="text" class="form-control" name="rptpers_name" value="{{ $issue->reportingperson->rptpers_name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                    <input type="text" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
+                    <input type="number" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>
@@ -64,19 +64,29 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_hostname">Equipment</label>
-                    <input type="text" class="form-control" name="asset_hostname" value="{{ $issue->equipment->asset_hostname }}" readonly>
+                    <input type="text" class="form-control" name="asset_hostname" value="{{ $issue->equipment->asset_hostname }} - {{ $issue->equipment->asset_type }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="attachment">Attachment</label>
-                    <input type="text" class="form-control" name="attachment" value="{{ $issue->attachment }}" readonly>
+                    <label class="form-label" for="attachment">Attachment</label><br>
+                    <!-- <input type="text" class="form-control" name="attachment" value="{{ $issue->attachment }}" readonly> -->
+                    @if ($issue->attachment)
+                        <a href="{{ $issue->attachment }}" target="_blank">{{ basename($issue->attachment) }}</a>
+                    @else
+                        <p>No attachment available</p>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="fault_description">Fault Description</label>
                     <textarea class="form-control" name="fault_description" rows="5" readonly>{{ $issue->fault_description }}</textarea>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="created_by">Created By [x]</label>
-                    <input type="text" class="form-control" name="created_by" value="{{ $issue->created_by }}" readonly>
+                    <label class="form-label" for="created_by">Created By</label>
+                    @php
+                        // $issue->created_by is the username of the user who created the issue
+                        $creator = \App\User::where('username', $issue->created_by)->first();
+                        $creatorFullname = $creator ? $creator->fullname : 'Unknown';
+                    @endphp
+                    <input type="text" class="form-control" name="created_by" value="{{ $creatorFullname }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">Create Date</label>
@@ -111,7 +121,7 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="update_date">Update Date</label>
-                    <input type="text" class="form-control" name="update_date" value="{{ $issue->update_date->format('M d, Y') }}" readonly>
+                    <input type="text" class="form-control" name="create_date" value="{{ $issue->update_date instanceof \Carbon\Carbon ? $issue->update_date->format('Y-m-d H:i:s') : '' }}" readonly>
                 </div>                
             </div>
         </div>

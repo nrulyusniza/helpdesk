@@ -13,95 +13,87 @@
 
   <!-- 1 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-start justify-content-between">
-            <div class="content-left">
-              <span class="fw-medium d-block mb-1">Total Users</span>
-              <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2">{{ $totalUsers }}</h4>
-              </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="fw-medium d-block mb-1">Total Users</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalUsers }}</h4>
             </div>
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-primary">
-                <i class="bx bx-user bx-sm"></i>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-primary">
+              <i class="bx bx-user bx-sm"></i>
 
-              </span>
-            </div>
+            </span>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 
   <!-- 2 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-start justify-content-between">
-            <div class="content-left">
-              <span class="fw-medium d-block mb-1">Super Admin</span>
-              <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2">{{ $totalSuperAdmin }}</h4>
-              </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="fw-medium d-block mb-1">Super Admin</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalSuperAdmin }}</h4>
             </div>
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-success">
-                <i class="bx bx-user bx-sm"></i>
-              </span>
-            </div>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-success">
+              <i class="bx bx-user bx-sm"></i>
+            </span>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 
   <!-- 3 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-start justify-content-between">
-            <div class="content-left">
-              <span class="fw-medium d-block mb-1">Site Admin</span>
-              <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2">{{ $totalSiteAdmin }}</h4>
-              </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="fw-medium d-block mb-1">Site Admin</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalSiteAdmin }}</h4>
             </div>
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-success">
-                <i class="bx bx-user bx-sm"></i>
-              </span>
-            </div>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-success">
+              <i class="bx bx-user bx-sm"></i>
+            </span>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 
   <!-- 4 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-start justify-content-between">
-            <div class="content-left">
-              <span class="fw-medium d-block mb-1">Site User</span>
-              <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2">{{ $totalSiteUser }}</h4>
-              </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="fw-medium d-block mb-1">Site User</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalSiteUser }}</h4>
             </div>
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-success">
-                <i class="bx bx-user bx-sm"></i>
-              </span>
-            </div>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-success">
+              <i class="bx bx-user bx-sm"></i>
+            </span>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 
 </div>

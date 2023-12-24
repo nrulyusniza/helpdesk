@@ -43,7 +43,7 @@
                         </select>                        
                     </div>                
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="reportingperson_id">Reported By [x]</label>
+                        <label class="form-label" for="reportingperson_id">Reported By</label>
                         <select id="reportingperson_id" class="form-select" name="reportingperson_id">
                             <!-- <option selected disabled>-- Select Name --</option>
                                 @foreach(App\Reportingperson::all()->sortBy('rptpers_name') as $reportingperson)

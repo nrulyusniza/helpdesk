@@ -32,6 +32,10 @@ Route::post('auth/passwords/reset', 'Auth\ResetPasswordController@resetPassword'
 //------------------------------------------------------------------- DASHBOARD -------------------------------------------------------------------
 // super admin's dashboard
 Route::get('/dashboard/mydashboard', 'HomeController@mydashboard')->name('dashboard.mydashboard');
+Route::get('dashboard/infohub/allticket', 'HomeController@allticket')->name('dashboard.infohub.allticket');
+Route::get('dashboard/infohub/allopen', 'HomeController@allopen')->name('dashboard.infohub.allopen');
+Route::get('dashboard/infohub/allclosed', 'HomeController@allclosed')->name('dashboard.infohub.allclosed');
+Route::get('dashboard/infohub/allkiv', 'HomeController@allkiv')->name('dashboard.infohub.allkiv');
 
 // site admin's dashboard
 Route::get('/dashboard/dashboardadmin', 'HomeController@dashboardadmin')->name('dashboard.dashboardadmin');
@@ -235,8 +239,8 @@ Route::get('issues/index', 'IssueController@index')->name('issues.index');
 // Route::get('issues/create', 'IssueController@create')->name('issues.create');
 // Route::post('issues/store', 'IssueController@store')->name('issues.store');
 // Route::get('issues/{issue}', 'IssueController@show')->name('issues.show');
-Route::get('issues/{issue}/edit', 'IssueController@edit')->name('issues.edit');
-Route::put('issues/{issue}', 'IssueController@update')->name('issues.update');
+// Route::get('issues/{issue}/edit', 'IssueController@edit')->name('issues.edit');
+// Route::put('issues/{issue}', 'IssueController@update')->name('issues.update');
 Route::delete('issues/{issue}', 'IssueController@destroy')->name('issues.destroy');
 
 
@@ -247,6 +251,9 @@ Route::get('issues/allissuecreate', 'IssueController@allissuecreate')->name('iss
 Route::post('issues/allissuestore', 'IssueController@allissuestore')->name('issues.allissuestore');
 Route::get('/get-reportingperson/{siteId}', 'IssueController@getReportingpersonBySite');
 Route::get('/get-equipment/{siteId}', 'IssueController@getEquipmentBySite');
+
+Route::get('issues/{issue}/edit', 'IssueController@allresponse')->name('issues.allresponse');
+Route::put('issues/{issue}', 'IssueController@allresponseupdate')->name('issues.allresponseupdate');
 
 
 // issues(request ticket & consumables) path - site admin view

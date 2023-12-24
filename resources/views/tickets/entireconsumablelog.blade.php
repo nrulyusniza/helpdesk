@@ -22,7 +22,11 @@
 
         <div class="card-body">            
             <div class="row">
-                <!-- readonly consumable information -->                                   
+                <!-- readonly consumable information -->
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="ticket_type">Ticket type</label>
+                    <input type="text" class="form-control" name="ticket_type" value="{{ $ticket->issue->type->request_type }}" readonly>
+                </div> 
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="site_name">Site</label>
                     <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>

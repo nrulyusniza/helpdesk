@@ -116,12 +116,17 @@
                     <input type="text" class="form-control" name="severity_label" value="{{ $issue->severity->severity_label }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="updated_by">Updated By [x]</label>
-                    <input type="text" class="form-control" name="updated_by" value="{{ $issue->updated_by }}" readonly>
+                    <label class="form-label" for="updated_by">Updated By</label>
+                    @php
+                        // $issue->updated_by is the username of the user who updatedd the issue
+                        $updater = \App\User::where('username', $issue->updated_by)->first();
+                        $updaterFullname = $updater ? $updater->fullname : ' ';
+                    @endphp
+                    <input type="text" class="form-control" name="updated_by" value="{{ $updaterFullname }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="update_date">Update Date</label>
-                    <input type="text" class="form-control" name="create_date" value="{{ $issue->update_date instanceof \Carbon\Carbon ? $issue->update_date->format('Y-m-d H:i:s') : '' }}" readonly>
+                    <input type="text" class="form-control" name="update_date" value="{{ $issue->update_date instanceof \Carbon\Carbon ? $issue->update_date->format('M d, Y') : '' }}" readonly>
                 </div>                
             </div>
         </div>

@@ -283,6 +283,39 @@ class HomeController extends Controller
                                             'reactions', 'kbcategorys', 'ticstatuss', 'equipmentstatuss'));
     }
 
+    //---------------------------------------------------------------------- CARD TICKETS ----------------------------------------------------------------------
+    
+    // super admin's card
+    public function allticket()
+    {
+        $allTic = Ticket::orderBy('ticket_no', 'desc')->get();
+
+        return view('/dashboard/infohub/allticket', compact('allTic'));
+    }
+
+    public function allopen()
+    {
+        $allOpen = Ticket::where('ticstatus_id', '2')->orderBy('ticket_no', 'desc')->get();
+
+        return view('/dashboard/infohub/allopen', compact('allOpen'));
+    }
+
+    public function allclosed()
+    {
+        $allClosed = Ticket::where('ticstatus_id', '4')->orderBy('ticket_no', 'desc')->get();
+
+        return view('/dashboard/infohub/allclosed', compact('allClosed'));
+    }
+
+    public function allkiv()
+    {
+        $allKiv = Ticket::where('ticstatus_id', '3')->orderBy('ticket_no', 'desc')->get();
+
+        return view('/dashboard/infohub/allkiv', compact('allKiv'));
+    }
+
+
+
     //---------------------------------------------------------------------------------------------------------------------------
 
     // try chatbot sementara

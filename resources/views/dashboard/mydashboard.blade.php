@@ -32,7 +32,7 @@
 
   <!-- 1 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.allticket') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -55,7 +55,7 @@
 
   <!-- 2 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.allopen') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -78,7 +78,7 @@
 
   <!-- 3 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.allclosed') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -101,7 +101,7 @@
 
   <!-- 4 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.allkiv') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">

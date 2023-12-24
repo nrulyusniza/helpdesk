@@ -29,7 +29,7 @@
                         <select id="defaultSelect" class="form-select" name="type_id">
                             <option selected disabled>-- Select Request Type--</option>
                                 @foreach(App\Type::all() as $type)
-                                <option value="{{$type->id}}">{{$type->request_type}}</option>
+                                    <option value="{{$type->id}}">{{$type->request_type}}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -48,7 +48,7 @@
                         <select id="defaultSelect" class="form-select" name="reportingperson_id">
                             <option selected disabled>-- Select Name --</option>
                                 @foreach(App\Reportingperson::where('site_id', auth()->user()->site_id)->orderBy('rptpers_name')->get() as $reportingperson)
-                                <option value="{{$reportingperson->id}}">{{$reportingperson->rptpers_name}}</option>
+                                    <option value="{{$reportingperson->id}}">{{$reportingperson->rptpers_name}}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -61,7 +61,7 @@
                         <select id="defaultSelect" class="form-select" name="reqcategory_id">
                             <option selected disabled>-- Select Category--</option>
                                 @foreach(App\Reqcategory::all() as $reqcategory)
-                                <option value="{{$reqcategory->id}}">{{$reqcategory->req_category}}</option>
+                                    <option value="{{$reqcategory->id}}">{{$reqcategory->req_category}}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -69,9 +69,9 @@
                         <label class="form-label">Equipment</label>
                         <select id="defaultSelect" class="form-select" name="equipment_id">
                             <option selected disabled>-- Select Equipment --</option>
-                            @foreach(App\Equipment::where('site_id', auth()->user()->site_id)->orderBy('asset_hostname')->get() as $equipment)
-                                <option value="{{ $equipment->id }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
-                            @endforeach
+                                @foreach(App\Equipment::where('site_id', auth()->user()->site_id)->orderBy('asset_hostname')->get() as $equipment)
+                                    <option value="{{ $equipment->id }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
+                                @endforeach
                         </select>                     
                     </div>
                     <div class="mb-3 col-md-6">

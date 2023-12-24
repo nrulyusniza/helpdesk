@@ -55,8 +55,7 @@
                                     $creatorFullname = $creator ? $creator->fullname : 'Unknown';
                                 @endphp
                                 {{ $creatorFullname }}
-                            </td>
-                            
+                            </td>                            
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.entireissuedetail',['issue' => $i->id]) }}"

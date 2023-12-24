@@ -13,19 +13,35 @@
     </div>
 @endif
 
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Update Ticket : {{ $ticket->ticket_no }}</h4>
+            <div class="btn-text-right">
+                <a href="{{ route('dashboard.infohub.allticket') }}"
+                    <button type="button" class="btn btn-primary"><i class='bx bx-tachometer'></i>&nbsp; Back to Dashboard</button>
+                </a>
+            </div>
         </div>
+        
 
         <div class="card-body">            
             <div class="row">
                 <!-- readonly ticket information -->
                 <div class="col-xl">
                     <div class="card mb-4" style="background-color: #f4f3ee;">
-                        <div class="card-body">                            
+                        <div class="card-body">   
+                            <div class="mb-3">
+                                <label class="form-label" for="ticket_type">Ticket type</label>
+                                <input type="text" class="form-control" name="ticket_type" value="{{ $ticket->issue->type->request_type }}" readonly>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label" for="site_name">Site</label>
                                 <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
@@ -48,7 +64,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="asset_hostname">Equipment</label>
-                                <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
+                                <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }} - {{ $ticket->issue->equipment->asset_type }}" readonly>
                             </div> 
                             <div class="mb-3">
                                 <label class="form-label" for="attachment">Attachment [x]</label>
@@ -124,7 +140,7 @@
 
             <div class="col-12">
                 <div class="card">
-                    <div class="table-responsive text-nowrap">
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -145,7 +161,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id }}</td>
-                                    <td>{{ $log->ticket->report_received->format('M d, Y') }}</td>
+                                    <td>{{ $log->date->format('M d, Y h:i A') }}</td>
                                     <td>{{ $log->description }}</td>
                                     <td>{{ $log->update_by }}</td>
                                     <td>{{ $log->reaction->response_type }}</td>

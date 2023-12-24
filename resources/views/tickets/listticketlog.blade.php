@@ -22,7 +22,11 @@
 
         <div class="card-body">            
             <div class="row">
-                <!-- readonly consumable information -->                                   
+                <!-- readonly consumable information -->     
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="ticket_type">Ticket type</label>
+                    <input type="text" class="form-control" name="ticket_type" value="{{ $ticket->issue->type->request_type }}" readonly>
+                </div>                               
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="site_name">Site</label>
                     <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
@@ -36,8 +40,13 @@
                     <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="attachment">Attachment [x]</label>
-                    <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly>
+                    <label class="form-label" for="attachment">Attachment</label>
+                    <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
+                    @if ($ticket->issue->attachment)
+                        <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
+                    @else
+                        <p>No attachment available</p>
+                    @endif
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>
@@ -45,7 +54,7 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_hostname">Equipment</label>
-                    <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
+                    <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }} - {{ $ticket->issue->equipment->asset_type }}" readonly>
                 </div>   
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">Date</label>                    
@@ -72,7 +81,7 @@
                 
             <div class="col-12">
                 <div class="card">
-                    <div class="table-responsive text-nowrap">
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -95,7 +104,15 @@
                                     <td>{{ $log->id }}</td>
                                     <td>{{ $log->date->format('M d, Y') }}</td>
                                     <td>{{ $log->description }}</td>
-                                    <td>{{ $log->update_by }}</td>
+                                    <!-- <td>{{ $log->update_by }}</td> -->
+                                    <td>
+                                        @php
+                                            // $i->update_by is the username of the user who update the issue
+                                            $updater = \App\User::where('username', $log->update_by)->first();
+                                            $updaterFullname = $updater ? $updater->fullname : 'Unknown';
+                                        @endphp
+                                        {{ $updaterFullname }}
+                                    </td>
                                     <td>{{ $log->reaction->response_type }}</td>
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->

@@ -48,18 +48,16 @@
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
                             <td>{{ $i->status->status_label ?? " " }}</td> <!-- badges -->
-                            <td>{{ $i->created_by ?? " " }}</td>
+                            <td>
+                                @php
+                                    // $i->created_by is the username of the user who created the issue
+                                    $creator = \App\User::where('username', $i->created_by)->first();
+                                    $creatorFullname = $creator ? $creator->fullname : 'Unknown';
+                                @endphp
+                                {{ $creatorFullname }}
+                            </td>
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
-                                    <!-- <a class="menu-icon tf-icons bx bx-expand-alt" style='color:#716d6d'
-                                        type="button"
-                                        data-bs-offset="0,4"
-                                        data-bs-placement="top"
-                                        data-bs-html="true"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#largeModal"
-                                        title="View More">
-                                    </a> -->
                                     <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.listissuedetail',['issue' => $i->id]) }}"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                         title="<span>View Details</span>"></a>

@@ -13,6 +13,12 @@
     </div>
 @endif
 
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
 
@@ -25,7 +31,11 @@
                 <!-- readonly consumable information -->
                 <div class="col-xl">
                     <div class="card mb-4" style="background-color: #f4f3ee;">
-                        <div class="card-body">                            
+                        <div class="card-body">  
+                            <div class="mb-3">
+                                <label class="form-label" for="ticket_type">Ticket type</label>
+                                <input type="text" class="form-control" name="ticket_type" value="{{ $ticket->issue->type->request_type }}" readonly>
+                            </div>                          
                             <div class="mb-3">
                                 <label class="form-label" for="site_name">Site</label>
                                 <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
@@ -48,7 +58,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="asset_hostname">Equipment</label>
-                                <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
+                                <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }} - {{ $ticket->issue->equipment->asset_type }}" readonly>
                             </div> 
                             <div class="mb-3">
                                 <label class="form-label" for="attachment">Attachment [x]</label>
@@ -70,38 +80,38 @@
                             @csrf
                             @method('PUT')
                                 <div class="mb-3">
-                                    <label class="form-label" for="ticstatus_id">Ticket Status [Ticket log]</label>
+                                    <label class="form-label" for="ticstatus_id">Current Ticket Status</label>
                                     <select id="defaultSelect" class="form-select" name="ticstatus_id">
                                         <option selected readonly>-- Select Status --</option>
                                             @foreach(App\Ticstatus::all() as $ticstatus)
-                                            <option value="{{ $ticstatus->ticstatus_label }}">{{ $ticstatus->ticstatus_label }}</option>
+                                            <option value="{{ $ticstatus->id }}">{{ $ticstatus->ticstatus_label }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="description">Comments [x]</label>
-                                    <textarea class="form-control" name="description" rows="5"></textarea>
+                                    <label class="form-label" for="description">Comments</label>
+                                    <textarea class="form-control" name="description" rows="5" name="description"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="response_date">Response Date [x]</label>
-                                    <input type="date" class="form-control" name="response_date" value="">
+                                    <label class="form-label" for="response_date">Response Date</label>
+                                    <input type="date" class="form-control" name="response_date" value="response_date">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="response_time">Response Time [x]</label>
-                                    <input type="time" class="form-control" name="response_time" value="">
+                                    <label class="form-label" for="response_time">Response Time</label>
+                                    <input type="time" class="form-control" name="response_time" value="response_time">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="reaction_id">Response Type</label>
                                     <select id="defaultSelect" class="form-select" name="reaction_id">
                                         <option selected readonly>-- Select Status --</option>
                                             @foreach(App\Reaction::all() as $reaction)
-                                            <option value="{{ $reaction->response_type }}">{{ $reaction->response_type }}</option>
+                                            <option value="{{ $reaction->id }}">{{ $reaction->response_type }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="attachment">Attachment [x]</label>
-                                    <input type="file" class="form-control" name="attachment" value="">
+                                    <label class="form-label" for="attachment">Attachment</label>
+                                    <input class="form-control" type="file" name="attachment" id="formFile" />
                                 </div>
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -125,13 +135,13 @@
 
             <div class="col-12">
                 <div class="card">
-                    <div class="table-responsive text-nowrap">
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>ID</th>
-                                    <th>Date</th>
+                                    <th>Received Date</th>
                                     <th>Description</th>
                                     <th>Update By</th>
                                     <th>Response Type</th>
@@ -146,7 +156,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id }}</td>
-                                    <td>{{ $log->date->format('M d, Y') }}</td>
+                                    <td>{{ $log->date->format('M d, Y h:i A') }}</td>
                                     <td>{{ $log->description }}</td>
                                     <td>{{ $log->update_by }}</td>
                                     <td>{{ $log->reaction->response_type }}</td>

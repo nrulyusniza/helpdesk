@@ -54,6 +54,9 @@
                                     <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.allissuedetail',['issue' => $i->id]) }}"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                         title="<span>View Details</span>"></a>
+                                    <a class="menu-icon tf-icons bx bx-edit" href="{{ route('issues.allresponse',['issue' => $i->id]) }}" style="color:#ffd60a"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                    title="<span>Admin Response</span>"></a>
                                     @csrf
                                     @method('DELETE')
                                 </form>

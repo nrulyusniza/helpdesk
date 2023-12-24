@@ -102,7 +102,7 @@
           @if(Auth::user()->role_id==1)
           <ul class="menu-inner py-1">
             <!-- 1- Dashboard -->
-            <li class="menu-item {{ request()->routeIs('dashboard.mydashboard') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.mydashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <span class="flex-grow-1 align-middle">Dashboard</span>
@@ -113,7 +113,7 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Issue Tracking</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('issues.allissue*') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('issues*') ? 'active' : '' }}">
               <a href="{{ route('issues.allissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>

@@ -144,12 +144,14 @@ class TicketController extends Controller
 
     public function allconsumableupdate(Request $request, Ticket $ticket)
     {
-        // validate the request data
-        $ticketlog = new Ticketlog();
-        $ticketlog->description = $validateData['description'];
+        // // validate the request data
+        // $ticketlog = new Ticketlog();
+        // $ticketlog->description = $validateData['description'];
 
-        // save the ticket log
-        $ticket->ticketlog()->save($ticketLog);
+        // // save the ticket log
+        // $ticket->ticketlog()->save($ticketLog);
+
+        $ticket->ticketlog()->create($request->all());
 
         // redirect back
         return redirect()->route('tickets.allconsumableedit', $ticket->id)

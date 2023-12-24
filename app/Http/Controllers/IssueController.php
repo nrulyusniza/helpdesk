@@ -180,18 +180,18 @@ class IssueController extends Controller
         return response()->json($equipment);
     }
 
-    // public function edit(Issue $issue)
-    // {
-    //     return view('issues.edit', compact('issue'));
-    // }
+    public function allresponse(Issue $issue)
+    {
+        return view('issues.allresponse', compact('issue'));
+    }
 
-    // public function update(Request $request, Issue $issue)
-    // {
-    //     $issue->update($request->all());
+    public function allresponseupdate(Request $request, Issue $issue)
+    {
+        $issue->update($request->all());
   
-    //     return redirect()->route('issues.index')
-    //                     ->with('success','Request updated successfully');
-    // }
+        return redirect()->route('issues.allissue')
+                        ->with('success','Admin Response updated successfully');
+    }
 
     //---------------------------------------------------------------------- SITE ADMIN ----------------------------------------------------------------------
 

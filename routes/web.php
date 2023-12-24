@@ -39,9 +39,17 @@ Route::get('dashboard/infohub/allkiv', 'HomeController@allkiv')->name('dashboard
 
 // site admin's dashboard
 Route::get('/dashboard/dashboardadmin', 'HomeController@dashboardadmin')->name('dashboard.dashboardadmin');
+Route::get('dashboard/infohub/listticket', 'HomeController@listticket')->name('dashboard.infohub.listticket');
+Route::get('dashboard/infohub/listopen', 'HomeController@listopen')->name('dashboard.infohub.listopen');
+Route::get('dashboard/infohub/listclosed', 'HomeController@listclosed')->name('dashboard.infohub.listclosed');
+Route::get('dashboard/infohub/listkiv', 'HomeController@listkiv')->name('dashboard.infohub.listkiv');
 
 // site user's dashboard
 Route::get('/dashboard/dashboarduser', 'HomeController@dashboarduser')->name('dashboard.dashboarduser');
+Route::get('dashboard/infohub/entireticket', 'HomeController@entireticket')->name('dashboard.infohub.entireticket');
+Route::get('dashboard/infohub/entireopen', 'HomeController@entireopen')->name('dashboard.infohub.entireopen');
+Route::get('dashboard/infohub/entireclosed', 'HomeController@entireclosed')->name('dashboard.infohub.entireclosed');
+Route::get('dashboard/infohub/entirekiv', 'HomeController@entirekiv')->name('dashboard.infohub.entirekiv');
 
 //------------------------------------------------------------------- EXTENSION -------------------------------------------------------------------
 // super admin's extension

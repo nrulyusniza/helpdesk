@@ -5,24 +5,24 @@
 <div class="col-xl-12">
     <div class="nav-align-top mb-4">
 
-        <ul class="nav nav-tabs nav-fill" role="tablist">
+    <ul class="nav nav-tabs nav-fill" role="tablist">            
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allticket') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-card me-1"></i> Tickets
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allopen') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock-open me-1"></i> Open
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allclosed') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock me-1"></i> Closed
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allkiv') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-archive me-1"></i> KIV
                 </a>
             </li>
@@ -40,7 +40,7 @@
                                     <th>Request No</th>
                                     <th>Ticket No</th>
                                     <th>Ticket Type</th>
-                                    <th>Site</th>
+                                    <!-- <th>Site</th> -->
                                     <th>Fault Description</th>
                                     <!-- <th>Admin Comments</th> -->
                                     <th>Equipment</th>
@@ -54,30 +54,26 @@
                                 </tr>
                             </thead>                    
                             <tbody class="table-border-bottom-0">
-                                @foreach ($allClosed as $act)
+                                @foreach ($listClosed as $lct)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $act->report_received->format('M d, Y') }}</td>
-                                    <td>{{ $act->ticket_no }}</td>
-                                    <td>{{ $act->ticket_no }}</td>
-                                    <td>{{ $act->type->request_type }}</td>
-                                    <td>{{ $act->issue->site->site_name ?? " " }}</td>
-                                    <td>{{ $act->issue->fault_description ?? " " }}</td>
-                                    <!-- <td>{{ $act->issue->admin_comments ?? " " }}</td> -->
-                                    <td>{{ $act->issue->equipment->asset_hostname ?? " " }} - {{ $act->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $act->severity->severity_label ?? " " }}</td>
-                                    <!-- <td>{{ $act->ticstatus->ticstatus_label ?? " " }}</td> -->
-                                    <!-- <td>{{ $act->user->fullname ?? " " }}</td>
-                                    <td>{{ $act->create_date->format('M d, Y') }}</td>
-                                    <td>{{ $act->user->fullname ?? " " }}</td>
-                                    <td>{{ $act->update_date->format('M d, Y') }}</td> -->
+                                    <td>{{ $lct->report_received->format('M d, Y') }}</td>
+                                    <td>{{ $lct->ticket_no }}</td>
+                                    <td>{{ $lct->ticket_no }}</td>
+                                    <td>{{ $lct->type->request_type }}</td>
+                                    <!-- <td>{{ $lct->issue->site->site_name ?? " " }}</td> -->
+                                    <td>{{ $lct->issue->fault_description ?? " " }}</td>
+                                    <!-- <td>{{ $lct->issue->admin_comments ?? " " }}</td> -->
+                                    <td>{{ $lct->issue->equipment->asset_hostname ?? " " }} - {{ $lct->issue->equipment->asset_type ?? " " }}</td>
+                                    <td>{{ $lct->severity->severity_label ?? " " }}</td>
+                                    <!-- <td>{{ $lct->ticstatus->ticstatus_label ?? " " }}</td> -->
+                                    <!-- <td>{{ $lct->user->fullname ?? " " }}</td>
+                                    <td>{{ $lct->create_date->format('M d, Y') }}</td>
+                                    <td>{{ $lct->user->fullname ?? " " }}</td>
+                                    <td>{{ $lct->update_date->format('M d, Y') }}</td> -->
                                     <td>
                                         <form action="" method="POST">
-                                            @php
-                                                $routeName = ($act->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
-                                            @endphp
-
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $act->id) }}" style="color:#57cc99"
+                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lct->id) }}" style="color:#57cc99"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                 title="<span>Details Ticket Log</span>"></a>
                                             @csrf

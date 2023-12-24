@@ -1,28 +1,28 @@
 @extends('layouts.template')
-@section('title', 'All Closed Tickets')
+@section('title', 'All Tickets')
 @section('content')
 
 <div class="col-xl-12">
     <div class="nav-align-top mb-4">
 
-        <ul class="nav nav-tabs nav-fill" role="tablist">
+        <ul class="nav nav-tabs nav-fill" role="tablist">            
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allticket') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-card me-1"></i> Tickets
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allopen') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock-open me-1"></i> Open
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allclosed') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock me-1"></i> Closed
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.allkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allkiv') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-archive me-1"></i> KIV
                 </a>
             </li>
@@ -40,44 +40,40 @@
                                     <th>Request No</th>
                                     <th>Ticket No</th>
                                     <th>Ticket Type</th>
-                                    <th>Site</th>
+                                    <!-- <th>Site</th> -->
                                     <th>Fault Description</th>
                                     <!-- <th>Admin Comments</th> -->
                                     <th>Equipment</th>
                                     <th>Severity</th>
-                                    <!-- <th>Status</th> -->
+                                    <th>Status</th>                            
                                     <!-- <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Update By</th>
                                     <th>Update Date</th> -->
                                     <th>Action</th>
                                 </tr>
-                            </thead>                    
+                            </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($allClosed as $act)
+                                @foreach ($listTic as $lt)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $act->report_received->format('M d, Y') }}</td>
-                                    <td>{{ $act->ticket_no }}</td>
-                                    <td>{{ $act->ticket_no }}</td>
-                                    <td>{{ $act->type->request_type }}</td>
-                                    <td>{{ $act->issue->site->site_name ?? " " }}</td>
-                                    <td>{{ $act->issue->fault_description ?? " " }}</td>
-                                    <!-- <td>{{ $act->issue->admin_comments ?? " " }}</td> -->
-                                    <td>{{ $act->issue->equipment->asset_hostname ?? " " }} - {{ $act->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $act->severity->severity_label ?? " " }}</td>
-                                    <!-- <td>{{ $act->ticstatus->ticstatus_label ?? " " }}</td> -->
-                                    <!-- <td>{{ $act->user->fullname ?? " " }}</td>
-                                    <td>{{ $act->create_date->format('M d, Y') }}</td>
-                                    <td>{{ $act->user->fullname ?? " " }}</td>
-                                    <td>{{ $act->update_date->format('M d, Y') }}</td> -->
+                                    <td>{{ $lt->report_received->format('M d, Y') }}</td>
+                                    <td>{{ $lt->ticket_no }}</td>
+                                    <td>{{ $lt->ticket_no }}</td>
+                                    <td>{{ $lt->type->request_type }}</td>
+                                    <!-- <td>{{ $lt->issue->site->site_name ?? " " }}</td> -->
+                                    <td>{{ $lt->issue->fault_description ?? " " }}</td>
+                                    <!-- <td>{{ $lt->issue->admin_comments ?? " " }}</td> -->
+                                    <td>{{ $lt->issue->equipment->asset_hostname ?? " " }} - {{ $lt->issue->equipment->asset_type ?? " " }}</td>
+                                    <td>{{ $lt->severity->severity_label ?? " " }}</td>
+                                    <td>{{ $lt->ticstatus->ticstatus_label ?? " " }}</td>
+                                    <!-- <td>{{ $lt->user->fullname ?? " " }}</td>
+                                    <td>{{ $lt->create_date->format('M d, Y') }}</td>
+                                    <td>{{ $lt->user->fullname ?? " " }}</td>
+                                    <td>{{ $lt->update_date->format('M d, Y') }}</td> -->
                                     <td>
                                         <form action="" method="POST">
-                                            @php
-                                                $routeName = ($act->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
-                                            @endphp
-
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $act->id) }}" style="color:#57cc99"
+                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lt->id) }}" style="color:#57cc99"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                 title="<span>Details Ticket Log</span>"></a>
                                             @csrf
@@ -116,10 +112,10 @@
             buttons: [
                 {extend: 'copy'},
                 //{extend: 'csv'},
-                {extend: 'excel', title: 'All Closed Ticket List', exportOptions: {
+                {extend: 'excel', title: 'All Ticket List', exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]}
                 },
-                {extend: 'pdf', title: 'All Closed Ticket List', exportOptions: {
+                {extend: 'pdf', title: 'All Ticket List', exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]}
                 },
                 {extend: 'print', exportOptions: {

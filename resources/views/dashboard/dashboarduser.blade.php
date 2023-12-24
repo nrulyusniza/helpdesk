@@ -32,7 +32,7 @@
 
   <!-- 1 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.entireticket') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -55,7 +55,7 @@
 
   <!-- 2 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.entireopen') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -78,7 +78,7 @@
 
   <!-- 3 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.entireclosed') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -101,7 +101,7 @@
 
   <!-- 4 -->
   <div class="col-sm-6 col-xl-3">
-    <a href="">
+    <a href="{{ route('dashboard.infohub.entirekiv') }}">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -127,15 +127,11 @@
     <div class="card h-100">
       <div class="card-header">
         <div class="card-title mb-0">
-          <h5 class="m-0 me-2">Total Tickets</h5>
+          <h5 class="m-0 me-2">Total Tickets by Reported Tickets</h5>
         </div>
       </div>
       <div class="card-body px-0">
-        <!-- <div class="tab-content p-0">
-          <div class="tab-pane fade show active" id="nav-ticketByMonth"> -->
             <canvas id="ticketByMonth"></canvas>
-          <!-- </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -157,7 +153,7 @@
           <div id="ticketByCategory"></div>
         </div>
         <ul class="p-0 m-0">
-          <li class="d-flex mb-4 pb-1">
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
             <div class="avatar flex-shrink-0 me-3">
               <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-wrench"></i
               ></span>
@@ -171,7 +167,7 @@
               </div>
             </div>
           </li>
-          <li class="d-flex mb-4 pb-1">
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
             <div class="avatar flex-shrink-0 me-3">
               <span class="avatar-initial rounded bg-label-success"><i class="bx bx-code-alt"></i></span>
             </div>
@@ -184,9 +180,9 @@
               </div>
             </div>
           </li>
-          <li class="d-flex mb-4 pb-1">
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
             <div class="avatar flex-shrink-0 me-3">
-              <span class="avatar-initial rounded bg-label-info"><i class="bx bx-signal-5"></i></span>
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-signal-5"></i></span>
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
@@ -197,9 +193,9 @@
               </div>
             </div>
           </li>
-          <li class="d-flex">
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
             <div class="avatar flex-shrink-0 me-3">
-              <span class="avatar-initial rounded bg-label-secondary"><i class="bx bx-data"></i
+              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-data"></i
               ></span>
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
@@ -228,15 +224,12 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Sample data (replace this with your actual data)
-      const ticketCountsByMonth = [10, 30, 0, 20, 15, 35, 10, 10, 10, 40, 60, 65];
-      // const ticketCountsByMonth = @json($monthlyTicketCounts);
+      // Use the data passed from the controller
+      const ticketCountsByMonth = {!! json_encode(array_values($ticketCounts)) !!};
 
-      // Get the canvas element and create a 2d context
       const ticketByMonthCanvas = document.getElementById('ticketByMonth');
       const ctx = ticketByMonthCanvas.getContext('2d');
 
-      // Create the area chart
       const ticketByMonth = new Chart(ctx, {
         type: 'line',
         data: {
@@ -263,7 +256,13 @@
               grid: {
                 display: false
               },
-              beginAtZero: true
+              beginAtZero: true,
+              ticks: {
+                stepSize: 1,
+                callback: function (value, index, values) {
+                    return Math.floor(value);
+                }
+              }
             }
           }
         }

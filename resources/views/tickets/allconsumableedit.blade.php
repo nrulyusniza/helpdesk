@@ -24,6 +24,11 @@
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Update Consumable : {{ $ticket->ticket_no }}</h4>
+            <div class="btn-text-right">
+                <a href="{{ route('dashboard.infohub.allticket') }}"
+                    <button type="button" class="btn btn-primary"><i class='bx bx-tachometer'></i>&nbsp; Back to Dashboard</button>
+                </a>
+            </div>
         </div>
 
         <div class="card-body">            

@@ -45,7 +45,7 @@
                                     <!-- <th>Admin Comments</th> -->
                                     <th>Equipment</th>
                                     <th>Severity</th>
-                                    <th>Status</th>                            
+                                    <!-- <th>Status</th> -->
                                     <!-- <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Update By</th>
@@ -66,14 +66,18 @@
                                     <!-- <td>{{ $aot->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $aot->issue->equipment->asset_hostname ?? " " }} - {{ $aot->issue->equipment->asset_type ?? " " }}</td>
                                     <td>{{ $aot->severity->severity_label ?? " " }}</td>
-                                    <td>{{ $aot->ticstatus->ticstatus_label ?? " " }}</td>                            
+                                    <!-- <td>{{ $aot->ticstatus->ticstatus_label ?? " " }}</td> -->
                                     <!-- <td>{{ $aot->user->fullname ?? " " }}</td>
                                     <td>{{ $aot->create_date->format('M d, Y') }}</td>
                                     <td>{{ $aot->user->fullname ?? " " }}</td>
                                     <td>{{ $aot->update_date->format('M d, Y') }}</td> -->
                                     <td>
                                         <form action="" method="POST">
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.allticketedit',$aot->id) }}" style="color:#57cc99"
+                                            @php
+                                                $routeName = ($aot->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                            @endphp
+
+                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $aot->id) }}" style="color:#57cc99"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                 title="<span>Details Ticket Log</span>"></a>
                                             @csrf

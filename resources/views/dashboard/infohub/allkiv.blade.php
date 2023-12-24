@@ -45,7 +45,7 @@
                                     <!-- <th>Admin Comments</th> -->
                                     <th>Equipment</th>
                                     <th>Severity</th>
-                                    <th>Status</th>                            
+                                    <!-- <th>Status</th> -->
                                     <!-- <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Update By</th>
@@ -66,14 +66,18 @@
                                     <!-- <td>{{ $akt->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $akt->issue->equipment->asset_hostname ?? " " }} - {{ $akt->issue->equipment->asset_type ?? " " }}</td>
                                     <td>{{ $akt->severity->severity_label ?? " " }}</td>
-                                    <td>{{ $akt->ticstatus->ticstatus_label ?? " " }}</td>
+                                    <!-- <td>{{ $akt->ticstatus->ticstatus_label ?? " " }}</td> -->
                                     <!-- <td>{{ $akt->user->fullname ?? " " }}</td>
                                     <td>{{ $akt->create_date->format('M d, Y') }}</td>
                                     <td>{{ $akt->user->fullname ?? " " }}</td>
                                     <td>{{ $akt->update_date->format('M d, Y') }}</td> -->
                                     <td>
                                         <form action="" method="POST">
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.allticketedit',$akt->id) }}" style="color:#57cc99"
+                                            @php
+                                                $routeName = ($akt->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                            @endphp
+
+                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $akt->id) }}" style="color:#57cc99"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                 title="<span>Details Ticket Log</span>"></a>
                                             @csrf

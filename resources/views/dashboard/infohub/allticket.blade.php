@@ -73,7 +73,11 @@
                                     <td>{{ $at->update_date->format('M d, Y') }}</td> -->
                                     <td>
                                         <form action="" method="POST">
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.allticketedit',$at->id) }}" style="color:#57cc99"
+                                            @php
+                                                $routeName = ($at->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                            @endphp
+
+                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $at->id) }}" style="color:#57cc99"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                 title="<span>Details Ticket Log</span>"></a>
                                             @csrf

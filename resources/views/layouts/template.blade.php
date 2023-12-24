@@ -201,7 +201,7 @@
           @if(Auth::user()->role_id==2)
           <ul class="menu-inner py-1">
             <!-- 1- Dashboard -->
-            <li class="menu-item {{ request()->routeIs('dashboard.dashboardadmin') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.dashboardadmin') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <span class="flex-grow-1 align-middle">Dashboard</span>
@@ -276,7 +276,7 @@
           @if(Auth::user()->role_id==3)
           <ul class="menu-inner py-1">
             <!-- 1- Dashboard -->
-            <li class="menu-item {{ request()->routeIs('dashboard.dashboarduser') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.dashboarduser') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <span class="flex-grow-1 align-middle">Dashboard</span>

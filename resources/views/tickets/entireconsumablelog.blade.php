@@ -41,20 +41,20 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="attachment">Attachment [x]</label>
-                    <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly>
+                    <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
+                    @if ($ticket->issue->attachment)
+                        <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
+                    @else
+                        <p>No attachment available</p>
+                    @endif
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>
                     <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label">Equipment [x]</label>
-                    <select id="defaultSelect" class="form-select" name="asset_hostname">
-                        <option selected disabled>-- Select Equipment --</option>
-                            @foreach(App\Equipment::all() as $equipment)
-                            <option value="{{ $equipment->asset_hostname .'-'. $equipment->asset_type }}">{{ $equipment->asset_hostname }} - {{ $equipment->asset_type }}</option>
-                            @endforeach
-                    </select>
+                    <label class="form-label">Equipment</label>
+                    <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
                 </div>    
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">Date</label>

@@ -40,8 +40,13 @@
                     <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="attachment">Attachment [x]</label>
-                    <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly>
+                    <label class="form-label" for="attachment">Attachment</label>
+                    <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
+                    @if ($ticket->issue->attachment)
+                        <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
+                    @else
+                        <p>No attachment available</p>
+                    @endif
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>
@@ -98,7 +103,14 @@
                                     <td>{{ $log->id }}</td>
                                     <td>{{ $log->date->format('M d, Y') }}</td>
                                     <td>{{ $log->description }}</td>
-                                    <td>{{ $log->update_by }}</td>
+                                    <td>
+                                        @php
+                                            // $i->update_by is the username of the user who update the issue
+                                            $updater = \App\User::where('username', $log->update_by)->first();
+                                            $updaterFullname = $updater ? $updater->fullname : 'Unknown';
+                                        @endphp
+                                        {{ $updaterFullname }}
+                                    </td>
                                     <td>{{ $log->reaction->response_type }}</td>
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->

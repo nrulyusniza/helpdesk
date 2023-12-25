@@ -30,7 +30,7 @@
                             <!-- <th>Admin Comments</th> -->
                             <th>Equipment</th>
                             <th>Severity</th>
-                            <th>Status</th>                            
+                            <th>Current Status</th>                            
                             <!-- <th>Created By</th>
                             <th>Create Date</th>
                             <th>Update By</th>

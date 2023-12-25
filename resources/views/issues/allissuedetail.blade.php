@@ -18,6 +18,11 @@
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h4 class="m-0 font-weight-bold text-primary">Details for Request No: {{ $issue->request_no }}</h4>
+            <div class="btn-text-right">
+                <a href="{{ route('issues.allresponse',['issue' => $issue->id]) }}"
+                    <button type="button" class="btn btn-primary"><i class='bx bx-edit'></i>&nbsp; Admin Response</button>
+                </a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -52,7 +57,7 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                    <input type="text" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
+                    <input type="number" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="req_category">Category</label>
@@ -67,8 +72,13 @@
                     <input type="text" class="form-control" name="asset_hostname" value="{{ $issue->equipment->asset_hostname }} - {{ $issue->equipment->asset_type }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="attachment">Attachment</label>
-                    <input type="text" class="form-control" name="attachment" value="{{ $issue->attachment }}" readonly>
+                    <label class="form-label" for="attachment">Attachment</label><br>
+                    <!-- <input type="text" class="form-control" name="attachment" value="{{ $issue->attachment }}" readonly> -->
+                    @if ($issue->attachment)
+                        <a href="{{ $issue->attachment }}" target="_blank">{{ basename($issue->attachment) }}</a>
+                    @else
+                        <p>No attachment available</p>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="fault_description">Fault Description</label>

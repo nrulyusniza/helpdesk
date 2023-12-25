@@ -52,7 +52,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                                <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
+                                <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="req_category">Category</label>
@@ -67,8 +67,13 @@
                                 <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }} - {{ $ticket->issue->equipment->asset_type }}" readonly>
                             </div> 
                             <div class="mb-3">
-                                <label class="form-label" for="attachment">Attachment [x]</label>
-                                <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly>
+                                <label class="form-label" for="attachment">Attachment</label><br>
+                                <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
+                                @if ($ticket->issue->attachment)
+                                    <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
+                                @else
+                                    <p>No attachment available</p>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="fault_description">Fault Description</label>

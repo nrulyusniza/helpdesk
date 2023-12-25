@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                                    <input type="text" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
+                                    <input type="number" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="req_category">Category</label>
@@ -71,8 +71,13 @@
                                     <textarea class="form-control" name="fault_description" rows="5" readonly>{{ $issue->fault_description }}</textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="created_by">Created By [x]</label>
-                                    <input type="text" class="form-control" name="created_by" value="{{ $issue->created_by }}" readonly>
+                                    <label class="form-label" for="created_by">Created By</label>
+                                    @php
+                                        // $issue->created_by is the username of the user who created the issue
+                                        $creator = \App\User::where('username', $issue->created_by)->first();
+                                        $creatorFullname = $creator ? $creator->fullname : 'Unknown';
+                                    @endphp
+                                    <input type="text" class="form-control" name="created_by" value="{{ $creatorFullname }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="create_date">Create Date</label>

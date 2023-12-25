@@ -152,8 +152,16 @@ class IssueController extends Controller
         //     'request_no' => 'required',
         // ]);
   
-        Issue::create($request->all());
-   
+        // Issue::create($request->all());
+
+        // validate the request data as needed
+        $requestData = $request->all();
+
+        // add the currently authenticated user's username to the request data
+        $requestData['created_by'] = Auth::user()->username;
+
+        Issue::create($requestData);
+
         return redirect()->route('issues.allissue')
                         ->with('success','New Request created successfully.');
 
@@ -195,7 +203,7 @@ class IssueController extends Controller
             'admin_comments' => 'required|string',
             'severity_id' => 'required|integer',
             'update_date' => 'required|date',
-            'status-radio' => 'required|integer', // Assuming this is the status_id
+            'status-radio' => 'required|integer',
         ]);
     
         // Update only the necessary fields
@@ -203,7 +211,8 @@ class IssueController extends Controller
             'admin_comments' => $request->input('admin_comments'),
             'severity_id' => $request->input('severity_id'),
             'update_date' => $request->input('update_date'),
-            'status_id' => $request->input('status-radio'), // Assuming this is the status_id
+            'status_id' => $request->input('status-radio'),
+            'updated_by' => Auth::user()->username,
         ]);
 
         // Check if the status_id is 2 or 3 to create a new row in the Tickets table
@@ -222,7 +231,8 @@ class IssueController extends Controller
                 $ticket->ticket_type = 2; // Set ticket_type to 2 for Consumable
             }
             
-            $ticket->ticstatus_id = $request->input('status-radio') == 2 ? 1 : 3; // 1 for New Ticket, 3 for Consumable Created
+            $ticket->severity_id = $issue->severity_id;
+            $ticket->ticstatus_id = $request->input('status-radio') == 2 ? 1 : 1; // 
             $ticket->report_received = Carbon::now(); // Current date and time
 
             $ticket->save();
@@ -267,7 +277,15 @@ class IssueController extends Controller
         //     'request_no' => 'required',
         // ]);
   
-        Issue::create($request->all());
+        // Issue::create($request->all());
+
+        // validate the request data as needed
+        $requestData = $request->all();
+
+        // add the currently authenticated user's username to the request data
+        $requestData['created_by'] = Auth::user()->username;
+
+        Issue::create($requestData);
    
         return redirect()->route('issues.listissue')
                         ->with('success','New Request created successfully.');
@@ -303,7 +321,15 @@ class IssueController extends Controller
         //     'site_id' => 'required',
         // ]);
   
-        Issue::create($request->all());
+        // Issue::create($request->all());
+
+        // validate the request data as needed
+        $requestData = $request->all();
+
+        // add the currently authenticated user's username to the request data
+        $requestData['created_by'] = Auth::user()->username;
+
+        Issue::create($requestData);
    
         return redirect()->route('issues.entireissue')
                         ->with('success','New Request created successfully.');

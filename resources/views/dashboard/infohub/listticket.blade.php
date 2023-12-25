@@ -9,21 +9,25 @@
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-card me-1"></i> Tickets
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listTicCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock-open me-1"></i> Open
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listOpenCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock me-1"></i> Closed
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listClosedCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-archive me-1"></i> KIV
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listKivCount }}</span>
                 </a>
             </li>
         </ul>

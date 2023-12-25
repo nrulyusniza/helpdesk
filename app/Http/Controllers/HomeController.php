@@ -277,28 +277,48 @@ class HomeController extends Controller
     {
         $allTic = Ticket::orderBy('ticket_no', 'desc')->get();
 
-        return view('/dashboard/infohub/allticket', compact('allTic'));
+        $allTicCount = Ticket::count();
+        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        return view('/dashboard/infohub/allticket', compact('allTic', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     public function allopen()
     {
         $allOpen = Ticket::where('ticstatus_id', '2')->orderBy('ticket_no', 'desc')->get();
 
-        return view('/dashboard/infohub/allopen', compact('allOpen'));
+        $allTicCount = Ticket::count();
+        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        return view('/dashboard/infohub/allopen', compact('allOpen', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     public function allclosed()
     {
         $allClosed = Ticket::where('ticstatus_id', '4')->orderBy('ticket_no', 'desc')->get();
 
-        return view('/dashboard/infohub/allclosed', compact('allClosed'));
+        $allTicCount = Ticket::count();
+        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        return view('/dashboard/infohub/allclosed', compact('allClosed', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     public function allkiv()
     {
         $allKiv = Ticket::where('ticstatus_id', '3')->orderBy('ticket_no', 'desc')->get();
 
-        return view('/dashboard/infohub/allkiv', compact('allKiv'));
+        $allTicCount = Ticket::count();
+        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        return view('/dashboard/infohub/allkiv', compact('allKiv', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     // site admin's card
@@ -312,7 +332,23 @@ class HomeController extends Controller
                         ->orderBy('ticket_no', 'desc')
                         ->get();
 
-        return view('/dashboard/infohub/listticket', compact('listTic'));
+        $listTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $listOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $listClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $listKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
+
+        return view('/dashboard/infohub/listticket', compact('listTic', 'listTicCount', 'listOpenCount', 'listClosedCount', 'listKivCount'));
     }
 
     public function listopen()
@@ -326,7 +362,23 @@ class HomeController extends Controller
                         ->orderBy('ticket_no', 'desc')
                         ->get();
 
-        return view('/dashboard/infohub/listopen', compact('listOpen'));
+        $listTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $listOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $listClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $listKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
+
+        return view('/dashboard/infohub/listopen', compact('listOpen', 'listTicCount', 'listOpenCount', 'listClosedCount', 'listKivCount'));
     }
 
     public function listclosed()
@@ -340,7 +392,23 @@ class HomeController extends Controller
                         ->orderBy('ticket_no', 'desc')
                         ->get();
 
-        return view('/dashboard/infohub/listclosed', compact('listClosed'));
+        $listTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $listOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $listClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $listKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
+
+        return view('/dashboard/infohub/listclosed', compact('listClosed', 'listTicCount', 'listOpenCount', 'listClosedCount', 'listKivCount'));
     }
 
     public function listkiv()
@@ -354,7 +422,23 @@ class HomeController extends Controller
                         ->orderBy('ticket_no', 'desc')
                         ->get();
 
-        return view('/dashboard/infohub/listkiv', compact('listKiv'));
+        $listTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $listOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $listClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $listKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
+
+        return view('/dashboard/infohub/listkiv', compact('listKiv', 'listTicCount', 'listOpenCount', 'listClosedCount', 'listKivCount'));
     }
 
     // site user's card
@@ -368,7 +452,23 @@ class HomeController extends Controller
                         ->orderBy('ticket_no', 'desc')
                         ->get();
 
-        return view('/dashboard/infohub/entireticket', compact('entireTic'));
+        $entireTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $entireOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $entireClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $entireKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
+
+        return view('/dashboard/infohub/entireticket', compact('entireTic', 'entireTicCount', 'entireOpenCount', 'entireClosedCount', 'entireKivCount'));
     }
 
     public function entireopen()
@@ -381,8 +481,24 @@ class HomeController extends Controller
                         ->where('tickets.ticstatus_id', 2)
                         ->orderBy('ticket_no', 'desc')
                         ->get();
+        
+        $entireTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $entireOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $entireClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $entireKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
 
-        return view('/dashboard/infohub/entireopen', compact('entireOpen'));
+        return view('/dashboard/infohub/entireopen', compact('entireOpen', 'entireTicCount', 'entireOpenCount', 'entireClosedCount', 'entireKivCount'));
     }
 
     public function entireclosed()
@@ -396,7 +512,23 @@ class HomeController extends Controller
                         ->orderBy('ticket_no', 'desc')
                         ->get();
 
-        return view('/dashboard/infohub/entireclosed', compact('entireClosed'));
+        $entireTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $entireOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $entireClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $entireKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
+
+        return view('/dashboard/infohub/entireclosed', compact('entireClosed', 'entireTicCount', 'entireOpenCount', 'entireClosedCount', 'entireKivCount'));
     }
 
     public function entirekiv()
@@ -409,8 +541,24 @@ class HomeController extends Controller
                         ->where('tickets.ticstatus_id', 3)
                         ->orderBy('ticket_no', 'desc')
                         ->get();
+        
+        $entireTicCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->count();
+        $entireOpenCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 2)
+                                ->count();
+        $entireClosedCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 4)
+                                ->count();
+        $entireKivCount = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')
+                                ->where('issues.site_id', $site_id)
+                                ->where('tickets.ticstatus_id', 3)
+                                ->count();
 
-        return view('/dashboard/infohub/entirekiv', compact('entireKiv'));
+        return view('/dashboard/infohub/entirekiv', compact('entireKiv', 'entireTicCount', 'entireOpenCount', 'entireClosedCount', 'entireKivCount'));
     }
 
     //---------------------------------------------------------------------------------------------------------------------------

@@ -80,13 +80,26 @@ class Issue extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    // public function createdByUser()
-    // {
-    //     return $this->belongsTo(User::class, 'created_by', 'username');
-    // }
+    // Boot method to register the event listener
+    protected static function boot()
+    {
+        parent::boot();
 
-    // public function updatedByUser()
-    // {
-    //     return $this->belongsTo(User::class, 'updated_by', 'username');
-    // }
+        // Register the creating event
+        static::creating(function ($issue) {
+            $issue->request_no = static::generateRequestNumber();
+        });
+    }
+
+    // Function to generate the request number
+    protected static function generateRequestNumber()
+    {
+        $currentYear = now()->year;
+        $currentMonth = now()->format('m');
+        $ticketCount = static::whereYear('create_date', $currentYear)
+            ->whereMonth('create_date', $currentMonth)
+            ->count() + 1;
+
+        return "RQ-$currentYear-$currentMonth-" . str_pad($ticketCount, 4, '0', STR_PAD_LEFT);
+    }
 }

@@ -27,6 +27,7 @@
                         <tr>
                             <th>#</th>
                             <th>Request No</th>
+                            <th>Request Type</th>
                             <th>Reported By</th>
                             <th>Report Date</th>
                             <th>Site</th>
@@ -42,13 +43,21 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $i->request_no }}</td>
+                            <td>{{ $i->type->request_type }}</td>
                             <td>{{ $i->reportingperson->rptpers_name }}</td>
                             <td>{{ $i->create_date->format('M d, Y') }}</td> <!-- 0000-00-00, in result  -0001 -->
                             <td>{{ $i->site->site_name ?? " " }}</td>
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
                             <td>{{ $i->status->status_label ?? " " }}</td> <!-- badges -->
-                            <td>{{ $i->created_by ?? " " }}</td>
+                            <td>
+                                @php
+                                    // $i->created_by is the username of the user who created the issue
+                                    $creator = \App\User::where('username', $i->created_by)->first();
+                                    $creatorFullname = $creator ? $creator->fullname : 'Unknown';
+                                @endphp
+                                {{ $creatorFullname }}
+                            </td>
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.allissuedetail',['issue' => $i->id]) }}"

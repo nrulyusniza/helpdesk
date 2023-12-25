@@ -9,21 +9,25 @@
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.entireticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.entireticket') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-card me-1"></i> Tickets
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $entireTicCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.entireopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.entireopen') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock-open me-1"></i> Open
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $entireOpenCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.entireclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.entireclosed') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock me-1"></i> Closed
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $entireClosedCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.entirekiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.entirekiv') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-archive me-1"></i> KIV
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $entireKivCount }}</span>
                 </a>
             </li>
         </ul>

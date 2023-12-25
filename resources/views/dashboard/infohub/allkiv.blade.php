@@ -5,25 +5,29 @@
 <div class="col-xl-12">
     <div class="nav-align-top mb-4">
 
-        <ul class="nav nav-tabs nav-fill" role="tablist">            
+        <ul class="nav nav-tabs nav-fill" role="tablist">
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allticket') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-card me-1"></i> Tickets
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allTicCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allopen') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock-open me-1"></i> Open
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allOpenCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allclosed') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-lock me-1"></i> Closed
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allClosedCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allkiv') ? 'active' : '' }}">
                     <i class="tf-icons bx bx-archive me-1"></i> KIV
+                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allKivCount }}</span>
                 </a>
             </li>
         </ul>

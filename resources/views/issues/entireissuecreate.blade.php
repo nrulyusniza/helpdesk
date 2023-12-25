@@ -25,8 +25,8 @@
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="type_id">Request Type</label>
-                        <select id="defaultSelect" class="form-select" name="type_id">
+                        <label class="form-label" for="request_type">Request Type</label>
+                        <select id="defaultSelect" class="form-select" name="request_type">
                             <option selected disabled>-- Select Request Type--</option>
                                 @foreach(App\Type::all() as $type)
                                     <option value="{{$type->id}}">{{$type->request_type}}</option>

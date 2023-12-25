@@ -259,9 +259,8 @@ Route::get('issues/allissuecreate', 'IssueController@allissuecreate')->name('iss
 Route::post('issues/allissuestore', 'IssueController@allissuestore')->name('issues.allissuestore');
 Route::get('/get-reportingperson/{siteId}', 'IssueController@getReportingpersonBySite');
 Route::get('/get-equipment/{siteId}', 'IssueController@getEquipmentBySite');
-
-Route::get('issues/{issue}/edit', 'IssueController@allresponse')->name('issues.allresponse');
-Route::put('issues/{issue}', 'IssueController@allresponseupdate')->name('issues.allresponseupdate');
+Route::get('issues/{issue}/allresponse', 'IssueController@allresponse')->name('issues.allresponse');
+Route::put('issues/{issue}/allresponseupdate', 'IssueController@allresponseupdate')->name('issues.allresponseupdate');
 
 
 // issues(request ticket & consumables) path - site admin view

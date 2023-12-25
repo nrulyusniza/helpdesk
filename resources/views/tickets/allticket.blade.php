@@ -53,9 +53,9 @@
                             <td>{{ $tt->severity->severity_label ?? " " }}</td>
                             <td>{{ $tt->ticstatus->ticstatus_label ?? " " }}</td>                            
                             <!-- <td>{{ $tt->user->fullname ?? " " }}</td>
-                            <td>{{ $tt->create_date->format('M d, Y') }}</td>
+                            <td>{{ $tt->create_date }}</td>
                             <td>{{ $tt->user->fullname ?? " " }}</td>
-                            <td>{{ $tt->update_date->format('M d, Y') }}</td> -->
+                            <td>{{ $tt->update_date }}</td> -->
                             <td>
                                 <form action="" method="POST">
                                     <!-- <a class="menu-icon tf-icons bx bx-edit" href="{{ route('tickets.allticketedit',$tt->id) }}"></a> -->

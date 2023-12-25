@@ -114,24 +114,37 @@
               <span class="menu-header-text">Issue Tracking</span>
             </li>
             <li class="menu-item {{ request()->routeIs('issues*') ? 'active' : '' }}">
+              @php
+                $count = \App\Issue::where('status_id', '=', 1)->count();
+              @endphp
               <a href="{{ route('issues.allissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.allticket*') ? 'active' : '' }}">
+              @php
+                $count = \App\Ticket::where('ticstatus_id', '!=', 4)
+                                          ->where('ticket_type', '=', 1)
+                                          ->count();
+              @endphp
               <a href="{{ route('tickets.allticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Ticket</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.allconsumable*') ? 'active' : '' }}">
+              @php
+                $count = \App\Ticket::where('ticstatus_id', '!=', 4)
+                                          ->where('ticket_type', '=', 2)
+                                          ->count();
+              @endphp
               <a href="{{ route('tickets.allconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Consumables</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
 
@@ -213,24 +226,46 @@
               <span class="menu-header-text">Issue Tracking</span>
             </li>
             <li class="menu-item {{ request()->routeIs('issues.listissue*') ? 'active' : '' }}">
+              @php
+                $siteId = Auth::user()->site_id;
+                $count = \App\Issue::where('site_id', $siteId)
+                                          ->where('status_id', '=', 1)
+                                          ->count();
+              @endphp
               <a href="{{ route('issues.listissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.listticket*') ? 'active' : '' }}">
+              @php
+                $siteId = Auth::user()->site_id;
+                $count = \App\Ticket::whereHas('issue', function ($query) use ($siteId) {
+                                                  $query->where('site_id', $siteId);
+                                              })->where('ticstatus_id', '!=', 4)
+                                                ->where('ticket_type', '=', 1)
+                                                ->count();
+              @endphp
               <a href="{{ route('tickets.listticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Ticket</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.listconsumable*') ? 'active' : '' }}">
+              @php
+                $siteId = Auth::user()->site_id;
+                $count = \App\Ticket::whereHas('issue', function ($query) use ($siteId) {
+                                                  $query->where('site_id', $siteId);
+                                              })->where('ticstatus_id', '!=', 4)
+                                                ->where('ticket_type', '=', 2)
+                                                ->count();
+              @endphp
               <a href="{{ route('tickets.listconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Consumables</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
 
@@ -288,24 +323,46 @@
               <span class="menu-header-text">Issue Tracking</span>
             </li>
             <li class="menu-item {{ request()->routeIs('issues.entireissue*') ? 'active' : '' }}">
+              @php
+                $siteId = Auth::user()->site_id;
+                $count = \App\Issue::where('site_id', $siteId)
+                                          ->where('status_id', '=', 1)
+                                          ->count();
+              @endphp
               <a href="{{ route('issues.entireissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Request</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.entireticket*') ? 'active' : '' }}">
+              @php
+                $siteId = Auth::user()->site_id;
+                $count = \App\Ticket::whereHas('issue', function ($query) use ($siteId) {
+                                                  $query->where('site_id', $siteId);
+                                              })->where('ticstatus_id', '!=', 4)
+                                                ->where('ticket_type', '=', 1)
+                                                ->count();
+              @endphp
               <a href="{{ route('tickets.entireticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Ticket</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('tickets.entireconsumable*') ? 'active' : '' }}">
+              @php
+                $siteId = Auth::user()->site_id;
+                $count = \App\Ticket::whereHas('issue', function ($query) use ($siteId) {
+                                                  $query->where('site_id', $siteId);
+                                              })->where('ticstatus_id', '!=', 4)
+                                                ->where('ticket_type', '=', 2)
+                                                ->count();
+              @endphp
               <a href="{{ route('tickets.entireconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <span class="flex-grow-1 align-middle">Consumables</span>
-                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">N</span>
+                <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
 

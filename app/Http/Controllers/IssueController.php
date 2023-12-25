@@ -7,6 +7,8 @@ use App\User;
 use App\Site;
 use App\Equipment;
 use App\Reportingperson;
+use App\Ticket;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -187,9 +189,46 @@ class IssueController extends Controller
 
     public function allresponseupdate(Request $request, Issue $issue)
     {
-        $issue->update($request->all());
+        // $issue->update($request->all());
+
+        $request->validate([
+            'admin_comments' => 'required|string',
+            'severity_id' => 'required|integer',
+            'update_date' => 'required|date',
+            'status-radio' => 'required|integer', // Assuming this is the status_id
+        ]);
+    
+        // Update only the necessary fields
+        $issue->update([
+            'admin_comments' => $request->input('admin_comments'),
+            'severity_id' => $request->input('severity_id'),
+            'update_date' => $request->input('update_date'),
+            'status_id' => $request->input('status-radio'), // Assuming this is the status_id
+        ]);
+
+        // Check if the status_id is 2 or 3 to create a new row in the Tickets table
+        if ($request->input('status-radio') == 2 || $request->input('status-radio') == 3) {
+            $ticket = new Ticket();
+            $ticket->request_id = $issue->id;
+            
+            // Determine ticket_no format based on ticket_type
+            if ($request->input('status-radio') == 2) {
+                // Ticket
+                $ticket->ticket_no = 'TT-' . date('Y-m') . '-' . str_pad(Ticket::where('ticket_type', 1)->count() + 1, 6, '0', STR_PAD_LEFT);
+                $ticket->ticket_type = 1; // Set ticket_type to 1 for Ticket
+            } elseif ($request->input('status-radio') == 3) {
+                // Consumable
+                $ticket->ticket_no = 'CT-' . date('Y-m') . '-' . str_pad(Ticket::where('ticket_type', 2)->count() + 1, 6, '0', STR_PAD_LEFT);
+                $ticket->ticket_type = 2; // Set ticket_type to 2 for Consumable
+            }
+            
+            $ticket->ticstatus_id = $request->input('status-radio') == 2 ? 1 : 3; // 1 for New Ticket, 3 for Consumable Created
+            $ticket->report_received = Carbon::now(); // Current date and time
+
+            $ticket->save();
+        }
   
-        return redirect()->route('issues.allissue')
+        return redirect()->route('issues.allissue', $issue->id)
                         ->with('success','Admin Response updated successfully');
     }
 

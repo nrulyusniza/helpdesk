@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                                    <input type="number" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
+                                    <input type="text" class="form-control" name="phone_no" value="{{ $issue->phone_no }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="req_category">Category</label>
@@ -100,44 +100,55 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="updated_by">Updated By [x]</label>
-                                    <input type="text" class="form-control" name="updated_by">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="update_date">Update Date [x]</label>
+                                    <label class="form-label" for="update_date">Update Date</label>
                                     <input type="date" class="form-control" name="update_date">
                                 </div> 
                                 <div class="mb-3">
-                                    <label class="form-label">Status [x]</label>
-                                    <!-- <input type="date" class="form-control" name="update_date"> -->
+                                    <label class="form-label">Status</label>
                                     <div class="col-md">
-                                        <div class="form-check">
+                                        @if ($issue->request_type == 1)
+                                            <div class="form-check">
+                                                <input
+                                                    name="status-radio"
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    value="2"
+                                                    id="createTicketRadio"
+                                                    {{ $issue->request_type == 1 ? 'checked' : '' }}
+                                                />
+                                                <label class="form-check-label" for="createTicketRadio"> Create Ticket </label>
+                                            </div>
+                                        @endif
+                                        @if ($issue->request_type == 2)
+                                            <div class="form-check mt-3">
+                                                <input
+                                                    name="status-radio"
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    value="3"
+                                                    id="createConsumableRadio"
+                                                    {{ $issue->request_type == 2 ? 'checked' : '' }}
+                                                />
+                                                <label class="form-check-label" for="createConsumableRadio"> Create Consumable </label>
+                                            </div>
+                                        @endif
+                                        <div class="form-check mt-3">
                                             <input
-                                            name="default-radio-1"
+                                            name="status-radio"
                                             class="form-check-input"
                                             type="radio"
-                                            value=""
-                                            id="defaultRadio2"
-                                            checked />
-                                            <label class="form-check-label" for="defaultRadio2"> Create Ticket </label>
+                                            value="4"
+                                            id="ammendRadio" />
+                                            <label class="form-check-label" for="ammendRadio"> Ammend </label>
                                         </div>
                                         <div class="form-check mt-3">
                                             <input
-                                            name="default-radio-1"
+                                            name="status-radio"
                                             class="form-check-input"
                                             type="radio"
-                                            value=""
-                                            id="defaultRadio1" />
-                                            <label class="form-check-label" for="defaultRadio1"> Ammend </label>
-                                        </div>
-                                        <div class="form-check mt-3">
-                                            <input
-                                            name="default-radio-1"
-                                            class="form-check-input"
-                                            type="radio"
-                                            value=""
-                                            id="defaultRadio1" />
-                                            <label class="form-check-label" for="defaultRadio1"> Rejected </label>
+                                            value="5"
+                                            id="rejectedRadio" />
+                                            <label class="form-check-label" for="rejectedRadio"> Rejected </label>
                                         </div> 
                                     </div>
                                 </div> 

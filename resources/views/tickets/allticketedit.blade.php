@@ -52,7 +52,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
-                                <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
+                                <input type="text" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="req_category">Category</label>

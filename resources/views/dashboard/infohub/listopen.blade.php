@@ -69,7 +69,34 @@
                                     <td>{{ $lot->issue->fault_description ?? " " }}</td>
                                     <!-- <td>{{ $lot->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $lot->issue->equipment->asset_hostname ?? " " }} - {{ $lot->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $lot->severity->severity_label ?? " " }}</td>
+                                    <!-- <td>{{ $lot->severity->severity_label ?? " " }}</td> -->
+                                    <td>
+                                        @if(isset($lot->severity->severity_label))
+                                            @php
+                                                $severityLabel = $lot->severity->severity_label;
+                                                $badgeClass = '';
+
+                                                switch($lot->severity->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>
                                     <!-- <td>{{ $lot->ticstatus->ticstatus_label ?? " " }}</td> -->
                                     <!-- <td>{{ $lot->user->fullname ?? " " }}</td>
                                     <td>{{ $lot->create_date->format('M d, Y') }}</td>

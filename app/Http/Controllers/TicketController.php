@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ticket;
 use App\Equipment;
 use App\Ticketlog;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -88,12 +89,28 @@ class TicketController extends Controller
         //
     }
 
+    //---------------------------------------------------------------------- SUPER ADMIN ----------------------------------------------------------------------
+
     public function allticket(Ticket $ticket)
     {
         // query if ticket type = 1; 1=Ticket
         // sort in desc order - the latest row data on the top of table
         // eager load the relationship between issue and site
-        $tickets = Ticket::where('ticket_type', '1')->orderBy('ticket_no','desc')->with('issue.site')->get();
+        // $tickets = Ticket::where('ticket_type', '1')->orderBy('ticket_no','desc')->with('issue.site')->get();
+
+        // $tickets = Ticket::select(
+        //     'tickets.*',
+        //     DB::raw('(SELECT ticstatus_id 
+        //             FROM ticketlogs 
+        //             WHERE ticketlogs.ticket_id = tickets.id 
+        //             ORDER BY id DESC LIMIT 1) as current_status')
+        // )
+        // ->get();
+
+        $tickets = Ticket::where('ticket_type', '1')
+                            ->orderBy('ticket_no', 'desc')
+                            ->with('issue.site', 'ticketlog.ticstatus')
+                            ->get();
   
         return view('tickets.allticket', compact('tickets'));
     }
@@ -116,7 +133,27 @@ class TicketController extends Controller
         // // save the ticket log
         // $ticket->ticketlog()->save($ticketlog);
 
-        $ticket->ticketlog()->create($request->all());
+        // $ticket->ticketlog()->create($request->all());
+
+        // currently authenticated user
+        $currentUpdateUser = auth()->user();
+
+        // new ticket log entry with the update_by field set to the username of the authenticated user
+        $newTicketLog = $ticket->ticketlog()->create([
+            'date'      => now(), // current date and time
+            'description' => $request->input('description'),
+            'ticket_id' => $ticket->id,
+            'update_by' => $currentUpdateUser->username,
+            'response_date' => $request->input('response_date'),
+            'response_time' => $request->input('response_time'),
+            'reaction_id' => $request->input('reaction_id'),
+            'attachment' => $request->input('attachment'),
+            'ticstatus_id' => $request->input('ticstatus_id'),
+        ]);
+
+        $ticket->update([
+            'ticstatus_id' => $newTicketLog->ticstatus_id,  // ticstatus_id in tickets table will regularly update
+        ]);
 
         // redirect back
         return redirect()->route('tickets.allticketedit', $ticket->id)
@@ -128,7 +165,12 @@ class TicketController extends Controller
         // query if ticket type = 2; 2=Consumable
         // sort in desc order - the latest row data on the top of table
         // eager load the relationship between issue and site
-        $tickets = Ticket::where('ticket_type', '2')->orderBy('ticket_no','desc')->with('issue.site')->get();
+        // $tickets = Ticket::where('ticket_type', '2')->orderBy('ticket_no','desc')->with('issue.site')->get();
+
+        $tickets = Ticket::where('ticket_type', '2')
+                            ->orderBy('ticket_no', 'desc')
+                            ->with('issue.site', 'ticketlog.ticstatus')
+                            ->get();
   
         return view('tickets.allconsumable', compact('tickets'));
     }
@@ -151,7 +193,27 @@ class TicketController extends Controller
         // // save the ticket log
         // $ticket->ticketlog()->save($ticketLog);
 
-        $ticket->ticketlog()->create($request->all());
+        // $ticket->ticketlog()->create($request->all());
+
+        // currently authenticated user
+        $currentUpdateUser = auth()->user();
+
+        // new ticket log entry with the update_by field set to the username of the authenticated user
+        $newTicketLog = $ticket->ticketlog()->create([
+            'date'      => now(), // current date and time
+            'description' => $request->input('description'),
+            'ticket_id' => $ticket->id,
+            'update_by' => $currentUpdateUser->username,
+            'response_date' => $request->input('response_date'),
+            'response_time' => $request->input('response_time'),
+            'reaction_id' => $request->input('reaction_id'),
+            'attachment' => $request->input('attachment'),
+            'ticstatus_id' => $request->input('ticstatus_id'),
+        ]);
+
+        $ticket->update([
+            'ticstatus_id' => $newTicketLog->ticstatus_id,  // ticstatus_id in tickets table will regularly update
+        ]);
 
         // redirect back
         return redirect()->route('tickets.allconsumableedit', $ticket->id)

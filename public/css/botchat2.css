@@ -33,15 +33,33 @@ body {
     position: fixed;
     right: 40px;
     bottom: 35px;
-
-   
-    /* position: fixed;
-    right: 40px;
-    bottom: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease; */
+}
+/* BUTTON TOGGLE */
+.button-box {
+    width: 100px;
+	margin: 35px auto;
+	position: relative;
+	border-radius: 5px;
+	background: #9b84df;
+}
+.toggle-btn {
+	padding: 8px 12px;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	outline: none;
+	position: relative;
+	text-align: center;
+}
+#btn {
+	left: 0;
+	top: 0;
+	position: absolute;
+	width: 50px;
+	height: 100%;
+	background: #bba9f3; /*#e67e22*/
+	border-radius: 5px;
+	transition: .5s;
 }
 .content {
     max-height: 0;
@@ -55,15 +73,6 @@ body {
     transform-origin: bottom right;
     box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
                 0 32px 64px -48px rgba(0,0,0,0.5);
-
-    
-    /* position: fixed;
-    right: 40px;
-    bottom: 100px;
-    transform-origin: bottom right;
-    box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
-                0 32px 64px -48px rgba(0,0,0,0.5);
-    transition: all 0.1s ease; */
 }
 /*BOX : NCO HELPDESK */
 .content header {
@@ -169,7 +178,7 @@ body {
     align-items: center;
     padding: 10px 0px 10px 10px;
     gap: 5px;
-    background: #f2f2f2;
+    background: #d7c9ff83;
     border-top: 1px solid #ccc;
     font-size: 15px;
 }

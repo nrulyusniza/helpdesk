@@ -35,7 +35,33 @@
                             <td>{{ $e->asset_hostname }}</td>
                             <td>{{ $e->asset_location }}</td>
                             <td>{{ $e->asset_type }}</td>
-                            <td>{{ $e->equipmentlog->last()->equipmentstatus->assetstatus_label ?? "-" }}</td>  <!-- <td>{{ $e->latest_status ?? "-" }}</td> -->
+                            <!-- <td>{{ $e->equipmentlog->last()->equipmentstatus->assetstatus_label ?? "-" }}</td> -->
+                            <td>
+                                @if(null !== ($assetstatusLabel = $e->equipmentlog->last()->equipmentstatus->assetstatus_label ?? null))
+                                    @php
+                                        $badgeClass = '';
+
+                                        switch($e->equipmentlog->last()->equipmentstatus->id ?? null) {
+                                            case 1:
+                                                $badgeClass = 'bg-danger';
+                                                break;
+                                            case 2:
+                                                $badgeClass = 'bg-primary';
+                                                break;
+                                            case 3:
+                                                $badgeClass = 'bg-success';
+                                                break;
+                                            default:
+                                                $badgeClass = 'bg-label-info';
+                                                break;
+                                        }
+                                    @endphp
+
+                                    <span class="badge {{ $badgeClass }} me-1">{{ $assetstatusLabel }}</span>
+                                @else
+                                    <span class="badge bg-secondary me-1"></span>
+                                @endif
+                            </td>   <!-- badges that depends on database -->  
                             <td>
                                 <form action="{{ route('equipments.destroy',$e->id) }}" method="POST">
                                     <!-- <a class="menu-icon tf-icons bx bx-expand-alt" href="{{ route('equipments.entireassetlog',$e->id) }}"></a> -->

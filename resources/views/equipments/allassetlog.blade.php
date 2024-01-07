@@ -136,7 +136,33 @@
                                     <td>{{ $eqlog->id }}</td>
                                     <td>{{ $eqlog->asset_newlocation }}</td>
                                     <td>{{ $eqlog->log_updatedat->format('M d, Y') }}</td>
-                                    <td>{{ $eqlog->equipmentstatus->assetstatus_label }}</td>
+                                    <!-- <td>{{ $eqlog->equipmentstatus->assetstatus_label }}</td> -->
+                                    <td>
+                                        @if(null !== ($assetstatusLabel = $eqlog->equipmentstatus->assetstatus_label ?? null))
+                                            @php
+                                                $badgeClass = '';
+
+                                                switch($eqlog->equipmentstatus->id ?? null) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $assetstatusLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>   <!-- badges that depends on database -->  
                                 </tr>
                             </tbody>
                             @endforeach

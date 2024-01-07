@@ -129,7 +129,34 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $u->username }}</td>
               <td>{{ $u->fullname }}</td>
-              <td>{{ $u->role->role_name ?? " " }}</td>
+              <!-- <td>{{ $u->role->role_name ?? " " }}</td> -->
+              <td>
+                @if(isset($u->role->role_name))
+                    @php
+                        $userLabel = $u->role->role_name;
+                        $badgeClass = '';
+
+                        switch($u->role->id) {
+                            case 1:
+                                $badgeClass = 'bg-success';
+                                break;
+                            case 2:
+                                $badgeClass = 'bg-primary';
+                                break;
+                            case 3:
+                                $badgeClass = 'bg-dark';
+                                break;
+                            default:
+                                $badgeClass = 'bg-label-info';
+                                break;
+                        }
+                    @endphp
+
+                    <span class="badge {{ $badgeClass }} me-1">{{ $userLabel }}</span>
+                @else
+                    <span class="badge bg-secondary me-1"></span>
+                @endif
+              </td>   <!-- badges that depends on database -->  
               <td>{{ $u->site->site_name ?? " " }}</td>
               <td>
                 <form action="{{ route('users.destroy',$u->id) }}" method="POST">

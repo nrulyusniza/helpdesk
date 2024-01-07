@@ -262,6 +262,9 @@ Route::get('/get-equipment/{siteId}', 'IssueController@getEquipmentBySite');
 Route::get('issues/{issue}/allresponse', 'IssueController@allresponse')->name('issues.allresponse');
 Route::put('issues/{issue}/allresponseupdate', 'IssueController@allresponseupdate')->name('issues.allresponseupdate');
 
+// Route::get('/issues/mark-as-read', [IssueController::class, 'markAsRead'])->name('mark-as-read');
+Route::post('issues/markAsRead', 'IssueController@markAsRead')->name('issues.markAsRead');
+
 
 // issues(request ticket & consumables) path - site admin view
 Route::get('issues/listissue', 'IssueController@listissue')->name('issues.listissue');

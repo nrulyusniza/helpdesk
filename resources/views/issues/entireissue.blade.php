@@ -47,7 +47,39 @@
                             <td>{{ $i->site->site_name ?? " " }}</td>
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>
-                            <td>{{ $i->status->status_label ?? " " }}</td> <!-- badges -->
+                            <td>
+                                @if(isset($i->status->status_label))
+                                    @php
+                                        $statusLabel = $i->status->status_label;
+                                        $badgeClass = '';
+
+                                        switch($i->status->id) {
+                                            case 1:
+                                                $badgeClass = 'bg-success';
+                                                break;
+                                            case 2:
+                                                $badgeClass = 'bg-primary';
+                                                break;
+                                            case 3:
+                                                $badgeClass = 'bg-dark';
+                                                break;
+                                            case 4:
+                                                $badgeClass = 'bg-danger';
+                                                break;
+                                            case 5:
+                                                $badgeClass = 'bg-warning';
+                                                break;
+                                            default:
+                                                $badgeClass = 'bg-label-info';
+                                                break;
+                                        }
+                                    @endphp
+
+                                    <span class="badge {{ $badgeClass }} me-1">{{ $statusLabel }}</span>
+                                @else
+                                    <span class="badge bg-secondary me-1"></span>
+                                @endif
+                            </td>   <!-- badges that depends on database -->
                             <td>
                                 @php
                                     // $i->created_by is the username of the user who created the issue

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Ticket;
+use App\Ticketlog;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,17 +53,44 @@ class HomeController extends Controller
     {
         // cards
         $tickets = DB::table('tickets')->count();
-        $allTixOpen = DB::table('tickets')->where('ticstatus_id', '2')->count();
-        $allTixClosed = DB::table('tickets')->where('ticstatus_id', '4')->count();
-        $allTixKiv = DB::table('tickets')->where('ticstatus_id', '3')->count();
+        // $allTixOpen = DB::table('tickets')->where('ticstatus_id', '2')->count();
+        $allTixOpen = Ticket::where(function ($query) {
+            $query->select('ticstatus_id')
+                ->from('ticketlogs')
+                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                ->latest('id')
+                ->limit(1);
+        }, '=', 2)
+        ->count();
+        // $allTixClosed = DB::table('tickets')->where('ticstatus_id', '4')->count();
+        $allTixClosed = Ticket::where(function ($query) {
+            $query->select('ticstatus_id')
+                ->from('ticketlogs')
+                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                ->latest('id')
+                ->limit(1);
+        }, '=', 4)
+        ->count();
+        // $allTixKiv = DB::table('tickets')->where('ticstatus_id', '3')->count();
+        $allTixKiv = Ticket::where(function ($query) {
+            $query->select('ticstatus_id')
+                ->from('ticketlogs')
+                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                ->latest('id')
+                ->limit(1);
+        }, '=', 3)
+        ->count();
         $knowledgebases = DB::table('knowledgebases')->count();
         $users = DB::table('users')->count();
         $sites = DB::table('sites')->count();
         $equipments = DB::table('equipments')->count();
 
         // area chart
+        $currentYear = now()->year;
+        
         // fetch ticket counts by month from the db
         $ticketCounts = Ticket::selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+                                ->whereYear('report_received', $currentYear)
                                 ->groupBy('month')
                                 ->orderBy('month')
                                 ->pluck('count', 'month');
@@ -275,48 +303,197 @@ class HomeController extends Controller
     // super admin's card
     public function allticket()
     {
-        $allTic = Ticket::orderBy('ticket_no', 'desc')->get();
+        // $allTic = Ticket::orderBy('ticket_no', 'desc')->get();
+
+        // $allTicCount = Ticket::count();
+        // $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        // $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        // $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        $allTic = Ticket::orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+                        ->get();
 
         $allTicCount = Ticket::count();
-        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
-        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
-        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+                     
+        $allOpenCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 2)
+                        ->count();
+
+        $allClosedCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 4)
+                        ->count();
+        
+        $allKivCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 3)
+                        ->count();
 
         return view('/dashboard/infohub/allticket', compact('allTic', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     public function allopen()
     {
-        $allOpen = Ticket::where('ticstatus_id', '2')->orderBy('ticket_no', 'desc')->get();
+        // $allOpen = Ticket::where('ticstatus_id', '2')->orderBy('ticket_no', 'desc')->get();
+
+        // $allTicCount = Ticket::count();
+        // $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        // $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        // $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        $allOpen = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 2)
+                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+                        ->get();
 
         $allTicCount = Ticket::count();
-        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
-        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
-        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+                     
+        $allOpenCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 2)
+                        ->count();
+
+        $allClosedCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 4)
+                        ->count();
+        
+        $allKivCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 3)
+                        ->count();
 
         return view('/dashboard/infohub/allopen', compact('allOpen', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     public function allclosed()
     {
-        $allClosed = Ticket::where('ticstatus_id', '4')->orderBy('ticket_no', 'desc')->get();
+        // $allClosed = Ticket::where('ticstatus_id', '4')->orderBy('ticket_no', 'desc')->get();
+
+        // $allTicCount = Ticket::count();
+        // $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        // $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        // $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        $allClosed = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 4)
+                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+                        ->get();
 
         $allTicCount = Ticket::count();
-        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
-        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
-        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        $allOpenCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 2)
+                        ->count();
+
+        $allClosedCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 4)
+                        ->count();
+
+        $allKivCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 3)
+                        ->count();
 
         return view('/dashboard/infohub/allclosed', compact('allClosed', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }
 
     public function allkiv()
     {
-        $allKiv = Ticket::where('ticstatus_id', '3')->orderBy('ticket_no', 'desc')->get();
+        // $allKiv = Ticket::where('ticstatus_id', '3')->orderBy('ticket_no', 'desc')->get();
+
+        // $allTicCount = Ticket::count();
+        // $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
+        // $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
+        // $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        $allKiv = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 3)
+                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+                        ->get();
 
         $allTicCount = Ticket::count();
-        $allOpenCount = Ticket::where('ticstatus_id', '2')->count();
-        $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
-        $allKivCount = Ticket::where('ticstatus_id', '3')->count();
+
+        $allOpenCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 2)
+                        ->count();
+
+        $allClosedCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 4)
+                        ->count();
+
+        $allKivCount = Ticket::where(function ($query) {
+                            $query->select('ticstatus_id')
+                                ->from('ticketlogs')
+                                ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                ->latest('id')
+                                ->limit(1);
+                        }, '=', 3)
+                        ->count();                
 
         return view('/dashboard/infohub/allkiv', compact('allKiv', 'allTicCount', 'allOpenCount', 'allClosedCount', 'allKivCount'));
     }

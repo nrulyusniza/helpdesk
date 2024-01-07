@@ -42,8 +42,68 @@
                             <td>{{ $tt->issue->site->site_name ?? " " }}</td>
                             <td>{{ $tt->issue->fault_description ?? " " }}</td>
                             <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
-                            <td>{{ $tt->severity->severity_label ?? " " }}</td>
-                            <td>{{ $tt->ticstatus->ticstatus_label ?? " " }}</td>
+                            <!-- <td>{{ $tt->severity->severity_label ?? " " }}</td> -->
+                            <td>
+                                @if(isset($tt->severity->severity_label))
+                                    @php
+                                        $severityLabel = $tt->severity->severity_label;
+                                        $badgeClass = '';
+
+                                        switch($tt->severity->id) {
+                                            case 1:
+                                                $badgeClass = 'bg-danger';
+                                                break;
+                                            case 2:
+                                                $badgeClass = 'bg-primary';
+                                                break;
+                                            case 3:
+                                                $badgeClass = 'bg-success';
+                                                break;
+                                            default:
+                                                $badgeClass = 'bg-label-info';
+                                                break;
+                                        }
+                                    @endphp
+
+                                    <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                @else
+                                    <span class="badge bg-secondary me-1"></span>
+                                @endif
+                            </td>   <!-- badges that depends on database -->
+                            <!-- <td>{{ $tt->ticstatus->ticstatus_label ?? " " }}</td> -->
+                            <td>
+                                @if(null !== ($latestTicketlog = $tt->latestTicketlog))
+                                    @php
+                                        $badgeClass = '';
+
+                                        switch($latestTicketlog->ticstatus->id ?? null) {
+                                            case 1:
+                                                $badgeClass = 'bg-success';
+                                                break;
+                                            case 2:
+                                                $badgeClass = 'bg-primary';
+                                                break;
+                                            case 3:
+                                                $badgeClass = 'bg-dark';
+                                                break;
+                                            case 4:
+                                                $badgeClass = 'bg-danger';
+                                                break;
+                                            default:
+                                                $badgeClass = 'bg-label-info';
+                                                break;
+                                        }
+                                    @endphp
+
+                                    <span class="badge {{ $badgeClass }} me-1">{{ $latestTicketlog->ticstatus->ticstatus_label }}</span>
+                                @else
+                                    {{-- display ticstatus_id=1 (New Ticket) badge when there are no ticketlog records --}}
+                                    @php
+                                        $badgeClass = 'bg-success'; // Set the badge class for ticstatus_id=1
+                                    @endphp
+                                    <span class="badge {{ $badgeClass }} me-1">{{ $tt->ticstatus->ticstatus_label ?? 'Default Label' }}</span>
+                                @endif
+                            </td>   <!-- badges that depends on database --> 
                             <td>
                                 <form action="" method="POST">
                                     <!-- <a class="menu-icon tf-icons bx bx-expand-alt" href="{{ route('tickets.entireticketlog',$tt->id) }}"></a> -->

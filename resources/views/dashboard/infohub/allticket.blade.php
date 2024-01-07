@@ -67,14 +67,69 @@
                                     <td>{{ $at->type->request_type }}</td>
                                     <td>{{ $at->issue->site->site_name ?? " " }}</td>
                                     <td>{{ $at->issue->fault_description ?? " " }}</td>
-                                    <!-- <td>{{ $at->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $at->issue->equipment->asset_hostname ?? " " }} - {{ $at->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $at->severity->severity_label ?? " " }}</td>
-                                    <td>{{ $at->ticstatus->ticstatus_label ?? " " }}</td>
-                                    <!-- <td>{{ $at->user->fullname ?? " " }}</td>
-                                    <td>{{ $at->create_date->format('M d, Y') }}</td>
-                                    <td>{{ $at->user->fullname ?? " " }}</td>
-                                    <td>{{ $at->update_date->format('M d, Y') }}</td> -->
+                                    <!-- <td>{{ $at->severity->severity_label ?? " " }}</td> -->
+                                    <td>
+                                        @if(isset($at->severity->severity_label))
+                                            @php
+                                                $severityLabel = $at->severity->severity_label;
+                                                $badgeClass = '';
+
+                                                switch($at->severity->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>
+                                    <!-- <td>{{ $at->ticstatus->ticstatus_label ?? " " }}</td> -->
+                                    <td>
+                                        @if(null !== ($latestTicketlog = $at->latestTicketlog))
+                                            @php
+                                                $badgeClass = '';
+
+                                                switch($latestTicketlog->ticstatus->id ?? null) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-dark';
+                                                        break;
+                                                    case 4:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $latestTicketlog->ticstatus->ticstatus_label }}</span>
+                                        @else
+                                            {{-- display ticstatus_id=1 (New Ticket) badge when there are no ticketlog records --}}
+                                            @php
+                                                $badgeClass = 'bg-success'; // Set the badge class for ticstatus_id=1
+                                            @endphp
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $at->ticstatus->ticstatus_label ?? 'Default Label' }}</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <form action="" method="POST">
                                             @php

@@ -69,7 +69,34 @@
                                     <td>{{ $ekt->issue->fault_description ?? " " }}</td>
                                     <!-- <td>{{ $ekt->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $ekt->issue->equipment->asset_hostname ?? " " }} - {{ $ekt->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $ekt->severity->severity_label ?? " " }}</td>
+                                    <!-- <td>{{ $ekt->severity->severity_label ?? " " }}</td> -->
+                                    <td>
+                                        @if(isset($ekt->severity->severity_label))
+                                            @php
+                                                $severityLabel = $ekt->severity->severity_label;
+                                                $badgeClass = '';
+
+                                                switch($ekt->severity->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>
                                     <!-- <td>{{ $ekt->ticstatus->ticstatus_label ?? " " }}</td> -->
                                     <!-- <td>{{ $ekt->user->fullname ?? " " }}</td>
                                     <td>{{ $ekt->create_date->format('M d, Y') }}</td>

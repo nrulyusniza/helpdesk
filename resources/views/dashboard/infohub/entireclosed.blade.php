@@ -69,7 +69,34 @@
                                     <td>{{ $ect->issue->fault_description ?? " " }}</td>
                                     <!-- <td>{{ $ect->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $ect->issue->equipment->asset_hostname ?? " " }} - {{ $ect->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $ect->severity->severity_label ?? " " }}</td>
+                                    <!-- <td>{{ $ect->severity->severity_label ?? " " }}</td> -->
+                                    <td>
+                                        @if(isset($ect->severity->severity_label))
+                                            @php
+                                                $severityLabel = $ect->severity->severity_label;
+                                                $badgeClass = '';
+
+                                                switch($ect->severity->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>
                                     <!-- <td>{{ $ect->ticstatus->ticstatus_label ?? " " }}</td> -->
                                     <!-- <td>{{ $ect->user->fullname ?? " " }}</td>
                                     <td>{{ $ect->create_date->format('M d, Y') }}</td>

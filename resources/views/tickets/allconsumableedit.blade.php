@@ -168,12 +168,50 @@
                                     <td>{{ $log->id }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->date)->format('M d, Y h:i A') }}</td>
                                     <td>{{ $log->description }}</td>
-                                    <td>{{ $log->update_by }}</td>
+                                    <!-- <td>{{ $log->update_by }}</td> -->
+                                    <td>
+                                        @php
+                                            // $i->update_by is the username of the user who update the issue
+                                            $updater = \App\User::where('username', $log->update_by)->first();
+                                            $updaterFullname = $updater ? $updater->fullname : 'Unknown';
+                                        @endphp
+                                        {{ $updaterFullname }}
+                                    </td>
                                     <td>{{ $log->reaction->response_type }}</td>
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
                                     <td>{{ $log->attachment }}</td>
-                                    <td>{{ $log->ticstatus->ticstatus_label }}</td>
+                                    <!-- <td>{{ $log->ticstatus->ticstatus_label }}</td> -->
+                                    <td>
+                                        @if(isset($log->ticstatus->ticstatus_label))
+                                            @php
+                                                $ticstatusLabel = $log->ticstatus->ticstatus_label;
+                                                $badgeClass = '';
+
+                                                switch($log->ticstatus->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-dark';
+                                                        break;
+                                                    case 4:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $ticstatusLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>   <!-- badges that depends on database --> 
                                 </tr>
                             </tbody>
                             @endforeach

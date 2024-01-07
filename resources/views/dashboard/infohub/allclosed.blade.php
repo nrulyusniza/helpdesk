@@ -69,12 +69,34 @@
                                     <td>{{ $act->issue->fault_description ?? " " }}</td>
                                     <!-- <td>{{ $act->issue->admin_comments ?? " " }}</td> -->
                                     <td>{{ $act->issue->equipment->asset_hostname ?? " " }} - {{ $act->issue->equipment->asset_type ?? " " }}</td>
-                                    <td>{{ $act->severity->severity_label ?? " " }}</td>
-                                    <!-- <td>{{ $act->ticstatus->ticstatus_label ?? " " }}</td> -->
-                                    <!-- <td>{{ $act->user->fullname ?? " " }}</td>
-                                    <td>{{ $act->create_date->format('M d, Y') }}</td>
-                                    <td>{{ $act->user->fullname ?? " " }}</td>
-                                    <td>{{ $act->update_date->format('M d, Y') }}</td> -->
+                                    <!-- <td>{{ $act->severity->severity_label ?? " " }}</td> -->
+                                    <td>
+                                        @if(isset($act->severity->severity_label))
+                                            @php
+                                                $severityLabel = $act->severity->severity_label;
+                                                $badgeClass = '';
+
+                                                switch($act->severity->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>   <!-- badges that depends on database --> 
                                     <td>
                                         <form action="" method="POST">
                                             @php

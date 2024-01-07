@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Notifications\BellNotification;
+use Illuminate\Support\Facades\Notification;
 
 class IssueController extends Controller
 {
@@ -148,30 +150,21 @@ class IssueController extends Controller
 
     public function allissuestore(Request $request)
     {
-        // $request->validate([
-        //     'request_no' => 'required',
-        // ]);
-  
-        // Issue::create($request->all());
-
         // validate the request data as needed
         $requestData = $request->all();
 
         // add the currently authenticated user's username to the request data
         $requestData['created_by'] = Auth::user()->username;
 
-        Issue::create($requestData);
+        $issue = Issue::create($requestData);
+
+        // send notification based on the selected site_id
+        $this->sendNotification($request->input('site_id'), $issue);
+        // $selectedSiteId = $request->input('site_id');
+        // $this->sendNotification($issue, $selectedSiteId);
 
         return redirect()->route('issues.allissue')
                         ->with('success','New Request created successfully.');
-
-        // Issue::create([
-        //     'equipment_id' => $request->input('equipment_id'),
-        //     // Other fields from the form
-        // ]);
-       
-        // return redirect()->route('issues.allissue')
-        //                 ->with('success', 'New Request created successfully.');
     }
 
     // dropdown reportingperson_id selection based on site_id
@@ -190,6 +183,41 @@ class IssueController extends Controller
         return response()->json($equipment);
     }
 
+    // send notification to: user with role_id=1, users with role_id=2 at the selected site, users with role_id=3 at the selected site
+    private function sendNotification($selectedSiteId, $issue)
+    {
+        // retrieve users with role_id=1 and users with role_id=2 or role_id=3 at the selected site
+        // $users = User::where(function($query) use ($selectedSiteId) {
+        //                 $query->where('role_id', 1)
+        //                     ->orWhere(function($query) use ($selectedSiteId) {
+        //                         $query->where('role_id', 2)
+        //                                 ->where('site_id', $selectedSiteId)
+        //                                 ->orWhere('role_id', 3)
+        //                                 ->where('site_id', $selectedSiteId);
+        //                     });
+        //             })
+        //             ->get();
+
+        $users = User::where('role_id', 1)
+                        ->orWhere(function ($query) use ($selectedSiteId) {
+                            $query->where('role_id', 2)->where('site_id', $selectedSiteId);
+                        })
+                        ->orWhere(function ($query) use ($selectedSiteId) {
+                            $query->where('role_id', 3)->where('site_id', $selectedSiteId);
+                        })
+                        ->get();
+
+        // send notification to the selected users
+        Notification::send($users, new BellNotification($issue));
+    }
+
+    public function markAsRead(Request $request)
+    {
+        $request->user()->unreadNotifications->markAsRead();
+
+        return redirect()->back();
+    }
+
     public function allresponse(Issue $issue)
     {
         return view('issues.allresponse', compact('issue'));
@@ -197,8 +225,6 @@ class IssueController extends Controller
 
     public function allresponseupdate(Request $request, Issue $issue)
     {
-        // $issue->update($request->all());
-
         $request->validate([
             'admin_comments' => 'required|string',
             'severity_id' => 'required|integer',
@@ -206,7 +232,7 @@ class IssueController extends Controller
             'status-radio' => 'required|integer',
         ]);
     
-        // Update only the necessary fields
+        // update only the necessary fields
         $issue->update([
             'admin_comments' => $request->input('admin_comments'),
             'severity_id' => $request->input('severity_id'),
@@ -215,25 +241,25 @@ class IssueController extends Controller
             'updated_by' => Auth::user()->username,
         ]);
 
-        // Check if the status_id is 2 or 3 to create a new row in the Tickets table
+        // check if the status_id is 2 or 3 to create a new row in the Tickets table
         if ($request->input('status-radio') == 2 || $request->input('status-radio') == 3) {
             $ticket = new Ticket();
             $ticket->request_id = $issue->id;
             
-            // Determine ticket_no format based on ticket_type
+            // determine ticket_no format based on ticket_type
             if ($request->input('status-radio') == 2) {
-                // Ticket
+                // ticket
                 $ticket->ticket_no = 'TT-' . date('Y-m') . '-' . str_pad(Ticket::where('ticket_type', 1)->count() + 1, 6, '0', STR_PAD_LEFT);
-                $ticket->ticket_type = 1; // Set ticket_type to 1 for Ticket
+                $ticket->ticket_type = 1; // set ticket_type to 1 for Ticket
             } elseif ($request->input('status-radio') == 3) {
-                // Consumable
+                // consumable
                 $ticket->ticket_no = 'CT-' . date('Y-m') . '-' . str_pad(Ticket::where('ticket_type', 2)->count() + 1, 6, '0', STR_PAD_LEFT);
-                $ticket->ticket_type = 2; // Set ticket_type to 2 for Consumable
+                $ticket->ticket_type = 2; // set ticket_type to 2 for Consumable
             }
             
             $ticket->severity_id = $issue->severity_id;
-            $ticket->ticstatus_id = $request->input('status-radio') == 2 ? 1 : 1; // 
-            $ticket->report_received = Carbon::now(); // Current date and time
+            $ticket->ticstatus_id = $request->input('status-radio') == 2 ? 1 : 1; // if the value of $request->input('status-radio') is equal to 2, then set $ticket->ticstatus_id to 1. otherwise (if the value is not equal to 2), set $ticket->ticstatus_id to 1 as well.
+            $ticket->report_received = Carbon::now(); // current date and time
 
             $ticket->save();
         }
@@ -258,11 +284,6 @@ class IssueController extends Controller
 
     public function listissuedetail(Issue $issue)
     {  
-        // $loggedInUser = Auth::user();
-        // $site_id = $loggedInUser->site->id;
-
-        // $issue->load('createdByUser', 'updatedByUser');
-
         return view('issues.listissuedetail', compact('issue'));
     }
 
@@ -273,19 +294,24 @@ class IssueController extends Controller
 
     public function listissuestore(Request $request)
     {
-        // $request->validate([
-        //     'request_no' => 'required',
-        // ]);
-  
-        // Issue::create($request->all());
-
         // validate the request data as needed
         $requestData = $request->all();
 
         // add the currently authenticated user's username to the request data
         $requestData['created_by'] = Auth::user()->username;
 
-        Issue::create($requestData);
+        $issue = Issue::create($requestData);
+
+        // send notification to: users with role_id=1, users with role_id=2 at same site_id, users with role_id=3 at same site_id
+        $users = User::where(function($query) {
+            $query->where('role_id', 1)
+                  ->orWhere(function($query) {
+                      $query->where('site_id', Auth::user()->site_id);
+                  });
+        })
+        ->get();
+
+        Notification::send($users, new BellNotification($issue));
    
         return redirect()->route('issues.listissue')
                         ->with('success','New Request created successfully.');
@@ -317,19 +343,24 @@ class IssueController extends Controller
 
     public function entireissuestore(Request $request)
     {
-        // $request->validate([
-        //     'site_id' => 'required',
-        // ]);
-  
-        // Issue::create($request->all());
-
         // validate the request data as needed
         $requestData = $request->all();
 
         // add the currently authenticated user's username to the request data
         $requestData['created_by'] = Auth::user()->username;
 
-        Issue::create($requestData);
+        $issue = Issue::create($requestData);
+
+        // send notification to: users with role_id=1, users with role_id=2 at same site_id, users with role_id=3 at same site_id
+        $users = User::where(function($query) {
+            $query->where('role_id', 1)
+                  ->orWhere(function($query) {
+                      $query->where('site_id', Auth::user()->site_id);
+                  });
+        })
+        ->get();
+
+        Notification::send($users, new BellNotification($issue));
    
         return redirect()->route('issues.entireissue')
                         ->with('success','New Request created successfully.');

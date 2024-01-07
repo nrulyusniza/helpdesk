@@ -74,6 +74,9 @@
     <!-- Date Range Picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <!-- Chatbot -->
+    <link rel="stylesheet" href="{{asset('css/botchat2.css')}}">
+
   </head>
 
   <body>
@@ -201,7 +204,9 @@
                 <span class="flex-grow-1 align-middle">Report</span>
               </a>
             </li>
-            <li class="menu-item {{ request()->is('myextension') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('myextension') || 
+              request()->is('types*') || request()->is('reqcategorys*') || request()->is('severitys*') || request()->is('statuss*') || 
+              request()->is('reactions*') || request()->is('kbcategorys*') || request()->is('ticstatuss*') || request()->is('equipmentstatuss*') ? 'active' : '' }}">
               <a href="{{ route('myextension') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-extension"></i>
                 <span class="flex-grow-1 align-middle">Extension</span>
@@ -437,56 +442,51 @@
                 <!-- Place this tag where you want the button to render. -->
 
                 <!-- Notification -->
+                @if(Auth::user()->role_id==1)
                 <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ Auth::user()->unreadNotifications->count() }}</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end py-0">
+                    @if(Auth::user()->unreadNotifications)
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
                         <h5 class="text-body mb-0 me-auto">Notification</h5>
-                        <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
+                        <a href="{{ route('issues.markAsRead') }}" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
                       </div>
                     </li>
+                    @endif
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
+                        @foreach(Auth::user()->unreadNotifications as $notification)
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="{{ asset('pages/assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                          <!-- <a href="{{ route('issues.allissuedetail', ['issue' => $notification->data['issue_id']]) }}"
+                            onclick="event.preventDefault(); document.getElementById('mark-as-read-form-{{ $notification->id }}').submit();"> -->
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 me-3">
+                                <!-- <div class="avatar">
+                                  <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
+                                </div> -->
+                              </div>
+                              <div class="flex-grow-1">
+                                <!-- <h6 class="mb-1">Charles Franklin</h6> -->
+                                <p class="mb-0">{{ $notification->data['data'] }}</p>
+                                <!-- <small class="text-muted">12hr ago</small> -->
+                              </div>
+                              <div class="flex-shrink-0 dropdown-notifications-actions">
+                                <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="bx bx-x"></span></a>
+                                <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
                               </div>
                             </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-                              <p class="mb-0">Won the monthly best seller gold badge</p>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                            </div>
-                          </div>
+                          <!-- </a> -->
+                          <!-- <form id="mark-as-read-form-{{ $notification->id }}" action="{{ route('issues.markAsRead') }}" method="POST" style="display: none;">
+                              @csrf
+                              <input type="hidden" name="notification_id" value="{{ $notification->id }}">
+                          </form> -->
                         </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Charles Franklin</h6>
-                              <p class="mb-0">Accepted your connection</p>
-                              <small class="text-muted">12hr ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                            </div>
-                          </div>
-                        </li>
+                        @endforeach
+                        @foreach(Auth::user()->readNotifications as $notification)
                         <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
@@ -496,7 +496,7 @@
                             </div>
                             <div class="flex-grow-1">
                               <h6 class="mb-1">New Message ✉️</h6>
-                              <p class="mb-0">You have new message from Natalie</p>
+                              <p class="mb-0">{{ $notification->data['data'] }}</p>
                               <small class="text-muted">1h ago</small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
@@ -505,31 +505,147 @@
                             </div>
                           </div>
                         </li>
+                        @endforeach
+                      </ul>
+                    </li>
+                    <!-- <li class="dropdown-menu-footer border-top p-3">
+                      <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
+                    </li> -->
+                  </ul>
+                </li>
+                @endif
+
+                @if(Auth::user()->role_id==2)
+                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="bx bx-bell bx-sm"></i>
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ Auth::user()->unreadNotifications->count() }}</span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end py-0">
+                    @if(Auth::user()->unreadNotifications)
+                    <li class="dropdown-menu-header border-bottom">
+                      <div class="dropdown-header d-flex align-items-center py-3">
+                        <h5 class="text-body mb-0 me-auto">Notification</h5>
+                        <a href="{{ route('issues.markAsRead') }}" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
+                      </div>
+                    </li>
+                    @endif
+                    <li class="dropdown-notifications-list scrollable-container">
+                      <ul class="list-group list-group-flush">
+                        @foreach(Auth::user()->unreadNotifications as $notification)
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                               <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span>
+                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
                               </div>
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">Whoo! You have new order 🛒 </h6>
-                              <p class="mb-0">ACME Inc. made new order $1,154</p>
-                              <small class="text-muted">1 day ago</small>
+                              <h6 class="mb-1">Charles Franklin</h6>
+                              <p class="mb-0">{{ $notification->data['data'] }}</p>
+                              <small class="text-muted">12hr ago</small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
                               <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
                             </div>
                           </div>
-                        </li>                       
+                        </li>
+                        @endforeach
+                        @foreach(Auth::user()->readNotifications as $notification)
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img src="{{ asset('pages/assets/img/avatars/7.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">New Message ✉️</h6>
+                              <p class="mb-0">{{ $notification->data['data'] }}</p>
+                              <small class="text-muted">1h ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                            </div>
+                          </div>
+                        </li>
+                        @endforeach
                       </ul>
                     </li>
-                    <li class="dropdown-menu-footer border-top p-3">
+                    <!-- <li class="dropdown-menu-footer border-top p-3">
                       <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
-                    </li>
+                    </li> -->
                   </ul>
                 </li>
+                @endif
+
+                @if(Auth::user()->role_id==3)
+                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="bx bx-bell bx-sm"></i>
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ Auth::user()->unreadNotifications->count() }}</span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end py-0">
+                    @if(Auth::user()->unreadNotifications)
+                    <li class="dropdown-menu-header border-bottom">
+                      <div class="dropdown-header d-flex align-items-center py-3">
+                        <h5 class="text-body mb-0 me-auto">Notification</h5>
+                        <a href="{{ route('issues.markAsRead') }}" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
+                      </div>
+                    </li>
+                    @endif
+                    <li class="dropdown-notifications-list scrollable-container">
+                      <ul class="list-group list-group-flush">
+                        @foreach(Auth::user()->unreadNotifications as $notification)
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Charles Franklin</h6>
+                              <p class="mb-0">{{ $notification->data['data'] }}</p>
+                              <small class="text-muted">12hr ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                            </div>
+                          </div>
+                        </li>
+                        @endforeach
+                        @foreach(Auth::user()->readNotifications as $notification)
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img src="{{ asset('pages/assets/img/avatars/7.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">New Message ✉️</h6>
+                              <p class="mb-0">{{ $notification->data['data'] }}</p>
+                              <small class="text-muted">1h ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                            </div>
+                          </div>
+                        </li>
+                        @endforeach
+                      </ul>
+                    </li>
+                    <!-- <li class="dropdown-menu-footer border-top p-3">
+                      <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
+                    </li> -->
+                  </ul>
+                </li>
+                @endif
                 <!--/ Notification -->
 
                 <!-- User -->
@@ -555,6 +671,7 @@
                         </div>
                       </a>
                     </li>
+                    @if(Auth::user()->role_id==1)
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
@@ -564,6 +681,7 @@
                         <span class="align-middle">Reset Password</span>
                       </a>
                     </li>
+                    @endif
                     <!-- <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-cog me-2"></i>
@@ -640,14 +758,66 @@
     <!-- / Layout wrapper -->
 
     <!-- Chatbot -->
-    <!-- <div class="buy-now">
-      <a id="chatbot-button"
-        href="{{ route('chat') }}"
-        target=""
-        class="btn btn-danger btn-buy-now"
-        onclick="openPopup()"
-        rel="noopener noreferrer">Chat with X</a>
-    </div> -->
+    <div class="chat-bar-collapsible">
+        <button id="chat-button" type="button" class="collapsible">
+            <span class="material-symbols-outlined"><i class='bx bx-bot bx-md'></i></span>
+        </button>
+        
+        <div class="content">
+            <header>
+                <h2 class="lang" key="title">NCO HELPDESK</h2>
+            </header>
+            <div class="full-chat-block">
+                <!-- Message Container -->
+                <div class="outer-container"></br>
+                    <div class="chat-container">
+                        <!-- Messages -->
+                        <div id="chatbox"> 
+                            <!-- LANGUAGES  -->
+                            <div class="button-box">
+                                <div id="btn"></div>
+                                <button type="button" class="toggle-btn" onclick="leftClick()" id="en">EN</button>
+                                <button type="button" class="toggle-btn" onclick="rightClick()" id="ms">BM</button>
+                            </div>
+                            <h5 id="chat-timestamp"></h5>
+                            <p id="botStarterMessage" class="botText"><span class="lang" key="greeting">Loading...</span></p>
+                            <div id="user1">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <button id="answer" class="user1ans1 lang" onClick="window.location.href = '{{ route('issues.allissuecreate') }}'" target="_self" key="create ticket">Create Ticket</button>
+                                        <button id="answer" class="user1ans2 lang" onClick="window.location.href = '{{ route('issues.allissuecreate') }}'" target="_self" key="create consumable">Create Consumable</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div id="bot2">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <p><span class="lang" key="video">Video to create a ticket</span><video width="240px" height="150px" controls>
+                                            <source src="{{asset('video/Request.mp4')}}" type="video/mp4"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div id="chat-bar-bottom"></div>
+  
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User input box -->
+            <div class="chat-bar-input-block" >
+                <div id="userInput">
+                    <input id="textInput" class="input-box lang"  key="send" type="text" name="msg" >
+                </div>
+                <div class="chat-bar-icons">
+                    <i id="chat-icon" class="bx bx-send" onclick="sendButton()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -671,6 +841,9 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- Chatbot JS -->
+    <script src="{{asset('js/botchat2.js')}}"></script>
 
         
 
@@ -720,7 +893,7 @@
 
     <!-- Date Range Picker -->
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script type="text/javascript">
@@ -755,7 +928,7 @@
         }); 
 
       });
-    </script>
+    </script> -->
 
   </body>
 </html>

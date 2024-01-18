@@ -12,10 +12,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Request List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.request_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('issues.listissuecreate') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Request</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_request') }}</button>
                 </a>
             </div>
         </div>
@@ -26,15 +26,15 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Request No</th>
-                            <th>Reported By</th>
-                            <th>Report Date</th>
-                            <th>Site</th>
-                            <th>Asset</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th>User</th>
-                            <th>Action</th>
+                            th>{{ __('messages.request_no') }}</th>
+                            <th>{{ __('messages.reported_by') }}</th>
+                            <th>{{ __('messages.report_date') }}</th>
+                            <th>{{ __('messages.site') }}</th>
+                            <th>{{ __('messages.asset') }}</th>
+                            <th>{{ __('messages.category') }}</th>
+                            <th>{{ __('messages.status') }}</th>
+                            <th>{{ __('messages.user') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -92,7 +92,7 @@
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.listissuedetail',['issue' => $i->id]) }}"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                        title="<span>View Details</span>"></a>
+                                        title="<span>{{ __('messages.view_details') }}</span>"></a>
                                     @csrf
                                     @method('DELETE')
                                 </form>

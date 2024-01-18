@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivesearchController; //add LivesearchController
+use App\Http\Controllers\ResetPasswordController;  // Reset Password
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,7 @@ use App\Http\Controllers\LivesearchController; //add LivesearchController
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::middleware(['setLocale'])->group(function () {
 Route::get('/', function () {
     return view('auth.userlogin');
 });
@@ -333,5 +334,27 @@ Route::get('tickets/report/generatereport', 'TicketController@generatereport')->
 //------------------------------------------------------------------- XXXX -------------------------------------------------------------------
 
 
+// Route::get('lang/home', [LangController::class, 'index']);
+// Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
-Route::get('/chat', 'HomeController@chat')->name('chat');
+// Route::get('lang/home', 'LangController@index')->name('index');
+// Route::get('lang/change', 'LangController@change')->name('changeLang');
+
+// Route::get('lang/home', 'LangController@index');
+// Route::get('lang/change', 'LangController@change')->name('changeLang');
+
+// Route::get('/template', 'LangController@index');
+// Route::get('/template', 'LangController@change')->name('changeLang');
+
+// Route::get('/template', 'LangController@index')->name('template.index');
+// Route::get('/lang/change', 'LangController@change')->name('changeLang');
+// Route::get('/lang/change/{lang}', 'LangController@change')->name('changeLang');
+// Route::get('/lang/change/{lang?}', 'LangController@change')->name('changeLang');
+
+
+Route::post('/language-switch', 'LanguageController@switchLanguage')->name('language.switch');
+
+
+});
+
+

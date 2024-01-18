@@ -12,10 +12,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Reporting Person List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.reportingperson_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('reportingpersons.allreportingpersoncreate') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Reporting Person</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_reportingperson') }}</button>
                 </a>
             </div>
         </div>
@@ -26,10 +26,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Full Name</th>
-                            <th>Phone Number</th>
-                            <th>Site</th>
-                            <th>Action</th>
+                            <th>{{ __('messages.fullname') }}</th>
+                            <th>{{ __('messages.phone_no') }}</th>
+                            <th>{{ __('messages.site') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">

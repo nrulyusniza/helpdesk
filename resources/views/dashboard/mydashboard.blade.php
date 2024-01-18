@@ -7,9 +7,9 @@
     <div class="d-flex align-items-end row">
       <div class="col-sm-7">
         <div class="card-body">
-          <h5 class="card-title text-primary">Welcome back, {{ Auth::user()->fullname }}! 🎉</h5>
+          <h5 class="card-title text-primary">{{ __('messages.welcomeback') }}, {{ Auth::user()->fullname }}! 🎉</h5>
           <p class="mb-4">
-          You are logged in!
+          {{ __('messages.dboardannoucement') }}
           </p>                       
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Tickets</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_ticket') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $tickets }}</h4>
               </div>
@@ -60,7 +60,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Open</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_open') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $allTixOpen }}</h4>
               </div>
@@ -83,7 +83,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Closed</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_closed') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $allTixClosed }}</h4>
               </div>
@@ -106,7 +106,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">KIV</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_kiv') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $allTixKiv }}</h4>
               </div>
@@ -129,7 +129,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Knowledge Base</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_kb') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $knowledgebases }}</h4>
               </div>
@@ -152,7 +152,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Users</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_user') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $users }}</h4>
               </div>
@@ -175,7 +175,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Sites</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_site') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $sites }}</h4>
               </div>
@@ -198,7 +198,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">Assets</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_asset') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $equipments }}</h4>
               </div>
@@ -219,7 +219,7 @@
     <div class="card h-100">
       <div class="card-header">
         <div class="card-title mb-0">
-          <h5 class="m-0 me-2">Total Tickets by Reported Tickets</h5>
+          <h5 class="m-0 me-2">{{ __('messages.title_ttltix') }}</h5>
         </div>
       </div>
       <div class="card-body px-0">
@@ -233,14 +233,14 @@
     <div class="card h-100">
       <div class="card-header d-flex align-items-center justify-content-between pb-0">
         <div class="card-title mb-0">
-          <h5 class="m-0 me-2">Category</h5>
+          <h5 class="m-0 me-2">{{ __('messages.title_cat') }}</h5>
         </div>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div class="d-flex flex-column align-items-center gap-1">
             <h2 class="mb-2">{{ $totalTickets }}</h2>
-            <span>Total Tickets</span>
+            <span>{{ __('messages.ttltix') }}</span>
           </div>
           <div id="ticketByCategory"></div>
         </div>
@@ -252,7 +252,7 @@
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
-                <h6 class="mb-0">Hardware</h6>
+                <h6 class="mb-0">{{ __('messages.cat_hw') }}</h6>
               </div>
               <div class="user-progress">
                 <small class="fw-medium">{{ $totalTicketHardware }}</small>
@@ -265,7 +265,7 @@
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
-                <h6 class="mb-0">Software</h6>
+                <h6 class="mb-0">{{ __('messages.cat_sw') }}</h6>
               </div>
               <div class="user-progress">
                 <small class="fw-medium">{{ $totalTicketSoftware }}</small>
@@ -278,7 +278,7 @@
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
-                <h6 class="mb-0">Network</h6>
+                <h6 class="mb-0">{{ __('messages.cat_network') }}</h6>
               </div>
               <div class="user-progress">
                 <small class="fw-medium">{{ $totalTicketNetwork }}</small>
@@ -292,7 +292,7 @@
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
-                <h6 class="mb-0">Non-System</h6>
+                <h6 class="mb-0">{{ __('messages.cat_nsys') }}</h6>
               </div>
               <div class="user-progress">
                 <small class="fw-medium">{{ $totalTicketNonsystem }}</small>
@@ -325,9 +325,12 @@
       const ticketByMonth = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          labels: ['{{ __('messages.jan') }}', '{{ __('messages.feb') }}', '{{ __('messages.mar') }}', 
+          '{{ __('messages.apr') }}', '{{ __('messages.may') }}', '{{ __('messages.jun') }}', 
+          '{{ __('messages.jul') }}', '{{ __('messages.aug') }}', '{{ __('messages.sep') }}', 
+          '{{ __('messages.oct') }}', '{{ __('messages.nov') }}', '{{ __('messages.dec') }}'],
           datasets: [{
-            label: 'Total Tickets',
+            label: '{{ __('messages.ttltix') }}',
             data: ticketCountsByMonth,
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -372,7 +375,7 @@
       // Define the chart options
       var options = {
         series: [{{ $totalTicketHardware }}, {{ $totalTicketSoftware }}, {{ $totalTicketNetwork }}, {{ $totalTicketNonsystem }}],
-        labels: ['Hardware', 'Software', 'Network', 'Non-System'],
+        labels: ['{{ __('messages.cat_hw') }}', '{{ __('messages.cat_sw') }}', '{{ __('messages.cat_network') }}', '{{ __('messages.cat_nsys') }}'],
         chart: {
           type: 'donut',
         },

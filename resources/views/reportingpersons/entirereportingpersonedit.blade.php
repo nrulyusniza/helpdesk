@@ -17,7 +17,7 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Edit Reporting Person</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.edit_reportingperson') }}</h4>
         </div>
 
         <div class="card-body">
@@ -26,15 +26,15 @@
                 @method('PUT')
                 <div class="row">
                     <div class="mb-3">
-                        <label class="form-label" for="rptpers_name">Full Name</label>
+                        <label class="form-label" for="rptpers_name">{{ __('messages.fullname') }}</label>
                         <input type="text" class="form-control" name="rptpers_name" value="{{ $reportingperson->rptpers_name }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="rptpers_mobile">Phone Number</label>
+                        <label class="form-label" for="rptpers_mobile">{{ __('messages.phone_no') }}</label>
                         <input type="number" class="form-control" name="rptpers_mobile" value="{{ $reportingperson->rptpers_mobile }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_id">Site</label>
+                        <label class="form-label" for="site_id">{{ __('messages.site') }}</label>
                         <select id="defaultSelect" class="form-select" name="site_id">
                             @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 @if(auth()->user()->site_id == $site->id)                                    
@@ -44,8 +44,8 @@
                         </select>
                     </div>
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">Update</button>
-                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('reportingpersons.entirereportingperson') }}">Cancel</a>
+                        <button type="submit" class="btn btn-primary me-2">{{ __('messages.update') }}</button>
+                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('reportingpersons.entirereportingperson') }}">{{ __('messages.cancel') }}</a>
                     </div>
                 </div>
             </form>

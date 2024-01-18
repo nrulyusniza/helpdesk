@@ -77,6 +77,9 @@
     <!-- Chatbot -->
     <link rel="stylesheet" href="{{asset('css/botchat2.css')}}">
 
+    <!-- Language -->
+    <link rel="stylesheet" href="{{asset('css/translate.css')}}">
+
   </head>
 
   <body>
@@ -108,13 +111,13 @@
             <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.mydashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <span class="flex-grow-1 align-middle">Dashboard</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_dashboard') }}</span>
               </a>
             </li>
 
             <!-- 2- Issue Tracking -->
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Issue Tracking</span>
+              <span class="menu-header-text">{{ __('messages.sm_tracking') }}</span>
             </li>
             <li class="menu-item {{ request()->routeIs('issues*') ? 'active' : '' }}">
               @php
@@ -122,7 +125,7 @@
               @endphp
               <a href="{{ route('issues.allissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Request</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_request') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
@@ -134,7 +137,7 @@
               @endphp
               <a href="{{ route('tickets.allticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Ticket</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_ticket') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
@@ -146,62 +149,62 @@
               @endphp
               <a href="{{ route('tickets.allconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Consumables</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_consumables') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
 
             <!-- 3- Asset & Site Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_assetsitemgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('equipments.allasset*') ? 'active' : '' }}">
               <a href="{{ route('equipments.allasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
-                <span class="flex-grow-1 align-middle">Asset</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_asset') }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('sites*') ? 'active' : '' }}">
               <a href="{{ route('sites.allsite') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-map-pin"></i>
-                <span class="flex-grow-1 align-middle">Site</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_site') }}</span>
               </a>
             </li>
 
             <!-- 4- User Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_usermgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('roles*') ? 'active' : '' }}">
               <a href="{{ route('roles.allrole') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <span class="flex-grow-1 align-middle">User Groups</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_usergrps') }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('users*') ? 'active' : '' }}">
               <a href="{{ route('users.alluser') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <span class="flex-grow-1 align-middle">User</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_user') }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->routeIs('reportingpersons.allreportingperson*') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.allreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <span class="flex-grow-1 align-middle">Reporting Person</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_rprtpers') }}</span>
               </a>
             </li>
 
             <!-- 5- Knowledge Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_knowledgemgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('knowledgebases.allknowledgebase*') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.allknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_kb') }}</span>
               </a>
             </li>
 
             <!-- 6- Others -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Others</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_others') }}</span></li>
             <li class="menu-item {{ request()->routeIs('tickets.report.producereport') ? 'active' : '' }}">
               <a href="{{ route('tickets.report.producereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <span class="flex-grow-1 align-middle">Report</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_report') }}</span>
               </a>
             </li>
             <li class="menu-item {{ request()->is('myextension') || 
@@ -209,7 +212,7 @@
               request()->is('reactions*') || request()->is('kbcategorys*') || request()->is('ticstatuss*') || request()->is('equipmentstatuss*') ? 'active' : '' }}">
               <a href="{{ route('myextension') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-extension"></i>
-                <span class="flex-grow-1 align-middle">Extension</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_ext') }}</span>
               </a>
             </li>
           </ul>
@@ -222,13 +225,13 @@
             <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.dashboardadmin') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <span class="flex-grow-1 align-middle">Dashboard</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_dashboard') }}</span>
               </a>
             </li>
 
             <!-- 2- Issue Tracking -->
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Issue Tracking</span>
+              <span class="menu-header-text">{{ __('messages.sm_tracking') }}</span>
             </li>
             <li class="menu-item {{ request()->routeIs('issues.listissue*') ? 'active' : '' }}">
               @php
@@ -239,7 +242,7 @@
               @endphp
               <a href="{{ route('issues.listissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Request</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_request') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
@@ -254,7 +257,7 @@
               @endphp
               <a href="{{ route('tickets.listticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Ticket</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_ticket') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
@@ -269,44 +272,44 @@
               @endphp
               <a href="{{ route('tickets.listconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Consumables</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_consumables') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
 
             <!-- 3- Asset & Site Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_assetsitemgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('equipments.listasset*') ? 'active' : '' }}">
               <a href="{{ route('equipments.listasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
-                <span class="flex-grow-1 align-middle">Asset</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_asset') }}</span>
               </a>
             </li>
 
             <!-- 4- User Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_usermgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('reportingpersons.listreportingperson*') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.listreportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <span class="flex-grow-1 align-middle">Reporting Person</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_rprtpers') }}</span>
               </a>
             </li>
 
             <!-- 5- Knowledge Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_knowledgemgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('knowledgebases.listknowledgebase*') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.listknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_kb') }}</span>
               </a>
             </li>
 
             <!-- 6- Others -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Others</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_others') }}</span></li>
             <li class="menu-item {{ request()->routeIs('tickets.report.generatereport') ? 'active' : '' }}">
               <a href="{{ route('tickets.report.generatereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <span class="flex-grow-1 align-middle">Report</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_report') }}</span>
               </a>
             </li>
           </ul>
@@ -319,13 +322,13 @@
             <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.dashboarduser') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <span class="flex-grow-1 align-middle">Dashboard</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_dashboard') }}</span>
               </a>
             </li>
 
             <!-- 2- Issue Tracking -->
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Issue Tracking</span>
+              <span class="menu-header-text">{{ __('messages.sm_tracking') }}</span>
             </li>
             <li class="menu-item {{ request()->routeIs('issues.entireissue*') ? 'active' : '' }}">
               @php
@@ -336,7 +339,7 @@
               @endphp
               <a href="{{ route('issues.entireissue') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Request</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_request') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
@@ -351,7 +354,7 @@
               @endphp
               <a href="{{ route('tickets.entireticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Ticket</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_ticket') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
@@ -366,44 +369,44 @@
               @endphp
               <a href="{{ route('tickets.entireconsumable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <span class="flex-grow-1 align-middle">Consumables</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_consumables') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
             </li>
 
             <!-- 3- Asset Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Asset &amp; Site Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_assetsitemgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('equipments.entireasset*') ? 'active' : '' }}">
               <a href="{{ route('equipments.entireasset') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-compass"></i>
-                <span class="flex-grow-1 align-middle">Asset</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_asset') }}</span>
               </a>
             </li>
 
             <!-- 4- User Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">User Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_usermgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('reportingpersons.entirereportingperson*') ? 'active' : '' }}">
               <a href="{{ route('reportingpersons.entirereportingperson') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <span class="flex-grow-1 align-middle">Reporting Person</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_rprtpers') }}</span>
               </a>
             </li>
 
             <!-- 5- Knowledge Management -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Knowledge Management</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_knowledgemgt') }}</span></li>
             <li class="menu-item {{ request()->routeIs('knowledgebases.entireknowledgebase*') ? 'active' : '' }}">
               <a href="{{ route('knowledgebases.entireknowledgebase') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-info-circle"></i>
-                <span class="flex-grow-1 align-middle">Knowledge Base</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_kb') }}</span>
               </a>
             </li>
 
             <!-- 6- Others -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Others</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_others') }}</span></li>
             <li class="menu-item {{ request()->routeIs('tickets.report.generatereport') ? 'active' : '' }}">
               <a href="{{ route('tickets.report.generatereport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <span class="flex-grow-1 align-middle">Report</span>
+                <span class="flex-grow-1 align-middle">{{ __('messages.sm_report') }}</span>
               </a>
             </li>
           </ul>
@@ -440,6 +443,18 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
+
+                
+                <!-- <span class="navbar-nav mr-sm-2" id="google_translate_element"></span> -->
+
+                <form method="post" action="{{ route('language.switch') }}">
+                    @csrf
+                    <select name="locale" onchange="this.form.submit()">
+                        <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                        <option value="ms" {{ app()->getLocale() == 'ms' ? 'selected' : '' }}>Bahasa Melayu</option>
+                    </select>
+                </form>
+
 
                 <!-- Notification -->
                 @if(Auth::user()->role_id==1)
@@ -671,7 +686,7 @@
                         </div>
                       </a>
                     </li>
-                    @if(Auth::user()->role_id==1)
+                    <!-- @if(Auth::user()->role_id==1)
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
@@ -681,7 +696,7 @@
                         <span class="align-middle">Reset Password</span>
                       </a>
                     </li>
-                    @endif
+                    @endif -->
                     <!-- <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-cog me-2"></i>
@@ -694,7 +709,7 @@
                     <li>
                       <a class="dropdown-item" href="{{ route('logout') }}" onclick="confirmLogout(); return false;">
                         <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
+                        <span class="align-middle">{{ __('messages.logout') }}</span>
                       </a>
                     </li>
                   </ul>
@@ -734,11 +749,11 @@
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                Copyright ©
+                {{ __('messages.footer_copyright') }} ©
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  <a href="#" target="_blank" class="footer-link fw-medium"> Sapura Secured Technologies</a>. All rights reserved.
+                  <a href="#" target="_blank" class="footer-link fw-medium"> Sapura Secured Technologies</a>. {{ __('messages.footer_reserved') }}.
                 </div>
               </div>
             </footer>
@@ -893,7 +908,7 @@
 
     <!-- Date Range Picker -->
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script type="text/javascript">
@@ -922,13 +937,27 @@
         cb(start, end);
 
         // Update the form inputs on date range change
-        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-            $('#start_date').val(picker.startDate.format('YYYY-MM-DD'));
-            $('#end_date').val(picker.endDate.format('YYYY-MM-DD'));
-        }); 
+        // $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+        //     $('#start_date').val(picker.startDate.format('YYYY-MM-DD'));
+        //     $('#end_date').val(picker.endDate.format('YYYY-MM-DD'));
+        // }); 
 
       });
-    </script> -->
+    </script>
+
+
+
+    <!-- <script type="text/javascript">
+      function googleTranslateElementInit() {
+              new google.translate.TranslateElement({
+              pageLanguage: 'en' , 
+              layout : google.translate.TranslateElement.InlineLayout.SIMPLE,
+              autoDisplay : false,
+              multiLanguagePage : true,
+              includedLanguages : 'en,ms'}, 'google_translate_element');
+            }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
 
   </body>
 </html>

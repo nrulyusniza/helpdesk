@@ -23,10 +23,9 @@
         <div class="card-body">
             <form action="{{ route('users.store') }}" method="POST">
                 @csrf
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Full Name</label>
-                    <div class="col-sm-10">
-                        <!-- <input type="text" class="form-control" name="fullname"> -->
+                <div class="row">
+                    <div class="mb-3">
+                        <label class="form-label" for="fullname">Full Name</label>
                         <input id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" required autocomplete="fullname" autofocus>
 
                         @error('fullname')
@@ -35,11 +34,8 @@
                             </span>
                         @enderror
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Username</label>
-                    <div class="col-sm-10">
-                        <!-- <input type="text" class="form-control" name="username"> -->
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="username">Username</label>
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
                         @error('username')
@@ -48,55 +44,40 @@
                             </span>
                         @enderror
                     </div>
-                </div>                
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Password
-                        <span style="text-transform:capitalize;">[Default: P@ssW0rdx123]</span>
-                    </label>
-                    <div class="col-sm-10">
-                        <!-- <input
-                            name="password"
-                            class="form-control"
-                            type="text"
-                            id="exampleFormControlReadOnlyInput1"
-                            required value="P@ssW0rdx123"
-                            placeholder=""/> -->
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="password">Password
+                            <span style="text-transform:capitalize;">[Default: P@ssW0rdx123]</span>
+                        </label>
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-message">Site</label>
-                    <div class="col-sm-10">
-                        <select id="defaultSelect" class="form-select" name="site_name">
-                            <option selected disabled>-- Select Site--</option>
-                                @foreach(App\Site::all() as $site)
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="site_id">Site</label>
+                        <select id="defaultSelect" class="form-select" name="site_id">
+                            <option selected disabled>-- Select Site --</option>
+                                @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 <option value="{{$site->id}}">{{$site->site_name}}</option>
                                 @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-message">Role</label>
-                    <div class="col-sm-10">
-                        <select id="defaultSelect" class="form-select" name="role_name">
-                            <option selected disabled>-- Select Role--</option>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="role_id">Role</label>
+                        <select id="defaultSelect" class="form-select" name="role_id">
+                            <option selected disabled>-- Select Role --</option>
                                 @foreach(App\Role::all() as $role)
                                 <option value="{{$role->id}}">{{$role->role_name}}</option>
                                 @endforeach
                         </select>
                     </div>
-                </div>                
-                <div class="row justify-content-end">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-secondary" href="{{ route('users.alluser') }}">Cancel</a>
-                    </div>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('users.alluser') }}">Cancel</a>
                 </div>
             </form>
         </div>

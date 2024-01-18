@@ -30,6 +30,16 @@
                         <input type="text" class="form-control" name="fullname" value="{{ $user->fullname }}">
                     </div>
                     <div class="mb-3 col-md-6">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" class="form-control" name="username" value="{{ $user->username }}">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="username">Password
+                            <span style="text-transform:capitalize;">[Default: P@ssW0rdx123]</span>
+                        </label>
+                            <input type="password" class="form-control" name="password" value="{{ $user->password }}" readonly>
+                    </div>
+                    <div class="mb-3 col-md-6">
                         <label class="form-label" for="site_id">Site</label>
                         <select id="defaultSelect" class="form-select" name="site_id">
                             <option selected disabled>-- Select Site --</option>
@@ -46,16 +56,6 @@
                                 <option value="{{ $role->id }}" {{ $role->id == $user->role_id ? 'selected' : '' }}>{{ $role->role_name }}</option>
                                 @endforeach
                         </select>
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" for="username">Username</label>
-                        <input type="text" class="form-control" name="username" value="{{ $user->username }}">
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" for="username">Password
-                            <span style="text-transform:capitalize;">[Default: P@ssW0rdx123]</span>
-                        </label>
-                            <input type="password" class="form-control" name="password" value="{{ $user->password }}" readonly>
                     </div>
                     <div class="mt-2">
                             <button type="submit" class="btn btn-primary">Update</button>

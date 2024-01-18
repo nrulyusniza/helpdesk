@@ -5,13 +5,13 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
+            <a href="{{ route('dashboard.mydashboard') }}">{{ __('messages.sm_dashboard') }}</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('myextension') }}">Extension</a>
+            <a href="{{ route('myextension') }}">{{ __('messages.sm_ext') }}</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('reactions.allresponsetype') }}">Response Type</a>
+            <a href="{{ route('reactions.allresponsetype') }}">{{ __('messages.response_type') }}</a>
         </li>
     </ol>
 </nav>
@@ -31,22 +31,22 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">New Response Type</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.new_responsetype') }}</h4>
         </div>
 
         <div class="card-body">
             <form action="{{ route('reactions.store') }}" method="POST">
                 @csrf
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="response_type">Response Type</label>
+                    <label class="col-sm-2 col-form-label" for="response_type">{{ __('messages.response_type') }}</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="response_type">
                     </div>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-outline-secondary" href="{{ route('reactions.allresponsetype') }}">Cancel</a>
+                        <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>
+                        <a class="btn btn-outline-secondary" href="{{ route('reactions.allresponsetype') }}">{{ __('messages.cancel') }}</a>
                     </div>
                 </div>
             </form>

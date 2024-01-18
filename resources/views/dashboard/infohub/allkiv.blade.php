@@ -8,25 +8,25 @@
         <ul class="nav nav-tabs nav-fill" role="tablist">
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allticket') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-card me-1"></i> Tickets
+                    <i class="tf-icons bx bx-card me-1"></i> {{ __('messages.cd_ticket') }}
                     <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allTicCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allopen') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-lock-open me-1"></i> Open
+                    <i class="tf-icons bx bx-lock-open me-1"></i> {{ __('messages.cd_open') }}
                     <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allOpenCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allclosed') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-lock me-1"></i> Closed
+                    <i class="tf-icons bx bx-lock me-1"></i> {{ __('messages.cd_closed') }}
                     <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allClosedCount }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.infohub.allkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.allkiv') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-archive me-1"></i> KIV
+                    <i class="tf-icons bx bx-archive me-1"></i> {{ __('messages.cd_kiv') }}
                     <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $allKivCount }}</span>
                 </a>
             </li>
@@ -40,21 +40,21 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Report Date</th>
-                                    <th>Request No</th>
-                                    <th>Ticket No</th>
-                                    <th>Ticket Type</th>
-                                    <th>Site</th>
-                                    <th>Fault Description</th>
+                                    <th>{{ __('messages.report_date') }}</th>
+                                    <th>{{ __('messages.request_no') }}</th>
+                                    <th>{{ __('messages.ticket_no') }}</th>
+                                    <th>{{ __('messages.ticket_type') }}</th>
+                                    <th>{{ __('messages.site') }}</th>
+                                    <th>{{ __('messages.fault_desc') }}</th>
                                     <!-- <th>Admin Comments</th> -->
-                                    <th>Equipment</th>
-                                    <th>Severity</th>
+                                    <th>{{ __('messages.equipment') }}</th>
+                                    <th>{{ __('messages.severity') }}</th>
                                     <!-- <th>Status</th> -->
                                     <!-- <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Update By</th>
                                     <th>Update Date</th> -->
-                                    <th>Action</th>
+                                    <th>{{ __('messages.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">

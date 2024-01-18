@@ -23,10 +23,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Update Ticket : {{ $ticket->ticket_no }}</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.update_ticket') }} : {{ $ticket->ticket_no }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('dashboard.infohub.allticket') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-tachometer'></i>&nbsp; Back to Dashboard</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-tachometer'></i>&nbsp; {{ __('messages.back_dashboard') }}</button>
                 </a>
             </div>
         </div>
@@ -39,44 +39,44 @@
                     <div class="card mb-4" style="background-color: #f4f3ee;">
                         <div class="card-body">   
                             <div class="mb-3">
-                                <label class="form-label" for="ticket_type">Ticket type</label>
+                                <label class="form-label" for="ticket_type">{{ __('messages.ticket_type') }}</label>
                                 <input type="text" class="form-control" name="ticket_type" value="{{ $ticket->issue->type->request_type }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="site_name">Site</label>
+                                <label class="form-label" for="site_name">{{ __('messages.site') }}</label>
                                 <input type="text" class="form-control" name="site_name" value="{{ $ticket->issue->site->site_name }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="rptpers_name">Reported By</label>
+                                <label class="form-label" for="rptpers_name">{{ __('messages.reported_by') }}</label>
                                 <input type="text" class="form-control" name="rptpers_name" value="{{ $ticket->issue->reportingperson->rptpers_name }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="phone_no">Phone Number (Reported By)</label>
+                                <label class="form-label" for="phone_no">{{ __('messages.phone_number') }}</label>
                                 <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="req_category">Category</label>
+                                <label class="form-label" for="req_category">{{ __('messages.category') }}</label>
                                 <input type="text" class="form-control" name="req_category" value="{{ $ticket->issue->reqcategory->req_category }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="status_label">Status</label>
+                                <label class="form-label" for="status_label">{{ __('messages.status') }}</label>
                                 <input type="text" class="form-control" name="status_label" value="{{ $ticket->issue->status->status_label }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="asset_hostname">Equipment</label>
+                                <label class="form-label" for="asset_hostname">{{ __('messages.equipment') }}</label>
                                 <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }} - {{ $ticket->issue->equipment->asset_type }}" readonly>
                             </div> 
                             <div class="mb-3">
-                                <label class="form-label" for="attachment">Attachment</label><br>
+                                <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label><br>
                                 <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
                                 @if ($ticket->issue->attachment)
                                     <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
                                 @else
-                                    <p>No attachment available</p>
+                                    <p>{{ __('messages.no_available') }}</p>
                                 @endif
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="fault_description">Fault Description</label>
+                                <label class="form-label" for="fault_description">{{ __('messages.fault_desc') }}</label>
                                 <textarea class="form-control" name="fault_description" rows="5" readonly>{{ $ticket->issue->fault_description }}</textarea>
                             </div>
                         </div>
@@ -90,42 +90,42 @@
                             <form action="{{ route('tickets.allticketupdate',['ticket' => $ticket->id]) }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label" for="ticstatus_id">Current Ticket Status</label>
+                                    <label class="form-label" for="ticstatus_id">{{ __('messages.current_ticket_status') }}</label>
                                     <select id="defaultSelect" class="form-select" name="ticstatus_id">
-                                        <option selected readonly>-- Select Status --</option>
+                                        <option selected readonly>-- {{ __('messages.select_status') }} --</option>
                                             @foreach(App\Ticstatus::all() as $ticstatus)
                                             <option value="{{ $ticstatus->id }}">{{ $ticstatus->ticstatus_label }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="description">Comments</label>
+                                    <label class="form-label" for="description">{{ __('messages.comments') }}</label>
                                     <textarea class="form-control" name="description" rows="5" name="description"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="response_date">Response Date</label>
+                                    <label class="form-label" for="response_date">{{ __('messages.response_date') }}</label>
                                     <input type="date" class="form-control" name="response_date" value="response_date">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="response_time">Response Time</label>
+                                    <label class="form-label" for="response_time">{{ __('messages.response_time') }}</label>
                                     <input type="time" class="form-control" name="response_time" value="response_time">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="reaction_id">Response Type</label>
+                                    <label class="form-label" for="reaction_id">{{ __('messages.response_type') }}</label>
                                     <select id="defaultSelect" class="form-select" name="reaction_id">
-                                        <option selected readonly>-- Select Status --</option>
+                                        <option selected readonly>-- {{ __('messages.select_response_type') }} --</option>
                                             @foreach(App\Reaction::all() as $reaction)
                                             <option value="{{ $reaction->id }}">{{ $reaction->response_type }}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="attachment">Attachment</label>
+                                    <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label>
                                     <input class="form-control" type="file" name="attachment" id="formFile" />
                                 </div>
                                 <div class="mt-2">
-                                    <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.allticket') }}">Cancel</a>
+                                    <button type="submit" class="btn btn-primary me-2">{{ __('messages.submit') }}</button>
+                                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.allticket') }}">{{ __('messages.cancel') }}</a>
                                 </div>
                             </form>
                         </div>
@@ -141,7 +141,7 @@
                 </div>
             </div>
 
-            <h4 class="mb-0 text-primary">Ticket Log</h4><br>
+            <h4 class="mb-0 text-primary">{{ __('messages.ticket_log') }}</h4><br>
 
             <div class="col-12">
                 <div class="card">
@@ -150,15 +150,15 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>ID</th>
-                                    <th>Received Date</th>
-                                    <th>Description</th>
-                                    <th>Update By</th>
-                                    <th>Response Type</th>
-                                    <th>Response Date</th>
-                                    <th>Response Time</th>
-                                    <th>Attachment</th>
-                                    <th>Status</th>
+                                    <th>{{ __('messages.id') }}</th>
+                                    <th>{{ __('messages.received_date') }}</th>
+                                    <th>{{ __('messages.description') }}</th>
+                                    <th>{{ __('messages.update_by') }}</th>
+                                    <th>{{ __('messages.response_type') }}</th>
+                                    <th>{{ __('messages.response_date') }}</th>
+                                    <th>{{ __('messages.response_time') }}</th>
+                                    <th>{{ __('messages.attachment') }}</th>
+                                    <th>{{ __('messages.status') }}</th>
                                 </tr>
                             </thead>
                             @foreach($ticket->ticketlog as $log)

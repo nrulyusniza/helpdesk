@@ -12,29 +12,30 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Ticket Reporting</h4>
-        </div>
-
-        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-            <i class="bx bx-calendar"></i>&nbsp;
-            <span></span> <i class="bx bx-caret-down"></i>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.ticket_reporting') }}</h4>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="example">
+                
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                    <i class="bx bx-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                </div>
+
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Report Date</th>
-                            <th>Request No</th>
-                            <th>Ticket No</th>
-                            <th>Site</th>
-                            <th>Fault Description</th>
-                            <th>Admin Comments</th>
-                            <th>Asset</th>
-                            <th>Severity</th>
-                            <th>Status</th>
+                            <th>{{ __('messages.report_date') }}</th>
+                            <th>{{ __('messages.request_no') }}</th>
+                            <th>{{ __('messages.ticket_no') }}</th>
+                            <th>{{ __('messages.site') }}</th>
+                            <th>{{ __('messages.fault_desc') }}</th>
+                            <th>{{ __('messages.admin_comments') }}</th>
+                            <th>{{ __('messages.asset') }}</th>
+                            <th>{{ __('messages.severity') }}</th>
+                            <th>{{ __('messages.status') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -66,11 +67,15 @@
 
     <!-- DataTables JS -->
     <!-- for Copy, Excel, PDF, Print & Search & Show N entries & Sorting & Showing N to N of N entries & Pagination --> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script> -->
 
-    <script>
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+
+    <!-- <script>
       $(document).ready(function(){
         $('#example').DataTable({
             pagingType: 'simple_numbers',
@@ -100,6 +105,34 @@
             ]
         });
       });
-    </script>
+    </script> -->
+
+    <!-- <script type="text/javascript">
+        $(function() {
+
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function cb(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+
+            cb(start, end);
+
+        });
+    </script> -->
 
 @stop

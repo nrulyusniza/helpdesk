@@ -5,10 +5,10 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.mydashboard') }}">Dashboard</a>
+            <a href="{{ route('dashboard.mydashboard') }}">{{ __('messages.sm_dashboard') }}</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('myextension') }}">Extension</a>
+            <a href="{{ route('myextension') }}">{{ __('messages.sm_ext') }}</a>
         </li>
     </ol>
 </nav>
@@ -23,10 +23,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Request Type List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.requesttype_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('types.create') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Request Type</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_requesttype') }}</button>
                 </a>
             </div>
         </div>
@@ -37,8 +37,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Request Type</th>
-                        <th>Action</th>
+                        <th>{{ __('messages.request_type') }}</th>
+                        <th>{{ __('messages.action') }}</th>
                     </tr>
                 </thead>                
                 <tbody class="table-border-bottom-0">

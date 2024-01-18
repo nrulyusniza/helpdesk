@@ -12,10 +12,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Site List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.site_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('sites.create') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Site</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_site') }}</button>
                 </a>
             </div>
         </div>
@@ -26,10 +26,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Abbreviation</th>
-                            <th>Action</th>
+                            <th>{{ __('messages.name') }}</th>
+                            <th>{{ __('messages.address') }}</th>
+                            <th>{{ __('messages.abbreviation') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">

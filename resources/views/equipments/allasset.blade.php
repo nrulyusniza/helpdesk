@@ -12,10 +12,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Asset List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.asset_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('equipments.allassetcreate') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Asset</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_asset') }}</button>
                 </a>
             </div>
         </div>
@@ -26,12 +26,12 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Hostname</th>
-                            <th>Origin Location</th>
-                            <th>Asset Type</th>
-                            <th>Site</th>
-                            <th>Latest Status</th>
-                            <th>Action</th>
+                            <th>{{ __('messages.hostname') }}</th>
+                            <th>{{ __('messages.origin_location') }}</th>
+                            <th>{{ __('messages.asset_type') }}</th>
+                            <th>{{ __('messages.site') }}</th>
+                            <th>{{ __('messages.latest_status') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -75,10 +75,10 @@
                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('equipments.allassetlog',$e->id) }}" style="color:#57cc99"></a> -->
                                     <a class="menu-icon tf-icons bx bx-edit" href="{{ route('equipments.allassetedit',$e->id) }}"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                        title="<span>Edit</span>"></a>
+                                        title="<span>{{ __('messages.edit') }}</span>"></a>
                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('equipments.allassetlog',$e->id) }}" style="color:#57cc99"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                        title="<span>Asset Log</span>"></a>
+                                        title="<span>{{ __('messages.asset_log') }}</span>"></a>
                                     @csrf
                                     @method('DELETE')                    
                                     <!-- <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000" onclick="confirmation(event)"></a> -->

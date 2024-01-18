@@ -12,7 +12,7 @@
     <div class="card">
         
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Consumable List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.consumable_list') }}</h4>
         </div>
 
         <div class="card-body">
@@ -21,21 +21,21 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Report Date</th>
-                            <th>Request No</th>
-                            <th>Ticket No</th>
+                            <th>{{ __('messages.report_date') }}</th>
+                            <th>{{ __('messages.request_no') }}</th>
+                            <th>{{ __('messages.ticket_no') }}</th>
                             <!-- <th>Ticket Type</th> -->
-                            <th>Site</th>
-                            <th>Fault Description</th>
+                            <th>{{ __('messages.site') }}</th>
+                            <th>{{ __('messages.fault_desc') }}</th>
                             <!-- <th>Admin Comments</th> -->
-                            <th>Equipment</th>
-                            <th>Severity</th>
-                            <th>Status</th>                            
+                            <th>{{ __('messages.equipment') }}</th>
+                            <th>{{ __('messages.severity') }}</th>
+                            <th>{{ __('messages.current_status') }}</th>                                 
                             <!-- <th>Created By</th>
                             <th>Create Date</th>
                             <th>Update By</th>
                             <th>Update Date</th> -->
-                            <th>Action</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
@@ -117,7 +117,7 @@
                                     <!--<a class="menu-icon tf-icons bx bx-expand-alt" href="{{ route('tickets.listconsumablelog',$tt->id) }}"></a> -->
                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listconsumablelog',$tt->id) }}" style="color:#57cc99"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                        title="<span>Details Ticket Log</span>"></a>
+                                        title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
                                     @csrf
                                     @method('DELETE')                    
                                     <!-- <a type="submit" class="menu-icon tf-icons bx bx-trash" style="color:#ff0000"></a> -->

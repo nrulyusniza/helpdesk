@@ -23,10 +23,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Edit Asset</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.edit_asset') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('equipments.allassetlog',$equipment->id) }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-label'></i>&nbsp; Asset Log</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-label'></i>&nbsp; {{ __('messages.asset_log') }}</button>
                 </a>
             </div>
         </div>
@@ -37,23 +37,23 @@
                 @method('PUT')
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_hostname">Asset Hostname</label>
+                        <label class="form-label" for="asset_hostname">{{ __('messages.hostname') }}</label>
                         <input type="text" class="form-control" name="asset_hostname" value="{{ $equipment->asset_hostname }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                    <label class="form-label" for="asset_location">Asset Location [If any changes, update at Asset Log]</label>
+                    <label class="form-label" for="asset_location">{{ __('messages.asset_location') }} [{{ __('messages.asset_note') }}]</label>
                         <input type="text" class="form-control" name="asset_location" value="{{ $equipment->asset_location }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_ip">Asset IP</label>
+                        <label class="form-label" for="asset_ip">{{ __('messages.asset_ip') }}</label>
                         <input type="text" class="form-control" name="asset_ip" value="{{ $equipment->asset_ip }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_type">Asset Type</label>
+                        <label class="form-label" for="asset_type">{{ __('messages.asset_type') }}</label>
                         <input type="text" class="form-control" name="asset_type" value="{{ $equipment->asset_type }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_id">Site</label>
+                        <label class="form-label" for="site_id">{{ __('messages.site') }}</label>
                         <select id="defaultSelect" class="form-select" name="site_id">                        
                             @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 @if(auth()->user()->site_id == $site->id)                                    
@@ -63,17 +63,17 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_kewpa">Asset Kewpa</label>
+                        <label class="form-label" for="asset_kewpa">{{ __('messages.asset_kewpa') }}</label>
                         <input type="text" class="form-control" name="asset_kewpa" value="{{ $equipment->asset_kewpa }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="asset_seriesno">Asset Series No.</label>
+                        <label class="form-label" for="asset_seriesno">{{ __('messages.asset_seriesno') }}</label>
                         <input type="text" class="form-control" name="asset_seriesno" value="{{ $equipment->asset_seriesno }}">
                     </div>
                 </div>
                 <div class="mt-2">
-                    <button type="submit" class="btn btn-primary me-2">Update</button>
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('equipments.allasset') }}">Cancel</a>
+                    <button type="submit" class="btn btn-primary me-2">{{ __('messages.update') }}</button>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('equipments.allasset') }}">{{ __('messages.cancel') }}</a>
                 </div>
             </form>
         </div>

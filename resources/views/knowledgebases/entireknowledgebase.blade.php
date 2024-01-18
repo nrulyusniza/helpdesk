@@ -12,10 +12,10 @@
     <div class="card">
         
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Knowledge Base List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.knowledgebase_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('knowledgebases.entireknowledgebasecreate') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New Knowledge Base</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_knowledgebase') }}</button>
                 </a>
             </div>
         </div>
@@ -26,10 +26,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Category</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Action</th>
+                            <th>{{ __('messages.kb_category') }}</th>
+                            <th>{{ __('messages.kb_title') }}</th>
+                            <th>{{ __('messages.kb_content') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">

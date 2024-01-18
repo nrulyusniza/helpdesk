@@ -12,10 +12,10 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">User Group List</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.usergroup_list') }}</h4>
             <div class="btn-text-right">
                 <a href="{{ route('roles.create') }}"
-                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; New User Group</button>
+                    <button type="button" class="btn btn-primary"><i class='bx bx-plus'></i>&nbsp; {{ __('messages.new_usergroup') }}</button>
                 </a>
             </div>
         </div>
@@ -26,9 +26,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
+                            <th>{{ __('messages.name') }}</th>
+                            <th>{{ __('messages.description') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">

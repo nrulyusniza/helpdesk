@@ -17,7 +17,7 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">New Knowledge Base</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.new_knowledgebase') }}</h4>
         </div>
 
         <div class="card-body">
@@ -25,25 +25,25 @@
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="kb_category">Category</label>
+                        <label class="form-label" for="kb_category">{{ __('messages.kb_category') }}</label>
                         <select id="defaultSelect" class="form-select" name="kb_category">
-                            <option selected disabled>-- Select Category --</option>
+                            <option selected disabled>-- {{ __('messages.kb_selectcategory') }} --</option>
                                 @foreach(App\Kbcategory::all()->sortBy('kb_category') as $kbcategory)
                                 <option value="{{$kbcategory->id}}">{{$kbcategory->kb_category}}</option>
                                 @endforeach
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="kb_topic">Title</label>
+                        <label class="form-label" for="kb_topic">{{ __('messages.kb_title') }}</label>
                         <input type="text" class="form-control" name="kb_topic">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="kb_article">Content</label>
+                        <label class="form-label" for="kb_article">{{ __('messages.kb_content') }}</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" type="text" name="kb_article"></textarea>
                     </div>
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('knowledgebases.listknowledgebase') }}">Cancel</a>
+                        <button type="submit" class="btn btn-primary me-2">{{ __('messages.submit') }}</button>
+                        <a type="cancel" class="btn btn-outline-secondary" href="{{ route('knowledgebases.listknowledgebase') }}">{{ __('messages.cancel') }}</a>
                     </div>
                 </div>
             </form>

@@ -342,17 +342,17 @@ class TicketController extends Controller
     {
         $tickets = Ticket::where('ticstatus_id', 4)->orderBy('report_received','desc')->with('issue.site')->get();
 
-        if($request->ajax())
-        {
-            $data = Ticket::select('*');
+        // if($request->ajax())
+        // {
+        //     $data = Ticket::select('*');
 
-            if($ticket->filled('from_date') && $ticket->filled('to_date'))
-            {
-                $data = $data->whereBetween('report_received', [$ticket->from_date, $ticket->to_date]);
-            }
+        //     if($ticket->filled('from_date') && $ticket->filled('to_date'))
+        //     {
+        //         $data = $data->whereBetween('report_received', [$ticket->from_date, $ticket->to_date]);
+        //     }
 
-            return DataTables::of($data)->addIndexColumn()->make(true);
-        }
+        //     return DataTables::of($data)->addIndexColumn()->make(true);
+        // }
 
         return view('tickets.report.producereport', compact('tickets'));
     }

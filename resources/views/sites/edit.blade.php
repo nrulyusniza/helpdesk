@@ -17,7 +17,7 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Edit Site</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.edit_site') }}</h4>
         </div>
 
         <div class="card-body">
@@ -26,21 +26,21 @@
                 @method('PUT')
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_name">Name</label>
+                        <label class="form-label" for="site_name">{{ __('messages.name') }}</label>
                         <input type="text" class="form-control" name="site_name" value="{{ $site->site_name }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_abbreviation">Abbreviation</label>
+                        <label class="form-label" for="site_abbreviation">{{ __('messages.abbreviation') }}</label>
                         <input type="text" class="form-control" name="site_abbreviation" value="{{ $site->site_abbreviation }}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="site_address">Address</label>
+                        <label class="form-label" for="site_address">{{ __('messages.address') }}</label>
                         <textarea class="form-control" name="site_address" rows="5">{{ $site->site_address }}</textarea>
                     </div>
                 </div>
                 <div class="mt-2">
-                    <button type="submit" class="btn btn-primary me-2">Update</button>
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('sites.allsite') }}">Cancel</a>
+                    <button type="submit" class="btn btn-primary me-2">{{ __('messages.update') }}</button>
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('sites.allsite') }}">{{ __('messages.cancel') }}</a>
                 </div>                
             </form>
         </div>

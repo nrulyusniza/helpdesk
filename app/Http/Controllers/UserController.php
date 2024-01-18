@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -40,9 +41,23 @@ class UserController extends Controller
     {
         $request->validate([
             'fullname' => 'required',
+            'username' => 'required|unique:users',
+            'password' => 'required|string|min:8',
+            'site_id' => 'required|exists:sites,id',
+            'role_id' => 'required|exists:roles,id',
         ]);
   
-        User::create($request->all());
+        // User::create($request->all());
+
+        $data = [
+            'fullname' => $request->input('fullname'),
+            'username' => $request->input('username'),
+            'password' => Hash::make($request->input('password')),
+            'site_id' => $request->input('site_id'),
+            'role_id' => $request->input('role_id'),
+        ];
+    
+        User::create($data);
    
         return redirect()->route('users.alluser')
                         ->with('success','New User created successfully.');
@@ -81,9 +96,25 @@ class UserController extends Controller
     {
         $request->validate([
             'fullname' => 'required',
+            'password' => 'nullable|string|min:8',
+            'site_id' => 'required|exists:sites,id',
+            'role_id' => 'required|exists:roles,id',
         ]);
   
-        $user->update($request->all());
+        // $user->update($request->all());
+
+        $data = [
+            'fullname' => $request->input('fullname'),
+            'site_id' => $request->input('site_id'),
+            'role_id' => $request->input('role_id'),
+        ];
+    
+        // check if a new password is provided and update it
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->input('password'));
+        }
+    
+        $user->update($data);
   
         return redirect()->route('users.alluser')
                         ->with('success','User updated successfully');

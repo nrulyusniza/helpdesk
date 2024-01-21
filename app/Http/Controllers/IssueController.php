@@ -151,10 +151,33 @@ class IssueController extends Controller
     public function allissuestore(Request $request)
     {
         // validate the request data as needed
-        $requestData = $request->all();
+        // $requestData = $request->all();
 
+        $request->validate([
+            'attachment' => 'file|mimes:pdf,docx,png,jpg',
+            'reportingperson_id' => 'required',
+            'fault_description' => 'required',
+            // 'site_id' => 'required',
+            // 'phone_no' => 'required',
+            // 'reqcategory_id' => 'required',
+            // 'equipment_id' => 'required',
+            // 'create_date' => 'required',
+        ]);
+
+        // handle file upload
+        if ($request->hasFile('attachment')) {
+            $attachmentPath = $request->file('attachment')->store('attachments', 'public');
+            $requestData['attachment'] = $attachmentPath;
+        }
+
+        // set create_date to the current date and time
+        $requestData['create_date'] = now();
+        
         // add the currently authenticated user's username to the request data
         $requestData['created_by'] = Auth::user()->username;
+
+        $requestData['reportingperson_id'] = $request->input('reportingperson_id');
+        $requestData['fault_description'] = $request->input('fault_description');        
 
         $issue = Issue::create($requestData);
 

@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('issues.allissuestore') }}" method="POST">
+            <form action="{{ route('issues.allissuestore') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
@@ -44,7 +44,7 @@
                     </div>                
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reportingperson_id">{{ __('messages.reported_by') }}</label>
-                        <select id="reportingperson_id" class="form-select" name="reportingperson_id">
+                        <select id="reportingperson_id" class="form-control" name="reportingperson_id">
                             <!-- <option selected disabled>-- Select Name --</option>
                                 @foreach(App\Reportingperson::all()->sortBy('rptpers_name') as $reportingperson)
                                 <option value="{{$reportingperson->id}}">{{$reportingperson->rptpers_name}}</option>

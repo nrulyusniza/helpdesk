@@ -327,6 +327,7 @@ Route::get('equipmentstatuss/allequipmentstatus', 'EquipmentstatusController@all
 //------------------------------------------------------------------- TICKET REPORTING -------------------------------------------------------------------
 // tickets path - super admin view
 Route::get('tickets/report/producereport', 'TicketController@producereport')->name('tickets.report.producereport');
+Route::get('tickets/report/records', 'TicketController@records')->name('tickets.report.records');
 
 // tickets path - site admin & site user view
 Route::get('tickets/report/generatereport', 'TicketController@generatereport')->name('tickets.report.generatereport');

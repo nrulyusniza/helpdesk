@@ -5,151 +5,157 @@
 <div class="col-xl-12">
     <div class="nav-align-top mb-4">
 
-        <ul class="nav nav-tabs nav-fill" role="tablist">            
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-card me-1"></i> {{ __('messages.cd_ticket') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listTicCount }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-lock-open me-1"></i> {{ __('messages.cd_open') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listOpenCount }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-lock me-1"></i> {{ __('messages.cd_closed') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listClosedCount }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-archive me-1"></i> {{ __('messages.cd_kiv') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listKivCount }}</span>
-                </a>
-            </li>
-        </ul>
+        <div class="card">
+            <div class="col-12">
 
-        <div class="tab-content">
-            <div class="tab-pane fade show active" role="tabpanel">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="example">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{ __('messages.report_date') }}</th>
-                                    <th>{{ __('messages.request_no') }}</th>
-                                    <th>{{ __('messages.ticket_no') }}</th>
-                                    <th>{{ __('messages.ticket_type') }}</th>
-                                    <!-- <th>Site</th> -->
-                                    <th>{{ __('messages.fault_desc') }}</th>
-                                    <!-- <th>Admin Comments</th> -->
-                                    <th>{{ __('messages.equipment') }}</th>
-                                    <th>{{ __('messages.severity') }}</th>
-                                    <th>{{ __('messages.status') }}</th>                            
-                                    <!-- <th>Created By</th>
-                                    <th>Create Date</th>
-                                    <th>Update By</th>
-                                    <th>Update Date</th> -->
-                                    <th>{{ __('messages.action') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                @foreach ($listTic as $lt)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $lt->report_received->format('M d, Y') }}</td>
-                                    <td>{{ $lt->ticket_no }}</td>
-                                    <td>{{ $lt->ticket_no }}</td>
-                                    <td>{{ $lt->type->request_type }}</td>
-                                    <!-- <td>{{ $lt->issue->site->site_name ?? " " }}</td> -->
-                                    <td>{{ $lt->issue->fault_description ?? " " }}</td>
-                                    <!-- <td>{{ $lt->issue->admin_comments ?? " " }}</td> -->
-                                    <td>{{ $lt->issue->equipment->asset_hostname ?? " " }} - {{ $lt->issue->equipment->asset_type ?? " " }}</td>
-                                    <!-- <td>{{ $lt->severity->severity_label ?? " " }}</td> -->
-                                    <td>
-                                        @if(isset($lt->severity->severity_label))
-                                            @php
-                                                $severityLabel = $lt->severity->severity_label;
-                                                $badgeClass = '';
+                <ul class="nav nav-tabs nav-fill" role="tablist">            
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-card me-1"></i> {{ __('messages.cd_ticket') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listTicCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-lock-open me-1"></i> {{ __('messages.cd_open') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listOpenCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-lock me-1"></i> {{ __('messages.cd_closed') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listClosedCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-archive me-1"></i> {{ __('messages.cd_kiv') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listKivCount }}</span>
+                        </a>
+                    </li>
+                </ul>
 
-                                                switch($lt->severity->id) {
-                                                    case 1:
-                                                        $badgeClass = 'bg-danger';
-                                                        break;
-                                                    case 2:
-                                                        $badgeClass = 'bg-primary';
-                                                        break;
-                                                    case 3:
-                                                        $badgeClass = 'bg-success';
-                                                        break;
-                                                    default:
-                                                        $badgeClass = 'bg-label-info';
-                                                        break;
-                                                }
-                                            @endphp
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ __('messages.report_date') }}</th>
+                                            <th>{{ __('messages.request_no') }}</th>
+                                            <th>{{ __('messages.ticket_no') }}</th>
+                                            <th>{{ __('messages.ticket_type') }}</th>
+                                            <!-- <th>Site</th> -->
+                                            <th>{{ __('messages.fault_desc') }}</th>
+                                            <!-- <th>Admin Comments</th> -->
+                                            <th>{{ __('messages.equipment') }}</th>
+                                            <th>{{ __('messages.severity') }}</th>
+                                            <th>{{ __('messages.status') }}</th>                            
+                                            <!-- <th>Created By</th>
+                                            <th>Create Date</th>
+                                            <th>Update By</th>
+                                            <th>Update Date</th> -->
+                                            <th>{{ __('messages.action') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                        @foreach ($listTic as $lt)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $lt->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $lt->ticket_no }}</td>
+                                            <td>{{ $lt->ticket_no }}</td>
+                                            <td>{{ $lt->type->request_type }}</td>
+                                            <!-- <td>{{ $lt->issue->site->site_name ?? " " }}</td> -->
+                                            <td>{{ $lt->issue->fault_description ?? " " }}</td>
+                                            <!-- <td>{{ $lt->issue->admin_comments ?? " " }}</td> -->
+                                            <td>{{ $lt->issue->equipment->asset_hostname ?? " " }} - {{ $lt->issue->equipment->asset_type ?? " " }}</td>
+                                            <!-- <td>{{ $lt->severity->severity_label ?? " " }}</td> -->
+                                            <td>
+                                                @if(isset($lt->severity->severity_label))
+                                                    @php
+                                                        $severityLabel = $lt->severity->severity_label;
+                                                        $badgeClass = '';
 
-                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
-                                        @else
-                                            <span class="badge bg-secondary me-1"></span>
-                                        @endif
-                                    </td>
-                                    <!-- <td>{{ $lt->ticstatus->ticstatus_label ?? " " }}</td> -->
-                                    <td>
-                                        @if(null !== ($latestTicketlog = $lt->latestTicketlog))
-                                            @php
-                                                $badgeClass = '';
+                                                        switch($lt->severity->id) {
+                                                            case 1:
+                                                                $badgeClass = 'bg-danger';
+                                                                break;
+                                                            case 2:
+                                                                $badgeClass = 'bg-primary';
+                                                                break;
+                                                            case 3:
+                                                                $badgeClass = 'bg-success';
+                                                                break;
+                                                            default:
+                                                                $badgeClass = 'bg-label-info';
+                                                                break;
+                                                        }
+                                                    @endphp
 
-                                                switch($latestTicketlog->ticstatus->id ?? null) {
-                                                    case 1:
-                                                        $badgeClass = 'bg-success';
-                                                        break;
-                                                    case 2:
-                                                        $badgeClass = 'bg-primary';
-                                                        break;
-                                                    case 3:
-                                                        $badgeClass = 'bg-dark';
-                                                        break;
-                                                    case 4:
-                                                        $badgeClass = 'bg-danger';
-                                                        break;
-                                                    default:
-                                                        $badgeClass = 'bg-label-info';
-                                                        break;
-                                                }
-                                            @endphp
+                                                    <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                                @else
+                                                    <span class="badge bg-secondary me-1"></span>
+                                                @endif
+                                            </td>
+                                            <!-- <td>{{ $lt->ticstatus->ticstatus_label ?? " " }}</td> -->
+                                            <td>
+                                                @if(null !== ($latestTicketlog = $lt->latestTicketlog))
+                                                    @php
+                                                        $badgeClass = '';
 
-                                            <span class="badge {{ $badgeClass }} me-1">{{ $latestTicketlog->ticstatus->ticstatus_label }}</span>
-                                        @else
-                                            {{-- display ticstatus_id=1 (New Ticket) badge when there are no ticketlog records --}}
-                                            @php
-                                                $badgeClass = 'bg-success'; // Set the badge class for ticstatus_id=1
-                                            @endphp
-                                            <span class="badge {{ $badgeClass }} me-1">{{ $lt->ticstatus->ticstatus_label ?? 'Default Label' }}</span>
-                                        @endif
-                                    </td>
-                                    <!-- <td>{{ $lt->user->fullname ?? " " }}</td>
-                                    <td>{{ $lt->create_date->format('M d, Y') }}</td>
-                                    <td>{{ $lt->user->fullname ?? " " }}</td>
-                                    <td>{{ $lt->update_date->format('M d, Y') }}</td> -->
-                                    <td>
-                                        <form action="" method="POST">
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lt->id) }}" style="color:#57cc99"
-                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                                title="<span>Details Ticket Log</span>"></a>
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>                    
-                        </table>
+                                                        switch($latestTicketlog->ticstatus->id ?? null) {
+                                                            case 1:
+                                                                $badgeClass = 'bg-success';
+                                                                break;
+                                                            case 2:
+                                                                $badgeClass = 'bg-primary';
+                                                                break;
+                                                            case 3:
+                                                                $badgeClass = 'bg-dark';
+                                                                break;
+                                                            case 4:
+                                                                $badgeClass = 'bg-danger';
+                                                                break;
+                                                            default:
+                                                                $badgeClass = 'bg-label-info';
+                                                                break;
+                                                        }
+                                                    @endphp
+
+                                                    <span class="badge {{ $badgeClass }} me-1">{{ $latestTicketlog->ticstatus->ticstatus_label }}</span>
+                                                @else
+                                                    {{-- display ticstatus_id=1 (New Ticket) badge when there are no ticketlog records --}}
+                                                    @php
+                                                        $badgeClass = 'bg-success'; // Set the badge class for ticstatus_id=1
+                                                    @endphp
+                                                    <span class="badge {{ $badgeClass }} me-1">{{ $lt->ticstatus->ticstatus_label ?? 'Default Label' }}</span>
+                                                @endif
+                                            </td>
+                                            <!-- <td>{{ $lt->user->fullname ?? " " }}</td>
+                                            <td>{{ $lt->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $lt->user->fullname ?? " " }}</td>
+                                            <td>{{ $lt->update_date->format('M d, Y') }}</td> -->
+                                            <td>
+                                                <form action="" method="POST">
+                                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lt->id) }}" style="color:#57cc99"
+                                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                        title="<span>Details Ticket Log</span>"></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>                    
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
 

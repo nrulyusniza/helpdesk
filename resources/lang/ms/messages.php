@@ -192,7 +192,7 @@ return [
     'edit_knowledgebase' => 'Edit Asas Pengetahuan',
 
     // datatables column name - report
-    'ticket_reporting' => 'Laporan Ticket',
+    'ticket_reporting' => 'Laporan Tiket',
 
     // extension
     'request_category' => 'Kategori Permintaan',
@@ -235,4 +235,17 @@ return [
     'eqs_list' => 'Senarai Status Peralatan',
     'new_eqs' => 'Status Peralatan Baharu',
     'edit_eqs' => 'Edit Status Peralatan',
+
+    // date filter
+    'all_dates' => 'Semua Tarikh',
+    'today' => 'Hari Ini',
+    'yesterday' => 'Semalam',
+    'this_week' => 'Minggu Ini',
+    'last_week' => 'Minggu Lepas',
+    'this_month' => 'Bulan Ini',
+    'last_month' => 'Bulan Lepas',
+    'this_year' => 'Tahun Ini',
+    'last_year' => 'Tahun Lepas',
+    'custom_date' => 'Tarikh Tersuai',
+    'filter' => 'Tapis',
 ];

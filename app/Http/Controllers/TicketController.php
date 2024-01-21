@@ -6,6 +6,9 @@ use App\Ticket;
 use App\Equipment;
 use App\Ticketlog;
 use DB;
+use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -135,6 +138,20 @@ class TicketController extends Controller
 
         // $ticket->ticketlog()->create($request->all());
 
+        // $validator = Validator::make($request->all(), [
+        //     // 'description' => 'required|string',
+        //     // 'response_date' => 'required|date',
+        //     // 'response_time' => 'required',
+        //     // 'reaction_id' => 'required',
+        //     'attachment' => 'file|mimes:pdf,docx,png,jpg',
+        //     // 'ticstatus_id' => 'required|integer',
+        // ]);
+
+        // if ($request->hasFile('attachment')) {
+        //     $attachmentPath = $request->file('attachment')->store('attachments', 'public');
+        //     $requestData['attachment'] = $attachmentPath;
+        // }
+        
         // currently authenticated user
         $currentUpdateUser = auth()->user();
 
@@ -338,59 +355,103 @@ class TicketController extends Controller
 
     //---------------------------------------------------------------------- REPORTING ----------------------------------------------------------------------
 
-    public function producereport(Request $request, Ticket $ticket)
+    // super admin
+    public function producereport(Request $request): Response
     {
-        $tickets = Ticket::where('ticstatus_id', 4)->orderBy('report_received','desc')->with('issue.site')->get();
+        $query = Ticket::query();
+        $dateFilter = $request->date_filter;
+ 
+        switch($dateFilter){
+            case 'today':
+                $query->whereDate('report_received',Carbon::today());
+                break;
+            case 'yesterday':
+                $query->wheredate('report_received',Carbon::yesterday());
+                break;
+            case 'this_week':
+                $query->whereBetween('report_received',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()]);
+                break;
+            case 'last_week':
+                $query->whereBetween('report_received',[Carbon::now()->subWeek(),Carbon::now()]);
+                break;
+            case 'this_month':
+                $query->whereMonth('report_received',Carbon::now()->month);
+                break;
+            case 'last_month':
+                $query->whereMonth('report_received',Carbon::now()->subMonth()->month);
+                break;
+            case 'this_year':
+                $query->whereYear('report_received',Carbon::now()->year);
+                break;
+            case 'last_year':
+                $query->whereYear('report_received',Carbon::now()->subYear()->year);
+                break;
+            case 'custom_date':
+                $startDate = $request->input('start_date');
+                $endDate = $request->input('end_date');
+    
+            if ($startDate && $endDate) {
+                $query->whereBetween('report_received', [$startDate, $endDate]);
+            }
 
-        // if($request->ajax())
-        // {
-        //     $data = Ticket::select('*');
-
-        //     if($ticket->filled('from_date') && $ticket->filled('to_date'))
-        //     {
-        //         $data = $data->whereBetween('report_received', [$ticket->from_date, $ticket->to_date]);
-        //     }
-
-        //     return DataTables::of($data)->addIndexColumn()->make(true);
-        // }
-
-        return view('tickets.report.producereport', compact('tickets'));
+            break;
+        }
+             
+        $tickets = $query->get();
+ 
+        return response()->view('tickets.report.producereport', compact('tickets','dateFilter'));
     }
 
-    // public function producereport(Request $request, Ticket $ticket)
-    // {
-    //     $tickets = Ticket::where('ticstatus_id', 4)
-    //         ->orderBy('report_received', 'desc')
-    //         ->with('issue.site');
-    
-    //     // Check if start_date and end_date are provided in the request
-    //     if ($request->has('start_date') && $request->has('end_date')) {
-    //         $start_date = $request->input('start_date');
-    //         $end_date = $request->input('end_date');
-    
-    //         // Filter tickets based on the selected date range
-    //         $tickets->whereBetween('report_received', [$start_date, $end_date]);
-    //     }
-    
-    //     $tickets = $tickets->get();
-    
-    //     return view('tickets.report.producereport', compact('tickets'));
-    // }
-
-    public function generatereport(Ticket $ticket)
+    // site admin & site user
+    public function generatereport(Request $request): Response
     {
         $loggedInUser = Auth::user();
         $site_id = $loggedInUser->site_id;
 
-        $tickets = Ticket::whereHas('issue.site', function($query) use ($site_id) {
-            $query->where('site_id', $site_id);
-            })
-            ->where('ticstatus_id', 4)
-            ->get();
+        $query = Ticket::whereHas('issue.site', function ($query) use ($site_id) {
+                                        $query->where('site_id', $site_id);
+                                    });
+        $dateFilter = $request->date_filter;
+    
+        switch($dateFilter){
+            case 'today':
+                $query->whereDate('report_received',Carbon::today());
+                break;
+            case 'yesterday':
+                $query->wheredate('report_received',Carbon::yesterday());
+                break;
+            case 'this_week':
+                $query->whereBetween('report_received',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()]);
+                break;
+            case 'last_week':
+                $query->whereBetween('report_received',[Carbon::now()->subWeek(),Carbon::now()]);
+                break;
+            case 'this_month':
+                $query->whereMonth('report_received',Carbon::now()->month);
+                break;
+            case 'last_month':
+                $query->whereMonth('report_received',Carbon::now()->subMonth()->month);
+                break;
+            case 'this_year':
+                $query->whereYear('report_received',Carbon::now()->year);
+                break;
+            case 'last_year':
+                $query->whereYear('report_received',Carbon::now()->subYear()->year);
+                break;
+            case 'custom_date':
+                $startDate = $request->input('start_date');
+                $endDate = $request->input('end_date');
+    
+            if ($startDate && $endDate) {
+                $query->whereBetween('report_received', [$startDate, $endDate]);
+            }
 
-            
-
-        return view('tickets.report.generatereport', compact('tickets'));
+            break;
+        }
+                
+        $tickets = $query->get();
+    
+        return response()->view('tickets.report.generatereport', compact('tickets','dateFilter'));
     }
 
     // public function generatereport(Request $request, Ticket $ticket)
@@ -409,5 +470,77 @@ class TicketController extends Controller
     //         ->get();
 
     //     return view('tickets.report.generatereport', compact('tickets'));
+    // }
+
+    // public function records(Request $request)
+    // {
+    //     if ($request->ajax()) {
+ 
+    //         if ($request->input('start_date') && $request->input('end_date')) {
+ 
+    //             $start_date = Carbon::parse($request->input('start_date'));
+    //             $end_date = Carbon::parse($request->input('end_date'));
+ 
+    //             if ($end_date->greaterThan($start_date)) {
+    //                 $tickets = Ticket::whereBetween('report_received', [$start_date, $end_date])->get();
+    //             } else {
+    //                 $tickets = Ticket::latest()->get();
+    //             }
+    //         } else {
+    //             $tickets = Ticket::latest()->get();
+    //         }
+ 
+    //         return response()->json([
+    //             'tickets' => $tickets
+    //         ]);
+    //     } else {
+    //         abort(403);
+    //     }
+    // }
+
+    // public function records(Request $request): Response
+    // {
+    //     $query = Ticket::query();
+    //     $dateFilter = $request->date_filter;
+ 
+    //     switch($dateFilter){
+    //         case 'today':
+    //             $query->whereDate('report_received',Carbon::today());
+    //             break;
+    //         case 'yesterday':
+    //             $query->wheredate('report_received',Carbon::yesterday());
+    //             break;
+    //         case 'this_week':
+    //             $query->whereBetween('report_received',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()]);
+    //             break;
+    //         case 'last_week':
+    //             $query->whereBetween('report_received',[Carbon::now()->subWeek(),Carbon::now()]);
+    //             break;
+    //         case 'this_month':
+    //             $query->whereMonth('report_received',Carbon::now()->month);
+    //             break;
+    //         case 'last_month':
+    //             $query->whereMonth('report_received',Carbon::now()->subMonth()->month);
+    //             break;
+    //         case 'this_year':
+    //             $query->whereYear('report_received',Carbon::now()->year);
+    //             break;
+    //         case 'last_year':
+    //             $query->whereYear('report_received',Carbon::now()->subYear()->year);
+    //             break;
+    //         case 'custom_date':
+    //             $startDate = $request->input('start_date');
+    //             $endDate = $request->input('end_date');
+    
+    //         if ($startDate && $endDate) {
+    //             $query->whereBetween('report_received', [$startDate, $endDate]);
+    //         }
+
+    //         break;
+    //     }
+             
+    //     $tickets = $query->get();
+ 
+    //     return response()->view('tickets.report.records', compact('tickets','dateFilter'));
     // }
 }

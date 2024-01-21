@@ -109,7 +109,7 @@ return [
     'create_consumable' => 'Create Consumable',
     'ammend' => 'Ammend',
     'rejected' => 'Rejected',
-    'update' => 'Kemas Kini',
+    'update' => 'Update',
 
     'ticket_list' => 'Ticket List',
     'consumable_list' => 'Consumable List',
@@ -235,4 +235,17 @@ return [
     'eqs_list' => 'Equipment Status List',
     'new_eqs' => 'New Equipment Status',
     'edit_eqs' => 'Edit Equipment Status',
+
+    // date filter
+    'all_dates' => 'All Dates',
+    'today' => 'Today',
+    'yesterday' => 'Yesterday',
+    'this_week' => 'This Week',
+    'last_week' => 'Last Week',
+    'this_month' => 'This Month',
+    'last_month' => 'Last Month',
+    'this_year' => 'This Year',
+    'last_year' => 'Last Year',
+    'custom_date' => 'Custom Date',
+    'filter' => 'Filter',
 ];

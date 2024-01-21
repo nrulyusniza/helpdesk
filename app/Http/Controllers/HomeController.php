@@ -150,11 +150,14 @@ class HomeController extends Controller
                         ->count();
 
         // area chart
+        $currentYear = now()->year;
+
         // fetch ticket counts by month from the db based on site_id
         $ticketCounts = Ticket::whereHas('issue', function ($query) use ($site_id) {
                                             $query->where('site_id', $site_id);
                                         })
                                         ->selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+                                        ->whereYear('report_received', $currentYear)
                                         ->groupBy('month')
                                         ->orderBy('month')
                                         ->pluck('count', 'month');
@@ -234,11 +237,14 @@ class HomeController extends Controller
                         ->count();
 
         // area chart
+        $currentYear = now()->year;
+
         // fetch ticket counts by month from the db based on site_id
         $ticketCounts = Ticket::whereHas('issue', function ($query) use ($site_id) {
                                             $query->where('site_id', $site_id);
                                         })
                                         ->selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+                                        ->whereYear('report_received', $currentYear)
                                         ->groupBy('month')
                                         ->orderBy('month')
                                         ->pluck('count', 'month');

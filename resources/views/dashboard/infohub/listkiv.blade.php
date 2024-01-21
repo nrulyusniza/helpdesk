@@ -5,118 +5,124 @@
 <div class="col-xl-12">
     <div class="nav-align-top mb-4">
 
-        <ul class="nav nav-tabs nav-fill" role="tablist">            
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-card me-1"></i> {{ __('messages.cd_ticket') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listTicCount }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-lock-open me-1"></i> {{ __('messages.cd_open') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listOpenCount }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-lock me-1"></i> {{ __('messages.cd_closed') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listClosedCount }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-archive me-1"></i> {{ __('messages.cd_kiv') }}
-                    <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listKivCount }}</span>
-                </a>
-            </li>
-        </ul>
+        <div class="card">
+            <div class="col-12">
 
-        <div class="tab-content">
-            <div class="tab-pane fade show active" role="tabpanel">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="example">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{ __('messages.report_date') }}</th>
-                                    <th>{{ __('messages.request_no') }}</th>
-                                    <th>{{ __('messages.ticket_no') }}</th>
-                                    <th>{{ __('messages.ticket_type') }}</th>
-                                    <!-- <th>Site</th> -->
-                                    <th>{{ __('messages.fault_desc') }}</th>
-                                    <!-- <th>Admin Comments</th> -->
-                                    <th>{{ __('messages.equipment') }}</th>
-                                    <th>{{ __('messages.severity') }}</th>
-                                    <!-- <th>Status</th> -->
-                                    <!-- <th>Created By</th>
-                                    <th>Create Date</th>
-                                    <th>Update By</th>
-                                    <th>Update Date</th> -->
-                                    <th>{{ __('messages.action') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                @foreach ($listKiv as $lkt)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $lkt->report_received->format('M d, Y') }}</td>
-                                    <td>{{ $lkt->ticket_no }}</td>
-                                    <td>{{ $lkt->ticket_no }}</td>
-                                    <td>{{ $lkt->type->request_type }}</td>
-                                    <!-- <td>{{ $lkt->issue->site->site_name ?? " " }}</td> -->
-                                    <td>{{ $lkt->issue->fault_description ?? " " }}</td>
-                                    <!-- <td>{{ $lkt->issue->admin_comments ?? " " }}</td> -->
-                                    <td>{{ $lkt->issue->equipment->asset_hostname ?? " " }} - {{ $lkt->issue->equipment->asset_type ?? " " }}</td>
-                                    <!-- <td>{{ $lkt->severity->severity_label ?? " " }}</td> -->
-                                    <td>
-                                        @if(isset($lkt->severity->severity_label))
-                                            @php
-                                                $severityLabel = $lkt->severity->severity_label;
-                                                $badgeClass = '';
+                <ul class="nav nav-tabs nav-fill" role="tablist">            
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listticket') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listticket') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-card me-1"></i> {{ __('messages.cd_ticket') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listTicCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listopen') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listopen') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-lock-open me-1"></i> {{ __('messages.cd_open') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listOpenCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listclosed') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listclosed') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-lock me-1"></i> {{ __('messages.cd_closed') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listClosedCount }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.infohub.listkiv') }}" class="nav-link {{ request()->routeIs('dashboard.infohub.listkiv') ? 'active' : '' }}">
+                            <i class="tf-icons bx bx-archive me-1"></i> {{ __('messages.cd_kiv') }}
+                            <span class="badge badge-center h-px-20 w-px-20 bg-warning ms-1">{{ $listKivCount }}</span>
+                        </a>
+                    </li>
+                </ul>
 
-                                                switch($lkt->severity->id) {
-                                                    case 1:
-                                                        $badgeClass = 'bg-danger';
-                                                        break;
-                                                    case 2:
-                                                        $badgeClass = 'bg-primary';
-                                                        break;
-                                                    case 3:
-                                                        $badgeClass = 'bg-success';
-                                                        break;
-                                                    default:
-                                                        $badgeClass = 'bg-label-info';
-                                                        break;
-                                                }
-                                            @endphp
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ __('messages.report_date') }}</th>
+                                            <th>{{ __('messages.request_no') }}</th>
+                                            <th>{{ __('messages.ticket_no') }}</th>
+                                            <th>{{ __('messages.ticket_type') }}</th>
+                                            <!-- <th>Site</th> -->
+                                            <th>{{ __('messages.fault_desc') }}</th>
+                                            <!-- <th>Admin Comments</th> -->
+                                            <th>{{ __('messages.equipment') }}</th>
+                                            <th>{{ __('messages.severity') }}</th>
+                                            <!-- <th>Status</th> -->
+                                            <!-- <th>Created By</th>
+                                            <th>Create Date</th>
+                                            <th>Update By</th>
+                                            <th>Update Date</th> -->
+                                            <th>{{ __('messages.action') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                        @foreach ($listKiv as $lkt)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $lkt->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $lkt->ticket_no }}</td>
+                                            <td>{{ $lkt->ticket_no }}</td>
+                                            <td>{{ $lkt->type->request_type }}</td>
+                                            <!-- <td>{{ $lkt->issue->site->site_name ?? " " }}</td> -->
+                                            <td>{{ $lkt->issue->fault_description ?? " " }}</td>
+                                            <!-- <td>{{ $lkt->issue->admin_comments ?? " " }}</td> -->
+                                            <td>{{ $lkt->issue->equipment->asset_hostname ?? " " }} - {{ $lkt->issue->equipment->asset_type ?? " " }}</td>
+                                            <!-- <td>{{ $lkt->severity->severity_label ?? " " }}</td> -->
+                                            <td>
+                                                @if(isset($lkt->severity->severity_label))
+                                                    @php
+                                                        $severityLabel = $lkt->severity->severity_label;
+                                                        $badgeClass = '';
 
-                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
-                                        @else
-                                            <span class="badge bg-secondary me-1"></span>
-                                        @endif
-                                    </td>
-                                    <!-- <td>{{ $lkt->ticstatus->ticstatus_label ?? " " }}</td> -->
-                                    <!-- <td>{{ $lkt->user->fullname ?? " " }}</td>
-                                    <td>{{ $lkt->create_date->format('M d, Y') }}</td>
-                                    <td>{{ $lkt->user->fullname ?? " " }}</td>
-                                    <td>{{ $lkt->update_date->format('M d, Y') }}</td> -->
-                                    <td>
-                                        <form action="" method="POST">
-                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lkt->id) }}" style="color:#57cc99"
-                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                                title="<span>Details Ticket Log</span>"></a>
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>                    
-                        </table>
+                                                        switch($lkt->severity->id) {
+                                                            case 1:
+                                                                $badgeClass = 'bg-danger';
+                                                                break;
+                                                            case 2:
+                                                                $badgeClass = 'bg-primary';
+                                                                break;
+                                                            case 3:
+                                                                $badgeClass = 'bg-success';
+                                                                break;
+                                                            default:
+                                                                $badgeClass = 'bg-label-info';
+                                                                break;
+                                                        }
+                                                    @endphp
+
+                                                    <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                                @else
+                                                    <span class="badge bg-secondary me-1"></span>
+                                                @endif
+                                            </td>
+                                            <!-- <td>{{ $lkt->ticstatus->ticstatus_label ?? " " }}</td> -->
+                                            <!-- <td>{{ $lkt->user->fullname ?? " " }}</td>
+                                            <td>{{ $lkt->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $lkt->user->fullname ?? " " }}</td>
+                                            <td>{{ $lkt->update_date->format('M d, Y') }}</td> -->
+                                            <td>
+                                                <form action="" method="POST">
+                                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lkt->id) }}" style="color:#57cc99"
+                                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                        title="<span>Details Ticket Log</span>"></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>                    
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
 

@@ -80,6 +80,11 @@
     <!-- Language -->
     <link rel="stylesheet" href="{{asset('css/translate.css')}}">
 
+    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+
+    <!-- Timestamp for Notifications -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
   </head>
 
   <body>
@@ -444,9 +449,7 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
 
-                
-                <!-- <span class="navbar-nav mr-sm-2" id="google_translate_element"></span> -->
-
+                <!-- Switch Languages -->
                 <form method="post" action="{{ route('language.switch') }}">
                     @csrf
                     <select name="locale" onchange="this.form.submit()">
@@ -455,7 +458,6 @@
                     </select>
                 </form>
 
-
                 <!-- Notification -->
                 @if(Auth::user()->role_id==1)
                 <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
@@ -463,7 +465,7 @@
                     <i class="bx bx-bell bx-sm"></i>
                     <span class="badge bg-danger rounded-pill badge-notifications">{{ Auth::user()->unreadNotifications->count() }}</span>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
+                  <ul class="dropdown-menu dropdown-menu-end py-0" style="max-height: 400px; overflow-y: auto; min-width: 350px;">
                     @if(Auth::user()->unreadNotifications)
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
@@ -488,10 +490,17 @@
                                 <!-- <h6 class="mb-1">Charles Franklin</h6> -->
                                 <p class="mb-0">{{ $notification->data['data'] }}</p>
                                 <!-- <small class="text-muted">12hr ago</small> -->
+                                <small class="text-muted">
+                                  <script>
+                                      var timestamp = '{{ $notification->created_at }}';
+                                      var timeAgo = moment(timestamp).fromNow();
+                                      document.write(timeAgo);
+                                  </script>
+                                </small>
                               </div>
                               <div class="flex-shrink-0 dropdown-notifications-actions">
                                 <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="bx bx-x"></span></a>
-                                <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                <!-- <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a> -->
                               </div>
                             </div>
                           <!-- </a> -->
@@ -505,19 +514,26 @@
                         <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
+                              <!-- <div class="avatar">
                                 <img src="{{ asset('pages/assets/img/avatars/7.png') }}" alt class="w-px-40 h-auto rounded-circle">
-                              </div>
+                              </div> -->
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">New Message ✉️</h6>
+                              <!-- <h6 class="mb-1">New Message ✉️</h6> -->
                               <p class="mb-0">{{ $notification->data['data'] }}</p>
-                              <small class="text-muted">1h ago</small>
+                              <!-- <small class="text-muted">1h ago</small> -->
+                              <small class="text-muted">
+                                <script>
+                                    var timestamp = '{{ $notification->created_at }}';
+                                    var timeAgo = moment(timestamp).fromNow();
+                                    document.write(timeAgo);
+                                </script>
+                              </small>
                             </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <!-- <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
                               <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                            </div>
+                            </div> -->
                           </div>
                         </li>
                         @endforeach
@@ -536,7 +552,7 @@
                     <i class="bx bx-bell bx-sm"></i>
                     <span class="badge bg-danger rounded-pill badge-notifications">{{ Auth::user()->unreadNotifications->count() }}</span>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
+                  <ul class="dropdown-menu dropdown-menu-end py-0" style="max-height: 400px; overflow-y: auto; min-width: 350px;">
                     @if(Auth::user()->unreadNotifications)
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
@@ -551,18 +567,25 @@
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
+                              <!-- <div class="avatar">
                                 <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                              </div>
+                              </div> -->
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">Charles Franklin</h6>
+                              <!-- <h6 class="mb-1">Charles Franklin</h6> -->
                               <p class="mb-0">{{ $notification->data['data'] }}</p>
-                              <small class="text-muted">12hr ago</small>
+                              <!-- <small class="text-muted">12hr ago</small> -->
+                              <small class="text-muted">
+                                  <script>
+                                      var timestamp = '{{ $notification->created_at }}';
+                                      var timeAgo = moment(timestamp).fromNow();
+                                      document.write(timeAgo);
+                                  </script>
+                                </small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                              <!-- <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a> -->
                             </div>
                           </div>
                         </li>
@@ -571,19 +594,26 @@
                         <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
+                              <!-- <div class="avatar">
                                 <img src="{{ asset('pages/assets/img/avatars/7.png') }}" alt class="w-px-40 h-auto rounded-circle">
-                              </div>
+                              </div> -->
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">New Message ✉️</h6>
+                              <!-- <h6 class="mb-1">New Message ✉️</h6> -->
                               <p class="mb-0">{{ $notification->data['data'] }}</p>
-                              <small class="text-muted">1h ago</small>
+                              <!-- <small class="text-muted">1h ago</small> -->
+                              <small class="text-muted">
+                                  <script>
+                                      var timestamp = '{{ $notification->created_at }}';
+                                      var timeAgo = moment(timestamp).fromNow();
+                                      document.write(timeAgo);
+                                  </script>
+                                </small>
                             </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <!-- <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
                               <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                            </div>
+                            </div> -->
                           </div>
                         </li>
                         @endforeach
@@ -602,7 +632,7 @@
                     <i class="bx bx-bell bx-sm"></i>
                     <span class="badge bg-danger rounded-pill badge-notifications">{{ Auth::user()->unreadNotifications->count() }}</span>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
+                  <ul class="dropdown-menu dropdown-menu-end py-0" style="max-height: 400px; overflow-y: auto; min-width: 350px;">
                     @if(Auth::user()->unreadNotifications)
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
@@ -617,14 +647,21 @@
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
+                              <!-- <div class="avatar">
                                 <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                              </div>
+                              </div> -->
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">Charles Franklin</h6>
+                              <!-- <h6 class="mb-1">Charles Franklin</h6> -->
                               <p class="mb-0">{{ $notification->data['data'] }}</p>
-                              <small class="text-muted">12hr ago</small>
+                              <!-- <small class="text-muted">12hr ago</small> -->
+                              <small class="text-muted">
+                                <script>
+                                    var timestamp = '{{ $notification->created_at }}';
+                                    var timeAgo = moment(timestamp).fromNow();
+                                    document.write(timeAgo);
+                                </script>
+                              </small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
@@ -637,14 +674,21 @@
                         <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
+                              <!-- <div class="avatar">
                                 <img src="{{ asset('pages/assets/img/avatars/7.png') }}" alt class="w-px-40 h-auto rounded-circle">
-                              </div>
+                              </div> -->
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">New Message ✉️</h6>
+                              <!-- <h6 class="mb-1">New Message ✉️</h6> -->
                               <p class="mb-0">{{ $notification->data['data'] }}</p>
-                              <small class="text-muted">1h ago</small>
+                              <!-- <small class="text-muted">1h ago</small> -->
+                              <small class="text-muted">
+                                <script>
+                                    var timestamp = '{{ $notification->created_at }}';
+                                    var timeAgo = moment(timestamp).fromNow();
+                                    document.write(timeAgo);
+                                </script>
+                              </small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
@@ -890,25 +934,11 @@
             integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" 
             crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
-    <!-- <script>
-      // Get the button that opens the modal
-      var btn = document.getElementById("chatbot-button");
-
-      // When the user clicks the button, open the modal 
-      btn.onclick = function() {
-        // Get the modal
-        var modal = document.getElementById('myModal');
-
-        // Display the modal
-        modal.style.display = "block";
-      }
-    </script> -->
-
     @yield('scriptlibraries')
 
     <!-- Date Range Picker -->
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script type="text/javascript">
@@ -943,21 +973,7 @@
         // }); 
 
       });
-    </script>
-
-
-
-    <!-- <script type="text/javascript">
-      function googleTranslateElementInit() {
-              new google.translate.TranslateElement({
-              pageLanguage: 'en' , 
-              layout : google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay : false,
-              multiLanguagePage : true,
-              includedLanguages : 'en,ms'}, 'google_translate_element');
-            }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+    </script> -->
 
   </body>
 </html>

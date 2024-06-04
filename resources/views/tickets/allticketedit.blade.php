@@ -71,7 +71,7 @@
                                 <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
                                 @if ($ticket->issue->attachment)
                                     <!-- <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a> -->
-                                    <a href="{{ asset('storage/' . $ticket->issue->attachment) }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
+                                    <a href="{{ asset('storage/' . $ticket->issue->attachment) }}" target="_blank">View Attachment</a>
                                 @else
                                     <p>{{ __('messages.no_attachment') }}</p>
                                 @endif
@@ -123,6 +123,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label>
                                     <input class="form-control" type="file" name="attachment" id="formFile" />
+                                    <!-- <a href="{{ asset('storage/' . $ticket->attachment) }}" target="_blank">View Attachment</a> -->
                                 </div>
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">{{ __('messages.submit') }}</button>
@@ -182,7 +183,7 @@
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
                                     <!-- <td>{{ $log->attachment }}</td> -->
-                                    <td><a href="{{ asset('storage/' . $log->attachment) }}" target="_blank">View Attachment</a></td>
+                                    <td><a href="{{ asset('storage/attachments/' . $log->attachment) }}" target="_blank">View Attachment</a></td>
                                     <!-- <td>
                                         @if ($log->attachment)
                                             <a href="{{ asset('storage/' . $log->attachment) }}" target="_blank">{{ basename($log->attachment) }}</a>

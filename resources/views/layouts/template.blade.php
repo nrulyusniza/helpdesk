@@ -750,12 +750,12 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="{{ route('error.pagenotfound') }}">
+                    <!-- <li>
+                      <a class="dropdown-item" href="{{ route('errors.pagenotfound') }}">
                         <i class="bx bx-cog me-2"></i>
                         <span class="align-middle">{{ __('messages.page_error') }}</span>
                       </a>
-                    </li>
+                    </li> -->
                     <li>
                       <a class="dropdown-item" href="{{ route('logout') }}" onclick="confirmLogout(); return false;">
                         <i class="bx bx-power-off me-2"></i>
@@ -875,7 +875,7 @@
             <!-- User input box -->
             <div class="chat-bar-input-block" >
                 <div id="userInput">
-                    <input id="textInput" class="input-box lang"  key="send" type="text" name="msg" >
+                    <input id="textInput" class="input-box lang"  key="send" type="text" name="msg" placeorder="Send messages here..." required>
                 </div>
                 <div class="chat-bar-icons">
                     <i id="chat-icon" class="bx bx-send" onclick="sendButton()"></i>

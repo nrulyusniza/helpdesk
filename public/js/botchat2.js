@@ -34,7 +34,7 @@ var arrLang = new Array();
     // MALAY CONTENT
     // arrLang['ms']['title'] = 'NCO PUSAT BANTUAN';
     arrLang['ms']['title'] = 'NCO MEJA BANTUAN';
-    arrLang['ms']['greeting'] = 'Salam✋ Selamat Datang ke NCO Pusat Bantuan';
+    arrLang['ms']['greeting'] = 'Salam✋ Selamat Datang ke NCO Meja Bantuan';
     arrLang['ms']['create ticket'] = 'Daftar Tiket';
     // arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Buang';
     arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Habis';
@@ -161,11 +161,11 @@ function getBotResponse(message) {
     } else if (message == "saya nak daftar barang pakai buang" || message == "daftar barang pakai buang" || message == "barang pakai buang" || message == "permintaan" || message == "permintaan barang pakai buang") {
         return window.location.href = route('issues.allissuecreate');
     } else if (message == "asas pengetahuan" || message == "Asas Pengetahuan" || message == "ASAS PENGETAHUAN") {
-        return "Sila klik di Menu Utama untuk khidmat yang anda mahukan";
+        return window.location.pathname("{{ route('knowledgebases.allknowledgebase') }}", "_blank");
     } else if (message == "laporan" || message == "Laporan" || message == "LAPORAN") {
-        return "Sila klik di Menu Utama untuk khidmat yang anda mahukan";
+        return window.location.pathname("{{ route('tickets.report.producereport') }}", "_blank");
     } else if (message == "pengguna" || message == "Pengguna" || message == "PENGGUNA") {
-        return "Sila klik di Menu Utama untuk khidmat yang anda mahukan";
+        return window.location.pathname("{{ route('users.alluser') }}", "_blank");
     } else if (message == "terima kasih" || message == "Terima kasih" || message == "TERIMA KASIH" || message == "Terima Kasih") {
         return "Sama-sama!";
     }

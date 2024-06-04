@@ -71,7 +71,7 @@
                     <!-- <input type="text" class="form-control" name="attachment" value="{{ $issue->attachment }}" readonly> -->
                     @if ($issue->attachment)
                         <!-- <a href="{{ $issue->attachment }}" target="_blank">{{ basename($issue->attachment) }}</a> -->
-                        <a href="{{ asset('storage/' . $issue->attachment) }}" target="_blank">{{ basename($issue->attachment) }}</a>
+                        <a href="{{ asset('storage/' . $issue->attachment) }}" target="_blank">View Attachment</a>
                     @else
                         <p>{{ __('messages.no_attachment') }}</p>
                     @endif

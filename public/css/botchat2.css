@@ -18,8 +18,8 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .collapsible {
-    background: -webkit-linear-gradient(left, #724ae8, #ffa2ff);
-    color: #fff;
+    background: #724ae8;
+    color: #ffff;
     cursor: pointer;
     padding: 18px;
     height: 60px;
@@ -32,7 +32,13 @@ body {
     border-bottom: none;
     position: fixed;
     right: 40px;
-    bottom: 35px;
+    bottom: 15%;
+}
+/* ICON BOT */
+.collapsible i {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
 }
 /* BUTTON TOGGLE */
 .button-box {
@@ -61,6 +67,7 @@ body {
 	border-radius: 5px;
 	transition: .5s;
 }
+/*CHAT BOX*/
 .content {
     max-height: 0;
     overflow: hidden;
@@ -69,16 +76,18 @@ body {
     border-radius: 15px;
     position: fixed;
     right: 40px;
-    bottom: 100px;
+    bottom: 25%;
     transform-origin: bottom right;
     box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
                 0 32px 64px -48px rgba(0,0,0,0.5);
 }
 /*BOX : NCO HELPDESK */
 .content header {
-    background: -webkit-linear-gradient(left, #724ae8, #ffa2ff);
-    /*background: #724ae8;*/
-    padding: 2px; /*size header title nco helpdesk */
+    /* background: -webkit-linear-gradient(left, #724ae8, #ffa2ff); */
+    background: #724ae8;
+    /*padding: 2px; /*size header title nco helpdesk */
+    padding-top: 12px;
+    padding-bottom: 2px;
     text-align: center;
 }
 /*TITLE NCO HELPDESK */
@@ -96,13 +105,14 @@ body {
     height: max-content;
     transition: max-height 0.2s ease-out;
 }
+/*BOX CHAT*/
 .outer-container {
-    min-height: 350px; /*if this height change, max-height need to change it too. will effect to the first conversation*/
+    min-height: 273px; /*if this height change, max-height need to change it too. will effect to the first conversation*/
     bottom: 0%;
     position: relative;
 }
 .chat-container {
-    max-height: 350px; /*if this height change, max-height need to change it too. will effect to the first conversation*/
+    max-height: 273px; /*if this height change, max-height need to change it too. will effect to the first conversation*/
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -189,10 +199,12 @@ body {
     box-sizing: border-box;
     width: 15%;
     float: right;
-    font-size: 20px;
     cursor: pointer;
     /* color: #333; */
     color: #724ae8;
+}
+.chat-bar-icons i {
+    font-size: 25px;
 }
 #chat-icon:hover {
     opacity: .7;

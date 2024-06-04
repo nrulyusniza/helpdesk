@@ -44,7 +44,7 @@
                     </div>                
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reportingperson_id">{{ __('messages.reported_by') }}</label>
-                        <select id="reportingperson_id" class="form-control" name="reportingperson_id">
+                        <select id="reportingperson_id" class="form-select" name="reportingperson_id">
                             <!-- <option selected disabled>-- Select Name --</option>
                                 @foreach(App\Reportingperson::all()->sortBy('rptpers_name') as $reportingperson)
                                 <option value="{{$reportingperson->id}}">{{$reportingperson->rptpers_name}}</option>
@@ -53,7 +53,8 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phone_no">{{ __('messages.phone_number') }}</label>
-                        <input type="number" class="form-control" name="phone_no">                       
+                        <input type="number" class="form-control" name="phone_no" id="phone_no">
+                        <!-- <input type="number" class="form-control" name="phone_no" id="phone_no" readonly>                         -->
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reqcategory_id">{{ __('messages.category') }}</label>
@@ -75,7 +76,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="create_date">{{ __('messages.date') }}</label>
-                        <input type="date" class="form-control" name="create_date">
+                        <input type="date" class="form-control" name="create_date" value="{{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('Y-m-d') }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label>
@@ -122,7 +123,7 @@
                         $('#reportingperson_id').append('<option selected disabled>-- {{ __('messages.select_name') }} --</option>');
                         
                         $.each(data, function(index, reportingperson) {
-                            $('#reportingperson_id').append('<option value="' + reportingperson.id + '">' + reportingperson.rptpers_name + '</option>');
+                            $('#reportingperson_id').append('<option value="' + reportingperson.id + '" data-mobile="' + reportingperson.rptpers_mobile + '">' + reportingperson.rptpers_name + '</option>');
                         });
                     }
                 });
@@ -146,6 +147,13 @@
                     }
                 });
 
+            });
+
+            // when a reporting person is selected, their rptpers_mobile is automatically filled in the phone_no field
+            $('#reportingperson_id').change(function() {
+                var selectedOption = $(this).find('option:selected');
+                var mobileNo = selectedOption.data('mobile');
+                $('#phone_no').val(mobileNo);
             });
         });
     </script>

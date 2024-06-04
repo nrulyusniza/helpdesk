@@ -155,9 +155,12 @@ class TicketController extends Controller
         // currently authenticated user
         $currentUpdateUser = auth()->user();
 
+        // set update_date to the current date and time to timezone Malaysia
+        date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for update_date column, submit datatype datetime sync with pc system
+
         // new ticket log entry with the update_by field set to the username of the authenticated user
         $newTicketLog = $ticket->ticketlog()->create([
-            'date'      => now(), // current date and time
+            'date'      => Carbon::now('Asia/Kuala_Lumpur'), // current date and time
             'description' => $request->input('description'),
             'ticket_id' => $ticket->id,
             'update_by' => $currentUpdateUser->username,
@@ -170,6 +173,8 @@ class TicketController extends Controller
 
         $ticket->update([
             'ticstatus_id' => $newTicketLog->ticstatus_id,  // ticstatus_id in tickets table will regularly update
+            'updated_by' => $newTicketLog->update_by,
+            'update_date' => Carbon::now('Asia/Kuala_Lumpur'),
         ]);
 
         // redirect back
@@ -215,9 +220,12 @@ class TicketController extends Controller
         // currently authenticated user
         $currentUpdateUser = auth()->user();
 
+        // set update_date to the current date and time to timezone Malaysia
+        date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for update_date column, submit datatype datetime sync with pc system
+
         // new ticket log entry with the update_by field set to the username of the authenticated user
         $newTicketLog = $ticket->ticketlog()->create([
-            'date'      => now(), // current date and time
+            'date'      => Carbon::now('Asia/Kuala_Lumpur'), // current date and time
             'description' => $request->input('description'),
             'ticket_id' => $ticket->id,
             'update_by' => $currentUpdateUser->username,
@@ -230,6 +238,8 @@ class TicketController extends Controller
 
         $ticket->update([
             'ticstatus_id' => $newTicketLog->ticstatus_id,  // ticstatus_id in tickets table will regularly update
+            'updated_by' => $newTicketLog->update_by,
+            'update_date' => Carbon::now('Asia/Kuala_Lumpur'),
         ]);
 
         // redirect back

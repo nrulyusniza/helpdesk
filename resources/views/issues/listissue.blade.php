@@ -26,7 +26,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            th>{{ __('messages.request_no') }}</th>
+                            <th>{{ __('messages.request_no') }}</th>
                             <th>{{ __('messages.reported_by') }}</th>
                             <th>{{ __('messages.report_date') }}</th>
                             <th>{{ __('messages.site') }}</th>

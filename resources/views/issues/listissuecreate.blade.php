@@ -43,7 +43,7 @@
                             @endforeach
                         </select>                        
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <!-- <div class="mb-3 col-md-6">
                         <label class="form-label" for="reportingperson_id">{{ __('messages.reported_by') }}</label>
                         <select id="defaultSelect" class="form-select" name="reportingperson_id">
                             <option selected disabled>-- {{ __('messages.select_name') }} --</option>
@@ -54,7 +54,20 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phone_no">{{ __('messages.phone_number') }}</label>
-                        <input type="number" class="form-control" name="phone_no">                       
+                        <input type="number" class="form-control" name="phone_no" id="phone_no">                      
+                    </div> -->
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="reportingperson_id">{{ __('messages.reported_by') }}</label>
+                        <select id="reportingpersonSelect" class="form-select" name="reportingperson_id" onchange="prefillPhoneNo()">
+                            <option selected disabled>-- {{ __('messages.select_name') }} --</option>
+                            @foreach(App\Reportingperson::where('site_id', auth()->user()->site_id)->orderBy('rptpers_name')->get() as $reportingperson)
+                                <option value="{{$reportingperson->id}}" data-mobile="{{$reportingperson->rptpers_mobile}}">{{$reportingperson->rptpers_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="phone_no">{{ __('messages.phone_number') }}</label>
+                        <input type="number" class="form-control" name="phone_no" id="phone_no">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="reqcategory_id">{{ __('messages.category') }}</label>
@@ -76,7 +89,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="create_date">{{ __('messages.date') }}</label>
-                        <input type="date" class="form-control" name="create_date">
+                        <input type="date" class="form-control" name="create_date" value="{{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('Y-m-d') }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label>
@@ -97,4 +110,28 @@
     </div>
 </div>
 
-@endsection
+@stop
+
+@section('scriptlibraries')
+
+    <script>
+        // $(document).ready(function() {
+        //     // when a reporting person is selected, their rptpers_mobile is automatically filled in the phone_no field
+        //     $('#reportingperson_id').change(function() {
+        //         var selectedOption = $(this).find('option:selected');
+        //         var mobileNo = selectedOption.data('mobile');
+        //         $('#phone_no').val(mobileNo);
+        //     });
+        // });
+
+        // when a reporting person is selected, their rptpers_mobile is automatically filled in the phone_no field
+        function prefillPhoneNo() {
+            var select = document.getElementById('reportingpersonSelect');
+            var phoneInput = document.getElementById('phone_no');
+            var selectedOption = select.options[select.selectedIndex];
+            var mobile = selectedOption.getAttribute('data-mobile');
+            phoneInput.value = mobile;
+        }
+    </script>
+
+@stop

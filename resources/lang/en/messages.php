@@ -19,6 +19,9 @@ return [
     'cd_user' => 'Users',
     'cd_site' => 'Sites',
     'cd_asset' => 'Assets',
+    'cd_new' => 'New',
+    'cd_due5days' => 'Due in 5 days',
+    'cd_overdue' => 'Overdue',
 
     // area chart
     'title_ttltix' => 'Total Tickets by Reported Tickets',
@@ -146,7 +149,7 @@ return [
     'edit_asset' => 'Edit Asset',
     'asset_log' => 'Asset Log',
     'asset_location' => 'Asset Location',
-    'asset_note' => '[If there are any changes, update at Asset Log]',
+    'asset_note' => 'If there are any changes, update at Asset Log',
     'asset_details' => 'Asset Details',
     'back_editform' => 'Back to Edit Form',
     'location' => 'Location',
@@ -248,4 +251,10 @@ return [
     'last_year' => 'Last Year',
     'custom_date' => 'Custom Date',
     'filter' => 'Filter',
+
+    // page error
+    'page_error' => 'Page Error',
+    'page_not_found' => 'Page Not Found',
+    'url_not_found' => 'The requested URL was not found on this server',
+    'back_to_dashboard' => 'Back to Dashboard',
 ];

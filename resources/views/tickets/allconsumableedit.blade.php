@@ -72,7 +72,7 @@
                                     <!-- <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a> -->
                                     <a href="{{ asset('storage/' . $ticket->issue->attachment) }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
                                 @else
-                                    <p>{{ __('messages.no_available') }}</p>
+                                    <p>{{ __('messages.no_attachment') }}</p>
                                 @endif
                             </div>
                             <div class="mb-3">
@@ -94,7 +94,7 @@
                                     <label class="form-label" for="ticstatus_id">{{ __('messages.current_ticket_status') }}</label>
                                     <select id="defaultSelect" class="form-select" name="ticstatus_id">
                                         <option selected readonly>-- {{ __('messages.select_status') }} --</option>
-                                            @foreach(App\Ticstatus::all() as $ticstatus)
+                                            @foreach(App\Ticstatus::where('id', '!=', 1)->get() as $ticstatus)
                                             <option value="{{ $ticstatus->id }}">{{ $ticstatus->ticstatus_label }}</option>
                                             @endforeach
                                     </select>
@@ -105,11 +105,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="response_date">{{ __('messages.response_date') }}</label>
-                                    <input type="date" class="form-control" name="response_date" value="response_date">
+                                    <input type="date" class="form-control" name="response_date" value="{{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('Y-m-d') }}">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="response_time">{{ __('messages.response_time') }}</label>
-                                    <input type="time" class="form-control" name="response_time" value="response_time">
+                                    <input type="time" class="form-control" name="response_time" value="{{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('H:i') }}">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="reaction_id">{{ __('messages.response_type') }}</label>
@@ -181,7 +181,8 @@
                                     <td>{{ $log->reaction->response_type }}</td>
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
-                                    <td>{{ $log->attachment }}</td>
+                                    <!-- <td>{{ $log->attachment }}</td> -->
+                                    <td><a href="{{ asset('storage/attachments/' . $log->attachment) }}" target="_blank">View Attachment</a></td>
                                     <!-- <td>{{ $log->ticstatus->ticstatus_label }}</td> -->
                                     <td>
                                         @if(isset($log->ticstatus->ticstatus_label))

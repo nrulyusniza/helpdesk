@@ -751,6 +751,12 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
+                      <a class="dropdown-item" href="{{ route('error.pagenotfound') }}">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">{{ __('messages.page_error') }}</span>
+                      </a>
+                    </li>
+                    <li>
                       <a class="dropdown-item" href="{{ route('logout') }}" onclick="confirmLogout(); return false;">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">{{ __('messages.logout') }}</span>
@@ -903,7 +909,15 @@
 
     <!-- Chatbot JS -->
     <script src="{{asset('js/botchat2.js')}}"></script>
-
+    
+    <!-- Page refresh -->
+    <script>
+        window.onload = function () {
+            setTimeout(function() => {
+                window.location.reload(10); //10 second
+            }, 5000);
+        }
+    </script>
         
 
     

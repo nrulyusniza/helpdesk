@@ -30,6 +30,75 @@
 <!-- Cards & Charts-->
 <div class="row g-4 mb-4">
 
+  <!-- 9 -->
+  <div class="col-sm-6 col-xl-4">
+    <a href=" ">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-start justify-content-between">
+            <div class="content-left">
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_new') }}</span>
+              <div class="d-flex align-items-end mt-2">
+                <h4 class="mb-0 me-2 text-white">XX</h4>
+              </div>
+            </div>
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-success">
+                <i class="bx bx-folder-plus bx-sm"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 10 -->
+  <div class="col-sm-6 col-xl-4">
+    <a href=" ">
+      <div class="card bg-warning text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-start justify-content-between">
+            <div class="content-left">
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_due5days') }}</span>
+              <div class="d-flex align-items-end mt-2">
+                <h4 class="mb-0 me-2 text-white">XX</h4>
+              </div>
+            </div>
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning">
+                <i class="bx bx-alarm-exclamation bx-sm"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 11 -->
+  <div class="col-sm-6 col-xl-4">
+    <a href=" ">
+      <div class="card bg-danger text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-start justify-content-between">
+            <div class="content-left">
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_overdue') }}</span>
+              <div class="d-flex align-items-end mt-2">
+                <h4 class="mb-0 me-2 text-white">XX</h4>
+              </div>
+            </div>
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger">
+                <i class="bx bx-time-five bx-sm"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
   <!-- 1 -->
   <div class="col-sm-6 col-xl-3">
     <a href="{{ route('dashboard.infohub.allticket') }}">

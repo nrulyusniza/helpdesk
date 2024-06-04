@@ -32,10 +32,12 @@ var arrLang = new Array();
     arrLang['en']['send'] = 'Send message here';
 
     // MALAY CONTENT
-    arrLang['ms']['title'] = 'NCO PUSAT BANTUAN';
+    // arrLang['ms']['title'] = 'NCO PUSAT BANTUAN';
+    arrLang['ms']['title'] = 'NCO MEJA BANTUAN';
     arrLang['ms']['greeting'] = 'Salam✋ Selamat Datang ke NCO Pusat Bantuan';
     arrLang['ms']['create ticket'] = 'Daftar Tiket';
-    arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Buang';
+    // arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Buang';
+    arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Habis';
     arrLang['ms']['video'] = 'Video untuk mendaftar tiket';
     arrLang['ms']['send'] = 'Hantar pesanan disini';
 
@@ -179,11 +181,11 @@ function getBotResponse(message) {
     } else if (message == "I want to create a consumable" || message == "create consumable" || message == "consumable" || message == "request" || message == "request consumable") {
         return window.location.pathname("{{asset('/consumable.php')}}", "_blank");
     } else if (message == "knowledge base" || message == "Knowledge Base" || message == "KNOWLEDGE BASE") {
-        return "Please click to the Main Menu to choose any services as you required";
+        return window.location.pathname("{{ route('knowledgebases.allknowledgebase') }}", "_blank");
     } else if (message == "reporting" || message == "Reporting" || message == "REPORTING") {
-        return "Please click to the Main Menu to choose any services as you required";
+        return window.location.pathname("{{ route('tickets.report.producereport') }}", "_blank");
     } else if (message == "user" || message == "User" || message == "USER") {
-        return "Please click to the Main Menu to choose any services as you required";
+        return window.location.pathname("{{ route('users.alluser') }}", "_blank");
     } else if (message == "thank you" || message == "Thank you" || message == "THANK YOU" || message == "Thank You") {
         return "You are welcome!";
     } else {

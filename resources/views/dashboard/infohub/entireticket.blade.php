@@ -65,7 +65,8 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $et->report_received->format('M d, Y') }}</td>
-                                            <td>{{ $et->ticket_no }}</td>
+                                            <!-- <td>{{ $et->ticket_no }}</td> -->
+                                            <td>{{ $et->issue->request_no }}</td>
                                             <td>{{ $et->ticket_no }}</td>
                                             <td>{{ $et->type->request_type }}</td>
                                             <!-- <td>{{ $et->issue->site->site_name ?? " " }}</td> -->

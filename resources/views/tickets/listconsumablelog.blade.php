@@ -46,7 +46,7 @@
                         <!-- <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a> -->
                         <a href="{{ asset('storage/' . $ticket->issue->attachment) }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a>
                     @else
-                        <p>{{ __('messages.no_available') }}</p>
+                        <p>{{ __('messages.no_attachment') }}</p>
                     @endif
                 </div>
                 <div class="mb-3 col-md-6">

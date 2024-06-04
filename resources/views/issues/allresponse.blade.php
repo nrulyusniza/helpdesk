@@ -93,23 +93,6 @@
                             <div class="card-body">
                                 <h5 class="mb-0 text-primary">{{ __('messages.admin_response') }}</h5><br>
                                 <div class="mb-3">
-                                    <label class="form-label" for="admin_comments">{{ __('messages.admin_comments') }}</label>
-                                    <textarea class="form-control" name="admin_comments" rows="5">{{ $issue->admin_comments }}</textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="severity_id">{{ __('messages.severity') }}</label>
-                                    <select id="defaultSelect" class="form-select" name="severity_id">
-                                        <option selected disabled>-- {{ __('messages.select_severity') }} --</option>
-                                            @foreach(App\Severity::all() as $severity)
-                                                <option value="{{$severity->id}}">{{$severity->severity_label}}</option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="update_date">{{ __('messages.update_date') }}</label>
-                                    <input type="date" class="form-control" name="update_date">
-                                </div> 
-                                <div class="mb-3">
                                     <label class="form-label">{{ __('messages.status') }}</label>
                                     <div class="col-md">
                                         @if ($issue->request_type == 1)
@@ -144,8 +127,8 @@
                                             class="form-check-input"
                                             type="radio"
                                             value="4"
-                                            id="ammendRadio" />
-                                            <label class="form-check-label" for="ammendRadio"> {{ __('messages.ammend') }} </label>
+                                            id="rejectedRadio" />
+                                            <label class="form-check-label" for="rejectedRadio"> {{ __('messages.rejected') }} </label>                                            
                                         </div>
                                         <div class="form-check mt-3">
                                             <input
@@ -153,11 +136,36 @@
                                             class="form-check-input"
                                             type="radio"
                                             value="5"
-                                            id="rejectedRadio" />
-                                            <label class="form-check-label" for="rejectedRadio"> {{ __('messages.rejected') }} </label>
+                                            id="ammendRadio" />
+                                            <label class="form-check-label" for="ammendRadio"> {{ __('messages.ammend') }} </label>
                                         </div> 
                                     </div>
                                 </div> 
+                                <!-- <div class="mb-3">
+                                    <label class="form-label" for="admin_comments">{{ __('messages.admin_comments') }}</label>
+                                    @if ($issue->request_type == 1)
+                                    <textarea class="form-control" name="admin_comments" rows="5">{{ $issue->admin_comments }}</textarea>
+                                    @endif
+                                    @if ($issue->request_type == 2)
+                                    @endif
+                                </div> -->
+                                <div class="mb-3" id="admin-comments-box">
+                                    <label class="form-label" for="admin_comments">{{ __('messages.admin_comments') }}</label>
+                                    <textarea class="form-control" name="admin_comments" id="admin_comments" rows="5">{{ $issue->admin_comments }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="severity_id">{{ __('messages.severity') }}</label>
+                                    <select id="defaultSelect" class="form-select" name="severity_id">
+                                        <option selected disabled>-- {{ __('messages.select_severity') }} --</option>
+                                            @foreach(App\Severity::all()->sortByDesc('id') as $severity) 
+                                                <option value="{{$severity->id}}">{{$severity->severity_label}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="update_date">{{ __('messages.update_date') }}</label>
+                                    <input type="date" class="form-control" name="update_date" value="{{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('Y-m-d') }}">
+                                </div>                                 
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">{{ __('messages.update') }}</button>
                                     <a type="cancel" class="btn btn-outline-secondary" href="{{ route('issues.allissue') }}">{{ __('messages.cancel') }}</a>
@@ -173,4 +181,45 @@
     </div>
 </div>
 
-@endsection
+@stop
+
+@section('scriptlibraries')
+
+<script>
+    // Admin comments box
+    document.addEventListener('DOMContentLoaded', function () {
+        const statusRadios = document.querySelectorAll('input[name="status-radio"]');
+        const adminCommentsBox = document.getElementById('admin-comments-box');
+        const adminCommentsTextarea = document.getElementById('admin_comments');
+
+        // To toggle the visibility and required status_id of the admin comments box
+        function toggleAdminCommentsBox() {
+            // Get the value of the selected radio button
+            const selectedValue = document.querySelector('input[name="status-radio"]:checked').value;
+
+            // If the selected value status_id = 2 (Ticket Created), 
+            // status_id = 3 (Consumable Created), 
+            // status_id = 4 (Rejected), status_id = 5 (Ammend)
+            if (selectedValue == 2) {
+                adminCommentsBox.style.display = 'block';   // Show the admin comments box
+                adminCommentsTextarea.required = false;     // Set the required admin_comments of the textarea to false
+            } else if (selectedValue == 3) {
+                adminCommentsBox.style.display = 'none';    // Hide the admin comments box
+                adminCommentsTextarea.required = false;     // Set the required admin_comments of the textarea to false
+            } else if (selectedValue == 4 || selectedValue == 5) {
+                adminCommentsBox.style.display = 'block';   // Show the admin comments box
+                adminCommentsTextarea.required = true;      // Set the required admin_comments of the textarea to true
+            }
+        }
+
+        // Add an event listener to each radio button to call the toggle function when changed
+        statusRadios.forEach(radio => {
+            radio.addEventListener('change', toggleAdminCommentsBox);
+        });
+
+        // Call the toggle function once on page load to set the initial state (refresh)
+        toggleAdminCommentsBox();
+    });
+</script>
+
+@stop

@@ -19,6 +19,9 @@ return [
     'cd_user' => 'Pengguna',
     'cd_site' => 'Tapak',
     'cd_asset' => 'Aset',
+    'cd_new' => 'Baru',
+    'cd_due5days' => 'Tamat dalam masa 5 hari',
+    'cd_overdue' => 'Tertunggak',
 
     // area chart
     'title_ttltix' => 'Jumlah Tiket Mengikut Tiket Dilaporkan',
@@ -248,4 +251,10 @@ return [
     'last_year' => 'Tahun Lepas',
     'custom_date' => 'Tarikh Tersuai',
     'filter' => 'Tapis',
+
+    // page error
+    'page_error' => 'Ralat Halaman',
+    'page_not_found' => 'Halaman Tidak Ditemui',
+    'url_not_found' => 'URL yang diminta tidak ditemui pada pelayan ini',
+    'back_to_dashboard' => 'Kembali ke Papan Pemuka',
 ];

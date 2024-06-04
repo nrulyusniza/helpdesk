@@ -97,10 +97,7 @@
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">{{ __('messages.create_date') }}</label>
                     <input type="text" class="form-control" name="create_date" value="{{ $issue->create_date->format('M d, Y') }}" readonly>
-                </div>
-                <div class="mt-2">
-                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('issues.allissue') }}">{{ __('messages.back') }}</a>
-                </div>                        
+                </div>                       
             </div>
                 
             <!-- text divider -->
@@ -133,7 +130,10 @@
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="update_date">{{ __('messages.update_date') }}</label>
                     <input type="text" class="form-control" name="update_date" value="{{ $issue->update_date instanceof \Carbon\Carbon ? $issue->update_date->format('M d, Y') : '' }}" readonly>
-                </div>                
+                </div>    
+                <div class="mt-2">
+                    <a type="cancel" class="btn btn-outline-secondary" href="{{ route('issues.allissue') }}">{{ __('messages.back') }}</a>
+                </div>             
             </div>
         </div>
         

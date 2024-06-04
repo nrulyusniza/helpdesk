@@ -355,6 +355,10 @@ Route::get('tickets/report/generatereport', 'TicketController@generatereport')->
 
 Route::post('/language-switch', 'LanguageController@switchLanguage')->name('language.switch');
 
+//------------------------------------------------------------------- PAGE ERROR -------------------------------------------------------------------
+Route::get('error/pagenotfound', 'HomeController@pagenotfound')->name('error.pagenotfound');
+
+
 
 });
 

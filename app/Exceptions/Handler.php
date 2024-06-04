@@ -52,4 +52,22 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+
+    // public function render($request, Exception $exception)
+    // {
+    //     if ($this->isHttpException($exception)) {
+    //         switch ($exception->getStatusCode()) {
+    //             // not found
+    //             case 404:
+    //                 return response()->view('error.pagenotfound', [], 404);
+    //             // internal error
+    //             case 500:
+    //                 return response()->view('error.pagenotfound', [], 500);
+    //             default:
+    //                 return $this->renderHttpException($exception);
+    //         }
+    //     }
+
+    //     return response()->view('error.pagenotfound', [], 500);
+    // }
 }

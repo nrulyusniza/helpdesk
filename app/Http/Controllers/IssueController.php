@@ -145,7 +145,11 @@ class IssueController extends Controller
 
     public function allissuecreate()
     {
-        return view('issues.allissuecreate');
+        // return view('issues.allissuecreate');
+
+        $sites = Site::all();
+        return view('issues.allissuecreate', compact('sites'));
+
     }
 
     public function allissuestore(Request $request)
@@ -170,7 +174,8 @@ class IssueController extends Controller
             $requestData['attachment'] = $attachmentPath;
         }
 
-        // set create_date to the current date and time
+        // set create_date to the current date and time to timezone Malaysia
+        date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for create_date column, submit datatype datetime sync with pc system
         $requestData['create_date'] = now();
         
         // add the currently authenticated user's username to the request data
@@ -178,6 +183,11 @@ class IssueController extends Controller
 
         $requestData['reportingperson_id'] = $request->input('reportingperson_id');
         $requestData['fault_description'] = $request->input('fault_description');        
+        $requestData['site_id'] = $request->input('site_id');  
+        $requestData['reqcategory_id'] = $request->input('reqcategory_id'); 
+        $requestData['phone_no'] = $request->input('phone_no'); 
+        $requestData['equipment_id'] = $request->input('equipment_id');      
+        $requestData['request_type'] = $request->input('request_type');      
 
         $issue = Issue::create($requestData);
 
@@ -193,7 +203,9 @@ class IssueController extends Controller
     // dropdown reportingperson_id selection based on site_id
     public function getReportingpersonBySite($siteId)
     {
-        $reportingperson = Reportingperson::where('site_id', $siteId)->get();
+        
+        // reporting person is selected, their rptpers_mobile is automatically filled in
+        $reportingperson = Reportingperson::where('site_id', $siteId)->get(['id', 'rptpers_name', 'rptpers_mobile']);
 
         return response()->json($reportingperson);
     }
@@ -249,20 +261,25 @@ class IssueController extends Controller
     public function allresponseupdate(Request $request, Issue $issue)
     {
         $request->validate([
-            'admin_comments' => 'required|string',
+            // 'admin_comments' => 'required|string',
             'severity_id' => 'required|integer',
             'update_date' => 'required|date',
             'status-radio' => 'required|integer',
         ]);
-    
+
         // update only the necessary fields
         $issue->update([
             'admin_comments' => $request->input('admin_comments'),
             'severity_id' => $request->input('severity_id'),
-            'update_date' => $request->input('update_date'),
+            // 'update_date' => $request->input('update_date'),
             'status_id' => $request->input('status-radio'),
             'updated_by' => Auth::user()->username,
         ]);
+
+        // set update_date to the current date and time to timezone Malaysia
+        date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for update_date column, submit datatype datetime sync with pc system
+        $issue->update_date = \Carbon\Carbon::now();    // current date and time
+        $issue->save(); // save the updated issue
 
         // check if the status_id is 2 or 3 to create a new row in the Tickets table
         if ($request->input('status-radio') == 2 || $request->input('status-radio') == 3) {
@@ -283,6 +300,10 @@ class IssueController extends Controller
             $ticket->severity_id = $issue->severity_id;
             $ticket->ticstatus_id = $request->input('status-radio') == 2 ? 1 : 1; // if the value of $request->input('status-radio') is equal to 2, then set $ticket->ticstatus_id to 1. otherwise (if the value is not equal to 2), set $ticket->ticstatus_id to 1 as well.
             $ticket->report_received = Carbon::now(); // current date and time
+
+            // created_by and create_date based on issue's updated_by and update_date
+            $ticket->created_by = $issue->updated_by;
+            $ticket->create_date = $issue->update_date;
 
             $ticket->save();
         }
@@ -319,6 +340,10 @@ class IssueController extends Controller
     {
         // validate the request data as needed
         $requestData = $request->all();
+
+        // set create_date to the current date and time to timezone Malaysia
+        date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for create_date column, submit datatype datetime sync with pc system
+        $requestData['create_date'] = now();
 
         // add the currently authenticated user's username to the request data
         $requestData['created_by'] = Auth::user()->username;
@@ -369,6 +394,10 @@ class IssueController extends Controller
         // validate the request data as needed
         $requestData = $request->all();
 
+        // set create_date to the current date and time to timezone Malaysia
+        date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for create_date column, submit datatype datetime sync with pc system
+        $requestData['create_date'] = now();
+        
         // add the currently authenticated user's username to the request data
         $requestData['created_by'] = Auth::user()->username;
 

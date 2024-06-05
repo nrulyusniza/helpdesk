@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Ticket;
 use App\Ticketlog;
-use Carbon\Carbon;
+use Carbon\Carbon;                      // Import library, PHP API extension for date and time
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -91,19 +91,99 @@ class HomeController extends Controller
         $sites = DB::table('sites')->count();
         $equipments = DB::table('equipments')->count();
 
-        // area chart
-        $currentYear = now()->year;
+        // // area chart
+        // $currentYear = now()->year;
         
-        // fetch ticket counts by month from the db
-        $ticketCounts = Ticket::selectRaw('MONTH(report_received) as month, COUNT(*) as count')
-                                ->whereYear('report_received', $currentYear)
-                                ->groupBy('month')
-                                ->orderBy('month')
-                                ->pluck('count', 'month');
+        // // fetch ticket counts by month from the db
+        // $ticketCounts = Ticket::selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+        //                         ->whereYear('report_received', $currentYear)
+        //                         ->groupBy('month')
+        //                         ->orderBy('month')
+        //                         ->pluck('count', 'month');
 
-        // if want to fill in months with zero counts, use the following code
-        $allMonths = range(1, 12);
-        $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
+        // // if want to fill in months with zero counts, use the following code
+        // $allMonths = range(1, 12);
+        // $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
+
+        // ###############################--------------------------------------###############################
+        // area chart - current months and 6 months before (backwards)
+        // tickets from the 6 months before the current month to the current month
+        // current year and month
+        // $currentYear = now()->year;
+        // $currentMonth = now()->month;
+
+        // // calculate the starting month 6 months before the current month
+        // $startMonth = Carbon::now()->subMonths(6)->month;
+
+        // // start year
+        // $startYear = $currentYear;
+        // if ($startMonth > $currentMonth) {
+        //     $startYear -= 1;        // if start month is greater than current month, adjust start year
+        // }
+
+        // // fetch ticket counts by month from the database
+        // $ticketCounts = Ticket::selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+        //                     ->whereYear('report_received', '>=', $startYear)
+        //                     ->where(function($query) use ($startMonth, $currentMonth, $startYear, $currentYear) {
+        //                         if ($startYear == $currentYear) {
+        //                             $query->whereBetween(DB::raw('MONTH(report_received)'), [$startMonth, $currentMonth]);
+        //                         } else {
+        //                             $query->where(function($query) use ($startMonth, $currentYear, $startYear) {
+        //                                 $query->where('report_received', '>=', Carbon::create($startYear, $startMonth, 1)->format('Y-m-d'))
+        //                                         ->where('report_received', '<', Carbon::create($currentYear, $currentMonth, 1)->format('Y-m-d'));
+        //                             });
+        //                         }
+        //                     })
+        //                     ->groupBy('month')
+        //                     ->orderBy('month')
+        //                     ->pluck('count', 'month');
+
+        // // fill in months with zero counts
+        // $allMonths = range($startMonth, $currentMonth);
+        // $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
+
+        // // convert month numbers to month names for labels
+        // $labels = [];
+        // foreach ($allMonths as $month) {
+        //     $labels[] = __(date('M', mktime(0, 0, 0, $month, 1)));
+        // }
+
+        // ###############################--------------------------------------###############################
+        // area chart - tickets from the 6 months before the current month to the current month
+        $currentDate = now();   // get current date and time
+        $startDate = $currentDate->copy()->subMonths(7)->startOfMonth();    // find start of the month, five months ago
+        $endDate = $currentDate->copy()->endOfMonth();      // find end of the current month.
+
+        // fetch ticket counts by month from the db
+        $ticketCounts = Ticket::selectRaw('YEAR(report_received) as year, MONTH(report_received) as month, COUNT(*) as count')  // get the year, month, and number of tickets
+                            ->whereBetween('report_received', [$startDate, $endDate])   // only include tickets from date range based on report_received
+                        ->groupBy('year', 'month')      // group results
+                            ->orderBy('year')
+                            ->orderBy('month')
+                            ->get()
+                            // ->keyBy(function($item) {
+                            //     return $item->year . '-' . str_pad($item->month, 2, '0', STR_PAD_LEFT);
+                            // });
+                            ->mapWithKeys(function($item) {         // convert results to an array
+                                return [sprintf('%04d-%02d', $item->year, $item->month) => $item->count];
+                            });
+
+        // create collection to ensure every month in the range has a value, even if it is 0 (0 = no ticket)
+        $allMonths = collect();
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addMonth()) {    // check each month from start to end date, adding each one to collection with a count of zero
+            $allMonths->put($date->format('Y-m'), 0);       // DB use Y-m-d (2024-02-01), Y-m because only that part want to be calculate
+        }
+        // $ticketCounts = $allMonths->merge($ticketCounts->pluck('count', 'month'));
+        $ticketCounts = $allMonths->merge($ticketCounts);   // add zero-count months with actual ticket counts
+
+        // convert to arrays for passing to the view
+        $ticketCountsArray = $ticketCounts->values()->toArray();
+
+        // month name labels for the chart
+        $monthLabels = [];
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addMonth()) {    // loop through each month again
+            $monthLabels[] = $date->format('M Y');      // M - A short textual representation of a month (three letters), Y - A four digit representation of a year
+        }
 
         // donut chart
         $totalTickets = Ticket::count();
@@ -114,7 +194,10 @@ class HomeController extends Controller
 
         return view('/dashboard/mydashboard', compact('tickets', 'allTixOpen', 'allTixClosed', 'allTixKiv', 
                                                     'knowledgebases', 'users', 'sites', 'equipments', 
-                                                    'ticketCounts',
+                                                    // 'ticketCounts', 'monthLabels',
+                                                    // 'ticketCounts' => $ticketCounts->values()->toArray(),
+                                                    // 'labels' => $labels,
+                                                    'ticketCountsArray', 'monthLabels',
                                                     'totalTickets', 'totalTicketHardware', 'totalTicketSoftware', 'totalTicketNetwork', 'totalTicketNonsystem'));
     }
 
@@ -756,6 +839,27 @@ class HomeController extends Controller
     public function chat()
     {
         return view('chat');
+    }
+
+    //---------------------------------------------------------------------- PARAMOUNT ----------------------------------------------------------------------
+    
+    // super admin's paramount
+    // new today
+    public function allnewtoday()
+    {        
+        return view('dashboard.paramount.allnewtoday');
+    }
+
+    // due in 5 days
+    public function alldue5days()
+    {        
+        return view('dashboard.paramount.alldue5days');
+    }
+    
+    // overdue
+    public function alloverdue()
+    {        
+        return view('dashboard.paramount.alloverdue');
     }
 }
 

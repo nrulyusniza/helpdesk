@@ -70,7 +70,7 @@
                                 <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
                                 @if ($ticket->issue->attachment)
                                     <!-- <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a> -->
-                                    <a href="{{ asset('storage/' . $ticket->issue->attachment) }}" target="_blank">View Attachment</a>
+                                    <a href="{{ asset('storage/' . $ticket->issue->attachment) }}" target="_blank">{{ __('messages.view_attachment') }}</a>
                                 @else
                                     <p>{{ __('messages.no_attachment') }}</p>
                                 @endif
@@ -87,7 +87,7 @@
                 <div class="col-xl">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form action="{{ route('tickets.allconsumableupdate',['ticket' => $ticket->id]) }}" method="POST">
+                            <form action="{{ route('tickets.allconsumableupdate',['ticket' => $ticket->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-3">
@@ -182,7 +182,17 @@
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
                                     <!-- <td>{{ $log->attachment }}</td> -->
-                                    <td><a href="{{ asset('storage/attachments/' . $log->attachment) }}" target="_blank">View Attachment</a></td>
+                                    <!-- <td><a href="{{ asset('storage/' . $log->attachment) }}" target="_blank">View Attachment</a></td> -->
+                                    <td>
+                                        @if ($log->attachment)                                        
+                                            <!-- <a href="{{ asset('storage/' . $log->attachment) }}" target="_blank">{{ __('messages.view_attachment') }}</a> -->
+                                            <a class="menu-icon tf-icons bx bx-link" href="{{ asset('storage/' . $log->attachment) }}"  target="_blank" style="color:#ef476f"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                title="<span>{{ __('messages.view_attachment') }}</span>"></a>
+                                        @else
+                                            <p>{{ __('messages.no_attachment') }}</p>
+                                        @endif                                
+                                    </td>
                                     <!-- <td>{{ $log->ticstatus->ticstatus_label }}</td> -->
                                     <td>
                                         @if(isset($log->ticstatus->ticstatus_label))
@@ -221,6 +231,10 @@
                     </div>
                 </div>
             </div>
+
+            <div class="mt-2">
+                <a type="cancel" class="btn btn-outline-secondary" href="{{ route('tickets.allconsumable') }}">{{ __('messages.back') }}</a>
+            </div>   
             
         </div>
         

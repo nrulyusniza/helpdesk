@@ -135,6 +135,7 @@ return [
     'update_consumable' => 'Kemas Kini Barang Pakai Habis',
     'tt_number' => 'No. Ticket',
     'ct_number' => 'No. Barang Pakai Habis',
+    'view_attachment' => 'Lihat Lampiran',
 
     // datatables column name - asset
     'asset_list' => 'Senarai Aset',

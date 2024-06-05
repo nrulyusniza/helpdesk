@@ -109,6 +109,9 @@
             $('#site_id').change(function() {
                 var siteId = $(this).val();
 
+                // clear phone_no field if user reselect site_id
+                $('#phone_no').val('');
+
                 // reportingperson_id
                 $.ajax({
                     url: '/get-reportingperson/' + siteId,

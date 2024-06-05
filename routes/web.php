@@ -38,6 +38,10 @@ Route::get('dashboard/infohub/allopen', 'HomeController@allopen')->name('dashboa
 Route::get('dashboard/infohub/allclosed', 'HomeController@allclosed')->name('dashboard.infohub.allclosed');
 Route::get('dashboard/infohub/allkiv', 'HomeController@allkiv')->name('dashboard.infohub.allkiv');
 
+Route::get('dashboard/paramount/allnewtoday', 'HomeController@allnewtoday')->name('dashboard.paramount.allnewtoday');
+Route::get('dashboard/paramount/alldue5days', 'HomeController@alldue5days')->name('dashboard.paramount.alldue5days');
+Route::get('dashboard/paramount/alloverdue', 'HomeController@alloverdue')->name('dashboard.paramount.alloverdue');
+
 // site admin's dashboard
 Route::get('/dashboard/dashboardadmin', 'HomeController@dashboardadmin')->name('dashboard.dashboardadmin');
 Route::get('dashboard/infohub/listticket', 'HomeController@listticket')->name('dashboard.infohub.listticket');
@@ -291,7 +295,7 @@ Route::get('tickets/allticket', 'TicketController@allticket')->name('tickets.all
 // Route::put('tickets/{ticket}/allticketupdate', 'TicketController@allticketupdate')->name('tickets.allticketupdate');
 
 Route::get('tickets/{ticket}/allticketedit', 'TicketController@allticketedit')->name('tickets.allticketedit');
-Route::post('tickets/{ticket}/allticketupdate', 'TicketController@allticketupdate')->name('tickets.allticketupdate');
+Route::put('tickets/{ticket}/allticketupdate', 'TicketController@allticketupdate')->name('tickets.allticketupdate');
 
 Route::get('tickets/allconsumable', 'TicketController@allconsumable')->name('tickets.allconsumable');
 Route::get('tickets/{ticket}/allconsumableedit', 'TicketController@allconsumableedit')->name('tickets.allconsumableedit');
@@ -332,35 +336,15 @@ Route::get('tickets/report/records', 'TicketController@records')->name('tickets.
 // tickets path - site admin & site user view
 Route::get('tickets/report/generatereport', 'TicketController@generatereport')->name('tickets.report.generatereport');
 
-//------------------------------------------------------------------- XXXX -------------------------------------------------------------------
-
-
-// Route::get('lang/home', [LangController::class, 'index']);
-// Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
-
-// Route::get('lang/home', 'LangController@index')->name('index');
-// Route::get('lang/change', 'LangController@change')->name('changeLang');
-
-// Route::get('lang/home', 'LangController@index');
-// Route::get('lang/change', 'LangController@change')->name('changeLang');
-
-// Route::get('/template', 'LangController@index');
-// Route::get('/template', 'LangController@change')->name('changeLang');
-
-// Route::get('/template', 'LangController@index')->name('template.index');
-// Route::get('/lang/change', 'LangController@change')->name('changeLang');
-// Route::get('/lang/change/{lang}', 'LangController@change')->name('changeLang');
-// Route::get('/lang/change/{lang?}', 'LangController@change')->name('changeLang');
-
-
+//------------------------------------------------------------------- LANGUAGE ENG-MALAY -------------------------------------------------------------------
 Route::post('/language-switch', 'LanguageController@switchLanguage')->name('language.switch');
 
 //------------------------------------------------------------------- PAGE ERROR -------------------------------------------------------------------
 Route::get('errors/pagenotfound', 'HomeController@pagenotfound')->name('errors.pagenotfound');
 
-Route::fallback(function() {
-    return view('errors.404');
-});
+// Route::fallback(function() {
+//     return view('errors.404');
+// });
 
 
 

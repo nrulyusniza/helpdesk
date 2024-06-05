@@ -32,7 +32,7 @@
 
   <!-- 9 -->
   <div class="col-sm-6 col-xl-4">
-    <a href=" ">
+    <a href="{{ route('dashboard.paramount.allnewtoday') }}">
       <div class="card bg-success text-white">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -55,7 +55,7 @@
 
   <!-- 10 -->
   <div class="col-sm-6 col-xl-4">
-    <a href=" ">
+    <a href="{{ route('dashboard.paramount.alldue5days') }}">
       <div class="card bg-warning text-white">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -78,7 +78,7 @@
 
   <!-- 11 -->
   <div class="col-sm-6 col-xl-4">
-    <a href=" ">
+    <a href="{{ route('dashboard.paramount.alloverdue') }}">
       <div class="card bg-danger text-white">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
@@ -386,7 +386,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Use the data passed from the controller
-      const ticketCountsByMonth = {!! json_encode(array_values($ticketCounts)) !!};
+      const ticketCountsByMonth = {!! json_encode($ticketCountsArray) !!};  // Convert PHP array to JS array
+      const monthLabels = {!! json_encode($monthLabels) !!};
 
       const ticketByMonthCanvas = document.getElementById('ticketByMonth');
       const ctx = ticketByMonthCanvas.getContext('2d');
@@ -394,10 +395,11 @@
       const ticketByMonth = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['{{ __('messages.jan') }}', '{{ __('messages.feb') }}', '{{ __('messages.mar') }}', 
-          '{{ __('messages.apr') }}', '{{ __('messages.may') }}', '{{ __('messages.jun') }}', 
-          '{{ __('messages.jul') }}', '{{ __('messages.aug') }}', '{{ __('messages.sep') }}', 
-          '{{ __('messages.oct') }}', '{{ __('messages.nov') }}', '{{ __('messages.dec') }}'],
+          // labels: ['{{ __('messages.jan') }}', '{{ __('messages.feb') }}', '{{ __('messages.mar') }}', 
+          // '{{ __('messages.apr') }}', '{{ __('messages.may') }}', '{{ __('messages.jun') }}', 
+          // '{{ __('messages.jul') }}', '{{ __('messages.aug') }}', '{{ __('messages.sep') }}', 
+          // '{{ __('messages.oct') }}', '{{ __('messages.nov') }}', '{{ __('messages.dec') }}'],
+          labels: monthLabels,    // months name
           datasets: [{
             label: '{{ __('messages.ttltix') }}',
             data: ticketCountsByMonth,
@@ -418,7 +420,7 @@
             },
             y: {
               grid: {
-                display: false
+                display: true
               },
               beginAtZero: true
               // ticks: {

@@ -100,12 +100,7 @@
                                                 @else
                                                     <span class="badge bg-secondary me-1"></span>
                                                 @endif
-                                            </td>   <!-- badges that depends on database --> 
-                                            <!-- <td>{{ $akt->ticstatus->ticstatus_label ?? " " }}</td> -->
-                                            <!-- <td>{{ $akt->user->fullname ?? " " }}</td>
-                                            <td>{{ $akt->create_date->format('M d, Y') }}</td>
-                                            <td>{{ $akt->user->fullname ?? " " }}</td>
-                                            <td>{{ $akt->update_date->format('M d, Y') }}</td> -->
+                                            </td>   <!-- badges that depends on database -->                                             
                                             <td>
                                                 <form action="" method="POST">
                                                     @php

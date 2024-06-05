@@ -158,6 +158,12 @@ class TicketController extends Controller
         // set update_date to the current date and time to timezone Malaysia
         date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for update_date column, submit datatype datetime sync with pc system
 
+        // handle file upload
+        $attachmentPath = null;
+        if ($request->hasFile('attachment')) {
+            $attachmentPath = $request->file('attachment')->store('attachments', 'public');
+        }
+        
         // new ticket log entry with the update_by field set to the username of the authenticated user
         $newTicketLog = $ticket->ticketlog()->create([
             'date'      => Carbon::now('Asia/Kuala_Lumpur'), // current date and time
@@ -167,7 +173,8 @@ class TicketController extends Controller
             'response_date' => $request->input('response_date'),
             'response_time' => $request->input('response_time'),
             'reaction_id' => $request->input('reaction_id'),
-            'attachment' => $request->input('attachment'),
+            // 'attachment' => $request->input('attachment'),
+            'attachment' => $attachmentPath,    // save the file path
             'ticstatus_id' => $request->input('ticstatus_id'),
         ]);
 
@@ -223,6 +230,12 @@ class TicketController extends Controller
         // set update_date to the current date and time to timezone Malaysia
         date_default_timezone_set("Asia/Kuala_Lumpur");     // this is for update_date column, submit datatype datetime sync with pc system
 
+        // handle file upload
+        $attachmentPath = null;
+        if ($request->hasFile('attachment')) {
+            $attachmentPath = $request->file('attachment')->store('attachments', 'public');
+        }
+
         // new ticket log entry with the update_by field set to the username of the authenticated user
         $newTicketLog = $ticket->ticketlog()->create([
             'date'      => Carbon::now('Asia/Kuala_Lumpur'), // current date and time
@@ -232,7 +245,8 @@ class TicketController extends Controller
             'response_date' => $request->input('response_date'),
             'response_time' => $request->input('response_time'),
             'reaction_id' => $request->input('reaction_id'),
-            'attachment' => $request->input('attachment'),
+            // 'attachment' => $request->input('attachment'),
+            'attachment' => $attachmentPath,    // save the file path
             'ticstatus_id' => $request->input('ticstatus_id'),
         ]);
 

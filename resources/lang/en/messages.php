@@ -135,6 +135,7 @@ return [
     'update_consumable' => 'Update Consumable',
     'tt_number' => 'Ticket Number',
     'ct_number' => 'Consumable Number',
+    'view_attachment' => 'View Attachment',
 
     // datatables column name - asset
     'asset_list' => 'Asset List',

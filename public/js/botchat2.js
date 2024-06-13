@@ -1,12 +1,16 @@
 //BUTTON ANSWER VIDEO
-$(document).ready(function(){
-    var user1ans1 = document.querySelector(".user1ans1");
-    user1ans1.addEventListener("click",function(){
-        setTimeout(function(){
-            $("#bot2").show();
-        },500);
-    })
-})
+function myFunction() {
+    document.getElementById("bot2").style.display = "block"
+}
+
+// $(document).ready(function(){
+//     var user1ans1 = document.querySelector(".user1ans1");
+//     user1ans1.addEventListener("click",function(){
+//         setTimeout(function(){
+//             $("#bot2").show();
+//         },500);
+//     })
+// })
 
 // BUTTON TOGGLE
 var btn = document.getElementById('btn')
@@ -29,17 +33,16 @@ var arrLang = new Array();
     arrLang['en']['create ticket'] = 'Create Ticket';
     arrLang['en']['create consumable'] = 'Create Consumable';
     arrLang['en']['video'] = 'Video to create a ticket';
-    arrLang['en']['send'] = 'Send message here';
+    arrLang['en']['send'] = 'Send message here...';
 
     // MALAY CONTENT
     // arrLang['ms']['title'] = 'NCO PUSAT BANTUAN';
     arrLang['ms']['title'] = 'NCO MEJA BANTUAN';
     arrLang['ms']['greeting'] = 'Salam✋ Selamat Datang ke NCO Meja Bantuan';
     arrLang['ms']['create ticket'] = 'Daftar Tiket';
-    // arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Buang';
     arrLang['ms']['create consumable'] = 'Daftar Barang Pakai Habis';
     arrLang['ms']['video'] = 'Video untuk mendaftar tiket';
-    arrLang['ms']['send'] = 'Hantar pesanan disini';
+    arrLang['ms']['send'] = 'Hantar pesanan disini...';
 
     // TRANSLATION
     $(function() {
@@ -139,10 +142,6 @@ function sendButton() {
     getResponse();
 }
 
-function heartButton() {
-    buttonSendText("Heart clicked!")
-}
-
 // PRESS ENTER TO SEND A MESSAGE
 $("#textInput").keypress(function (e) {
     if (e.which == 13) {
@@ -156,16 +155,15 @@ function getBotResponse(message) {
     if (message == "salam" || message == "Salam" || message == "SALAM") {
         return "Salam perkenalan. Apa yang boleh saya bantu ?";
     } else if (message == "saya nak daftar tiket" || message == "daftar tiket" || message == "tiket" || message == "permintaan" || message == "permintaan tiket") {
-        // return window.location.pathname("{{asset('/request.php')}}", "_blank");
-        return window.location.href = route('issues.allissuecreate');
+        return window.location.pathname=("{{route('issues.allissuecreate')}}");
     } else if (message == "saya nak daftar barang pakai buang" || message == "daftar barang pakai buang" || message == "barang pakai buang" || message == "permintaan" || message == "permintaan barang pakai buang") {
-        return window.location.href = route('issues.allissuecreate');
+        return window.location.pathname=("{{route('issues.allissuecreate')}}");
     } else if (message == "asas pengetahuan" || message == "Asas Pengetahuan" || message == "ASAS PENGETAHUAN") {
-        return window.location.pathname("{{ route('knowledgebases.allknowledgebase') }}", "_blank");
+        return window.location.pathname=("{{route('knowledgebases.allknowledgebase')}}");
     } else if (message == "laporan" || message == "Laporan" || message == "LAPORAN") {
-        return window.location.pathname("{{ route('tickets.report.producereport') }}", "_blank");
+        return window.location.pathname=("{{route('tickets.report.producereport')}}");
     } else if (message == "pengguna" || message == "Pengguna" || message == "PENGGUNA") {
-        return window.location.pathname("{{ route('users.alluser') }}", "_blank");
+        return window.location.pathname=("{{route('users.alluser')}}");
     } else if (message == "terima kasih" || message == "Terima kasih" || message == "TERIMA KASIH" || message == "Terima Kasih") {
         return "Sama-sama!";
     }
@@ -176,19 +174,19 @@ function getBotResponse(message) {
         message == "hi" || message == "Hi" || message == "HI") {
         return "Nice to meet you. What can I do for you ?";
     } else if (message == "I want to create a ticket" || message == "create ticket" || message == "ticket" || message == "request" || message == "request ticket") {
-        // return window.location.pathname("{{asset('/request.php')}}", "_blank");
-        return view('issues.allissuecreate', compact('issue'));
+        return window.location.pathname=("{{route('issues.allissuecreate')}}");
     } else if (message == "I want to create a consumable" || message == "create consumable" || message == "consumable" || message == "request" || message == "request consumable") {
-        return window.location.pathname("{{asset('/consumable.php')}}", "_blank");
+        return window.location.pathname=("{{route('issues.allissuecreate')}}");
     } else if (message == "knowledge base" || message == "Knowledge Base" || message == "KNOWLEDGE BASE") {
-        return window.location.pathname("{{ route('knowledgebases.allknowledgebase') }}", "_blank");
+        return window.location.pathname=("{{route('knowledgebases.allknowledgebase')}}");
     } else if (message == "reporting" || message == "Reporting" || message == "REPORTING") {
-        return window.location.pathname("{{ route('tickets.report.producereport') }}", "_blank");
+        return window.location.pathname=("{{route('tickets.report.producereport')}}");
     } else if (message == "user" || message == "User" || message == "USER") {
-        return window.location.pathname("{{ route('users.alluser') }}", "_blank");
+        return window.location.pathname=("{{route('users.alluser')}}");
     } else if (message == "thank you" || message == "Thank you" || message == "THANK YOU" || message == "Thank You") {
         return "You are welcome!";
     } else {
-        return "Sorry! I don't understand you. Please click the Main Menu for the other options";
+        return "Sorry! I don't understand. Please rephrase your sentence or explore the Menu options.";
+        
     }
 }

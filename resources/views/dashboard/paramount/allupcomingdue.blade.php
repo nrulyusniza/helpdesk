@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'All Overdue Ticket')
+@section('title', 'All Upcoming Due Ticket')
 @section('content')
 
 <div class="col-xl-12">
@@ -14,7 +14,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.paramount.allnewtoday') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allnewtoday') ? 'active' : '' }}">
-                    <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.new_tix_today') }}: {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('M d, Y') }}
+                    <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.new_tix_today') }}: {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('d/m/Y') }}
                     <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">XX</span> -->
                 </a>
             </li>
@@ -62,29 +62,29 @@
                                 @php
                                     $counter = 0; // initialize counter
                                 @endphp
-                                @foreach ($allOverdueData as $aodd)   
+                                @foreach ($allUpcomingDueData as $audd)   
                                     @php
                                         $counter++; // increment counter for each iteration of outer loop
                                     @endphp
-                                    @if ($aodd->ticketlog->isNotEmpty())
-                                        @foreach ($aodd->ticketlog as $log)                                 
+                                    @if ($audd->ticketlog->isNotEmpty())
+                                        @foreach ($audd->ticketlog as $log)                                 
                                             <tr>
                                                 <td>{{ $counter }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M-y') }}</td></td>
-                                                <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M d, Y h:i A') }}</td>
-                                                <td>{{ $aodd->ticket_no }}</td>
-                                                <td>{{ $aodd->issue->site->site_name ?? " " }}</td>
-                                                <td>{{ $aodd->issue->equipment->asset_hostname ?? " " }} - {{ $aodd->issue->equipment->asset_type ?? " " }}</td>
-                                                <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td>
-                                                <td>{{ $aodd->issue->fault_description ?? " " }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('M-y') }}</td></td>
+                                                <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('d/m/Y h:i A') }}</td>
+                                                <td>{{ $audd->ticket_no }}</td>
+                                                <td>{{ $audd->issue->site->site_name ?? " " }}</td>
+                                                <td>{{ $audd->issue->equipment->asset_hostname ?? " " }} - {{ $audd->issue->equipment->asset_type ?? " " }}</td>
+                                                <td>{{ $audd->issue->reqcategory->req_category ?? " " }}</td>
+                                                <td>{{ $audd->issue->fault_description ?? " " }}</td>
                                                 <td>
-                                                    @if(isset($aodd->severity->severity_label))
+                                                    @if(isset($audd->severity->severity_label))
                                                         @php
-                                                            $severityLabel = $aodd->severity->severity_label;
+                                                            $severityLabel = $audd->severity->severity_label;
                                                             $badgeClass = '';
                                                             $slaDuration = '';     // dynamically to SLA(3 months/14 days/72 hours)
 
-                                                            switch($aodd->severity->id) {
+                                                            switch($audd->severity->id) {
                                                                 case 1:
                                                                     $badgeClass = 'bg-danger';
                                                                     $slaDuration = '72 Hours';      // how it would be display in column SLA
@@ -116,14 +116,14 @@
                                                     @endif
                                                 </td>                                      
                                                 
-                                                <td>{{ $aodd->expected_closure_time ? $aodd->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                                <td>{{ $audd->expected_closure_time ? $audd->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                                 <td>
-                                                    @if(isset($aodd->ticstatus->ticstatus_label))
+                                                    @if(isset($audd->ticstatus->ticstatus_label))
                                                         @php
-                                                            $ticstatusLabel = $aodd->ticstatus->ticstatus_label;
+                                                            $ticstatusLabel = $audd->ticstatus->ticstatus_label;
                                                             $badgeClass = '';
 
-                                                            switch($aodd->ticstatus->id) {
+                                                            switch($audd->ticstatus->id) {
                                                                 case 1:
                                                                     $badgeClass = 'bg-success';
                                                                     break;
@@ -151,7 +151,7 @@
                                                 <td>{{ $log->reaction->response_type ?? " " }}</td>
                                                 <td>
                                                     @if($log && $log->response_date)
-                                                        {{ \Carbon\Carbon::parse($log->response_date)->format('M d, Y') }}
+                                                        {{ \Carbon\Carbon::parse($log->response_date)->format('d/m/Y') }}
                                                     @else
                                                         {{ " " }}
                                                     @endif
@@ -161,11 +161,11 @@
                                                         {{ " " }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $aodd->getCalcDurationForLog($log) }}</td>
-                                                <!-- <td>{{ $aodd->update_date }}</td> -->
+                                                <td>{{ $audd->getCalcDurationForLog($log) }}</td>
+                                                <!-- <td>{{ $audd->update_date }}</td> -->
                                                 <td>
                                                     @if($log->date)
-                                                        {{ \Carbon\Carbon::parse($log->date)->format('M d, Y h:i A') }}                                            
+                                                        {{ \Carbon\Carbon::parse($log->date)->format('d/m/Y h:i A') }}                                            
                                                     @else
                                                         {{ " " }}
                                                     @endif
@@ -173,10 +173,10 @@
                                                 <td>
                                                     <form action="" method="POST">
                                                         @php
-                                                            $routeName = ($aodd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                                            $routeName = ($audd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
                                                         @endphp
 
-                                                        <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $aodd->id) }}" style="color:#57cc99"
+                                                        <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $audd->id) }}" style="color:#57cc99"
                                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                             title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
                                                         @csrf
@@ -188,21 +188,21 @@
                                     @else
                                         <tr>
                                             <td>{{ $counter }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M-y') }}</td></td>
-                                            <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M d, Y h:i A') }}</td>
-                                            <td>{{ $aodd->ticket_no }}</td>
-                                            <td>{{ $aodd->issue->site->site_name ?? " " }}</td>
-                                            <td>{{ $aodd->issue->equipment->asset_hostname ?? " " }} - {{ $aodd->issue->equipment->asset_type ?? " " }}</td>
-                                            <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td>
-                                            <td>{{ $aodd->issue->fault_description ?? " " }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('M-y') }}</td></td>
+                                            <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('d/m/Y h:i A') }}</td>
+                                            <td>{{ $audd->ticket_no }}</td>
+                                            <td>{{ $audd->issue->site->site_name ?? " " }}</td>
+                                            <td>{{ $audd->issue->equipment->asset_hostname ?? " " }} - {{ $audd->issue->equipment->asset_type ?? " " }}</td>
+                                            <td>{{ $audd->issue->reqcategory->req_category ?? " " }}</td>
+                                            <td>{{ $audd->issue->fault_description ?? " " }}</td>
                                             <td>
-                                                @if(isset($aodd->severity->severity_label))
+                                                @if(isset($audd->severity->severity_label))
                                                     @php
-                                                        $severityLabel = $aodd->severity->severity_label;
+                                                        $severityLabel = $audd->severity->severity_label;
                                                         $badgeClass = '';
                                                         $slaDuration = '';     // dynamically to SLA(3 months/14 days/72 hours)
 
-                                                        switch($aodd->severity->id) {
+                                                        switch($audd->severity->id) {
                                                             case 1:
                                                                 $badgeClass = 'bg-danger';
                                                                 $slaDuration = '72 Hours';      // how it would be display in column SLA
@@ -234,14 +234,14 @@
                                                 @endif
                                             </td>                                      
                                             
-                                            <td>{{ $aodd->expected_closure_time ? $aodd->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                            <td>{{ $audd->expected_closure_time ? $audd->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                             <td>
-                                                @if(isset($aodd->ticstatus->ticstatus_label))
+                                                @if(isset($audd->ticstatus->ticstatus_label))
                                                     @php
-                                                        $ticstatusLabel = $aodd->ticstatus->ticstatus_label;
+                                                        $ticstatusLabel = $audd->ticstatus->ticstatus_label;
                                                         $badgeClass = '';
 
-                                                        switch($aodd->ticstatus->id) {
+                                                        switch($audd->ticstatus->id) {
                                                             case 1:
                                                                 $badgeClass = 'bg-success';
                                                                 break;
@@ -273,10 +273,10 @@
                                             <td>
                                                 <form action="" method="POST">
                                                     @php
-                                                        $routeName = ($aodd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                                        $routeName = ($audd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
                                                     @endphp
 
-                                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $aodd->id) }}" style="color:#57cc99"
+                                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $audd->id) }}" style="color:#57cc99"
                                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                         title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
                                                     @csrf
@@ -286,7 +286,7 @@
                                         </tr> 
                                     @endif
                                 @endforeach
-                            </tbody>                     
+                            </tbody>                    
                         </table>
                     </div>
                 </div>          
@@ -316,14 +316,20 @@
             buttons: [
                 {extend: 'copy'},
                 //{extend: 'csv'},
-                {extend: 'excel', title: 'All Missed Deadlines Ticket', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                {extend: 'excel', title: 'All Upcoming Deadlines Ticket', exportOptions: {
+                    // columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    columns: ':not(:last-child)'        // exclude the last column (action)
+                    }
                 },
-                {extend: 'pdf', title: 'All Missed Deadlines Ticket', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                {extend: 'pdf', title: 'All Upcoming Deadlines Ticket', exportOptions: {
+                    // columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    columns: ':not(:last-child)'        // exclude the last column (action)
+                    }
                 },
                 {extend: 'print', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    // columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    // columns: ':not(:eq(17))'         // exclude the 18th column (index 17)
+                    columns: ':not(:last-child)'        // exclude the last column (action)
                     },
                     customize: function (win){
                         $(win.document.body).addClass('white-bg');

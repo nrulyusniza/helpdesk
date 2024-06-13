@@ -225,7 +225,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Use the data passed from the controller
-      const ticketCountsByMonth = {!! json_encode(array_values($ticketCounts)) !!};
+      const ticketCountsByMonth = {!! json_encode($ticketCountsArray) !!};  // Convert PHP array to JS array
+      const monthLabels = {!! json_encode($monthLabels) !!};
 
       const ticketByMonthCanvas = document.getElementById('ticketByMonth');
       const ctx = ticketByMonthCanvas.getContext('2d');
@@ -233,10 +234,11 @@
       const ticketByMonth = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['{{ __('messages.jan') }}', '{{ __('messages.feb') }}', '{{ __('messages.mar') }}', 
-          '{{ __('messages.apr') }}', '{{ __('messages.may') }}', '{{ __('messages.jun') }}', 
-          '{{ __('messages.jul') }}', '{{ __('messages.aug') }}', '{{ __('messages.sep') }}', 
-          '{{ __('messages.oct') }}', '{{ __('messages.nov') }}', '{{ __('messages.dec') }}'],
+          // labels: ['{{ __('messages.jan') }}', '{{ __('messages.feb') }}', '{{ __('messages.mar') }}', 
+          // '{{ __('messages.apr') }}', '{{ __('messages.may') }}', '{{ __('messages.jun') }}', 
+          // '{{ __('messages.jul') }}', '{{ __('messages.aug') }}', '{{ __('messages.sep') }}', 
+          // '{{ __('messages.oct') }}', '{{ __('messages.nov') }}', '{{ __('messages.dec') }}'],
+          labels: monthLabels,    // months name
           datasets: [{
             label: '{{ __('messages.ttltix') }}',
             data: ticketCountsByMonth,

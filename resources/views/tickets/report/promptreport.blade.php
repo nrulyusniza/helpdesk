@@ -178,7 +178,7 @@
                                         <td>
                                             <form action="" method="POST">
                                                 @php
-                                                    $routeName = ($tt->type->id == 1) ? 'tickets.listticketlog' : 'tickets.listconsumablelog';
+                                                    $routeName = ($tt->type->id == 1) ? 'tickets.entireticketlog' : 'tickets.entireconsumablelog';
                                                 @endphp
 
                                                 <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $tt->id) }}" style="color:#57cc99"
@@ -310,11 +310,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script>
 
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script> -->
-
     <script>
         $(document).ready(function(){
             $('#example').DataTable({
@@ -382,104 +377,5 @@
             dateFilter.addEventListener('change', toggleDateInputs);
         });
     </script>
-
-    <!-- <script type="text/javascript">
-        $(function() {
-
-            var start = moment().subtract(29, 'days');
-            var end = moment();
-
-            function cb(start, end) {
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-
-                // Update the hidden input fields with the selected start and end dates
-                $('#start_date').val(start.format('YYYY-MM-DD'));
-                $('#end_date').val(end.format('YYYY-MM-DD'));
-            }
-
-            $('#reportrange').daterangepicker({
-                startDate: start,
-                endDate: end,
-                ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
-            }, cb);
-
-            cb(start, end);
-
-        });
-    </script> -->
-
-    <!-- <script>
-        $(function() {
-            $("#start_date").datepicker({
-                "dateFormat": "yy-mm-dd"
-            });
-            $("#end_date").datepicker({
-                "dateFormat": "yy-mm-dd"
-            });
-        });
-
-        // fetch records
-        function fetch(start_date, end_date) {
-            $.ajax({
-                url: "{{ route('tickets.report.producereport') }}",
-                type: "GET",
-                data: {
-                    start_date: start_date,
-                    end_date: end_date
-                },
-                dataType: "json",
-                success: function(data) {
-                    // Datatables
-                    var i = 1;
-                    $('#records').DataTable({
-                        "data": data.students,
-                        // responsive
-                        "responsive": true,
-                        "columns": [{
-                                "data": "id",
-                                "render": function(data, type, row, meta) {
-                                    return i++;
-                                }
-                            },
-                            {
-                                "data": "report_received",
-                                "render": function(data, type, row, meta) {
-                                    return moment(row.report_received).format('DD-MM-YYYY');
-                                }
-                            }
-                        ]
-                    });
-                }
-            });
-        }
-        fetch();
-        // filter
-        $(document).on("click", "#filter", function(e) {
-            e.preventDefault();
-            var start_date = $("#start_date").val();
-            var end_date = $("#end_date").val();
-            if (start_date == "" || end_date == "") {
-                alert("Both date required");
-            } else {
-                $('#records').DataTable().destroy();
-                fetch(start_date, end_date);
-            }
-        });
-        // reset
-        $(document).on("click", "#reset", function(e) {
-            e.preventDefault();
-            $("#start_date").val(''); // empty value
-            $("#end_date").val('');
-            $('#records').DataTable().destroy();
-            fetch();
-        });
-    </script> -->
 
 @stop

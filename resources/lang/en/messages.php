@@ -20,7 +20,7 @@ return [
     'cd_site' => 'Sites',
     'cd_asset' => 'Assets',
     'cd_new' => 'New',
-    'cd_due5days' => 'Due in 5 days',
+    'cd_upcomingdue' => 'Upcoming Due',
     'cd_overdue' => 'Overdue',
 
     // area chart
@@ -67,8 +67,8 @@ return [
 
     // datatables column name - tabs and pills, request, ticket, consumables
     'report_date' => 'Report Date',
-    'request_no' => 'Request No',
-    'ticket_no' => 'Ticket No',
+    'request_no' => 'Request No.',
+    'ticket_no' => 'Ticket No.',
     'ticket_type' => 'Ticket Type',
     'site' => 'Site',
     'fault_desc' => 'Fault Description',
@@ -96,7 +96,7 @@ return [
     'select_equipment' => 'Select Equipment',
     'view_details' => 'View Details',
     'admin_response' => 'Admin Response',
-    'details_request' => 'Details for Request No',
+    'details_request' => 'Details for Request No.',
     'modify' => 'Modifications to this page are not permitted',
     'no_attachment' => 'No attachment available',
     // 'unknown' => 'Unknown',
@@ -178,7 +178,12 @@ return [
     'new_user' => 'New User',
     'username' => 'Username',
     'fullname' => 'Full Name',
+    'email' => 'E-mail',
     'role' => 'Role',
+    'select_role' => 'Select Role',
+    'password' => 'Password',
+    'default' => 'Default',
+    'edit_user' => 'Edit User',
 
     // datatables column name - reporting persons
     'reportingperson_list' => 'Reporting Person List',
@@ -258,4 +263,22 @@ return [
     'page_not_found' => 'Page Not Found',
     'url_not_found' => 'The requested URL was not found on this server',
     'back_to_dashboard' => 'Back to Dashboard',
+
+    // datatables column name - tabs and pills for new today, due in 5 days, overdue
+    'new_tix_today' => 'New Ticket for Today',
+    'upcoming_deadlines' => 'Upcoming Deadlines',
+    'missed_deadlines' => 'Missed Deadlines',
+    'ticket_tracker' => 'Ticket Tracker',
+    'todays_new' => 'Todays New',
+
+    'month_year' => 'Month',
+    'tt_report' => 'TT Report DTG',
+    'tt_ref_no' => 'TT Ref No',
+    'fault_summary' => 'Fault Summary',
+    'sla' => 'SLA',
+    'time_expected_closed' => 'Time Expected to Closed TT',
+    'response_taken' => 'Response Taken',
+    'response_DTG' => 'Response DTG',
+    'response_duration' => 'Response Duration',
+    'last_updates' => 'Last Updates',
 ];

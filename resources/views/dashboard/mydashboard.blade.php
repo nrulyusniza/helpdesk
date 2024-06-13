@@ -37,9 +37,9 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">{{ __('messages.cd_new') }}</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_new') }} : {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('M d, Y') }}</span>
               <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2 text-white">XX</h4>
+                <h4 class="mb-0 me-2 text-white">{{ $allNewTodayCount }}</h4>
               </div>
             </div>
             <div class="avatar">
@@ -55,19 +55,19 @@
 
   <!-- 10 -->
   <div class="col-sm-6 col-xl-4">
-    <a href="{{ route('dashboard.paramount.alldue5days') }}">
+    <a href="{{ route('dashboard.paramount.allupcomingdue') }}">
       <div class="card bg-warning text-white">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">{{ __('messages.cd_due5days') }}</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_upcomingdue') }}</span>
               <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2 text-white">XX</h4>
+                <h4 class="mb-0 me-2 text-white">{{ $allUpcomingDueCount }}</h4>
               </div>
             </div>
             <div class="avatar">
               <span class="avatar-initial rounded bg-label-warning">
-                <i class="bx bx-alarm-exclamation bx-sm"></i>
+                <i class="bx bx-error bx-sm"></i>
               </span>
             </div>
           </div>
@@ -85,7 +85,7 @@
             <div class="content-left">
               <span class="fw-medium d-block mb-1">{{ __('messages.cd_overdue') }}</span>
               <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2 text-white">XX</h4>
+                <h4 class="mb-0 me-2 text-white">{{ $allOverdueCount }}</h4>
               </div>
             </div>
             <div class="avatar">

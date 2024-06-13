@@ -118,6 +118,7 @@
               <th>#</th>
               <th>{{ __('messages.username') }}</th>
               <th>{{ __('messages.fullname') }}</th>
+              <th>{{ __('messages.email') }}</th>
               <th>{{ __('messages.role') }}</th>
               <th>{{ __('messages.site') }}</th>
               <th>{{ __('messages.action') }}</th>
@@ -129,6 +130,7 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $u->username }}</td>
               <td>{{ $u->fullname }}</td>
+              <td>{{ $u->email }}</td>
               <!-- <td>{{ $u->role->role_name ?? " " }}</td> -->
               <td>
                 @if(isset($u->role->role_name))

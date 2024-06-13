@@ -39,7 +39,7 @@ Route::get('dashboard/infohub/allclosed', 'HomeController@allclosed')->name('das
 Route::get('dashboard/infohub/allkiv', 'HomeController@allkiv')->name('dashboard.infohub.allkiv');
 
 Route::get('dashboard/paramount/allnewtoday', 'HomeController@allnewtoday')->name('dashboard.paramount.allnewtoday');
-Route::get('dashboard/paramount/alldue5days', 'HomeController@alldue5days')->name('dashboard.paramount.alldue5days');
+Route::get('dashboard/paramount/allupcomingdue', 'HomeController@allupcomingdue')->name('dashboard.paramount.allupcomingdue');
 Route::get('dashboard/paramount/alloverdue', 'HomeController@alloverdue')->name('dashboard.paramount.alloverdue');
 
 // site admin's dashboard
@@ -331,10 +331,13 @@ Route::get('equipmentstatuss/allequipmentstatus', 'EquipmentstatusController@all
 //------------------------------------------------------------------- TICKET REPORTING -------------------------------------------------------------------
 // tickets path - super admin view
 Route::get('tickets/report/producereport', 'TicketController@producereport')->name('tickets.report.producereport');
-Route::get('tickets/report/records', 'TicketController@records')->name('tickets.report.records');
+// Route::get('tickets/report/records', 'TicketController@records')->name('tickets.report.records');
 
-// tickets path - site admin & site user view
+// tickets path - site admin view
 Route::get('tickets/report/generatereport', 'TicketController@generatereport')->name('tickets.report.generatereport');
+
+// tickets path - site user view
+Route::get('tickets/report/promptreport', 'TicketController@promptreport')->name('tickets.report.promptreport');
 
 //------------------------------------------------------------------- LANGUAGE ENG-MALAY -------------------------------------------------------------------
 Route::post('/language-switch', 'LanguageController@switchLanguage')->name('language.switch');

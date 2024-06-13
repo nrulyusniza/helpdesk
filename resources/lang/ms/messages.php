@@ -20,7 +20,7 @@ return [
     'cd_site' => 'Tapak',
     'cd_asset' => 'Aset',
     'cd_new' => 'Baru',
-    'cd_due5days' => 'Tamat dalam masa 5 hari',
+    'cd_upcomingdue' => 'Akan Datang',
     'cd_overdue' => 'Tertunggak',
 
     // area chart
@@ -96,7 +96,7 @@ return [
     'select_name' => 'Pilih Nama',
     'select_equipment' => 'Pilih Peralatan',
     'view_details' => 'Lihat Butiran',
-    'admin_response' => 'Respon Pentadbir',
+    'admin_response' => 'Maklum Balas Pentadbir',
     'details_request' => 'Butiran untuk Nombor Permintaan',
     'modify' => 'Pengubahsuaian pada halaman ini tidak dibenarkan',
     'no_attachment' => 'Tiada lampiran tersedia',
@@ -178,7 +178,12 @@ return [
     'new_user' => 'Pengguna Baharu',
     'username' => 'Nama Pengguna',
     'fullname' => 'Nama Penuh',
+    'email' => 'E-mel',
     'role' => 'Peranan',
+    'select_role' => 'Pilih Peranan',
+    'password' => 'Kata Laluan',
+    'default' => 'Asal',
+    'edit_user' => 'Edit Pengguna',
 
     // datatables column name - reporting persons
     'reportingperson_list' => 'Senarai Orang Pelapor',
@@ -258,4 +263,22 @@ return [
     'page_not_found' => 'Halaman Tidak Ditemui',
     'url_not_found' => 'URL yang diminta tidak ditemui pada pelayan ini',
     'back_to_dashboard' => 'Kembali ke Papan Pemuka',
+
+    // datatables column name - tabs and pills for new today, due in 5 days, overdue
+    'new_tix_today' => 'Tiket Baharu Hari Ini',
+    'upcoming_deadlines' => 'Tarikh Akhir Akan Datang',
+    'missed_deadlines' => 'Tarikh Akhir Terlepas',
+    'ticket_tracker' => 'Penjejak Tiket',
+    'todays_new' => 'Baharu Hari Ini',
+
+    'month_year' => 'Bulan',
+    'tt_report' => 'TT Report DTG',
+    'tt_ref_no' => 'TT Ref No',
+    'fault_summary' => 'Ringkasan Kesalahan',
+    'sla' => 'SLA',
+    'time_expected_closed' => 'Masa Dijangka Ditutup TT',
+    'response_taken' => 'Maklum Balas Diambil',
+    'response_DTG' => 'Maklum Balas DTG',
+    'response_duration' => 'Tempoh Maklum Balas',
+    'last_updates' => 'Kemas Kini Terakhir',
 ];

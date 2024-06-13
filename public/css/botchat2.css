@@ -156,13 +156,13 @@ body {
     cursor: pointer;
 }
 #bot2 {
-    display: none;
+    /* display: none; */
     text-align: left;
     padding-left: 2px;
     margin-left: 10px;
 }
 #bot2 p {
-    max-width: 67%;
+    max-width: 77%;
     white-space: pre-wrap;
     color: #000;
     background: #d7c9ff83;
@@ -176,7 +176,7 @@ body {
     line-height: 1.5em;
     display: inline-block;   
     animation: floatup .5s forwards;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 /* SENDING MESSAGE */
 .chat-bar-input-block {

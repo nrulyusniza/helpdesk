@@ -113,11 +113,37 @@
           @if(Auth::user()->role_id==1)
           <ul class="menu-inner py-1">
             <!-- 1- Dashboard -->
-            <li class="menu-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('dashboard.mydashboard*') ? 'active' : request()->routeIs('dashboard.infohub*') ? 'active' : '' }}">
               <a href="{{ route('dashboard.mydashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_dashboard') }}</span>
               </a>
+            </li>
+
+            <!-- 7- Ticket Tracker -->
+            <li class="menu-item {{ request()->routeIs('dashboard.paramount*') ? 'active' : '' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-traffic-barrier"></i>
+                <div>{{ __('messages.ticket_tracker') }}</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('dashboard.paramount.allnewtoday') ? 'active' : '' }}">
+                  <a href="{{ route('dashboard.paramount.allnewtoday') }}" class="menu-link">
+                    <div>{{ __('messages.todays_new') }}</div>
+                  </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('dashboard.paramount.allupcomingdue') ? 'active' : '' }}">
+                  <a href="{{ route('dashboard.paramount.allupcomingdue') }}" class="menu-link">
+                    <div>{{ __('messages.upcoming_deadlines') }}</div>
+                  </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('dashboard.paramount.alloverdue') ? 'active' : '' }}">
+                  <a href="{{ route('dashboard.paramount.alloverdue') }}" class="menu-link">
+                    <div>{{ __('messages.missed_deadlines') }}</div>
+                  </a>
+                </li>
+              </ul>
             </li>
 
             <!-- 2- Issue Tracking -->
@@ -408,8 +434,8 @@
 
             <!-- 6- Others -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('messages.sm_others') }}</span></li>
-            <li class="menu-item {{ request()->routeIs('tickets.report.generatereport') ? 'active' : '' }}">
-              <a href="{{ route('tickets.report.generatereport') }}" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('tickets.report.promptreport') ? 'active' : '' }}">
+              <a href="{{ route('tickets.report.promptreport') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_report') }}</span>
               </a>

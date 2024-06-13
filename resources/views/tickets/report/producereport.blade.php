@@ -20,7 +20,7 @@
 
                 <form method="get" action="producereport">
                     <div class="input-group">
-                        <select class="form-select" name="date_filter">
+                        <select class="form-select" name="date_filter" id="dateFilter">
                             <option value="">{{ __('messages.all_dates') }}</option>
                             <option value="today" {{ $dateFilter == 'today' ? 'selected' : '' }}>{{ __('messages.today') }}</option>
                             <option value="yesterday" {{ $dateFilter == 'yesterday' ? 'selected' : '' }}>{{ __('messages.yesterday') }}</option>
@@ -32,10 +32,10 @@
                             <option value="last_year" {{ $dateFilter == 'last_year' ? 'selected' : '' }}>{{ __('messages.last_year') }}</option>
                             <option value="custom_date" {{ $dateFilter == 'custom_date' ? 'selected' : '' }}>{{ __('messages.custom_date') }}</option>
                         </select>
-                        @if ($dateFilter == 'custom_date')
-                            <input type="date" name="start_date" class="form-control" placeholder="Start Date" required>
-                            <input type="date" name="end_date" class="form-control" placeholder="End Date" required>
-                        @endif
+                        <!-- @if ($dateFilter == 'custom_date') -->
+                            <input type="date" id="startDate" name="start_date" class="form-control" placeholder="Start Date" style="display: none;" required>
+                            <input type="date" id="endDate" name="end_date" class="form-control" placeholder="End Date" style="display: none;" required>
+                        <!-- @endif -->
                         <button type="submit" class="btn btn-primary">{{ __('messages.filter') }}</button>
                     </div>
                 </form><br>
@@ -44,94 +44,256 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ __('messages.report_date') }}</th>
-                            <th>{{ __('messages.request_no') }}</th>
+                            <th>{{ __('messages.month_year') }}</th>
+                            <th>{{ __('messages.tt_report') }}</th>
                             <th>{{ __('messages.ticket_no') }}</th>
                             <th>{{ __('messages.site') }}</th>
-                            <th>{{ __('messages.fault_desc') }}</th>
-                            <th>{{ __('messages.admin_comments') }}</th>
-                            <th>{{ __('messages.asset') }}</th>
+                            <th>{{ __('messages.equipment') }}</th>
+                            <th>{{ __('messages.category') }}</th>
+                            <th>{{ __('messages.fault_summary') }}</th>
                             <th>{{ __('messages.severity') }}</th>
+                            <th>{{ __('messages.sla') }}</th>
+                            <th>{{ __('messages.time_expected_closed') }}</th>
                             <th>{{ __('messages.status') }}</th>
+                            <th>{{ __('messages.response_taken') }}</th>
+                            <th>{{ __('messages.response_type') }}</th>
+                            <th>{{ __('messages.response_DTG') }}</th>
+                            <th>{{ __('messages.response_duration') }}</th>
+                            <th>{{ __('messages.last_updates') }}</th>
+                            <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
                     <tbody class="table-border-bottom-0">
+                        @php
+                            $counter = 0; // initialize counter
+                        @endphp
                         @foreach ($tickets as $tt)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $tt->report_received->format('M d, Y') }}</td>
-                            <td>{{ $tt->issue->request_no ?? " " }}</td>
-                            <td>{{ $tt->ticket_no }}</td>
-                            <td>{{ $tt->issue->site->site_name ?? " " }}</td>
-                            <td>{{ $tt->issue->fault_description ?? " " }}</td>
-                            <td>{{ $tt->issue->admin_comments ?? " " }}</td>
-                            <td>{{ $tt->issue->equipment->asset_hostname ?? " " }}</td>
-                            <!-- <td>{{ $tt->severity->severity_label ?? " " }}</td> -->
-                            <td>
-                                @if(isset($tt->severity->severity_label))
-                                    @php
-                                        $severityLabel = $tt->severity->severity_label;
-                                        $badgeClass = '';
+                            @php
+                                $counter++; // increment counter for each iteration of outer loop
+                            @endphp
+                            @if ($tt->ticketlog->isNotEmpty())
+                                @foreach ($tt->ticketlog as $log)                                 
+                                    <tr>
+                                        <td>{{ $counter }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M-y') }}</td></td>
+                                        <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M d, Y h:i A') }}</td>
+                                        <td>{{ $tt->ticket_no }}</td>
+                                        <td>{{ $tt->issue->site->site_name ?? " " }}</td>
+                                        <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
+                                        <td>{{ $tt->issue->reqcategory->req_category ?? " " }}</td>
+                                        <td>{{ $tt->issue->fault_description ?? " " }}</td>
+                                        <td>
+                                            @if(isset($tt->severity->severity_label))
+                                                @php
+                                                    $severityLabel = $tt->severity->severity_label;
+                                                    $badgeClass = '';
+                                                    $slaDuration = '';     // dynamically to SLA(3 months/14 days/72 hours)
 
-                                        switch($tt->severity->id) {
-                                            case 1:
-                                                $badgeClass = 'bg-danger';
-                                                break;
-                                            case 2:
-                                                $badgeClass = 'bg-primary';
-                                                break;
-                                            case 3:
-                                                $badgeClass = 'bg-success';
-                                                break;
-                                            default:
-                                                $badgeClass = 'bg-label-info';
-                                                break;
-                                        }
-                                    @endphp
+                                                    switch($tt->severity->id) {
+                                                        case 1:
+                                                            $badgeClass = 'bg-danger';
+                                                            $slaDuration = '72 Hours';      // how it would be display in column SLA
+                                                            break;
+                                                        case 2:
+                                                            $badgeClass = 'bg-primary';
+                                                            $slaDuration = '14 Days';
+                                                            break;
+                                                        case 3:
+                                                            $badgeClass = 'bg-success';
+                                                            $slaDuration = '3 Months';
+                                                            break;
+                                                        default:
+                                                            $badgeClass = 'bg-label-info';
+                                                            break;
+                                                    }
+                                                @endphp
 
-                                    <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
-                                @else
-                                    <span class="badge bg-secondary me-1"></span>
-                                @endif
-                            </td>   <!-- badges that depends on database -->  
-                            <!-- <td>{{ $tt->ticstatus->ticstatus_label ?? " " }}</td> -->
-                            <td>
-                                @if(null !== ($latestTicketlog = $tt->latestTicketlog))
-                                    @php
-                                        $badgeClass = '';
+                                                <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                            @else
+                                                <span class="badge bg-secondary me-1"></span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(isset($slaDuration))
+                                                <span class="badge {{ $badgeClass }} me-1">{{ $slaDuration }}</span>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>                                      
+                                        
+                                        <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                        <td>
+                                            @if(isset($tt->ticstatus->ticstatus_label))
+                                                @php
+                                                    $ticstatusLabel = $tt->ticstatus->ticstatus_label;
+                                                    $badgeClass = '';
 
-                                        switch($latestTicketlog->ticstatus->id ?? null) {
-                                            case 1:
-                                                $badgeClass = 'bg-success';
-                                                break;
-                                            case 2:
-                                                $badgeClass = 'bg-primary';
-                                                break;
-                                            case 3:
-                                                $badgeClass = 'bg-dark';
-                                                break;
-                                            case 4:
-                                                $badgeClass = 'bg-danger';
-                                                break;
-                                            default:
-                                                $badgeClass = 'bg-label-info';
-                                                break;
-                                        }
-                                    @endphp
+                                                    switch($tt->ticstatus->id) {
+                                                        case 1:
+                                                            $badgeClass = 'bg-success';
+                                                            break;
+                                                        case 2:
+                                                            $badgeClass = 'bg-primary';
+                                                            break;
+                                                        case 3:
+                                                            $badgeClass = 'bg-dark';
+                                                            break;
+                                                        case 4:
+                                                            $badgeClass = 'bg-danger';
+                                                            break;
+                                                        default:
+                                                            $badgeClass = 'bg-label-info';
+                                                            break;
+                                                    }
+                                                @endphp
 
-                                    <span class="badge {{ $badgeClass }} me-1">{{ $latestTicketlog->ticstatus->ticstatus_label }}</span>
-                                @else
-                                    {{-- display ticstatus_id=1 (New Ticket) badge when there are no ticketlog records --}}
-                                    @php
-                                        $badgeClass = 'bg-success'; // Set the badge class for ticstatus_id=1
-                                    @endphp
-                                    <span class="badge {{ $badgeClass }} me-1">{{ $tt->ticstatus->ticstatus_label ?? 'Default Label' }}</span>
-                                @endif
-                            </td>   <!-- badges that depends on database -->
-                        </tr>
+                                                <span class="badge {{ $badgeClass }} me-1">{{ $ticstatusLabel }}</span>
+                                            @else
+                                                <span class="badge bg-secondary me-1"></span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $log->description ?? " " }}</td>
+                                        <td>{{ $log->reaction->response_type ?? " " }}</td>
+                                        <td>
+                                            @if($log && $log->response_date)
+                                                {{ \Carbon\Carbon::parse($log->response_date)->format('M d, Y') }}
+                                            @else
+                                                {{ " " }}
+                                            @endif
+                                            @if($log && $log->response_time)
+                                                {{ \Carbon\Carbon::parse($log->response_time)->format('h:i A') }}
+                                            @else
+                                                {{ " " }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $tt->getCalcDurationForLog($log) }}</td>
+                                        <!-- <td>{{ $tt->update_date }}</td> -->
+                                        <td>
+                                            @if($log->date)
+                                                {{ \Carbon\Carbon::parse($log->date)->format('M d, Y h:i A') }}                                            
+                                            @else
+                                                {{ " " }}
+                                            @endif
+                                        </td>  
+                                        <td>
+                                            <form action="" method="POST">
+                                                @php
+                                                    $routeName = ($tt->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                                @endphp
+
+                                                <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $tt->id) }}" style="color:#57cc99"
+                                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                    title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    </tr>                                    
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>{{ $counter }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M-y') }}</td></td>
+                                    <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M d, Y h:i A') }}</td>
+                                    <td>{{ $tt->ticket_no }}</td>
+                                    <td>{{ $tt->issue->site->site_name ?? " " }}</td>
+                                    <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
+                                    <td>{{ $tt->issue->reqcategory->req_category ?? " " }}</td>
+                                    <td>{{ $tt->issue->fault_description ?? " " }}</td>
+                                    <td>
+                                        @if(isset($tt->severity->severity_label))
+                                            @php
+                                                $severityLabel = $tt->severity->severity_label;
+                                                $badgeClass = '';
+                                                $slaDuration = '';     // dynamically to SLA(3 months/14 days/72 hours)
+
+                                                switch($tt->severity->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-danger';
+                                                        $slaDuration = '72 Hours';      // how it would be display in column SLA
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        $slaDuration = '14 Days';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-success';
+                                                        $slaDuration = '3 Months';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $severityLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(isset($slaDuration))
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $slaDuration }}</span>
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>                                      
+                                    
+                                    <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                    <td>
+                                        @if(isset($tt->ticstatus->ticstatus_label))
+                                            @php
+                                                $ticstatusLabel = $tt->ticstatus->ticstatus_label;
+                                                $badgeClass = '';
+
+                                                switch($tt->ticstatus->id) {
+                                                    case 1:
+                                                        $badgeClass = 'bg-success';
+                                                        break;
+                                                    case 2:
+                                                        $badgeClass = 'bg-primary';
+                                                        break;
+                                                    case 3:
+                                                        $badgeClass = 'bg-dark';
+                                                        break;
+                                                    case 4:
+                                                        $badgeClass = 'bg-danger';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'bg-label-info';
+                                                        break;
+                                                }
+                                            @endphp
+
+                                            <span class="badge {{ $badgeClass }} me-1">{{ $ticstatusLabel }}</span>
+                                        @else
+                                            <span class="badge bg-secondary me-1"></span>
+                                        @endif
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>  
+                                    <td>
+                                        <form action="" method="POST">
+                                            @php
+                                                $routeName = ($tt->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                            @endphp
+
+                                            <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $tt->id) }}" style="color:#57cc99"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr> 
+                            @endif
                         @endforeach
                     </tbody>                    
                 </table>
+                
             </div>
         </div>
         
@@ -154,35 +316,71 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script> -->
 
     <script>
-      $(document).ready(function(){
-        $('#example').DataTable({
-            pagingType: 'simple_numbers',
-            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],          
-            responsive:true,
-            dom: '<"html5buttons"B>frltip',
-            buttons: [
-                {extend: 'copy'},
-                //{extend: 'csv'},
-                {extend: 'excel', title: 'Ticket Reporting', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]}
-                },
-                {extend: 'pdf', title: 'Ticket Reporting', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]}
-                },
-                {extend: 'print', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+        $(document).ready(function(){
+            $('#example').DataTable({
+                pagingType: 'simple_numbers',
+                lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],          
+                responsive:true,
+                dom: '<"html5buttons"B>frltip',
+                buttons: [
+                    {extend: 'copy'},
+                    //{extend: 'csv'},
+                    {extend: 'excel', 
+                        title: 'Ticket Reporting', 
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
                     },
-                    customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-                        $(win.document.body).find('table')
-                        .addClass('compact')
-                        .css('font-size', 'inherit');
+                    {extend: 'pdf', 
+                        title: 'Ticket Reporting', 
+                        orientation: 'landscape',
+                        // pageSize: 'LEGAL', 
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                    },
+                    {extend: 'print', 
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                            },
+                            customize: function (win){
+                                $(win.document.body).addClass('white-bg');
+                                $(win.document.body).css('font-size', '10px');
+                                $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                            }
                     }
-                }
-            ]
+                ]
+            });
         });
-      });
+
+        // custom date filter reset
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateFilter = document.getElementById('dateFilter');
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+
+            function toggleDateInputs() {
+                if (dateFilter.value === 'custom_date') {
+                    startDate.style.display = 'block';
+                    endDate.style.display = 'block';
+                    startDate.disabled = false;
+                    endDate.disabled = false;
+                } else {
+                    startDate.style.display = 'none';
+                    endDate.style.display = 'none';
+                    startDate.disabled = true;
+                    endDate.disabled = true;
+                    startDate.value = ''; // Reset value
+                    endDate.value = '';   // Reset value
+                }
+            }
+
+            // Initial call to set the correct state on page load
+            toggleDateInputs();
+
+            // Add event listener to update state on change
+            dateFilter.addEventListener('change', toggleDateInputs);
+        });
     </script>
 
     <!-- <script type="text/javascript">

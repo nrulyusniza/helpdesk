@@ -121,7 +121,7 @@
                                     <!-- <a class="menu-icon tf-icons bx bx-edit" href="{{ route('tickets.allconsumableedit',$tt->id) }}"></a> -->
                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.allconsumableedit',$tt->id) }}" style="color:#57cc99"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                        title="<span>Details Ticket Log</span>"></a>
+                                        title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
                                     @csrf
                                     @method('DELETE')
                                 </form>

@@ -43,6 +43,7 @@ class UserController extends Controller
             'fullname' => 'required',
             'username' => 'required|unique:users',
             'password' => 'required|string|min:8',
+            'email' => 'required|email',
             'site_id' => 'required|exists:sites,id',
             'role_id' => 'required|exists:roles,id',
         ]);
@@ -53,6 +54,7 @@ class UserController extends Controller
             'fullname' => $request->input('fullname'),
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
+            'email' => $request->input('email'),
             'site_id' => $request->input('site_id'),
             'role_id' => $request->input('role_id'),
         ];
@@ -98,6 +100,7 @@ class UserController extends Controller
             'fullname' => 'required',
             'password' => 'nullable|string|min:8',
             'site_id' => 'required|exists:sites,id',
+            'email' => 'required|email',
             'role_id' => 'required|exists:roles,id',
         ]);
   
@@ -106,6 +109,7 @@ class UserController extends Controller
         $data = [
             'fullname' => $request->input('fullname'),
             'site_id' => $request->input('site_id'),
+            'email' => $request->input('email'),
             'role_id' => $request->input('role_id'),
         ];
     

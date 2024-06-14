@@ -75,7 +75,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <!-- Chatbot -->
-    <!-- <link rel="stylesheet" href="{{asset('css/botchat2.css')}}"> -->
+    <link rel="stylesheet" href="{{asset('css/botchat2.css')}}">
 
     <!-- Language -->
     <link rel="stylesheet" href="{{asset('css/translate.css')}}">
@@ -167,7 +167,7 @@
                                           ->count();
               @endphp
               <a href="{{ route('tickets.allticket') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <i class="menu-icon tf-icons bx bx-purchase-tag-alt"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_ticket') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
@@ -179,7 +179,7 @@
                                           ->count();
               @endphp
               <a href="{{ route('tickets.allconsumable') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <i class="menu-icon tf-icons bx bx-brush"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_consumables') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
@@ -287,7 +287,7 @@
                                                 ->count();
               @endphp
               <a href="{{ route('tickets.listticket') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <i class="menu-icon tf-icons bx bx-purchase-tag-alt"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_ticket') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
@@ -302,7 +302,7 @@
                                                 ->count();
               @endphp
               <a href="{{ route('tickets.listconsumable') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <i class="menu-icon tf-icons bx bx-brush"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_consumables') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
@@ -384,7 +384,7 @@
                                                 ->count();
               @endphp
               <a href="{{ route('tickets.entireticket') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <i class="menu-icon tf-icons bx bx-purchase-tag-alt"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_ticket') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
@@ -399,7 +399,7 @@
                                                 ->count();
               @endphp
               <a href="{{ route('tickets.entireconsumable') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <i class="menu-icon tf-icons bx bx-brush"></i>
                 <span class="flex-grow-1 align-middle">{{ __('messages.sm_consumables') }}</span>
                 <span class="flex-shrink-0 badge badge-center bg-danger w-px-20 h-px-20">{{ $count }}</span>
               </a>
@@ -849,7 +849,66 @@
     <!-- / Layout wrapper -->
 
     <!-- Chatbot -->
-    
+    <div class="chat-bar-collapsible">
+        <button id="chat-button" type="button" class="collapsible">
+          <i class='bx bx-bot bx-md'></i>
+        </button>
+        
+        <div class="content">
+            <header>
+                <h2 class="lang" key="title">NCO HELPDESK</h2>
+            </header>
+            <div class="full-chat-block">
+                <!-- Message Container -->
+                <div class="outer-container"></br>
+                    <div class="chat-container">
+                        <!-- Messages -->
+                        <div id="chatbox"> 
+                            <!-- LANGUAGES  -->
+                            <div class="button-box">
+                                <div id="btn"></div>
+                                <button type="button" class="toggle-btn" onclick="leftClick()" id="en">EN</button>
+                                <button type="button" class="toggle-btn" onclick="rightClick()" id="ms">BM</button>
+                            </div>
+                            <h5 id="chat-timestamp"></h5>
+                            <p id="botStarterMessage" class="botText"><span class="lang" key="greeting">Loading...</span></p>
+                            <div id="user1">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <button id="answer" class="user1ans1 lang" onClick="window.location.href = '{{ route('issues.allissuecreate') }}', myFunction()" target="_self" key="create ticket">Create Ticket</button>
+                                        <button id="answer" class="user1ans2 lang" onClick="window.location.href = '{{ route('issues.allissuecreate') }}', myFunction()" target="_self" key="create consumable">Create Consumable</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div id="bot2">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <p><span class="lang" key="video">How to create a ticket</span><video width="240px" height="150px" controls>
+                                            <source src="{{asset('video/Request.mp4')}}" type="video/mp4"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div id="chat-bar-bottom"></div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User input box -->
+            <div class="chat-bar-input-block" >
+                <div id="userInput">
+                    <input id="textInput" class="input-box lang"  key="send" type="text" name="msg" placeholder="  .  .  .  .  .  .  .  .  " required>
+                </div>
+                <div class="chat-bar-icons">
+                    <i id="chat-icon" class="bx bx-send" onclick="sendButton()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -875,7 +934,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <!-- Chatbot JS -->
-    <!-- <script src="{{asset('js/botchat2.js')}}"></script> -->
+    <script src="{{asset('js/botchat2.js')}}"></script>
     
     <!-- Page refresh -->
     <!-- <script>

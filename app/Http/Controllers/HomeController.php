@@ -63,15 +63,52 @@ class HomeController extends Controller
                                     ->whereDate('report_received', Carbon::today())
                                     ->count();
 
-        $allUpcomingDueCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
-                                    ->where('ticstatus_id', 1)
-                                    ->whereDate('report_received', Carbon::today())
-                                    ->count();
+        //---------------- Upcoming Due Count ----------------
+        $today = \Carbon\Carbon::now('Asia/Kuala_Lumpur');  // current date and time
+        $upcomingDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
 
-        $allOverdueCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
-                                    ->where('ticstatus_id', 1)
-                                    ->whereDate('report_received', Carbon::today())
-                                    ->count();
+        $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->orderBy('ticket_no', 'desc')
+                            ->get();
+
+        // filter tickets to keep only those whose expected closure time is between today and the next 5 days
+        $allUpcomingDueData = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+            $expectedClosureTime = $ticket->expected_closure_time;                                      // get expected closure time using model function
+            return $expectedClosureTime && $expectedClosureTime->between($today, $upcomingDueDate);     // check if expected closure time is between today and the upcoming due date
+        });
+
+        $allUpcomingDueCount = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+            $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+            return $ticket->ticstatus_id == 1
+                && $expectedClosureTime
+                && $expectedClosureTime->between($today, $upcomingDueDate);
+        })->count();
+        //---------------- / Upcoming Due Count ----------------
+
+        //---------------- Overdue Count ----------------
+        $today = \Carbon\Carbon::now('Asia/Kuala_Lumpur');  // current date and time
+        // $overDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
+
+        $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->orderBy('ticket_no', 'desc')
+                            ->get();
+
+        // filter tickets to keep only those whose expected closure time is before today (overdue)
+        $allOverdueData = $allTickets->filter(function ($ticket) use ($today) {
+            $expectedClosureTime = $ticket->expected_closure_time;               // get expected closure time using model function
+            return $expectedClosureTime && $expectedClosureTime->lt($today);     // check if expected closure time is before today (overdue), lt() means less than
+        });
+
+
+        $allOverdueCount = $allTickets->filter(function ($ticket) use ($today) {
+            $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+            return $ticket->ticstatus_id == 1
+                && $expectedClosureTime
+                && $expectedClosureTime->lt($today); // check if expected closure time is before today (overdue), lt() means less than
+        })->count();
+        //---------------- / Overdue Count ----------------
 
         // cards
         $tickets = DB::table('tickets')->count();
@@ -1067,7 +1104,16 @@ class HomeController extends Controller
             return $expectedClosureTime && $expectedClosureTime->between($today, $upcomingDueDate);     // check if expected closure time is between today and the upcoming due date
         });
 
-        return view('/dashboard/paramount/allupcomingdue', compact('allUpcomingDueData'));
+
+        // $allUpcomingDueCount = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+        //     $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+        //     return $ticket->ticstatus_id == 1
+        //         && $expectedClosureTime
+        //         && $expectedClosureTime->between($today, $upcomingDueDate);
+        // })->count();
+
+        return view('/dashboard/paramount/allupcomingdue', compact('allUpcomingDueData', 'allUpcomingDueCount'));
     }
     
     // overdue
@@ -1150,6 +1196,15 @@ class HomeController extends Controller
             $expectedClosureTime = $ticket->expected_closure_time;               // get expected closure time using model function
             return $expectedClosureTime && $expectedClosureTime->lt($today);     // check if expected closure time is before today (overdue), lt() means less than
         });
+
+
+        // $allOverdueCount = $allTickets->filter(function ($ticket) use ($today) {
+        //     $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+        //     return $ticket->ticstatus_id == 1
+        //         && $expectedClosureTime
+        //         && $expectedClosureTime->lt($today); // check if expected closure time is before today (overdue), lt() means less than
+        // })->count();
 
         return view('/dashboard/paramount/alloverdue', compact('allOverdueData', 'allOverdueCount'));
     }

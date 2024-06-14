@@ -15,17 +15,19 @@
             <li class="nav-item">
                 <a href="{{ route('dashboard.paramount.allnewtoday') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allnewtoday') ? 'active' : '' }}">
                     <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.new_tix_today') }}: {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('M d, Y') }}
-                    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">XX</span> -->
+                    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allNewTodayCount</span> -->
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.paramount.allupcomingdue') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allupcomingdue') ? 'active' : '' }}">
                     <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.upcoming_deadlines') }}
+                    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allUpcomingDueCount</span> -->
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.paramount.alloverdue') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.alloverdue') ? 'active' : '' }}">
                     <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.missed_deadlines') }}
+                    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allOverdueCount</span> -->
                 </a>
             </li>
         </ul>

@@ -57,35 +57,92 @@ class HomeController extends Controller
     // super admin's dashboard
     public function mydashboard()
     {
+        // paramount
+        $allNewTodayCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                                    ->where('ticstatus_id', 1)
+                                    ->whereDate('report_received', Carbon::today())
+                                    ->count();
+
+        //---------------- Upcoming Due Count ----------------
+        $today = \Carbon\Carbon::now('Asia/Kuala_Lumpur');  // current date and time
+        $upcomingDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
+
+        $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->orderBy('ticket_no', 'desc')
+                            ->get();
+
+        // filter tickets to keep only those whose expected closure time is between today and the next 5 days
+        $allUpcomingDueData = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+            $expectedClosureTime = $ticket->expected_closure_time;                                      // get expected closure time using model function
+            return $expectedClosureTime && $expectedClosureTime->between($today, $upcomingDueDate);     // check if expected closure time is between today and the upcoming due date
+        });
+
+        $allUpcomingDueCount = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+            $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+            return $ticket->ticstatus_id == 1
+                && $expectedClosureTime
+                && $expectedClosureTime->between($today, $upcomingDueDate);
+        })->count();
+        //---------------- / Upcoming Due Count ----------------
+
+        //---------------- Overdue Count ----------------
+        $today = \Carbon\Carbon::now('Asia/Kuala_Lumpur');  // current date and time
+        // $overDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
+
+        $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->orderBy('ticket_no', 'desc')
+                            ->get();
+
+        // filter tickets to keep only those whose expected closure time is before today (overdue)
+        $allOverdueData = $allTickets->filter(function ($ticket) use ($today) {
+            $expectedClosureTime = $ticket->expected_closure_time;               // get expected closure time using model function
+            return $expectedClosureTime && $expectedClosureTime->lt($today);     // check if expected closure time is before today (overdue), lt() means less than
+        });
+
+
+        $allOverdueCount = $allTickets->filter(function ($ticket) use ($today) {
+            $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+            return $ticket->ticstatus_id == 1
+                && $expectedClosureTime
+                && $expectedClosureTime->lt($today); // check if expected closure time is before today (overdue), lt() means less than
+        })->count();
+        //---------------- / Overdue Count ----------------
+
         // cards
         $tickets = DB::table('tickets')->count();
         // $allTixOpen = DB::table('tickets')->where('ticstatus_id', '2')->count();
-        $allTixOpen = Ticket::where(function ($query) {
-            $query->select('ticstatus_id')
-                ->from('ticketlogs')
-                ->whereRaw('ticketlogs.ticket_id = tickets.id')
-                ->latest('id')
-                ->limit(1);
-        }, '=', 2)
-        ->count();
         // $allTixClosed = DB::table('tickets')->where('ticstatus_id', '4')->count();
-        $allTixClosed = Ticket::where(function ($query) {
-            $query->select('ticstatus_id')
-                ->from('ticketlogs')
-                ->whereRaw('ticketlogs.ticket_id = tickets.id')
-                ->latest('id')
-                ->limit(1);
-        }, '=', 4)
-        ->count();
         // $allTixKiv = DB::table('tickets')->where('ticstatus_id', '3')->count();
+
+        $allTixOpen = Ticket::where(function ($query) {
+                                $query->select('ticstatus_id')
+                                    ->from('ticketlogs')
+                                    ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                    ->latest('id')
+                                    ->limit(1);
+                            }, '=', 2)
+                            ->count();
+        
+        $allTixClosed = Ticket::where(function ($query) {
+                                $query->select('ticstatus_id')
+                                    ->from('ticketlogs')
+                                    ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                    ->latest('id')
+                                    ->limit(1);
+                            }, '=', 4)
+                            ->count();
+        
         $allTixKiv = Ticket::where(function ($query) {
-            $query->select('ticstatus_id')
-                ->from('ticketlogs')
-                ->whereRaw('ticketlogs.ticket_id = tickets.id')
-                ->latest('id')
-                ->limit(1);
-        }, '=', 3)
-        ->count();
+                                $query->select('ticstatus_id')
+                                    ->from('ticketlogs')
+                                    ->whereRaw('ticketlogs.ticket_id = tickets.id')
+                                    ->latest('id')
+                                    ->limit(1);
+                            }, '=', 3)
+                            ->count();
+
         $knowledgebases = DB::table('knowledgebases')->count();
         $users = DB::table('users')->count();
         $sites = DB::table('sites')->count();
@@ -151,22 +208,22 @@ class HomeController extends Controller
         // ###############################--------------------------------------###############################
         // area chart - tickets from the 6 months before the current month to the current month
         $currentDate = now();   // get current date and time
-        $startDate = $currentDate->copy()->subMonths(7)->startOfMonth();    // find start of the month, five months ago
+        $startDate = $currentDate->copy()->subMonths(5)->startOfMonth();    // find start of the month, five months ago
         $endDate = $currentDate->copy()->endOfMonth();      // find end of the current month.
 
         // fetch ticket counts by month from the db
         $ticketCounts = Ticket::selectRaw('YEAR(report_received) as year, MONTH(report_received) as month, COUNT(*) as count')  // get the year, month, and number of tickets
-                            ->whereBetween('report_received', [$startDate, $endDate])   // only include tickets from date range based on report_received
-                        ->groupBy('year', 'month')      // group results
-                            ->orderBy('year')
-                            ->orderBy('month')
-                            ->get()
-                            // ->keyBy(function($item) {
-                            //     return $item->year . '-' . str_pad($item->month, 2, '0', STR_PAD_LEFT);
-                            // });
-                            ->mapWithKeys(function($item) {         // convert results to an array
-                                return [sprintf('%04d-%02d', $item->year, $item->month) => $item->count];
-                            });
+                                ->whereBetween('report_received', [$startDate, $endDate])   // only include tickets from date range based on report_received
+                                ->groupBy('year', 'month')      // group results
+                                ->orderBy('year')
+                                ->orderBy('month')
+                                ->get()
+                                // ->keyBy(function($item) {
+                                //     return $item->year . '-' . str_pad($item->month, 2, '0', STR_PAD_LEFT);
+                                // });
+                                ->mapWithKeys(function($item) {         // convert results to an array
+                                    return [sprintf('%04d-%02d', $item->year, $item->month) => $item->count];
+                                });
 
         // create collection to ensure every month in the range has a value, even if it is 0 (0 = no ticket)
         $allMonths = collect();
@@ -192,7 +249,8 @@ class HomeController extends Controller
         $totalTicketNetwork = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')->where('issues.reqcategory_id', 3)->count();
         $totalTicketNonsystem = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')->where('issues.reqcategory_id', 4)->count();
 
-        return view('/dashboard/mydashboard', compact('tickets', 'allTixOpen', 'allTixClosed', 'allTixKiv', 
+        return view('/dashboard/mydashboard', compact('allNewTodayCount', 'allUpcomingDueCount', 'allOverdueCount',
+                                                    'tickets', 'allTixOpen', 'allTixClosed', 'allTixKiv', 
                                                     'knowledgebases', 'users', 'sites', 'equipments', 
                                                     // 'ticketCounts', 'monthLabels',
                                                     // 'ticketCounts' => $ticketCounts->values()->toArray(),
@@ -238,23 +296,63 @@ class HomeController extends Controller
                         ->where('tickets.ticstatus_id', 3)
                         ->count();
 
-        // area chart
-        $currentYear = now()->year;
+        // ###############################--------------------------------------###############################
+        // // area chart
+        // $currentYear = now()->year;
+
+        // // fetch ticket counts by month from the db based on site_id
+        // $ticketCounts = Ticket::whereHas('issue', function ($query) use ($site_id) {
+        //                                     $query->where('site_id', $site_id);
+        //                                 })
+        //                                 ->selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+        //                                 ->whereYear('report_received', $currentYear)
+        //                                 ->groupBy('month')
+        //                                 ->orderBy('month')
+        //                                 ->pluck('count', 'month');
+
+        // // if want to fill in months with zero counts, use the following code
+        // $allMonths = range(1, 12);
+        // $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
+        // ###############################--------------------------------------###############################
+        // area chart - tickets from the 6 months before the current month to the current month
+        $currentDate = now();   // get current date and time
+        $startDate = $currentDate->copy()->subMonths(5)->startOfMonth();    // find start of the month, five months ago
+        $endDate = $currentDate->copy()->endOfMonth();      // find end of the current month.
 
         // fetch ticket counts by month from the db based on site_id
         $ticketCounts = Ticket::whereHas('issue', function ($query) use ($site_id) {
-                                            $query->where('site_id', $site_id);
-                                        })
-                                        ->selectRaw('MONTH(report_received) as month, COUNT(*) as count')
-                                        ->whereYear('report_received', $currentYear)
-                                        ->groupBy('month')
-                                        ->orderBy('month')
-                                        ->pluck('count', 'month');
+                                                 $query->where('site_id', $site_id);
+                                })
+                                ->selectRaw('YEAR(report_received) as year, MONTH(report_received) as month, COUNT(*) as count')  // get the year, month, and number of tickets
+                                ->whereBetween('report_received', [$startDate, $endDate])   // only include tickets from date range based on report_received
+                                ->groupBy('year', 'month')      // group results
+                                ->orderBy('year')
+                                ->orderBy('month')
+                                ->get()
+                                // ->keyBy(function($item) {
+                                //     return $item->year . '-' . str_pad($item->month, 2, '0', STR_PAD_LEFT);
+                                // });
+                                ->mapWithKeys(function($item) {         // convert results to an array
+                                    return [sprintf('%04d-%02d', $item->year, $item->month) => $item->count];
+                                });
 
-        // if want to fill in months with zero counts, use the following code
-        $allMonths = range(1, 12);
-        $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
-        
+        // create collection to ensure every month in the range has a value, even if it is 0 (0 = no ticket)
+        $allMonths = collect();
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addMonth()) {    // check each month from start to end date, adding each one to collection with a count of zero
+            $allMonths->put($date->format('Y-m'), 0);       // DB use Y-m-d (2024-02-01), Y-m because only that part want to be calculate
+        }
+        // $ticketCounts = $allMonths->merge($ticketCounts->pluck('count', 'month'));
+        $ticketCounts = $allMonths->merge($ticketCounts);   // add zero-count months with actual ticket counts
+
+        // convert to arrays for passing to the view
+        $ticketCountsArray = $ticketCounts->values()->toArray();
+
+        // month name labels for the chart
+        $monthLabels = [];
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addMonth()) {    // loop through each month again
+            $monthLabels[] = $date->format('M Y');      // M - A short textual representation of a month (three letters), Y - A four digit representation of a year
+        }
+
         // donut chart
         // counts the total number of tickets by logged in user's site_id
         $ttlTickets = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')->where('issues.site_id', $site_id)->count();
@@ -284,7 +382,8 @@ class HomeController extends Controller
                                     ->count();
 
         return view('/dashboard/dashboardadmin', compact('totalTickets', 'openTickets', 'closedTickets', 'kivTickets',
-                                                        'ticketCounts',
+                                                        // 'ticketCounts',
+                                                        'ticketCountsArray', 'monthLabels',
                                                         'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
     }
 
@@ -325,23 +424,63 @@ class HomeController extends Controller
                         ->where('tickets.ticstatus_id', 3)
                         ->count();
 
-        // area chart
-        $currentYear = now()->year;
+        // ###############################--------------------------------------###############################
+        // // area chart
+        // $currentYear = now()->year;
+
+        // // fetch ticket counts by month from the db based on site_id
+        // $ticketCounts = Ticket::whereHas('issue', function ($query) use ($site_id) {
+        //                                     $query->where('site_id', $site_id);
+        //                                 })
+        //                                 ->selectRaw('MONTH(report_received) as month, COUNT(*) as count')
+        //                                 ->whereYear('report_received', $currentYear)
+        //                                 ->groupBy('month')
+        //                                 ->orderBy('month')
+        //                                 ->pluck('count', 'month');
+
+        // // if want to fill in months with zero counts, use the following code
+        // $allMonths = range(1, 12);
+        // $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
+        // ###############################--------------------------------------###############################
+        // area chart - tickets from the 6 months before the current month to the current month
+        $currentDate = now();   // get current date and time
+        $startDate = $currentDate->copy()->subMonths(5)->startOfMonth();    // find start of the month, five months ago
+        $endDate = $currentDate->copy()->endOfMonth();      // find end of the current month.
 
         // fetch ticket counts by month from the db based on site_id
         $ticketCounts = Ticket::whereHas('issue', function ($query) use ($site_id) {
-                                            $query->where('site_id', $site_id);
-                                        })
-                                        ->selectRaw('MONTH(report_received) as month, COUNT(*) as count')
-                                        ->whereYear('report_received', $currentYear)
-                                        ->groupBy('month')
-                                        ->orderBy('month')
-                                        ->pluck('count', 'month');
+                                                 $query->where('site_id', $site_id);
+                                })
+                                ->selectRaw('YEAR(report_received) as year, MONTH(report_received) as month, COUNT(*) as count')  // get the year, month, and number of tickets
+                                ->whereBetween('report_received', [$startDate, $endDate])   // only include tickets from date range based on report_received
+                                ->groupBy('year', 'month')      // group results
+                                ->orderBy('year')
+                                ->orderBy('month')
+                                ->get()
+                                // ->keyBy(function($item) {
+                                //     return $item->year . '-' . str_pad($item->month, 2, '0', STR_PAD_LEFT);
+                                // });
+                                ->mapWithKeys(function($item) {         // convert results to an array
+                                    return [sprintf('%04d-%02d', $item->year, $item->month) => $item->count];
+                                });
 
-        // if want to fill in months with zero counts, use the following code
-        $allMonths = range(1, 12);
-        $ticketCounts = array_replace(array_fill_keys($allMonths, 0), $ticketCounts->toArray());
-        
+        // create collection to ensure every month in the range has a value, even if it is 0 (0 = no ticket)
+        $allMonths = collect();
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addMonth()) {    // check each month from start to end date, adding each one to collection with a count of zero
+            $allMonths->put($date->format('Y-m'), 0);       // DB use Y-m-d (2024-02-01), Y-m because only that part want to be calculate
+        }
+        // $ticketCounts = $allMonths->merge($ticketCounts->pluck('count', 'month'));
+        $ticketCounts = $allMonths->merge($ticketCounts);   // add zero-count months with actual ticket counts
+
+        // convert to arrays for passing to the view
+        $ticketCountsArray = $ticketCounts->values()->toArray();
+
+        // month name labels for the chart
+        $monthLabels = [];
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addMonth()) {    // loop through each month again
+            $monthLabels[] = $date->format('M Y');      // M - A short textual representation of a month (three letters), Y - A four digit representation of a year
+        }
+
         // donut chart
         // counts the total number of tickets by logged in user's site_id
         $ttlTickets = Ticket::join('issues', 'tickets.request_id', '=', 'issues.id')->where('issues.site_id', $site_id)->count();
@@ -371,7 +510,8 @@ class HomeController extends Controller
                                     ->count();
 
         return view('/dashboard/dashboarduser', compact('totalTickets', 'openTickets', 'closedTickets', 'kivTickets',
-                                                        'ticketCounts',
+                                                        // 'ticketCounts',
+                                                        'ticketCountsArray', 'monthLabels',
                                                         'ttlTickets', 'hardwareTickets', 'softwareTickets', 'networkTickets', 'nonsystemTickets'));
     }
 
@@ -405,7 +545,7 @@ class HomeController extends Controller
         // $allClosedCount = Ticket::where('ticstatus_id', '4')->count();
         // $allKivCount = Ticket::where('ticstatus_id', '3')->count();
 
-        $allTic = Ticket::orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+        $allTic = Ticket::orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  // SUBSTRING(original_string, start_position, length)
                         ->get();
 
         $allTicCount = Ticket::count();
@@ -456,7 +596,7 @@ class HomeController extends Controller
                                 ->latest('id')
                                 ->limit(1);
                         }, '=', 2)
-                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  // SUBSTRING(original_string, start_position, length)
                         ->get();
 
         $allTicCount = Ticket::count();
@@ -507,7 +647,7 @@ class HomeController extends Controller
                                 ->latest('id')
                                 ->limit(1);
                         }, '=', 4)
-                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  //SUBSTRING(original_string, start_position, length)
+                        ->orderByRaw("SUBSTRING(ticket_no, 4, 7) DESC, SUBSTRING(ticket_no, 12) DESC")  // SUBSTRING(original_string, start_position, length)
                         ->get();
 
         $allTicCount = Ticket::count();
@@ -844,22 +984,229 @@ class HomeController extends Controller
     //---------------------------------------------------------------------- PARAMOUNT ----------------------------------------------------------------------
     
     // super admin's paramount
-    // new today
+    // new today (current)
     public function allnewtoday()
     {        
-        return view('dashboard.paramount.allnewtoday');
+        // $allNewTodayData = DB::table('tickets')
+        //     ->join('ticketlogs', 'tickets.id', '=', 'ticketlogs.ticket_id')
+        //     ->where('ticketlogs.ticstatus_id', 2)
+        //     ->whereDate('ticketlogs.response_date', Carbon::today())
+        //     ->select('tickets.*', 'ticketlogs.response_date', 'ticketlogs.response_time')
+        //     ->get();
+
+        // $allNewTodayData = Ticket::with(['issue.site', 'issue.equipment', 'severity'])
+        //                             ->whereHas('ticketlog', function($query) {
+        //                                 $query->where('ticstatus_id', 2)
+        //                                     ->whereDate('response_date', Carbon::today());
+        //                             })
+        //                             ->get();
+
+        // $allNewTodayData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        // ->whereHas('ticketlog', function($query) {
+        //     $query->where('ticstatus_id', 1)
+        //           ->whereDate('report_received', Carbon::today());
+        // })
+        // ->get();
+
+        // ni betul dah
+        // date_default_timezone_set("Asia/Kuala_Lumpur");
+        // Carbon::setTimezone('Asia/Kuala_Lumpur');
+        // setTimezone('Asia/Kuala_Lumpur');
+
+        // guna query ni fx untuk display ticket yang ada log. Kalau takda log, ticket row takkan display
+        // $allNewTodayData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        //                             ->whereHas('ticketlog', function($query) {
+        //                                 $query->whereDate('report_received', Carbon::today());
+        //                             })
+        //                             ->get();
+
+
+        // latest 12/6 guna query ni
+        $allNewTodayData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                                    // ->where('ticstatus_id', 1)
+                                    ->whereDate('report_received', Carbon::today('Asia/Kuala_Lumpur'))
+                                    ->orderBy('ticket_no', 'desc')
+                                    ->get();
+
+        $allNewTodayCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                                    ->where('ticstatus_id', 1)                          //  extract current status = 1 (New Ticket)
+                                    ->whereDate('report_received', Carbon::today())
+                                    ->count();
+
+        // $allNewTodayCount = $allNewTodayData->count();
+
+        // ni pun betul juga. display new ticket ada.
+        // $allNewTodayData = Ticket::with('ticketlog')
+        //     ->whereDate('report_received', '2024-06-11')
+        //     ->get();
+
+        return view('/dashboard/paramount/allnewtoday', compact('allNewTodayData', 'allNewTodayCount'));
     }
 
-    // due in 5 days
-    public function alldue5days()
-    {        
-        return view('dashboard.paramount.alldue5days');
+    // upcomingdue
+    public function allupcomingdue()
+    {   
+        // $dueDate = Carbon::now()->addDays(5)->toDateString();       // due in 5 days from today
+
+        // // Query to retrieve upcoming due data
+        // // $allUpcomingDueData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        // //     ->whereHas('ticketlog', function($query) use ($dueDate) {
+        // //         $query->where('ticstatus_id', 2)
+        // //             ->whereDate('response_date', '<=', $dueDate); // Due in 5 days or earlier
+        // //     })
+        // //     ->get();
+
+        // // $allUpcomingDueCount = $allUpcomingDueData->count();
+
+        // // boleh guna ni tapi bukan result yang saya nak. function yg sepatutnya display mana mana ticket yang hampir nak due dalam masa 5 hari dari sekarang.
+        // // guide date expected_closure_time.
+        // // expected_closure_time 12 to 16 jun 2024, next 5 day from today, then should ticket row display, tapi if 17 jun onwards takperlu display lagi.
+        // // $allUpcomingDueData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        // //                             // ->where('ticstatus_id', 1)
+        // //                             ->whereDate('report_received', '<=', $dueDate)  // should be expected_closure_time
+        // //                             ->get();
+
+        // $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        // // ->where('ticstatus_id', 1)
+        // // ->whereDate('report_received', '<=', $dueDate)  // should be expected_closure_time
+        // ->get();
+                
+        // $allUpcomingDueData = $allTickets->filter(function ($ticket) use ($dueDate) {
+        //     return $ticket->expected_closure_time <= $dueDate;
+        // });
+                
+
+        // return view('/dashboard/paramount/allupcomingdue', compact('allUpcomingDueData', 'allUpcomingDueCount'));
+
+
+        // failure: expected_closure_time column cannot display since it is function in Ticket.php
+        // $today = \Carbon\Carbon::now();
+        // $upcomingDueDate = $today->addDays(5);
+
+        // $allUpcomingDueData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        //                             ->whereBetween('expected_closure_time', [$today, $upcomingDueDate])  
+        //                             ->orderBy('ticket_no', 'desc')
+        //                             ->get();
+
+        // return view('/dashboard/paramount/allupcomingdue', compact('allUpcomingDueData'));
+
+
+        $today = \Carbon\Carbon::now('Asia/Kuala_Lumpur');  // current date and time
+        $upcomingDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
+
+        $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->orderBy('ticket_no', 'desc')
+                            ->get();
+
+        // filter tickets to keep only those whose expected closure time is between today and the next 5 days
+        $allUpcomingDueData = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+            $expectedClosureTime = $ticket->expected_closure_time;                                      // get expected closure time using model function
+            return $expectedClosureTime && $expectedClosureTime->between($today, $upcomingDueDate);     // check if expected closure time is between today and the upcoming due date
+        });
+
+
+        // $allUpcomingDueCount = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
+        //     $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+        //     return $ticket->ticstatus_id == 1
+        //         && $expectedClosureTime
+        //         && $expectedClosureTime->between($today, $upcomingDueDate);
+        // })->count();
+
+        return view('/dashboard/paramount/allupcomingdue', compact('allUpcomingDueData', 'allUpcomingDueCount'));
     }
     
     // overdue
     public function alloverdue()
     {        
-        return view('dashboard.paramount.alloverdue');
+        // $tickets = Ticket::all();
+        // $overdueTickets = [];
+
+        // foreach ($tickets as $ticket) {
+        //     $ticketlogs = Ticketlog::where('ticket_id', $ticket->id)->orderBy('date', 'asc')->get();
+
+        //     foreach ($ticketlogs as $log) {
+        //         $isOverdue = false;
+        //         try {
+        //             $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $log->response_date . ' ' . $log->response_time);
+        //         } catch (\Exception $e) {
+        //             continue; // skip this log if date-time parsing fails
+        //         }
+
+        //         if ($ticket->severity_id == 1) {
+        //             if ($log->ticstatus_id == 2) {
+        //                 $endDate = $startDate->copy()->addHours(72);
+        //                 if (now()->greaterThan($endDate)) {
+        //                     $isOverdue = true;
+        //                 }
+        //             } elseif ($log->ticstatus_id == 4) {
+        //                 break; // Stop count
+        //             }
+        //         } elseif ($ticket->severity_id == 2) {
+        //             if ($log->ticstatus_id == 2) {
+        //                 $endDate = $startDate->copy()->addDays(14);
+        //                 if (now()->greaterThan($endDate)) {
+        //                     $isOverdue = true;
+        //                 }
+        //             } elseif ($log->ticstatus_id == 4) {
+        //                 break; // Stop count
+        //             }
+        //         } elseif ($ticket->severity_id == 3) {
+        //             if ($log->ticstatus_id == 2) {
+        //                 $endDate = $startDate->copy()->addMonths(3);
+        //                 if (now()->greaterThan($endDate)) {
+        //                     $isOverdue = true;
+        //                 }
+        //             } elseif ($log->ticstatus_id == 4) {
+        //                 break; // Stop count
+        //             }
+        //         }
+
+        //         if ($isOverdue) {
+        //             $overdueTickets[] = $ticket;
+        //             break;
+        //         }
+        //     }
+        // }
+
+        // return view('dashboard.paramount.alloverdue', compact('overdueTickets'));
+
+
+        // $allOverdueData = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        // ->whereHas('ticketlog', function($query) {
+        //     $query->where('ticstatus_id', 2)
+        //           ->whereDate('response_date', Carbon::today());
+        // })
+        // ->get();
+
+        // $allOverdueCount = $allOverdueData->count();
+
+        // return view('/dashboard/paramount/alloverdue', compact('allOverdueData', 'allOverdueCount'));
+
+
+        $today = \Carbon\Carbon::now('Asia/Kuala_Lumpur');  // current date and time
+        // $overDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
+
+        $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->orderBy('ticket_no', 'desc')
+                            ->get();
+
+        // filter tickets to keep only those whose expected closure time is before today (overdue)
+        $allOverdueData = $allTickets->filter(function ($ticket) use ($today) {
+            $expectedClosureTime = $ticket->expected_closure_time;               // get expected closure time using model function
+            return $expectedClosureTime && $expectedClosureTime->lt($today);     // check if expected closure time is before today (overdue), lt() means less than
+        });
+
+
+        // $allOverdueCount = $allTickets->filter(function ($ticket) use ($today) {
+        //     $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
+        
+        //     return $ticket->ticstatus_id == 1
+        //         && $expectedClosureTime
+        //         && $expectedClosureTime->lt($today); // check if expected closure time is before today (overdue), lt() means less than
+        // })->count();
+
+        return view('/dashboard/paramount/alloverdue', compact('allOverdueData', 'allOverdueCount'));
     }
 }
 

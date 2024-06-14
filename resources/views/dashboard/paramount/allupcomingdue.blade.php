@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'All Tickets For Today')
+@section('title', 'All Upcoming Due Ticket')
 @section('content')
 
 <div class="col-xl-12">
@@ -14,7 +14,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.paramount.allnewtoday') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allnewtoday') ? 'active' : '' }}">
-                    <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.new_tix_today') }}: {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('M d, Y') }}
+                    <i class="tf-icons bx bxs-traffic-barrier me-1"></i> {{ __('messages.new_tix_today') }}: {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('d/m/Y') }}
                     <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allNewTodayCount</span> -->
                 </a>
             </li>
@@ -64,29 +64,29 @@
                                 @php
                                     $counter = 0; // initialize counter
                                 @endphp
-                                @foreach ($allNewTodayData as $antd)   
+                                @foreach ($allUpcomingDueData as $audd)   
                                     @php
                                         $counter++; // increment counter for each iteration of outer loop
                                     @endphp
-                                    @if ($antd->ticketlog->isNotEmpty())
-                                        @foreach ($antd->ticketlog as $log)                                 
+                                    @if ($audd->ticketlog->isNotEmpty())
+                                        @foreach ($audd->ticketlog as $log)                                 
                                             <tr>
                                                 <td>{{ $counter }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($antd->report_received)->format('M-y') }}</td></td>
-                                                <td>{{ \Carbon\Carbon::parse($antd->report_received)->format('M d, Y h:i A') }}</td>
-                                                <td>{{ $antd->ticket_no }}</td>
-                                                <td>{{ $antd->issue->site->site_name ?? " " }}</td>
-                                                <td>{{ $antd->issue->equipment->asset_hostname ?? " " }} - {{ $antd->issue->equipment->asset_type ?? " " }}</td>
-                                                <td>{{ $antd->issue->reqcategory->req_category ?? " " }}</td>
-                                                <td>{{ $antd->issue->fault_description ?? " " }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('M-y') }}</td></td>
+                                                <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('d/m/Y h:i A') }}</td>
+                                                <td>{{ $audd->ticket_no }}</td>
+                                                <td>{{ $audd->issue->site->site_name ?? " " }}</td>
+                                                <td>{{ $audd->issue->equipment->asset_hostname ?? " " }} - {{ $audd->issue->equipment->asset_type ?? " " }}</td>
+                                                <td>{{ $audd->issue->reqcategory->req_category ?? " " }}</td>
+                                                <td>{{ $audd->issue->fault_description ?? " " }}</td>
                                                 <td>
-                                                    @if(isset($antd->severity->severity_label))
+                                                    @if(isset($audd->severity->severity_label))
                                                         @php
-                                                            $severityLabel = $antd->severity->severity_label;
+                                                            $severityLabel = $audd->severity->severity_label;
                                                             $badgeClass = '';
                                                             $slaDuration = '';     // dynamically to SLA(3 months/14 days/72 hours)
 
-                                                            switch($antd->severity->id) {
+                                                            switch($audd->severity->id) {
                                                                 case 1:
                                                                     $badgeClass = 'bg-danger';
                                                                     $slaDuration = '72 Hours';      // how it would be display in column SLA
@@ -118,14 +118,14 @@
                                                     @endif
                                                 </td>                                      
                                                 
-                                                <td>{{ $antd->expected_closure_time ? $antd->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                                <td>{{ $audd->expected_closure_time ? $audd->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                                 <td>
-                                                    @if(isset($antd->ticstatus->ticstatus_label))
+                                                    @if(isset($audd->ticstatus->ticstatus_label))
                                                         @php
-                                                            $ticstatusLabel = $antd->ticstatus->ticstatus_label;
+                                                            $ticstatusLabel = $audd->ticstatus->ticstatus_label;
                                                             $badgeClass = '';
 
-                                                            switch($antd->ticstatus->id) {
+                                                            switch($audd->ticstatus->id) {
                                                                 case 1:
                                                                     $badgeClass = 'bg-success';
                                                                     break;
@@ -153,7 +153,7 @@
                                                 <td>{{ $log->reaction->response_type ?? " " }}</td>
                                                 <td>
                                                     @if($log && $log->response_date)
-                                                        {{ \Carbon\Carbon::parse($log->response_date)->format('M d, Y') }}
+                                                        {{ \Carbon\Carbon::parse($log->response_date)->format('d/m/Y') }}
                                                     @else
                                                         {{ " " }}
                                                     @endif
@@ -163,11 +163,11 @@
                                                         {{ " " }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $antd->getCalcDurationForLog($log) }}</td>
-                                                <!-- <td>{{ $antd->update_date }}</td> -->
+                                                <td>{{ $audd->getCalcDurationForLog($log) }}</td>
+                                                <!-- <td>{{ $audd->update_date }}</td> -->
                                                 <td>
                                                     @if($log->date)
-                                                        {{ \Carbon\Carbon::parse($log->date)->format('M d, Y h:i A') }}                                            
+                                                        {{ \Carbon\Carbon::parse($log->date)->format('d/m/Y h:i A') }}                                            
                                                     @else
                                                         {{ " " }}
                                                     @endif
@@ -175,10 +175,10 @@
                                                 <td>
                                                     <form action="" method="POST">
                                                         @php
-                                                            $routeName = ($antd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                                            $routeName = ($audd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
                                                         @endphp
 
-                                                        <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $antd->id) }}" style="color:#57cc99"
+                                                        <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $audd->id) }}" style="color:#57cc99"
                                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                             title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
                                                         @csrf
@@ -190,21 +190,21 @@
                                     @else
                                         <tr>
                                             <td>{{ $counter }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($antd->report_received)->format('M-y') }}</td></td>
-                                            <td>{{ \Carbon\Carbon::parse($antd->report_received)->format('M d, Y h:i A') }}</td>
-                                            <td>{{ $antd->ticket_no }}</td>
-                                            <td>{{ $antd->issue->site->site_name ?? " " }}</td>
-                                            <td>{{ $antd->issue->equipment->asset_hostname ?? " " }} - {{ $antd->issue->equipment->asset_type ?? " " }}</td>
-                                            <td>{{ $antd->issue->reqcategory->req_category ?? " " }}</td>
-                                            <td>{{ $antd->issue->fault_description ?? " " }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('M-y') }}</td></td>
+                                            <td>{{ \Carbon\Carbon::parse($audd->report_received)->format('d/m/Y h:i A') }}</td>
+                                            <td>{{ $audd->ticket_no }}</td>
+                                            <td>{{ $audd->issue->site->site_name ?? " " }}</td>
+                                            <td>{{ $audd->issue->equipment->asset_hostname ?? " " }} - {{ $audd->issue->equipment->asset_type ?? " " }}</td>
+                                            <td>{{ $audd->issue->reqcategory->req_category ?? " " }}</td>
+                                            <td>{{ $audd->issue->fault_description ?? " " }}</td>
                                             <td>
-                                                @if(isset($antd->severity->severity_label))
+                                                @if(isset($audd->severity->severity_label))
                                                     @php
-                                                        $severityLabel = $antd->severity->severity_label;
+                                                        $severityLabel = $audd->severity->severity_label;
                                                         $badgeClass = '';
                                                         $slaDuration = '';     // dynamically to SLA(3 months/14 days/72 hours)
 
-                                                        switch($antd->severity->id) {
+                                                        switch($audd->severity->id) {
                                                             case 1:
                                                                 $badgeClass = 'bg-danger';
                                                                 $slaDuration = '72 Hours';      // how it would be display in column SLA
@@ -236,14 +236,14 @@
                                                 @endif
                                             </td>                                      
                                             
-                                            <td>{{ $antd->expected_closure_time ? $antd->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                            <td>{{ $audd->expected_closure_time ? $audd->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                             <td>
-                                                @if(isset($antd->ticstatus->ticstatus_label))
+                                                @if(isset($audd->ticstatus->ticstatus_label))
                                                     @php
-                                                        $ticstatusLabel = $antd->ticstatus->ticstatus_label;
+                                                        $ticstatusLabel = $audd->ticstatus->ticstatus_label;
                                                         $badgeClass = '';
 
-                                                        switch($antd->ticstatus->id) {
+                                                        switch($audd->ticstatus->id) {
                                                             case 1:
                                                                 $badgeClass = 'bg-success';
                                                                 break;
@@ -275,10 +275,10 @@
                                             <td>
                                                 <form action="" method="POST">
                                                     @php
-                                                        $routeName = ($antd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
+                                                        $routeName = ($audd->type->id == 1) ? 'tickets.allticketedit' : 'tickets.allconsumableedit';
                                                     @endphp
 
-                                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $antd->id) }}" style="color:#57cc99"
+                                                    <a class="menu-icon tf-icons bx bx-archive" href="{{ route($routeName, $audd->id) }}" style="color:#57cc99"
                                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                         title="<span>{{ __('messages.details_ticket_log') }}</span>"></a>
                                                     @csrf
@@ -292,7 +292,7 @@
                         </table>
                     </div>
                 </div>          
-            </div>            
+            </div>
         </div>
         
     </div>
@@ -318,14 +318,20 @@
             buttons: [
                 {extend: 'copy'},
                 //{extend: 'csv'},
-                {extend: 'excel', title: 'All New Ticket Today', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                {extend: 'excel', title: 'All Upcoming Deadlines Ticket', exportOptions: {
+                    // columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    columns: ':not(:last-child)'        // exclude the last column (action)
+                    }
                 },
-                {extend: 'pdf', title: 'All New Ticket Today', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                {extend: 'pdf', title: 'All Upcoming Deadlines Ticket', exportOptions: {
+                    // columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    columns: ':not(:last-child)'        // exclude the last column (action)
+                    }
                 },
                 {extend: 'print', exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    // columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                    // columns: ':not(:eq(17))'         // exclude the 18th column (index 17)
+                    columns: ':not(:last-child)'        // exclude the last column (action)
                     },
                     customize: function (win){
                         $(win.document.body).addClass('white-bg');

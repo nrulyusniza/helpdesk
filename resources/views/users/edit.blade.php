@@ -17,7 +17,7 @@
     <div class="card">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h4 class="m-0 font-weight-bold text-primary">Edit User</h4>
+            <h4 class="m-0 font-weight-bold text-primary">{{ __('messages.edit_user') }}</h4>
         </div>
 
         <div class="card-body">
@@ -26,40 +26,44 @@
                 @method('PUT')
                 <div class="row">
                     <div class="mb-3">
-                        <label class="form-label" for="fullname">Full Name</label>
+                        <label class="form-label" for="fullname">{{ __('messages.fullname') }}</label>
                         <input type="text" class="form-control" name="fullname" value="{{ $user->fullname }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="username">Username</label>
+                        <label class="form-label" for="username">{{ __('messages.username') }}</label>
                         <input type="text" class="form-control" name="username" value="{{ $user->username }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="username">Password
-                            <span style="text-transform:capitalize;">[Default: P@ssW0rdx123]</span>
+                        <label class="form-label" for="username">{{ __('messages.password') }}
+                            <span style="text-transform:capitalize;">[{{ __('messages.default') }}: P@ssW0rdx123]</span>
                         </label>
                             <input type="password" class="form-control" name="password" value="{{ $user->password }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_id">Site</label>
+                        <label class="form-label" for="email">{{ __('messages.email') }}</label>
+                        <input type="text" class="form-control" name="email" value="{{ $user->email }}">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="site_id">{{ __('messages.site') }}</label>
                         <select id="defaultSelect" class="form-select" name="site_id">
-                            <option selected disabled>-- Select Site --</option>
+                            <option selected disabled>-- {{ __('messages.select_site') }} --</option>
                                 @foreach(App\Site::all()->sortBy('site_name') as $site)
                                 <option value="{{ $site->id }}" {{ $site->id == $user->site_id ? 'selected' : '' }}>{{ $site->site_name }}</option>
                                 @endforeach
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="role_id">Role</label>
+                        <label class="form-label" for="role_id">{{ __('messages.role') }}</label>
                         <select id="defaultSelect" class="form-select" name="role_id">
-                            <option selected disabled>-- Select Role --</option>
+                            <option selected disabled>-- {{ __('messages.select_role') }} --</option>
                                 @foreach(App\Role::all() as $role)
                                 <option value="{{ $role->id }}" {{ $role->id == $user->role_id ? 'selected' : '' }}>{{ $role->role_name }}</option>
                                 @endforeach
                         </select>
                     </div>
                     <div class="mt-2">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <a class="btn btn-outline-secondary" href="{{ route('users.alluser') }}">Cancel</a>
+                            <button type="submit" class="btn btn-primary">{{ __('messages.update') }}</button>
+                            <a class="btn btn-outline-secondary" href="{{ route('users.alluser') }}">{{ __('messages.cancel') }}</a>
                     </div>
                 </div>
             </form>

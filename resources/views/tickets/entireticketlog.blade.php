@@ -40,7 +40,7 @@
                     <input type="number" class="form-control" name="phone_no" value="{{ $ticket->issue->phone_no }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label>
+                    <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label><br>
                     <!-- <input type="file" class="form-control" name="attachment" value="{{ $ticket->issue->attachment }}" readonly> -->
                     @if ($ticket->issue->attachment)
                         <!-- <a href="{{ $ticket->issue->attachment }}" target="_blank">{{ basename($ticket->issue->attachment) }}</a> -->
@@ -55,11 +55,11 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="asset_hostname">{{ __('messages.equipment') }}</label>
-                    <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }}" readonly>
+                    <input type="text" class="form-control" name="asset_hostname" value="{{ $ticket->issue->equipment->asset_hostname }} - {{ $ticket->issue->equipment->asset_type }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">{{ __('messages.date') }}</label>
-                    <input type="text" class="form-control" name="create_date" value="{{ $ticket->create_date->format('M d, Y') }}" readonly>
+                    <input type="text" class="form-control" name="create_date" value="{{ $ticket->create_date ? $ticket->create_date->format('M d, Y') : 'N/A' }}" readonly>
                 </div>            
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="fault_description">{{ __('messages.fault_desc') }}</label>
@@ -115,7 +115,17 @@
                                     <td>{{ $log->reaction->response_type }}</td>
                                     <td>{{ $log->response_date->format('M d, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
-                                    <td>{{ $log->attachment }}</td>
+                                    <!-- <td>{{ $log->attachment }}</td> -->
+                                    <td>
+                                        @if ($log->attachment)                                        
+                                            <!-- <a href="{{ asset('storage/' . $log->attachment) }}" target="_blank">{{ __('messages.view_attachment') }}</a> -->
+                                            <a class="menu-icon tf-icons bx bx-link" href="{{ asset('storage/' . $log->attachment) }}"  target="_blank" style="color:#ef476f"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                title="<span>{{ __('messages.view_attachment') }}</span>"></a>
+                                        @else
+                                            <p>{{ __('messages.no_attachment') }}</p>
+                                        @endif                                
+                                    </td>
                                     <!-- <td>{{ $log->ticstatus->ticstatus_label }}</td> -->
                                     <td>
                                         @if(isset($log->ticstatus->ticstatus_label))

@@ -47,7 +47,7 @@
                                     <th>{{ __('messages.site') }}</th>
                                     <th>{{ __('messages.equipment') }}</th>
                                     <th>{{ __('messages.category') }}</th>
-                                    <th>{{ __('messages.fault_summary') }}</th>
+                                    <!-- <th>{{ __('messages.fault_summary') }}</th> -->
                                     <th>{{ __('messages.severity') }}</th>
                                     <th>{{ __('messages.sla') }}</th>
                                     <th>{{ __('messages.time_expected_closed') }}</th>
@@ -78,7 +78,7 @@
                                                 <td>{{ $audd->issue->site->site_name ?? " " }}</td>
                                                 <td>{{ $audd->issue->equipment->asset_hostname ?? " " }} - {{ $audd->issue->equipment->asset_type ?? " " }}</td>
                                                 <td>{{ $audd->issue->reqcategory->req_category ?? " " }}</td>
-                                                <td>{{ $audd->issue->fault_description ?? " " }}</td>
+                                                <!-- <td>{{ $audd->issue->fault_description ?? " " }}</td> -->
                                                 <td>
                                                     @if(isset($audd->severity->severity_label))
                                                         @php
@@ -196,7 +196,7 @@
                                             <td>{{ $audd->issue->site->site_name ?? " " }}</td>
                                             <td>{{ $audd->issue->equipment->asset_hostname ?? " " }} - {{ $audd->issue->equipment->asset_type ?? " " }}</td>
                                             <td>{{ $audd->issue->reqcategory->req_category ?? " " }}</td>
-                                            <td>{{ $audd->issue->fault_description ?? " " }}</td>
+                                            <!-- <td>{{ $audd->issue->fault_description ?? " " }}</td> -->
                                             <td>
                                                 @if(isset($audd->severity->severity_label))
                                                     @php

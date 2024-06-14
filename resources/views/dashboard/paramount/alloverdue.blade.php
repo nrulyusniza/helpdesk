@@ -47,7 +47,7 @@
                                     <th>{{ __('messages.site') }}</th>
                                     <th>{{ __('messages.equipment') }}</th>
                                     <th>{{ __('messages.category') }}</th>
-                                    <th>{{ __('messages.fault_summary') }}</th>
+                                    <!-- <th>{{ __('messages.fault_summary') }}</th> -->
                                     <th>{{ __('messages.severity') }}</th>
                                     <th>{{ __('messages.sla') }}</th>
                                     <th>{{ __('messages.time_expected_closed') }}</th>
@@ -78,7 +78,7 @@
                                                 <td>{{ $aodd->issue->site->site_name ?? " " }}</td>
                                                 <td>{{ $aodd->issue->equipment->asset_hostname ?? " " }} - {{ $aodd->issue->equipment->asset_type ?? " " }}</td>
                                                 <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td>
-                                                <td>{{ $aodd->issue->fault_description ?? " " }}</td>
+                                                <!-- <td>{{ $aodd->issue->fault_description ?? " " }}</td> -->
                                                 <td>
                                                     @if(isset($aodd->severity->severity_label))
                                                         @php
@@ -196,7 +196,7 @@
                                             <td>{{ $aodd->issue->site->site_name ?? " " }}</td>
                                             <td>{{ $aodd->issue->equipment->asset_hostname ?? " " }} - {{ $aodd->issue->equipment->asset_type ?? " " }}</td>
                                             <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td>
-                                            <td>{{ $aodd->issue->fault_description ?? " " }}</td>
+                                            <!-- <td>{{ $aodd->issue->fault_description ?? " " }}</td> -->
                                             <td>
                                                 @if(isset($aodd->severity->severity_label))
                                                     @php

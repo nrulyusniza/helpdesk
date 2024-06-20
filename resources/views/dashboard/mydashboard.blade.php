@@ -375,6 +375,214 @@
 
 </div>
 
+<!-- new sample -->
+<div class="row">
+  <div class="col-lg-6 mb-4 order-0">
+    <div class="card">
+      <div class="d-flex align-items-end row">
+        <div class="col-sm-7">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ __('messages.welcomeback') }}, {{ Auth::user()->fullname }}! 🎉</h5>
+            <p class="mb-4">
+            {{ __('messages.dboardannoucement') }}
+            </p>                       
+          </div>
+        </div>
+        <div class="col-sm-5 text-center text-sm-left">
+          <div class="card-body pb-0 px-0 px-md-4">
+            <img
+              src="{{ asset('pages/assets/img/illustrations/man-with-laptop-light.png') }}"
+              height="140"
+              alt="View Badge User"
+              data-app-dark-img="{{ asset('pages/illustrations/man-with-laptop-dark.png') }}"
+              data-app-light-img="{{ asset('pages/illustrations/man-with-laptop-light.png') }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-md-12 col-6 mb-4">
+    <a href="{{ route('dashboard.paramount.allnewtoday') }}">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-start justify-content-between">
+            <div class="avatar flex-shrink-0">
+              <span class="avatar-initial rounded bg-label-success">
+                <i class="bx bx-folder-plus bx-sm"></i>
+              </span>
+            </div>
+          </div>
+          <span class="fw-medium d-block mb-1">{{ __('messages.cd_new') }}</span>
+          <h3 class="card-title mb-2 text-white">{{ $allNewTodayCount }}</h3>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-2 col-md-12 col-6 mb-4">
+    <a href="{{ route('dashboard.paramount.allupcomingdue') }}">
+      <div class="card bg-warning text-white">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-start justify-content-between">
+            <div class="avatar flex-shrink-0">
+              <span class="avatar-initial rounded bg-label-warning">
+                <i class="bx bx-error bx-sm"></i>
+              </span>
+            </div>
+          </div>
+          <span class="fw-medium d-block mb-1">{{ __('messages.cd_upcomingdue') }}</span>
+          <h3 class="card-title mb-2 text-white">{{ $allUpcomingDueCount }}</h3>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-2 col-md-12 col-6 mb-4">
+    <a href="{{ route('dashboard.paramount.alloverdue') }}">
+      <div class="card bg-danger text-white">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-start justify-content-between">
+            <div class="avatar flex-shrink-0">
+              <span class="avatar-initial rounded bg-label-danger">
+                <i class="bx bx-time-five bx-sm"></i>
+              </span>
+            </div>
+          </div>
+          <span class="fw-medium d-block mb-1">{{ __('messages.cd_overdue') }}</span>
+          <h3 class="card-title mb-2 text-white">{{ $allOverdueCount }}</h3>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-xl-5 col-lg-5">
+    <div class="card h-100">
+      <div class="card-header">
+        <div class="card-title mb-0">
+          <h5 class="m-0 me-2">{{ __('messages.title_ttltix') }}</h5>
+        </div>
+      </div>
+      <div class="card-body px-0">
+            <canvas id="ticketByMonth"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-5 col-lg-5">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between pb-0">
+        <div class="card-title mb-0">
+          <h5 class="m-0 me-2">{{ __('messages.title_cat') }}</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex flex-column align-items-center gap-1">
+            <h2 class="mb-2">{{ $totalTickets }}</h2>
+            <span>{{ __('messages.ttltix') }}</span>
+          </div>
+          <div id="ticketByCategory"></div>
+        </div>
+        <ul class="p-0 m-0">
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
+            <div class="avatar flex-shrink-0 me-3">
+              <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-wrench"></i
+              ></span>
+            </div>
+            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="me-2">
+                <h6 class="mb-0">{{ __('messages.cat_hw') }}</h6>
+              </div>
+              <div class="user-progress">
+                <small class="fw-medium">{{ $totalTicketHardware }}</small>
+              </div>
+            </div>
+          </li>
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
+            <div class="avatar flex-shrink-0 me-3">
+              <span class="avatar-initial rounded bg-label-success"><i class="bx bx-code-alt"></i></span>
+            </div>
+            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="me-2">
+                <h6 class="mb-0">{{ __('messages.cat_sw') }}</h6>
+              </div>
+              <div class="user-progress">
+                <small class="fw-medium">{{ $totalTicketSoftware }}</small>
+              </div>
+            </div>
+          </li>
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
+            <div class="avatar flex-shrink-0 me-3">
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-signal-5"></i></span>
+            </div>
+            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="me-2">
+                <h6 class="mb-0">{{ __('messages.cat_network') }}</h6>
+              </div>
+              <div class="user-progress">
+                <small class="fw-medium">{{ $totalTicketNetwork }}</small>
+              </div>
+            </div>
+          </li>
+          <li class="d-flex mb-4 pb-1" style="pointer-events: none;">
+            <div class="avatar flex-shrink-0 me-3">
+              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-data"></i
+              ></span>
+            </div>
+            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="me-2">
+                <h6 class="mb-0">{{ __('messages.cat_nsys') }}</h6>
+              </div>
+              <div class="user-progress">
+                <small class="fw-medium">{{ $totalTicketNonsystem }}</small>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2 mb-4 mb-xl-0">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title mb-0">
+          <h5 class="m-0 me-2">{{ __('messages.quick_links') }}</h5>
+        </div>
+      </div>
+        <div class="list-group list-group-flush">
+          <a href="{{ route('dashboard.infohub.allticket') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_ticket') }} <span class="badge bg-primary">{{ $tickets }}</span></a
+          >
+          <a href="{{ route('dashboard.infohub.allopen') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_open') }} <span class="badge bg-success">{{ $allTixOpen }}</span></a
+          >
+          <a href="{{ route('dashboard.infohub.allclosed') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_closed') }} <span class="badge bg-danger">{{ $allTixClosed }}</span></a
+          >
+          <a href="{{ route('dashboard.infohub.allkiv') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_kiv') }} <span class="badge bg-warning">{{ $allTixKiv }}</span></a
+          >
+          <a href="{{ route('knowledgebases.allknowledgebase') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_kb') }} <span class="badge bg-dark">{{ $knowledgebases }}</span></a
+          >
+          <a href="{{ route('users.alluser') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_user') }} <span class="badge bg-dark">{{ $users }}</span></a
+          >
+          <a href="{{ route('sites.allsite') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_site') }} <span class="badge bg-dark">{{ $sites }}</span></a
+          >
+          <a href="{{ route('equipments.allasset') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+            >{{ __('messages.cd_asset') }} <span class="badge bg-dark">{{ $equipments }}</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 @stop
 
 @section('scriptlibraries')

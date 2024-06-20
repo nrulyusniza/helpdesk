@@ -5,6 +5,7 @@ return [
     'dboardannoucement' => 'Anda telah log masuk!',
     'welcomeback' => 'Selamat kembali',
     'logout' => 'Log Keluar',
+    'quick_links' => 'Pautan Pantas',
 
     // footer
     'footer_copyright' => 'Hak Cipta',

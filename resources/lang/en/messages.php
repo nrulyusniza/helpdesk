@@ -5,6 +5,7 @@ return [
     'dboardannoucement' => 'You are logged in!',
     'welcomeback' => 'Welcome back',
     'logout' => 'Log Out',
+    'quick_links' => 'Quick Links',
 
     // footer
     'footer_copyright' => 'Copyright',

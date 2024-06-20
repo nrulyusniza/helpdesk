@@ -26,7 +26,7 @@
                             <th>{{ __('messages.ticket_no') }}</th>
                             <!-- <th>Ticket Type</th> -->
                             <th>{{ __('messages.site') }}</th>
-                            <th>{{ __('messages.fault_desc') }}</th>
+                            <!-- <th>{{ __('messages.fault_desc') }}</th> -->
                             <!-- <th>Admin Comments</th> -->
                             <th>{{ __('messages.equipment') }}</th>
                             <th>{{ __('messages.severity') }}</th>
@@ -47,7 +47,7 @@
                             <td>{{ $tt->ticket_no }}</td>
                             <!-- <td>{{ $tt->type->request_type }}</td> -->
                             <td>{{ $tt->issue->site->site_name ?? " " }}</td>
-                            <td>{{ $tt->issue->fault_description ?? " " }}</td>
+                            <!-- <td>{{ $tt->issue->fault_description ?? " " }}</td> -->
                             <!-- <td>{{ $tt->issue->admin_comments ?? " " }}</td> -->
                             <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
                             <!-- <td>{{ $tt->severity->severity_label ?? " " }}</td> -->

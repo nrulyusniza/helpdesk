@@ -485,6 +485,7 @@
                 </form>
 
                 <!-- Notification -->
+                <!-- /////////////////////////////////////////////////////// Super Admin /////////////////////////////////////////////////////// -->
                 @if(Auth::user()->role_id==1)
                 <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -572,6 +573,7 @@
                 </li>
                 @endif
 
+                <!-- /////////////////////////////////////////////////////// Site Admin /////////////////////////////////////////////////////// -->
                 @if(Auth::user()->role_id==2)
                 <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -652,6 +654,7 @@
                 </li>
                 @endif
 
+                <!-- /////////////////////////////////////////////////////// Site User /////////////////////////////////////////////////////// -->
                 @if(Auth::user()->role_id==3)
                 <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">

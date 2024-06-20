@@ -34,7 +34,7 @@
                             <th>{{ __('messages.asset') }}</th>
                             <th>{{ __('messages.category') }}</th>
                             <th>{{ __('messages.status') }}</th>
-                            <th>{{ __('messages.user') }}</th>
+                            <!-- <th>{{ __('messages.user') }}</th> -->
                             <th>{{ __('messages.action') }}</th>
                         </tr>
                     </thead>                    
@@ -88,14 +88,14 @@
                                     <span class="badge bg-secondary me-1"></span>
                                 @endif
                             </td>   <!-- badges that depends on database -->
-                            <td>
+                            <!-- <td>
                                 @php
                                     // $i->created_by is the username of the user who created the issue
                                     $creator = \App\User::where('username', $i->created_by)->first();
                                     $creatorFullname = $creator ? $creator->fullname : 'Unknown';
                                 @endphp
                                 {{ $creatorFullname }}
-                            </td>
+                            </td> -->
                             <td>
                                 <form action="{{ route('issues.destroy',$i->id) }}" method="POST">
                                     <a class="menu-icon tf-icons bx bx-detail" href="{{ route('issues.allissuedetail',['issue' => $i->id]) }}"

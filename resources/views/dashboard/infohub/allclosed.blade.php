@@ -64,7 +64,7 @@
                                         @foreach ($allClosed as $act)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $act->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $act->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $act->ticket_no }}</td> -->
                                             <td>{{ $act->issue->request_no }}</td>
                                             <td>{{ $act->ticket_no }}</td>

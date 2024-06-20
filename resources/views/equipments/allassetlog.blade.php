@@ -135,7 +135,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $eqlog->id }}</td>
                                     <td>{{ $eqlog->asset_newlocation }}</td>
-                                    <td>{{ $eqlog->log_updatedat->format('M d, Y') }}</td>
+                                    <td>{{ $eqlog->log_updatedat->format('d/m/Y') }}</td>
                                     <!-- <td>{{ $eqlog->equipmentstatus->assetstatus_label }}</td> -->
                                     <td>
                                         @if(null !== ($assetstatusLabel = $eqlog->equipmentstatus->assetstatus_label ?? null))

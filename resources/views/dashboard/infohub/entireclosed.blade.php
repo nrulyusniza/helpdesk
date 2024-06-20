@@ -64,7 +64,7 @@
                                         @foreach ($entireClosed as $ect)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ect->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $ect->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $ect->ticket_no }}</td> -->
                                             <td>{{ $ect->issue->request_no }}</td>
                                             <td>{{ $ect->ticket_no }}</td>
@@ -103,9 +103,9 @@
                                             </td>
                                             <!-- <td>{{ $ect->ticstatus->ticstatus_label ?? " " }}</td> -->
                                             <!-- <td>{{ $ect->user->fullname ?? " " }}</td>
-                                            <td>{{ $ect->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $ect->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $ect->user->fullname ?? " " }}</td>
-                                            <td>{{ $ect->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $ect->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.entireticketlog',$ect->id) }}" style="color:#57cc99"

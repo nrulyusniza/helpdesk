@@ -65,7 +65,7 @@
                                         @foreach ($listClosed as $lct)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $lct->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $lct->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $lct->ticket_no }}</td> -->
                                             <td>{{ $lct->issue->request_no }}</td>
                                             <td>{{ $lct->ticket_no }}</td>
@@ -104,9 +104,9 @@
                                             </td>
                                             <!-- <td>{{ $lct->ticstatus->ticstatus_label ?? " " }}</td> -->
                                             <!-- <td>{{ $lct->user->fullname ?? " " }}</td>
-                                            <td>{{ $lct->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $lct->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $lct->user->fullname ?? " " }}</td>
-                                            <td>{{ $lct->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $lct->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lct->id) }}" style="color:#57cc99"

@@ -76,7 +76,7 @@
                                     <tr>
                                         <td>{{ $counter }}</td>
                                         <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M-y') }}</td></td>
-                                        <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M d, Y h:i A') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('d/m/Y h:i A') }}</td>
                                         <td>{{ $tt->ticket_no }}</td>
                                         <td>{{ $tt->issue->site->site_name ?? " " }}</td>
                                         <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
@@ -121,7 +121,7 @@
                                             @endif
                                         </td>                                      
                                         
-                                        <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                        <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                         <td>
                                             @if(isset($tt->ticstatus->ticstatus_label))
                                                 @php
@@ -156,7 +156,7 @@
                                         <td>{{ $log->reaction->response_type ?? " " }}</td>
                                         <td>
                                             @if($log && $log->response_date)
-                                                {{ \Carbon\Carbon::parse($log->response_date)->format('M d, Y') }}
+                                                {{ \Carbon\Carbon::parse($log->response_date)->format('d/m/Y') }}
                                             @else
                                                 {{ " " }}
                                             @endif
@@ -170,7 +170,7 @@
                                         <!-- <td>{{ $tt->update_date }}</td> -->
                                         <td>
                                             @if($log->date)
-                                                {{ \Carbon\Carbon::parse($log->date)->format('M d, Y h:i A') }}                                            
+                                                {{ \Carbon\Carbon::parse($log->date)->format('d/m/Y h:i A') }}                                            
                                             @else
                                                 {{ " " }}
                                             @endif
@@ -194,7 +194,7 @@
                                 <tr>
                                     <td>{{ $counter }}</td>
                                     <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M-y') }}</td></td>
-                                    <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M d, Y h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('d/m/Y h:i A') }}</td>
                                     <td>{{ $tt->ticket_no }}</td>
                                     <td>{{ $tt->issue->site->site_name ?? " " }}</td>
                                     <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
@@ -239,7 +239,7 @@
                                         @endif
                                     </td>                                      
                                     
-                                    <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                    <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                     <td>
                                         @if(isset($tt->ticstatus->ticstatus_label))
                                             @php

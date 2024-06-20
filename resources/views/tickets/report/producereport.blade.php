@@ -76,7 +76,7 @@
                                     <tr>
                                         <td>{{ $counter }}</td>
                                         <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M-y') }}</td></td>
-                                        <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M d, Y h:i A') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('d/m/Y h:i A') }}</td>
                                         <td>{{ $tt->ticket_no }}</td>
                                         <td>{{ $tt->issue->site->site_name ?? " " }}</td>
                                         <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
@@ -121,7 +121,7 @@
                                             @endif
                                         </td>                                      
                                         
-                                        <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                        <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                         <td>
                                             @if(isset($tt->ticstatus->ticstatus_label))
                                                 @php
@@ -154,9 +154,9 @@
                                         </td>
                                         <td>{{ $log->description ?? " " }}</td>
                                         <td>{{ $log->reaction->response_type ?? " " }}</td>
-                                        <td>
+                                        <!-- <td>
                                             @if($log && $log->response_date)
-                                                {{ \Carbon\Carbon::parse($log->response_date)->format('M d, Y') }}
+                                                {{ \Carbon\Carbon::parse($log->response_date)->format('d/m/Y') }}
                                             @else
                                                 {{ " " }}
                                             @endif
@@ -165,12 +165,19 @@
                                             @else
                                                 {{ " " }}
                                             @endif
+                                        </td> -->
+                                        <td>
+                                            @if($log && $log->response_date && $log->response_time)
+                                                <span class="response-dtg">{{ \Carbon\Carbon::parse($log->response_date)->format('d/m/Y') }} {{ \Carbon\Carbon::parse($log->response_time)->format('h:i A') }}</span>
+                                            @else
+                                                {{ " " }}
+                                            @endif
                                         </td>
                                         <td>{{ $tt->getCalcDurationForLog($log) }}</td>
                                         <!-- <td>{{ $tt->update_date }}</td> -->
                                         <td>
                                             @if($log->date)
-                                                {{ \Carbon\Carbon::parse($log->date)->format('M d, Y h:i A') }}                                            
+                                                {{ \Carbon\Carbon::parse($log->date)->format('d/m/Y h:i A') }}                                            
                                             @else
                                                 {{ " " }}
                                             @endif
@@ -194,7 +201,7 @@
                                 <tr>
                                     <td>{{ $counter }}</td>
                                     <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M-y') }}</td></td>
-                                    <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('M d, Y h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($tt->report_received)->format('d/m/Y h:i A') }}</td>
                                     <td>{{ $tt->ticket_no }}</td>
                                     <td>{{ $tt->issue->site->site_name ?? " " }}</td>
                                     <td>{{ $tt->issue->equipment->asset_hostname ?? " " }} - {{ $tt->issue->equipment->asset_type ?? " " }}</td>
@@ -239,7 +246,7 @@
                                         @endif
                                     </td>                                      
                                     
-                                    <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                    <td>{{ $tt->expected_closure_time ? $tt->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td>
                                     <td>
                                         @if(isset($tt->ticstatus->ticstatus_label))
                                             @php
@@ -328,26 +335,43 @@
                     {extend: 'excel', 
                         title: 'Ticket Reporting', 
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ],
+                            format: {
+                                body: function ( data, row, column, node ) {
+                                    return data.replace(/<[^>]+>/g, ''); // Remove any HTML tags
+                                }
+                            }
+                        }
                     },
                     {extend: 'pdf', 
                         title: 'Ticket Reporting', 
                         orientation: 'landscape',
                         // pageSize: 'LEGAL', 
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]}
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ],
+                            format: {
+                                body: function ( data, row, column, node ) {
+                                    return data.replace(/<[^>]+>/g, ''); // Remove any HTML tags
+                                }
+                            }
+                        }
                     },
                     {extend: 'print', 
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
-                            },
-                            customize: function (win){
-                                $(win.document.body).addClass('white-bg');
-                                $(win.document.body).css('font-size', '10px');
-                                $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ],
+                            format: {
+                                body: function ( data, row, column, node ) {
+                                    return data.replace(/<[^>]+>/g, ''); // Remove any HTML tags
+                                }
                             }
+                        },
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+                            $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                        }
                     }
                 ]
             });
@@ -390,7 +414,7 @@
             var end = moment();
 
             function cb(start, end) {
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                $('#reportrange span').html(start.format('MMMd/m/YYYY') + ' - ' + end.format('MMMd/m/YYYY'));
 
                 // Update the hidden input fields with the selected start and end dates
                 $('#start_date').val(start.format('YYYY-MM-DD'));

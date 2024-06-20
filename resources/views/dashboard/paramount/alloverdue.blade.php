@@ -13,19 +13,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.paramount.allnewtoday') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allnewtoday') ? 'active' : '' }}">
-                    <i class="tf-icons bx bx-folder-plus me-1"></i> {{ __('messages.new_tix_today') }}: {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('M d, Y') }}
+                <a href="{{ route('dashboard.paramount.allnewtoday') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allnewtoday') ? 'active text-white bg-success' : '' }}">
+                    <i class="tf-icons bx bx-folder-plus me-1"></i> {{ __('messages.new') }}
                     <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allNewTodayCount</span> -->
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.paramount.allupcomingdue') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allupcomingdue') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.paramount.allupcomingdue') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.allupcomingdue') ? 'active text-white bg-warning' : '' }}">
                     <i class="tf-icons bx bx-error me-1"></i> {{ __('messages.upcoming_deadlines') }}
                     <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allUpcomingDueCount</span> -->
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('dashboard.paramount.alloverdue') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.alloverdue') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.paramount.alloverdue') }}" class="nav-link {{ request()->routeIs('dashboard.paramount.alloverdue') ? 'active text-white bg-danger' : '' }}">
                     <i class="tf-icons bx bx-time-five me-1"></i> {{ __('messages.missed_deadlines') }}
                     <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">$allOverdueCount</span> -->
                 </a>
@@ -42,20 +42,20 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('messages.month_year') }}</th>
-                                    <th>{{ __('messages.tt_report') }}</th>
+                                    <!-- <th>{{ __('messages.tt_report') }}</th> -->
                                     <th>{{ __('messages.ticket_no') }}</th>
                                     <th>{{ __('messages.site') }}</th>
                                     <th>{{ __('messages.equipment') }}</th>
-                                    <th>{{ __('messages.category') }}</th>
+                                    <!-- <th>{{ __('messages.category') }}</th> -->
                                     <!-- <th>{{ __('messages.fault_summary') }}</th> -->
                                     <th>{{ __('messages.severity') }}</th>
-                                    <th>{{ __('messages.sla') }}</th>
-                                    <th>{{ __('messages.time_expected_closed') }}</th>
+                                    <!-- <th>{{ __('messages.sla') }}</th> -->
+                                    <!-- <th>{{ __('messages.time_expected_closed') }}</th> -->
                                     <th>{{ __('messages.status') }}</th>
-                                    <th>{{ __('messages.response_taken') }}</th>
+                                    <!-- <th>{{ __('messages.response_taken') }}</th> -->
                                     <th>{{ __('messages.response_type') }}</th>
-                                    <th>{{ __('messages.response_DTG') }}</th>
-                                    <th>{{ __('messages.response_duration') }}</th>
+                                    <!-- <th>{{ __('messages.response_DTG') }}</th> -->
+                                    <!-- <th>{{ __('messages.response_duration') }}</th> -->
                                     <th>{{ __('messages.last_updates') }}</th>
                                     <th>{{ __('messages.action') }}</th>
                                 </tr>
@@ -73,11 +73,11 @@
                                             <tr>
                                                 <td>{{ $counter }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M-y') }}</td></td>
-                                                <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M d, Y h:i A') }}</td>
+                                                <!-- <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('d/m/Y h:i A') }}</td> -->
                                                 <td>{{ $aodd->ticket_no }}</td>
                                                 <td>{{ $aodd->issue->site->site_name ?? " " }}</td>
                                                 <td>{{ $aodd->issue->equipment->asset_hostname ?? " " }} - {{ $aodd->issue->equipment->asset_type ?? " " }}</td>
-                                                <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td>
+                                                <!-- <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td> -->
                                                 <!-- <td>{{ $aodd->issue->fault_description ?? " " }}</td> -->
                                                 <td>
                                                     @if(isset($aodd->severity->severity_label))
@@ -110,15 +110,15 @@
                                                         <span class="badge bg-secondary me-1"></span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     @if(isset($slaDuration))
                                                         <span class="badge {{ $badgeClass }} me-1">{{ $slaDuration }}</span>
                                                     @else
                                                         N/A
                                                     @endif
-                                                </td>                                      
+                                                </td> -->
                                                 
-                                                <td>{{ $aodd->expected_closure_time ? $aodd->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                                <!-- <td>{{ $aodd->expected_closure_time ? $aodd->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td> -->
                                                 <td>
                                                     @if(isset($aodd->ticstatus->ticstatus_label))
                                                         @php
@@ -149,11 +149,11 @@
                                                         <span class="badge bg-secondary me-1"></span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $log->description ?? " " }}</td>
+                                                <!-- <td>{{ $log->description ?? " " }}</td> -->
                                                 <td>{{ $log->reaction->response_type ?? " " }}</td>
-                                                <td>
+                                                <!-- <td>
                                                     @if($log && $log->response_date)
-                                                        {{ \Carbon\Carbon::parse($log->response_date)->format('M d, Y') }}
+                                                        {{ \Carbon\Carbon::parse($log->response_date)->format('d/m/Y') }}
                                                     @else
                                                         {{ " " }}
                                                     @endif
@@ -162,16 +162,16 @@
                                                     @else
                                                         {{ " " }}
                                                     @endif
-                                                </td>
-                                                <td>{{ $aodd->getCalcDurationForLog($log) }}</td>
+                                                </td> -->
+                                                <!-- <td>{{ $aodd->getCalcDurationForLog($log) }}</td> -->
                                                 <!-- <td>{{ $aodd->update_date }}</td> -->
                                                 <td>
                                                     @if($log->date)
-                                                        {{ \Carbon\Carbon::parse($log->date)->format('M d, Y h:i A') }}                                            
+                                                        {{ \Carbon\Carbon::parse($log->date)->format('d/m/Y h:i A') }}                                            
                                                     @else
                                                         {{ " " }}
                                                     @endif
-                                                </td>  
+                                                </td>
                                                 <td>
                                                     <form action="" method="POST">
                                                         @php
@@ -191,11 +191,11 @@
                                         <tr>
                                             <td>{{ $counter }}</td>
                                             <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M-y') }}</td></td>
-                                            <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('M d, Y h:i A') }}</td>
+                                            <!-- <td>{{ \Carbon\Carbon::parse($aodd->report_received)->format('d/m/Y h:i A') }}</td> -->
                                             <td>{{ $aodd->ticket_no }}</td>
                                             <td>{{ $aodd->issue->site->site_name ?? " " }}</td>
                                             <td>{{ $aodd->issue->equipment->asset_hostname ?? " " }} - {{ $aodd->issue->equipment->asset_type ?? " " }}</td>
-                                            <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td>
+                                            <!-- <td>{{ $aodd->issue->reqcategory->req_category ?? " " }}</td> -->
                                             <!-- <td>{{ $aodd->issue->fault_description ?? " " }}</td> -->
                                             <td>
                                                 @if(isset($aodd->severity->severity_label))
@@ -228,15 +228,15 @@
                                                     <span class="badge bg-secondary me-1"></span>
                                                 @endif
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 @if(isset($slaDuration))
                                                     <span class="badge {{ $badgeClass }} me-1">{{ $slaDuration }}</span>
                                                 @else
                                                     N/A
                                                 @endif
-                                            </td>                                      
+                                            </td> -->
                                             
-                                            <td>{{ $aodd->expected_closure_time ? $aodd->expected_closure_time->format('M d, Y h:i A') : 'N/A' }}</td>
+                                            <!-- <td>{{ $aodd->expected_closure_time ? $aodd->expected_closure_time->format('d/m/Y h:i A') : 'N/A' }}</td> -->
                                             <td>
                                                 @if(isset($aodd->ticstatus->ticstatus_label))
                                                     @php
@@ -267,11 +267,11 @@
                                                     <span class="badge bg-secondary me-1"></span>
                                                 @endif
                                             </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>  
+                                            <!-- <td></td> // response taken -->
+                                            <td></td> <!-- // response type -->
+                                            <!-- <td></td> // response dtg -->
+                                            <!-- <td></td>  // response duration -->
+                                            <td></td>   <!-- // last updates -->
                                             <td>
                                                 <form action="" method="POST">
                                                     @php

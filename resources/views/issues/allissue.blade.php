@@ -28,7 +28,7 @@
                             <th>#</th>
                             <th>{{ __('messages.request_no') }}</th>
                             <th>{{ __('messages.request_type') }}</th>
-                            <th>{{ __('messages.reported_by') }}</th>
+                            <!-- <th>{{ __('messages.reported_by') }}</th> -->
                             <th>{{ __('messages.report_date') }}</th>
                             <th>{{ __('messages.site') }}</th>
                             <th>{{ __('messages.asset') }}</th>
@@ -44,13 +44,13 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $i->request_no }}</td>
                             <td>{{ $i->type->request_type }}</td>
-                            <td>{{ $i->reportingperson->rptpers_name }}</td>
-                            <!-- <td>{{ $i->create_date->format('M d, Y') }}</td> 0000-00-00, in result  -0001 -->
-                            <td>{{ optional($i->create_date)->format('M d, Y') }}</td>
+                            <!-- <td>{{ $i->reportingperson->rptpers_name }}</td> -->
+                            <!-- <td>{{ $i->create_date->format('d/m/Y') }}</td> 0000-00-00, in result  -0001 -->
+                            <td>{{ optional($i->create_date)->format('d/m/Y') }}</td>
                             <td>{{ $i->site->site_name ?? " " }}</td>
                             <td>{{ $i->equipment->asset_hostname ?? " " }} - {{ $i->equipment->asset_type ?? " " }}</td>
                             <td>{{ $i->reqcategory->req_category ?? " " }}</td>                            
-                            <td>
+                            <td class="text-center align-middle">
                                 @if(isset($i->status->status_label))
                                     @php
                                         $statusLabel = $i->status->status_label;
@@ -78,7 +78,12 @@
                                         }
                                     @endphp
 
-                                    <span class="badge {{ $badgeClass }} me-1">{{ $statusLabel }}</span>
+                                    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                                        <span class="badge {{ $badgeClass }} me-1" style="white-space: normal; max-width: 100px; word-wrap: break-word; line-height: 1.0; padding: 5px;">
+                                            {{ $statusLabel }}
+                                        </span>
+                                    </div>
+                                    <!-- <span class="badge {{ $badgeClass }} me-1" style="white-space: normal; max-width: 100px; word-wrap: break-word; line-height: 1.0; padding: 5px;">{{ $statusLabel }}</span> -->
                                 @else
                                     <span class="badge bg-secondary me-1"></span>
                                 @endif

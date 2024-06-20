@@ -167,7 +167,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id }}</td>
-                                    <td>{{ \Carbon\Carbon::parse ($log->date)->format('M d, Y h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse ($log->date)->format('d/m/Y h:i A') }}</td>
                                     <td>{{ $log->description }}</td>
                                     <!-- <td>{{ $log->update_by }}</td> -->
                                     <td>
@@ -179,7 +179,7 @@
                                         {{ $updaterFullname }}
                                     </td>
                                     <td>{{ $log->reaction->response_type }}</td>
-                                    <td>{{ $log->response_date->format('M d, Y') }}</td>
+                                    <td>{{ $log->response_date->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
                                     <!-- <td>{{ $log->attachment }}</td> -->
                                     <!-- <td><a href="{{ asset('storage/' . $log->attachment) }}" target="_blank">View Attachment</a></td> -->

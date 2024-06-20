@@ -265,7 +265,7 @@ return [
     'back_to_dashboard' => 'Kembali ke Papan Pemuka',
 
     // datatables column name - tabs and pills for new today, due in 5 days, overdue
-    'new_tix_today' => 'Tiket Baharu Hari Ini',
+    'new' => 'Baharu',
     'upcoming_deadlines' => 'Tarikh Akhir Akan Datang',
     'missed_deadlines' => 'Tarikh Akhir Terlepas',
     'ticket_tracker' => 'Penjejak Tiket',

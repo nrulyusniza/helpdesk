@@ -64,7 +64,7 @@
                                         @foreach ($allOpen as $aot)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $aot->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $aot->report_received->format('d/m/Y') }}</td>
                                             <td>{{ $aot->issue->request_no }}</td>
                                             <td>{{ $aot->ticket_no }}</td>
                                             <td>{{ $aot->type->request_type }}</td>

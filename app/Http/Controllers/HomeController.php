@@ -60,7 +60,7 @@ class HomeController extends Controller
         // paramount
         $allNewTodayCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
                                     ->where('ticstatus_id', 1)
-                                    ->whereDate('report_received', Carbon::today())
+                                    ->whereDate('report_received', Carbon::today('Asia/Kuala_Lumpur'))
                                     ->count();
 
         //---------------- Upcoming Due Count ----------------
@@ -68,6 +68,7 @@ class HomeController extends Controller
         $upcomingDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
 
         $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->where('ticstatus_id', '!=', 4)
                             ->orderBy('ticket_no', 'desc')
                             ->get();
 
@@ -77,13 +78,8 @@ class HomeController extends Controller
             return $expectedClosureTime && $expectedClosureTime->between($today, $upcomingDueDate);     // check if expected closure time is between today and the upcoming due date
         });
 
-        $allUpcomingDueCount = $allTickets->filter(function ($ticket) use ($today, $upcomingDueDate) {
-            $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
-        
-            return $ticket->ticstatus_id == 1
-                && $expectedClosureTime
-                && $expectedClosureTime->between($today, $upcomingDueDate);
-        })->count();
+        // count the filtered tickets
+        $allUpcomingDueCount = $allUpcomingDueData->count();
         //---------------- / Upcoming Due Count ----------------
 
         //---------------- Overdue Count ----------------
@@ -91,6 +87,7 @@ class HomeController extends Controller
         // $overDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
 
         $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->where('ticstatus_id', '!=', 4)
                             ->orderBy('ticket_no', 'desc')
                             ->get();
 
@@ -100,14 +97,8 @@ class HomeController extends Controller
             return $expectedClosureTime && $expectedClosureTime->lt($today);     // check if expected closure time is before today (overdue), lt() means less than
         });
 
-
-        $allOverdueCount = $allTickets->filter(function ($ticket) use ($today) {
-            $expectedClosureTime = $ticket->expected_closure_time; // get expected closure time using model function
-        
-            return $ticket->ticstatus_id == 1
-                && $expectedClosureTime
-                && $expectedClosureTime->lt($today); // check if expected closure time is before today (overdue), lt() means less than
-        })->count();
+        // count the filtered tickets
+        $allOverdueCount = $allOverdueData->count();
         //---------------- / Overdue Count ----------------
 
         // cards
@@ -1028,10 +1019,10 @@ class HomeController extends Controller
                                     ->orderBy('ticket_no', 'desc')
                                     ->get();
 
-        $allNewTodayCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
-                                    ->where('ticstatus_id', 1)                          //  extract current status = 1 (New Ticket)
-                                    ->whereDate('report_received', Carbon::today())
-                                    ->count();
+        // $allNewTodayCount = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+        //                             ->where('ticstatus_id', 1)                          //  extract current status = 1 (New Ticket)
+        //                             ->whereDate('report_received', Carbon::today())
+        //                             ->count();
 
         // $allNewTodayCount = $allNewTodayData->count();
 
@@ -1095,6 +1086,7 @@ class HomeController extends Controller
         $upcomingDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
 
         $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->where('ticstatus_id', '!=', 4)
                             ->orderBy('ticket_no', 'desc')
                             ->get();
 
@@ -1188,6 +1180,7 @@ class HomeController extends Controller
         // $overDueDate = $today->copy()->addDays(5);      // next 5 days from today and add to today to get upcoming due
 
         $allTickets = Ticket::with(['issue.site', 'issue.equipment', 'severity', 'ticketlog.reaction'])
+                            ->where('ticstatus_id', '!=', 4)
                             ->orderBy('ticket_no', 'desc')
                             ->get();
 

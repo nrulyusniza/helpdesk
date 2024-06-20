@@ -42,7 +42,7 @@
                         @foreach ($tickets as $tt)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $tt->report_received->format('M d, Y') }}</td>
+                            <td>{{ $tt->report_received->format('d/m/Y') }}</td>
                             <td>{{ $tt->issue->request_no }}</td>
                             <td>{{ $tt->ticket_no }}</td>
                             <!-- <td>{{ $tt->type->request_type }}</td> -->

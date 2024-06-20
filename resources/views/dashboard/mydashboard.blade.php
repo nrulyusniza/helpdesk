@@ -37,7 +37,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span class="fw-medium d-block mb-1">{{ __('messages.cd_new') }} : {{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('M d, Y') }}</span>
+              <span class="fw-medium d-block mb-1">{{ __('messages.cd_new') }}</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2 text-white">{{ $allNewTodayCount }}</h4>
               </div>

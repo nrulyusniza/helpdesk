@@ -64,7 +64,7 @@
                                         @foreach ($allKiv as $akt)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $akt->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $akt->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $akt->ticket_no }}</td> -->
                                             <td>{{ $akt->issue->request_no }}</td>
                                             <td>{{ $akt->ticket_no }}</td>

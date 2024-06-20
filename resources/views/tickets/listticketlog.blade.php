@@ -59,7 +59,7 @@
                 </div>   
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="create_date">{{ __('messages.date') }}</label>                    
-                    <input type="text" class="form-control" name="create_date" value="{{ $ticket->create_date ? $ticket->create_date->format('M d, Y') : 'N/A' }}" readonly>
+                    <input type="text" class="form-control" name="create_date" value="{{ $ticket->create_date ? $ticket->create_date->format('d/m/Y') : 'N/A' }}" readonly>
                 </div>            
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="fault_description">{{ __('messages.fault_desc') }}</label>
@@ -103,7 +103,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id }}</td>
-                                    <td>{{ $log->date->format('M d, Y') }}</td>
+                                    <td>{{ $log->date->format('d/m/Y') }}</td>
                                     <td>{{ $log->description }}</td>
                                     <!-- <td>{{ $log->update_by }}</td> -->
                                     <td>
@@ -115,7 +115,7 @@
                                         {{ $updaterFullname }}
                                     </td>
                                     <td>{{ $log->reaction->response_type }}</td>
-                                    <td>{{ $log->response_date->format('M d, Y') }}</td>
+                                    <td>{{ $log->response_date->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse ($log->response_time)->format('h:i A') }}</td> <!-- format in 12-hour format -->
                                     <!-- <td>{{ $log->attachment }}</td> -->
                                     <td>

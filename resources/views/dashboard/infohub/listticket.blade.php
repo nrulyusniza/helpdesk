@@ -64,7 +64,7 @@
                                         @foreach ($listTic as $lt)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $lt->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $lt->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $lt->ticket_no }}</td> -->
                                             <td>{{ $lt->issue->request_no }}</td>
                                             <td>{{ $lt->ticket_no }}</td>
@@ -136,9 +136,9 @@
                                                 @endif
                                             </td>
                                             <!-- <td>{{ $lt->user->fullname ?? " " }}</td>
-                                            <td>{{ $lt->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $lt->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $lt->user->fullname ?? " " }}</td>
-                                            <td>{{ $lt->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $lt->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lt->id) }}" style="color:#57cc99"

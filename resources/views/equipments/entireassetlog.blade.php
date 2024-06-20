@@ -90,7 +90,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $log->id}}
                                     <td>{{ $log->asset_newlocation }}</td>
-                                    <td>{{ $log->log_updatedat->format('M d, Y') }}</td>
+                                    <td>{{ $log->log_updatedat->format('d/m/Y') }}</td>
                                     <!-- <td>{{ $log->equipmentstatus->assetstatus_label }}</td> -->
                                     <td>
                                         @if(null !== ($assetstatusLabel = $log->equipmentstatus->assetstatus_label ?? null))

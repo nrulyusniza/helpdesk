@@ -289,11 +289,11 @@ class IssueController extends Controller
             // determine ticket_no format based on ticket_type
             if ($request->input('status-radio') == 2) {
                 // ticket
-                $ticket->ticket_no = 'TT-' . date('Y-m') . '-' . str_pad(Ticket::where('ticket_type', 1)->count() + 1, 6, '0', STR_PAD_LEFT);
+                $ticket->ticket_no = 'TT-' . date('y-m') . '-' . str_pad(Ticket::where('ticket_type', 1)->count() + 1, 4, '0', STR_PAD_LEFT);
                 $ticket->ticket_type = 1; // set ticket_type to 1 for Ticket
             } elseif ($request->input('status-radio') == 3) {
                 // consumable
-                $ticket->ticket_no = 'CT-' . date('Y-m') . '-' . str_pad(Ticket::where('ticket_type', 2)->count() + 1, 6, '0', STR_PAD_LEFT);
+                $ticket->ticket_no = 'CT-' . date('y-m') . '-' . str_pad(Ticket::where('ticket_type', 2)->count() + 1, 4, '0', STR_PAD_LEFT);
                 $ticket->ticket_type = 2; // set ticket_type to 2 for Consumable
             }
             

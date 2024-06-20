@@ -64,7 +64,7 @@
                                         @foreach ($entireKiv as $ekt)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ekt->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $ekt->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $ekt->ticket_no }}</td> -->
                                             <td>{{ $ekt->issue->request_no }}</td>
                                             <td>{{ $ekt->ticket_no }}</td>
@@ -103,9 +103,9 @@
                                             </td>
                                             <!-- <td>{{ $ekt->ticstatus->ticstatus_label ?? " " }}</td> -->
                                             <!-- <td>{{ $ekt->user->fullname ?? " " }}</td>
-                                            <td>{{ $ekt->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $ekt->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $ekt->user->fullname ?? " " }}</td>
-                                            <td>{{ $ekt->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $ekt->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.entireticketlog',$ekt->id) }}" style="color:#57cc99"

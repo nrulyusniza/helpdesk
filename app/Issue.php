@@ -92,12 +92,23 @@ class Issue extends Model
     }
 
     // Function to generate the request number
+    // protected static function generateRequestNumber()
+    // {
+    //     $currentYear = now()->year;
+    //     $currentMonth = now()->format('m');
+    //     $ticketCount = static::whereYear('create_date', $currentYear)
+    //         ->whereMonth('create_date', $currentMonth)
+    //         ->count() + 1;
+
+    //     return "RQ-$currentYear-$currentMonth-" . str_pad($ticketCount, 4, '0', STR_PAD_LEFT);
+    // }
+
     protected static function generateRequestNumber()
     {
-        $currentYear = now()->year;
-        $currentMonth = now()->format('m');
-        $ticketCount = static::whereYear('create_date', $currentYear)
-            ->whereMonth('create_date', $currentMonth)
+        $currentYear = now()->format('y');          // Last two digits of the current year
+        $currentMonth = now()->format('m');         // Two digits of the current month
+        $ticketCount = static::whereYear('create_date', now()->year)
+            ->whereMonth('create_date', now()->month)
             ->count() + 1;
 
         return "RQ-$currentYear-$currentMonth-" . str_pad($ticketCount, 4, '0', STR_PAD_LEFT);

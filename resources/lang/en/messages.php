@@ -265,7 +265,7 @@ return [
     'back_to_dashboard' => 'Back to Dashboard',
 
     // datatables column name - tabs and pills for new today, due in 5 days, overdue
-    'new_tix_today' => 'New Ticket for Today',
+    'new' => 'New',
     'upcoming_deadlines' => 'Upcoming Deadlines',
     'missed_deadlines' => 'Missed Deadlines',
     'ticket_tracker' => 'Ticket Tracker',

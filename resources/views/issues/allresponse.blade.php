@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="create_date">{{ __('messages.create_date') }}</label>
-                                    <input type="text" class="form-control" name="create_date" value="{{ $issue->create_date->format('M d, Y') }}" readonly>
+                                    <input type="text" class="form-control" name="create_date" value="{{ $issue->create_date->format('d/m/Y') }}" readonly>
                                 </div>
                             </div>
                         </div>

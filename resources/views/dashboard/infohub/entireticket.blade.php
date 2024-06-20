@@ -64,7 +64,7 @@
                                         @foreach ($entireTic as $et)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $et->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $et->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $et->ticket_no }}</td> -->
                                             <td>{{ $et->issue->request_no }}</td>
                                             <td>{{ $et->ticket_no }}</td>
@@ -136,9 +136,9 @@
                                                 @endif
                                             </td>
                                             <!-- <td>{{ $et->user->fullname ?? " " }}</td>
-                                            <td>{{ $et->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $et->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $et->user->fullname ?? " " }}</td>
-                                            <td>{{ $et->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $et->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.entireticketlog',$et->id) }}" style="color:#57cc99"

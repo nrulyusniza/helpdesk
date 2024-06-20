@@ -13,6 +13,13 @@
     </div>
 @endif
 
+<style>
+    .required:after {
+        content: " *";
+        color: red;
+    }
+</style>
+
 <div class="col-12">
     <div class="card">
 
@@ -25,7 +32,7 @@
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="request_type">{{ __('messages.request_type') }}</label>
+                        <label class="form-label required" for="request_type">{{ __('messages.request_type') }}</label>
                         <select id="defaultSelect" class="form-select" name="request_type">
                             <option selected disabled>-- {{ __('messages.select_request_type') }} --</option>
                                 @foreach(App\Type::all() as $type)
@@ -34,7 +41,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="site_id">{{ __('messages.site') }}</label>
+                        <label class="form-label required" for="site_id">{{ __('messages.site') }}</label>
                         <select id="site_id" class="form-select" name="site_id">
                             <option selected disabled>-- {{ __('messages.select_site') }} --</option>
                                 @foreach(App\Site::all()->sortBy('site_name') as $site)
@@ -43,7 +50,7 @@
                         </select>                        
                     </div>                
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="reportingperson_id">{{ __('messages.reported_by') }}</label>
+                        <label class="form-label required" for="reportingperson_id">{{ __('messages.reported_by') }}</label>
                         <select id="reportingperson_id" class="form-select" name="reportingperson_id">
                             <!-- <option selected disabled>-- Select Name --</option>
                                 @foreach(App\Reportingperson::all()->sortBy('rptpers_name') as $reportingperson)
@@ -52,12 +59,12 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="phone_no">{{ __('messages.phone_number') }}</label>
+                        <label class="form-label required" for="phone_no">{{ __('messages.phone_number') }}</label>
                         <input type="number" class="form-control" name="phone_no" id="phone_no">
                         <!-- <input type="number" class="form-control" name="phone_no" id="phone_no" readonly>                         -->
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="reqcategory_id">{{ __('messages.category') }}</label>
+                        <label class="form-label required" for="reqcategory_id">{{ __('messages.category') }}</label>
                         <select id="defaultSelect" class="form-select" name="reqcategory_id">
                             <option selected disabled>-- {{ __('messages.select_category') }} --</option>
                                 @foreach(App\Reqcategory::all() as $reqcategory)
@@ -66,7 +73,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="equipment_id">{{ __('messages.equipment') }}</label>
+                        <label class="form-label required" for="equipment_id">{{ __('messages.equipment') }}</label>
                         <select id="equipment_id" class="form-select" name="equipment_id">
                             <!-- <option selected disabled>-- Select Equipment --</option>
                                 @foreach(App\Equipment::all()->sortBy('asset_hostname') as $equipment)
@@ -75,15 +82,15 @@
                         </select>                     
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="create_date">{{ __('messages.date') }}</label>
+                        <label class="form-label required" for="create_date">{{ __('messages.date') }}</label>
                         <input type="date" class="form-control" name="create_date" value="{{ \Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('Y-m-d') }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="attachment">{{ __('messages.attachment') }}</label>
+                        <label class="form-label required" for="attachment">{{ __('messages.attachment') }}</label>
                         <input class="form-control" type="file" name="attachment" id="formFile" />                   
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="fault_description">{{ __('messages.fault_desc') }}</label>
+                        <label class="form-label required" for="fault_description">{{ __('messages.fault_desc') }}</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" type="text" name="fault_description"></textarea>
                     </div>
                 </div>

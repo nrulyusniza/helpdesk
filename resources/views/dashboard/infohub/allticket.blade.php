@@ -64,7 +64,7 @@
                                         @foreach ($allTic as $at)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $at->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $at->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $at->ticket_no }}</td> -->
                                             <td>{{ $at->issue->request_no }}</td>
                                             <td>{{ $at->ticket_no }}</td>

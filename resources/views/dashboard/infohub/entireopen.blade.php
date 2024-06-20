@@ -64,7 +64,7 @@
                                         @foreach ($entireOpen as $eot)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $eot->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $eot->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $eot->ticket_no }}</td> -->
                                             <td>{{ $eot->issue->request_no }}</td>
                                             <td>{{ $eot->ticket_no }}</td>
@@ -103,9 +103,9 @@
                                             </td>
                                             <!-- <td>{{ $eot->ticstatus->ticstatus_label ?? " " }}</td> -->
                                             <!-- <td>{{ $eot->user->fullname ?? " " }}</td>
-                                            <td>{{ $eot->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $eot->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $eot->user->fullname ?? " " }}</td>
-                                            <td>{{ $eot->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $eot->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.entireticketlog',$eot->id) }}" style="color:#57cc99"

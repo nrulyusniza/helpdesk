@@ -64,7 +64,7 @@
                                         @foreach ($listOpen as $lot)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $lot->report_received->format('M d, Y') }}</td>
+                                            <td>{{ $lot->report_received->format('d/m/Y') }}</td>
                                             <!-- <td>{{ $lot->ticket_no }}</td> -->
                                             <td>{{ $lot->issue->request_no }}</td>
                                             <td>{{ $lot->ticket_no }}</td>
@@ -103,9 +103,9 @@
                                             </td>
                                             <!-- <td>{{ $lot->ticstatus->ticstatus_label ?? " " }}</td> -->
                                             <!-- <td>{{ $lot->user->fullname ?? " " }}</td>
-                                            <td>{{ $lot->create_date->format('M d, Y') }}</td>
+                                            <td>{{ $lot->create_date->format('d/m/Y') }}</td>
                                             <td>{{ $lot->user->fullname ?? " " }}</td>
-                                            <td>{{ $lot->update_date->format('M d, Y') }}</td> -->
+                                            <td>{{ $lot->update_date->format('d/m/Y') }}</td> -->
                                             <td>
                                                 <form action="" method="POST">
                                                     <a class="menu-icon tf-icons bx bx-archive" href="{{ route('tickets.listticketlog',$lot->id) }}" style="color:#57cc99"
